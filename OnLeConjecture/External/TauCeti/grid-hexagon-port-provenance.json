@@ -1,0 +1,19 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "scope": "Actual terminal-side and initial-side commutation hexagon shapes, covered-square sets and removed-column marking identities. Upstream X-avoiding homotopy equation is not imported or identified with the full count.",
+  "files": [
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Commutation/Hexagon.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Commutation/Hexagon.lean",
+      "upstream_sha256": "b4bc459404f189c0af2c16766d48bd2ef190bcad441bdf5083ba6bae2c3d37ab",
+      "ported_sha256": "24e0d7a78e69bba975a05c2125ba07525fabc4471f86874f4d0a44354db22145",
+      "compatibility_changes": [
+        "Import path redirection and attribution comment only",
+        "Two uses of MvPolynomial.monomial_mul_monomial renamed to pinned MvPolynomial.monomial_mul."
+      ]
+    }
+  ]
+}

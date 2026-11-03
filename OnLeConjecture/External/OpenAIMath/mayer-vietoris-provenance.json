@@ -1,0 +1,96 @@
+{
+  "repository": "https://github.com/openai/math",
+  "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "upstream_lean": "4.34.1",
+  "upstream_mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "local_lean": "4.33.1",
+  "local_mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "files": [
+    {
+      "upstream": "lean/OAI/Geometry/ComplexBundle/Sections.lean",
+      "local": "Geometry/ComplexBundle/Sections.lean",
+      "upstream_sha256": "9fe965d4153ad458e4a27d94cf982f50761151914a8e962dc17ee467b9fc7f55",
+      "proof_compatibility_changes": false
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/IntegralHomology/Sections.lean",
+      "local": "AlgebraicTopology/IntegralHomology/Sections.lean",
+      "upstream_sha256": "d1596f7ea9c7321b6057301aa69f56aa2e00fa392f828997695a97c40f261c01",
+      "proof_compatibility_changes": true
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/IntegralHomology/Relative.lean",
+      "local": "AlgebraicTopology/IntegralHomology/Relative.lean",
+      "upstream_sha256": "a879c34bc5880e976df5bad832ca695100522f4bb8084a98faf88493bdc92275",
+      "proof_compatibility_changes": false
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/IntegralHomology/SmallChains.lean",
+      "local": "AlgebraicTopology/IntegralHomology/SmallChains.lean",
+      "upstream_sha256": "1dd7fd82fe9d4bd6de4bba360d0f1a78783499f92e022cfe0a2906b3dc0ec15a",
+      "proof_compatibility_changes": true
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/IntegralHomology/TupleChains.lean",
+      "local": "AlgebraicTopology/IntegralHomology/TupleChains.lean",
+      "upstream_sha256": "0840b7f3a34e0edff686ef01cfdb7519a9cf6e19298dc7ff939569129a9cb372",
+      "proof_compatibility_changes": true
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/IntegralHomology/Simplex.lean",
+      "local": "AlgebraicTopology/IntegralHomology/Simplex.lean",
+      "upstream_sha256": "44b964ee533a0798710a76b5cf1edacebb69ca2afb7b2883efed52499fc6c388",
+      "proof_compatibility_changes": true
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/IntegralHomology/Subdivision.lean",
+      "local": "AlgebraicTopology/IntegralHomology/Subdivision.lean",
+      "upstream_sha256": "f42b7cf85891715a82f08dcf93d03820673b6963b1ef225daecbfdb8ee2586cf",
+      "proof_compatibility_changes": true
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/IntegralHomology/Quotient.lean",
+      "local": "AlgebraicTopology/IntegralHomology/Quotient.lean",
+      "upstream_sha256": "47d6b13b827db90a3e567bfb0ff1e8ebfd8c6b0b153033d0731da2a05bebd9ae",
+      "proof_compatibility_changes": false
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/IntegralHomology/Equivalence.lean",
+      "local": "AlgebraicTopology/IntegralHomology/Equivalence.lean",
+      "upstream_sha256": "7e753731c16f068cf4a519402f8336a5b663335b36933d57f82182865d071b15",
+      "proof_compatibility_changes": false
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/IntegralHomology/Smallness.lean",
+      "local": "AlgebraicTopology/IntegralHomology/Smallness.lean",
+      "upstream_sha256": "5c7f370d68564d969f18caa2afea2911bb3b37eefe9883bf1f3ac65905801868",
+      "proof_compatibility_changes": false
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/IntegralHomology/SmallExcision.lean",
+      "local": "AlgebraicTopology/IntegralHomology/SmallExcision.lean",
+      "upstream_sha256": "e18b2106dde672fe5aba12d950fa21398e2f2de669d694ce3426ae2b0d43f7db",
+      "proof_compatibility_changes": false
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/IntegralHomology/MayerVietoris.lean",
+      "local": "AlgebraicTopology/IntegralHomology/MayerVietoris.lean",
+      "upstream_sha256": "94b061d4a430eb126256869f8b7fd4e37134b477b03ccb31688ffd38f785ce9a",
+      "proof_compatibility_changes": false
+    }
+  ],
+  "compatibility": [
+    "Added module/public visibility and changed local import paths while preserving OAI namespaces",
+    "Renamed ite_eq_right to if_neg and Sigma.\u03b9_comp_desc to Sigma.\u03b9_desc",
+    "Supplied explicit pointwise monomorphism proof for simplicial free chains",
+    "Replaced newer finite-support StdSimplex representation with this mathlib version's finite-coordinate stdSimplex, preserving ordinary singular chains",
+    "Expressed barycentric interpolation as finite coordinate sums and proved interpolation, vertex, reindexing, linear-map, and associativity identities",
+    "Internal simplex hull utilities now take Fintype on the vertex index because the older stdSimplex type requires it; all indices used by singular simplices are Fin(n+1)",
+    "Disabled only local long-line, whitespace, and isolated-central-dot style checks to preserve upstream formatting; proof-related linters remain enabled",
+    "Removed one empty line inside a proof to satisfy the empty-line style check"
+  ],
+  "endpoint_scope": "Full relative singular homology Mayer-Vietoris exactness for arbitrary topological X, arbitrary A \u2286 X, open U,V \u2286 X with U \u222a V = univ; no manifold, excision, or finite-dimensional homology hypothesis",
+  "axiom_audit": "All five audited endpoints use only propext, Classical.choice, Quot.sound on the current project toolchain."
+}

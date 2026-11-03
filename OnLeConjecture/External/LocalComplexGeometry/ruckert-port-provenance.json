@@ -1,0 +1,265 @@
+{
+  "access_date": "2026-10-29",
+  "description": "Minimal checked dependency closure of the R\u00fcckert Noetherian theorem, vendored with original mathematical namespaces. No project toolchain or package version change.",
+  "adaptations": [
+    "Add module/public import/exposed public section interface and local import prefix.",
+    "Use Lean 4.33 let syntax in Regularization and Ruckert.",
+    "Replace one function-germ simplification in Coordinates with explicit map_zero.",
+    "Expose two formerly private L1Division helper lemmas used by exposed definitions.",
+    "Disable only upstream formatting/option-scope linter warnings in affected files."
+  ],
+  "files": [
+    {
+      "module": "LocalComplexGeometry.Noetherian.Ruckert",
+      "path": "OnLeConjecture/External/LocalComplexGeometry/Noetherian/Ruckert.lean",
+      "repository": "https://github.com/BochaoKong/nullstellensatz",
+      "commit": "029697242294aea7989bf5d391199696a43490df",
+      "upstream_path": "LocalComplexGeometry/Noetherian/Ruckert.lean",
+      "upstream_sha256": "375c69f58f0814d3d5e5c2357b70e9662bd84852134f644b5c170ec09f95b514",
+      "ported_sha256": "0c4a437df00142926085067dec6b6f98f21a394c30ce74de169c7405c33c3593"
+    },
+    {
+      "module": "LocalComplexGeometry.Algebra.NoetherianByRemainder",
+      "path": "OnLeConjecture/External/LocalComplexGeometry/Algebra/NoetherianByRemainder.lean",
+      "repository": "https://github.com/BochaoKong/nullstellensatz",
+      "commit": "029697242294aea7989bf5d391199696a43490df",
+      "upstream_path": "LocalComplexGeometry/Algebra/NoetherianByRemainder.lean",
+      "upstream_sha256": "ad2b15fea7f9f82987e1b14cdd82c665e5556779fbaa4b661d6e618755b2def3",
+      "ported_sha256": "6f76528f41bcc3e69d7dc8fbea030fa56229ad8e284266052fa118be6c83c9b3"
+    },
+    {
+      "module": "LocalComplexGeometry.Germs.Ring",
+      "path": "OnLeConjecture/External/LocalComplexGeometry/Germs/Ring.lean",
+      "repository": "https://github.com/BochaoKong/nullstellensatz",
+      "commit": "029697242294aea7989bf5d391199696a43490df",
+      "upstream_path": "LocalComplexGeometry/Germs/Ring.lean",
+      "upstream_sha256": "34858a6054901aacd3bc423e90570fb03c7e784517602cfcdbd0fc663c898f74",
+      "ported_sha256": "13382df99a5a8cbda647a412a1fdc6c63de280140105f68c26ccf8356f40799a"
+    },
+    {
+      "module": "LocalComplexGeometry.Germs.Basic",
+      "path": "OnLeConjecture/External/LocalComplexGeometry/Germs/Basic.lean",
+      "repository": "https://github.com/BochaoKong/nullstellensatz",
+      "commit": "029697242294aea7989bf5d391199696a43490df",
+      "upstream_path": "LocalComplexGeometry/Germs/Basic.lean",
+      "upstream_sha256": "4c7264a890f3ea0ed941f0ab0694a458f0e8fb8bde5df90941baee4cfe34aea5",
+      "ported_sha256": "59c9873a5fc9f084d95afe80b821716a228d3b54903f7d006ad778f52410b284"
+    },
+    {
+      "module": "ClassicalComplexWPT.Germs",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/Germs.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/Germs.lean",
+      "upstream_sha256": "d8242e64f5d70e0fc849428e1b7c741a566232b95f75c6b9b6b1bf8636266ebc",
+      "ported_sha256": "7caf1ba68060020b371564e560084f2956916e366399351423c37822fa0e0c78"
+    },
+    {
+      "module": "ClassicalComplexWPT.Basic",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/Basic.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/Basic.lean",
+      "upstream_sha256": "3b934c6255535652686caa8ee0667b57c88623fad8d23b217730f6d9dc681819",
+      "ported_sha256": "1386e3071e07e8ebe9bef273350c3a9220ad2d98876c8c59ba735b53cfb9a49d"
+    },
+    {
+      "module": "LocalComplexGeometry.WPTBridge.PreparedAssociate",
+      "path": "OnLeConjecture/External/LocalComplexGeometry/WPTBridge/PreparedAssociate.lean",
+      "repository": "https://github.com/BochaoKong/nullstellensatz",
+      "commit": "029697242294aea7989bf5d391199696a43490df",
+      "upstream_path": "LocalComplexGeometry/WPTBridge/PreparedAssociate.lean",
+      "upstream_sha256": "d9ade3c9c7ff3d754946a7a3a4df0e8b4a25f6ebab65182aca8e92cb34a7cdf2",
+      "ported_sha256": "6aca6e18cadccc2539abda4435e3c9d0c8d69b507764cf8b923fc8ed23d41ad1"
+    },
+    {
+      "module": "LocalComplexGeometry.WPTBridge.Preparation",
+      "path": "OnLeConjecture/External/LocalComplexGeometry/WPTBridge/Preparation.lean",
+      "repository": "https://github.com/BochaoKong/nullstellensatz",
+      "commit": "029697242294aea7989bf5d391199696a43490df",
+      "upstream_path": "LocalComplexGeometry/WPTBridge/Preparation.lean",
+      "upstream_sha256": "25ece776fd8108a25667d5975135e69fd2a585d8953ad9e552a9332c224393b7",
+      "ported_sha256": "6bdbd3b1e1e14f6a5fea68f353985bb005983261e682c2cbd1b257faa8c3a68f"
+    },
+    {
+      "module": "LocalComplexGeometry.Analytic.Regularization",
+      "path": "OnLeConjecture/External/LocalComplexGeometry/Analytic/Regularization.lean",
+      "repository": "https://github.com/BochaoKong/nullstellensatz",
+      "commit": "029697242294aea7989bf5d391199696a43490df",
+      "upstream_path": "LocalComplexGeometry/Analytic/Regularization.lean",
+      "upstream_sha256": "b29645f3e48a872fc93ae4c56c822d1bfa6a27ec680465ce0095082d6f03f30b",
+      "ported_sha256": "bca987b7d3713d986cf7ac78f6f80ea283cb3da911b1bf41a85e61acafbfaa28"
+    },
+    {
+      "module": "LocalComplexGeometry.Germs.Coordinates",
+      "path": "OnLeConjecture/External/LocalComplexGeometry/Germs/Coordinates.lean",
+      "repository": "https://github.com/BochaoKong/nullstellensatz",
+      "commit": "029697242294aea7989bf5d391199696a43490df",
+      "upstream_path": "LocalComplexGeometry/Germs/Coordinates.lean",
+      "upstream_sha256": "c1a2fcd9721bd30a42017481ad5db79d8a024ebc9ce0708ad14d7b12548cfe13",
+      "ported_sha256": "a351ab67146de1db0e012c1d0de85227eb5734205bb8404fbb8d5331809c2dc7"
+    },
+    {
+      "module": "ClassicalComplexWPT.ExactOrder",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/ExactOrder.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/ExactOrder.lean",
+      "upstream_sha256": "5643e8d7d0354c2ceb3c772842758c18394e76ee64e4d3e8b416f0561e9a99a2",
+      "ported_sha256": "eddaaf15890bbc8851fb2f22d3b4c62a235a86c59debef1c5695f002f4ebe903"
+    },
+    {
+      "module": "ClassicalComplexWPT.Main",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/Main.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/Main.lean",
+      "upstream_sha256": "fa3965c06a2f287713bfa2585f038dfe0f432e5ff414fc613a51c732461f14c6",
+      "ported_sha256": "a472a8268c3cf70b1eef0dd7f4dcd78c25b3abde9891510e110d19d6624410f2"
+    },
+    {
+      "module": "ClassicalComplexWPT.PreparationUniqueness",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/PreparationUniqueness.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/PreparationUniqueness.lean",
+      "upstream_sha256": "fbda90cf61cffc65d236d2c83197c31883edbce31157fa2a23e54574153d3c29",
+      "ported_sha256": "f306a99a38d4d8b79c0dba24f5e1647b3f9a8a4a3ffb742bb058a1f5f9990d74"
+    },
+    {
+      "module": "ClassicalComplexWPT.L1Division",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/L1Division.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/L1Division.lean",
+      "upstream_sha256": "7670602368dfa7921c880e07ba6d06841d9858d2d76d71ac821d7992d6504458",
+      "ported_sha256": "4931c1529b84e1eed67862fd5aa45f0c9637af66a801df525a3c8fb78d41e509"
+    },
+    {
+      "module": "ClassicalComplexWPT.WeightedSeries",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/WeightedSeries.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/WeightedSeries.lean",
+      "upstream_sha256": "635b8872d4385924c1c6a8651f4cd7cfa63456845479f0eedc6b5a573314eaf8",
+      "ported_sha256": "eacdb9b9a0e084c2041f86e412cb4ac64e83c9d56c45432bd3d814ae89546f3d"
+    },
+    {
+      "module": "ClassicalComplexWPT.L1PowerSeries",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/L1PowerSeries.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/L1PowerSeries.lean",
+      "upstream_sha256": "53e72483376842a313f285625d235c32b9451bea4bb0e593b66a38e3327ea1fa",
+      "ported_sha256": "9c8b5dd8bd7aae41428ef2ad981fc1a78134dea8a5a99397611ec7be38a72832"
+    },
+    {
+      "module": "ClassicalComplexWPT.L1PolynomialEvaluation",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/L1PolynomialEvaluation.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/L1PolynomialEvaluation.lean",
+      "upstream_sha256": "1802308f6dbaac0ef890520e6c4a1d26ffa870c35f7371dd4f9728cd1e6c0752",
+      "ported_sha256": "89880dd1185a256f78c0aa759eb98736c0af0ce817fe426511ea91fd8160236c"
+    },
+    {
+      "module": "ClassicalComplexWPT.NormalizedCoefficients",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/NormalizedCoefficients.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/NormalizedCoefficients.lean",
+      "upstream_sha256": "7f4884df8a3a565c59e11864a4f50fa25499fbef911ad75311e8b5dc469eca11",
+      "ported_sha256": "238cf80d9f2369413f0fbaf840cdedc6362f30cc655eefe47d9f8401526731b4"
+    },
+    {
+      "module": "ClassicalComplexWPT.AnalyticSeries",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/AnalyticSeries.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/AnalyticSeries.lean",
+      "upstream_sha256": "4518cc7f45303d347db172c4c11d42f76242e8335b21ec361e232d4989302abb",
+      "ported_sha256": "0002e71c3d1565f892a1e1a056777dd964c519b7629e979ca8601c4efdfe4b72"
+    },
+    {
+      "module": "ClassicalComplexWPT.WeightedCoefficientMap",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/WeightedCoefficientMap.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/WeightedCoefficientMap.lean",
+      "upstream_sha256": "fab31a82aaea58d5543dcce4c6afb3d625f7d829f8a0887673ec8bebe6e6e586",
+      "ported_sha256": "67c2935a706e9e5387df289efa4bd11157d80fb76403fb09b66794f73d9241db"
+    },
+    {
+      "module": "ClassicalComplexWPT.PreparationSequences",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/PreparationSequences.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/PreparationSequences.lean",
+      "upstream_sha256": "c3a0a7212b9bd1f88909abdbc71c40cd6fdb20c826dcba246087d5f214d97b73",
+      "ported_sha256": "ece82681417824d78bef29046b679bae0d872e8c906e2a13cabb2fd9b60d0b6f"
+    },
+    {
+      "module": "ClassicalComplexWPT.WeightedGermEvaluation",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/WeightedGermEvaluation.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/WeightedGermEvaluation.lean",
+      "upstream_sha256": "ecbff0b1c60e6b7c6a038d01e08b823589ca8d21e93e28ba8cb957838a6f9cd7",
+      "ported_sha256": "c11915cf8653c46ba64ea18137c035b2e7914fbc742a6882b8ac748b1095412b"
+    },
+    {
+      "module": "ClassicalComplexWPT.WeightedEvaluation",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/WeightedEvaluation.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/WeightedEvaluation.lean",
+      "upstream_sha256": "0ee66a7c6392537a1ab7e220bd35561fa1f182d269dc7c0b6277dad0ddd05ab0",
+      "ported_sha256": "844a3f487fcc2ef90e53bf221a333c5c9a55739e020a1e238ed720f3f012a77f"
+    },
+    {
+      "module": "ClassicalComplexWPT.PublicExistence",
+      "path": "OnLeConjecture/External/ClassicalComplexWPT/PublicExistence.lean",
+      "repository": "https://github.com/BochaoKong/classical-complex-wpt",
+      "commit": "b4a7273fe5c9752753c52e10494097569089642d",
+      "upstream_path": "ClassicalComplexWPT/PublicExistence.lean",
+      "upstream_sha256": "33115044efb7a205c1554c79faa4dc2cd470895e1c0bc049112eabc39c4eb7e0",
+      "ported_sha256": "7c2a5dbe80de9325f3c220826d111c0b7d078ec32681ba180fa5b6f3d4af6475"
+    },
+    {
+      "module": "LocalComplexGeometry.WPTBridge.GermDivision",
+      "path": "OnLeConjecture/External/LocalComplexGeometry/WPTBridge/GermDivision.lean",
+      "repository": "https://github.com/BochaoKong/nullstellensatz",
+      "commit": "029697242294aea7989bf5d391199696a43490df",
+      "upstream_path": "LocalComplexGeometry/WPTBridge/GermDivision.lean",
+      "upstream_sha256": "e3dafacc72855cac4ff85b001888212eb78e65d07a2b60f49143586016371022",
+      "ported_sha256": "91b600f9876bd7205312bf01b9225ed6a431ce9a5d2ea13bcc0a80adeaf47e52"
+    },
+    {
+      "module": "LocalComplexGeometry.WPTBridge.DivisionUniqueness",
+      "path": "OnLeConjecture/External/LocalComplexGeometry/WPTBridge/DivisionUniqueness.lean",
+      "repository": "https://github.com/BochaoKong/nullstellensatz",
+      "commit": "029697242294aea7989bf5d391199696a43490df",
+      "upstream_path": "LocalComplexGeometry/WPTBridge/DivisionUniqueness.lean",
+      "upstream_sha256": "ae1a1addaf684f2ae5109467e72784c9ec65bb5a9af1739d61827edfb90c438a",
+      "ported_sha256": "b0251923cd276fcb5ed2add00f66a3c4977e049e7a46109501fb32b941210e08"
+    },
+    {
+      "module": "LocalComplexGeometry.WPTBridge.Division",
+      "path": "OnLeConjecture/External/LocalComplexGeometry/WPTBridge/Division.lean",
+      "repository": "https://github.com/BochaoKong/nullstellensatz",
+      "commit": "029697242294aea7989bf5d391199696a43490df",
+      "upstream_path": "LocalComplexGeometry/WPTBridge/Division.lean",
+      "upstream_sha256": "7ae7e8b1787f59fc670532f44052992ca52d99928d24daf123422ac136e73bb2",
+      "ported_sha256": "163fe92a9a7ff94f881a8c62086f01a6c77a106eb0cc1b6245d60c57a7b6ac45"
+    },
+    {
+      "module": "LocalComplexGeometry.WPTBridge.DivisionCore",
+      "path": "OnLeConjecture/External/LocalComplexGeometry/WPTBridge/DivisionCore.lean",
+      "repository": "https://github.com/BochaoKong/nullstellensatz",
+      "commit": "029697242294aea7989bf5d391199696a43490df",
+      "upstream_path": "LocalComplexGeometry/WPTBridge/DivisionCore.lean",
+      "upstream_sha256": "8bf572eae3a7d92bbb5f4885769458184192927d66f38d98052e706f3672a51e",
+      "ported_sha256": "453a8ae29cc563d6d65aa7d9793b74f8bb72220483794e89db4d6fa11a08b03b"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "license": "Apache-2.0",
+  "retrieved": "2026-10-29",
+  "files": [
+    {
+      "upstream_path": "TauCeti/Geometry/Manifold/Instances/Icc.lean",
+      "upstream_sha256": "2a1feccd8141255f1cef18b8853553b658c55f698971700d101a84bc867da809",
+      "local_path": "OnLeConjecture/External/TauCeti/Geometry/Manifold/Instances/Icc.lean",
+      "local_sha256": "7bcfd3aa3bd3dc2e28678387997f97bf97f8018416bc1d77550c349627b67a17",
+      "compatibility_changes": [
+        "Rewrite TauCeti imports to local module paths.",
+        "Keep only unitInterval.contMDiff_symm and ContMDiff.smoothTransition, with unchanged proofs.",
+        "Omit subsequent tangent-chart and derivative calculations; adjust module documentation to the retained subset."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Geometry/Manifold/SmoothEmbedding/Basic.lean",
+      "upstream_sha256": "25328874af3a8a8044f29ecc27a3a855239e3aac2e9b210081bc264246e337a7",
+      "local_path": "OnLeConjecture/External/TauCeti/Geometry/Manifold/SmoothEmbedding/Basic.lean",
+      "local_sha256": "e7b0229d6cf4095d1750737959a5c9b18b7f174949689bb081e62f85f61fdbfe",
+      "compatibility_changes": [
+        "Rewrite TauCeti imports to local module paths.",
+        "Omit hasLeftInverse_inTangentCoordinates_mfderiv, which requires the newer reverse immersion differential API.",
+        "Replace ContinuousMap.ofClass and ContinuousMap.injective_ofClass by the pinned mathlib names _root_.toContinuousMap and ContinuousMap.coe_injective'."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Geometry/Manifold/SmoothIsotopy/Basic.lean",
+      "upstream_sha256": "ff0570794331d6d83a882797af91bfee043d2127785f4217c906c073b53b41d2",
+      "local_path": "OnLeConjecture/External/TauCeti/Geometry/Manifold/SmoothIsotopy/Basic.lean",
+      "local_sha256": "4241b8146b92f01b1173c913726b5c053b583d09cd777816052b87f1abd196bd",
+      "compatibility_changes": [
+        "Rewrite TauCeti imports to local module paths.",
+        "Replace ContinuousMap.ofClass by the pinned mathlib name _root_.toContinuousMap."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Topology/Homotopy/Isotopy/Basic.lean",
+      "upstream_sha256": "6e6e77173f5beac444b33d8d0e7d8d0134413e2a28563bd566fe0e150bba44df",
+      "local_path": "OnLeConjecture/External/TauCeti/Topology/Homotopy/Isotopy/Basic.lean",
+      "local_sha256": "6e6e77173f5beac444b33d8d0e7d8d0134413e2a28563bd566fe0e150bba44df",
+      "compatibility_changes": [
+        "Rewrite TauCeti imports to local module paths."
+      ]
+    }
+  ],
+  "audit": "AuditSmoothIsotopyInfrastructure.lean",
+  "audit_endpoints": 21,
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "scope": "Smooth isotopy definitions and basic operations, not an ambient isotopy extension theorem."
+}

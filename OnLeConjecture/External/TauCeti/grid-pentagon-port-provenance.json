@@ -1,0 +1,59 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "scope": "Adjacent column turn data, both empty pentagon orientations, marking counts, and exact state grading changes. Upstream X-avoiding composition and homotopy proofs are not assumed for the full differential.",
+  "changes": "Attribution comments and import prefixes, with one dependency narrowing recorded per file. All proof bodies unchanged. Trailing blank lines normalized for comparison.",
+  "files": [
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Commutation/Basic.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Commutation/Basic.lean",
+      "normalized_upstream_sha256": "5db564a05bee669083be9746c1b0cace17cf4139ad84470ba7af15812a5540fc",
+      "compatibility_changes": []
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Commutation/Components.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Commutation/Components.lean",
+      "normalized_upstream_sha256": "530d25583430ef3ea0530c604be3acb86dd75bf39f39011e5a2dda35565235e1",
+      "compatibility_changes": []
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Commutation/Grading/Basic.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Commutation/Grading/Basic.lean",
+      "normalized_upstream_sha256": "d780bb457202639653ca85afd5ef7aeffb4ccd6043489c0ea69e4c558a27c615",
+      "compatibility_changes": [
+        "Narrowed Grading.Unblocked.Chain import to Grading.Parity; proofs unchanged."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Commutation/InitialPentagon/Basic.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Commutation/InitialPentagon/Basic.lean",
+      "normalized_upstream_sha256": "f22c2499bb950acd6577e41682a820273955725e6236c82a1e258c258ce57c32",
+      "compatibility_changes": []
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Commutation/Move.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Commutation/Move.lean",
+      "normalized_upstream_sha256": "0351ee643fa52997990a6534ca4762f79501eb53a2cff3593608b97202100a93",
+      "compatibility_changes": []
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Commutation/Pentagon.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Commutation/Pentagon.lean",
+      "normalized_upstream_sha256": "53af2ef48e8e84baaa42d1dfaa00a644364a2f5c6970876b7fd4008b38638e4d",
+      "compatibility_changes": []
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Commutation/Relabeling.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Commutation/Relabeling.lean",
+      "normalized_upstream_sha256": "61c769157612da52493466c5a5e06c782b0426f2364f69d837f15bbcf7539735",
+      "compatibility_changes": []
+    }
+  ],
+  "source_audit": {
+    "chain_map": "TauCeti/KnotTheory/Grid/Commutation/InitialPentagon/Overlap/Residual/Assembly.lean proves the X-avoiding equation, not imported.",
+    "homotopy": "TauCeti/KnotTheory/Grid/Commutation/Homotopy/Equation.lean proves X-avoiding hexagon inverse homotopies, not imported.",
+    "new_full_proofs": "GridFullCommutationPentagon, GridFullCommutationGauge, GridFullCommutationRectangle and GridFullCommutationDeformation count all empty polygons. Their weighted coefficient route uses new square-weight curvature proofs."
+  }
+}

@@ -1,0 +1,698 @@
+--- upstream/LocalComplexGeometry/Noetherian/Ruckert.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Noetherian/Ruckert.lean
+@@ -1,7 +1,18 @@
+-import LocalComplexGeometry.Algebra.NoetherianByRemainder
+-import LocalComplexGeometry.Germs.Ring
+-import LocalComplexGeometry.WPTBridge.PreparedAssociate
+-import Mathlib.RingTheory.Finiteness.Ideal
++module
++
++/- Vendored from BochaoKong/nullstellensatz, commit 029697242294aea7989bf5d391199696a43490df.
++   Original path: LocalComplexGeometry/Noetherian/Ruckert.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.LocalComplexGeometry.Algebra.NoetherianByRemainder
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Ring
++public import OnLeConjecture.External.LocalComplexGeometry.WPTBridge.PreparedAssociate
++public import Mathlib.RingTheory.Finiteness.Ideal
++
++@[expose] public section
++
+ 
+ /-!
+ # Rückert's basis theorem
+@@ -24,7 +35,7 @@
+     ∀ n : ℕ, IsNoetherianRing (HolomorphicGerm n)
+   | 0 => holomorphicGerm_isNoetherian_zero
+   | n + 1 => by
+-      letI : IsNoetherianRing (HolomorphicGerm n) :=
++      let : IsNoetherianRing (HolomorphicGerm n) :=
+         holomorphicGerm_isNoetherian_core n
+       rw [isNoetherianRing_iff_ideal_fg]
+       intro I
+--- upstream/LocalComplexGeometry/Algebra/NoetherianByRemainder.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Algebra/NoetherianByRemainder.lean
+@@ -1,7 +1,18 @@
+-import Mathlib.RingTheory.Noetherian.Basic
+-import Mathlib.RingTheory.Finiteness.Defs
+-import Mathlib.RingTheory.Ideal.Operations
+-import Mathlib.LinearAlgebra.Span.Basic
++module
++
++/- Vendored from BochaoKong/nullstellensatz, commit 029697242294aea7989bf5d391199696a43490df.
++   Original path: LocalComplexGeometry/Algebra/NoetherianByRemainder.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import Mathlib.RingTheory.Noetherian.Basic
++public import Mathlib.RingTheory.Finiteness.Defs
++public import Mathlib.RingTheory.Ideal.Operations
++public import Mathlib.LinearAlgebra.Span.Basic
++
++@[expose] public section
++
+ 
+ open Set
+ 
+--- upstream/LocalComplexGeometry/Germs/Ring.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Germs/Ring.lean
+@@ -1,7 +1,18 @@
+-import LocalComplexGeometry.Germs.Basic
+-import Mathlib.RingTheory.Ideal.Quotient.Operations
+-import Mathlib.RingTheory.Noetherian.Basic
+-import Mathlib.RingTheory.PrincipalIdealDomain
++module
++
++/- Vendored from BochaoKong/nullstellensatz, commit 029697242294aea7989bf5d391199696a43490df.
++   Original path: LocalComplexGeometry/Germs/Ring.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Basic
++public import Mathlib.RingTheory.Ideal.Quotient.Operations
++public import Mathlib.RingTheory.Noetherian.Basic
++public import Mathlib.RingTheory.PrincipalIdealDomain
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped Topology
+--- upstream/LocalComplexGeometry/Germs/Basic.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Germs/Basic.lean
+@@ -1,6 +1,17 @@
+-import ClassicalComplexWPT.Germs
+-import Mathlib.Topology.Germ
+-import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
++module
++
++/- Vendored from BochaoKong/nullstellensatz, commit 029697242294aea7989bf5d391199696a43490df.
++   Original path: LocalComplexGeometry/Germs/Basic.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.Germs
++public import Mathlib.Topology.Germ
++public import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped Topology
+--- upstream/ClassicalComplexWPT/Germs.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/Germs.lean
+@@ -1,5 +1,16 @@
+-import ClassicalComplexWPT.Basic
+-import Mathlib.Order.Filter.Germ.Basic
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/Germs.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.Basic
++public import Mathlib.Order.Filter.Germ.Basic
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped Topology
+--- upstream/ClassicalComplexWPT/Basic.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/Basic.lean
+@@ -1,6 +1,17 @@
+-import Mathlib.Analysis.Analytic.Constructions
+-import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
+-import Mathlib.Analysis.Complex.Basic
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/Basic.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import Mathlib.Analysis.Analytic.Constructions
++public import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
++public import Mathlib.Analysis.Complex.Basic
++
++@[expose] public section
++
+ 
+ open scoped BigOperators Topology
+ 
+--- upstream/LocalComplexGeometry/WPTBridge/PreparedAssociate.lean
++++ OnLeConjecture/External/LocalComplexGeometry/WPTBridge/PreparedAssociate.lean
+@@ -1,5 +1,16 @@
+-import LocalComplexGeometry.WPTBridge.Preparation
+-import LocalComplexGeometry.WPTBridge.GermDivision
++module
++
++/- Vendored from BochaoKong/nullstellensatz, commit 029697242294aea7989bf5d391199696a43490df.
++   Original path: LocalComplexGeometry/WPTBridge/PreparedAssociate.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.LocalComplexGeometry.WPTBridge.Preparation
++public import OnLeConjecture.External.LocalComplexGeometry.WPTBridge.GermDivision
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped Topology
+--- upstream/LocalComplexGeometry/WPTBridge/Preparation.lean
++++ OnLeConjecture/External/LocalComplexGeometry/WPTBridge/Preparation.lean
+@@ -1,5 +1,16 @@
+-import LocalComplexGeometry.Analytic.Regularization
+-import ClassicalComplexWPT.Main
++module
++
++/- Vendored from BochaoKong/nullstellensatz, commit 029697242294aea7989bf5d391199696a43490df.
++   Original path: LocalComplexGeometry/WPTBridge/Preparation.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.LocalComplexGeometry.Analytic.Regularization
++public import OnLeConjecture.External.ClassicalComplexWPT.Main
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped Topology
+--- upstream/LocalComplexGeometry/Analytic/Regularization.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Analytic/Regularization.lean
+@@ -1,8 +1,19 @@
+-import LocalComplexGeometry.Germs.Coordinates
+-import ClassicalComplexWPT.ExactOrder
+-import Mathlib.Analysis.Analytic.Uniqueness
+-import Mathlib.Data.Fin.Tuple.Basic
+-import Mathlib.Topology.Algebra.Module.FiniteDimension
++module
++
++/- Vendored from BochaoKong/nullstellensatz, commit 029697242294aea7989bf5d391199696a43490df.
++   Original path: LocalComplexGeometry/Analytic/Regularization.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Coordinates
++public import OnLeConjecture.External.ClassicalComplexWPT.ExactOrder
++public import Mathlib.Analysis.Analytic.Uniqueness
++public import Mathlib.Data.Fin.Tuple.Basic
++public import Mathlib.Topology.Algebra.Module.FiniteDimension
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped ENNReal Topology
+@@ -101,7 +112,7 @@
+     {E : Type*} [NormedAddCommGroup E] [NormedSpace ℂ E]
+     (p : FormalMultilinearSeries ℂ E ℂ) (d : ℕ) (v : E)
+     (hd : 0 < d) (h : p d (fun _ ↦ v) ≠ 0) : v ≠ 0 := by
+-  letI : Nonempty (Fin d) := Fin.pos_iff_nonempty.mp hd
++  let : Nonempty (Fin d) := Fin.pos_iff_nonempty.mp hd
+   intro hv
+   subst v
+   exact h (show (p d) (0 : Fin d → E) = 0 from (p d).map_zero)
+--- upstream/LocalComplexGeometry/Germs/Coordinates.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Germs/Coordinates.lean
+@@ -1,5 +1,16 @@
+-import LocalComplexGeometry.Germs.Basic
+-import Mathlib.Topology.Algebra.Module.FiniteDimension
++module
++
++/- Vendored from BochaoKong/nullstellensatz, commit 029697242294aea7989bf5d391199696a43490df.
++   Original path: LocalComplexGeometry/Germs/Coordinates.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Basic
++public import Mathlib.Topology.Algebra.Module.FiniteDimension
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped Topology
+@@ -149,7 +160,8 @@
+     Filter.Germ.value (functionGermPullbackHom L φ) = Filter.Germ.value φ := by
+   refine Filter.Germ.inductionOn φ ?_
+   intro f
+-  simp [functionGermPullbackHom]
++  change f (L 0) = f 0
++  rw [L.map_zero]
+ 
+ @[simp]
+ theorem functionGermPullbackHom_id (n : ℕ) :
+--- upstream/ClassicalComplexWPT/ExactOrder.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/ExactOrder.lean
+@@ -1,5 +1,16 @@
+-import ClassicalComplexWPT.Basic
+-import Mathlib.Analysis.Analytic.Order
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/ExactOrder.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.Basic
++public import Mathlib.Analysis.Analytic.Order
++
++@[expose] public section
++
+ 
+ open scoped Topology
+ 
+--- upstream/ClassicalComplexWPT/Main.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/Main.lean
+@@ -1,5 +1,16 @@
+-import ClassicalComplexWPT.PreparationUniqueness
+-import ClassicalComplexWPT.PublicExistence
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/Main.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.PreparationUniqueness
++public import OnLeConjecture.External.ClassicalComplexWPT.PublicExistence
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped BigOperators Topology
+--- upstream/ClassicalComplexWPT/PreparationUniqueness.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/PreparationUniqueness.lean
+@@ -1,10 +1,21 @@
+-import ClassicalComplexWPT.L1Division
+-import ClassicalComplexWPT.L1PowerSeries
+-import ClassicalComplexWPT.Basic
+-import ClassicalComplexWPT.L1PolynomialEvaluation
+-import ClassicalComplexWPT.PreparationSequences
+-import ClassicalComplexWPT.WeightedGermEvaluation
+-import Mathlib.Analysis.Analytic.Uniqueness
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/PreparationUniqueness.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.L1Division
++public import OnLeConjecture.External.ClassicalComplexWPT.L1PowerSeries
++public import OnLeConjecture.External.ClassicalComplexWPT.Basic
++public import OnLeConjecture.External.ClassicalComplexWPT.L1PolynomialEvaluation
++public import OnLeConjecture.External.ClassicalComplexWPT.PreparationSequences
++public import OnLeConjecture.External.ClassicalComplexWPT.WeightedGermEvaluation
++public import Mathlib.Analysis.Analytic.Uniqueness
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped ENNReal NNReal Topology
+--- upstream/ClassicalComplexWPT/L1Division.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/L1Division.lean
+@@ -1,6 +1,17 @@
+-import ClassicalComplexWPT.WeightedSeries
+-import Mathlib.Analysis.SpecificLimits.Normed
+-import Mathlib.Analysis.Analytic.Constructions
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/L1Division.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.WeightedSeries
++public import Mathlib.Analysis.SpecificLimits.Normed
++public import Mathlib.Analysis.Analytic.Constructions
++
++@[expose] public section
++
+ 
+ open Finset
+ open scoped ENNReal NNReal Topology
+@@ -222,7 +233,7 @@
+ @[simp] lemma divisionPerturbationMap_apply (d : ℕ) (p : L1Coeff (A × ℕ)) :
+     divisionPerturbationMap d p = divisionPerturbation d p := rfl
+ 
+-private lemma norm_neg_divisionPerturbation_lt_one (d : ℕ) (p : L1Coeff (A × ℕ))
++lemma norm_neg_divisionPerturbation_lt_one (d : ℕ) (p : L1Coeff (A × ℕ))
+     (hp : ‖p‖ < 1) : ‖-(divisionPerturbation d p)‖ < 1 := by
+   rw [norm_neg]
+   exact lt_of_le_of_lt (norm_divisionPerturbation_le d p) hp
+@@ -590,7 +601,7 @@
+ @[simp] lemma seqDivisionPerturbationMap_apply (d : ℕ) (p : L1Coeff ℕ) :
+     seqDivisionPerturbationMap d p = seqDivisionPerturbation d p := rfl
+ 
+-private lemma norm_neg_seqDivisionPerturbation_lt_one (d : ℕ) (p : L1Coeff ℕ)
++lemma norm_neg_seqDivisionPerturbation_lt_one (d : ℕ) (p : L1Coeff ℕ)
+     (hp : ‖p‖ < 1) : ‖-(seqDivisionPerturbation d p)‖ < 1 := by
+   rw [norm_neg]
+   exact lt_of_le_of_lt (norm_seqDivisionPerturbation_le d p) hp
+--- upstream/ClassicalComplexWPT/WeightedSeries.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/WeightedSeries.lean
+@@ -1,8 +1,19 @@
+-import Mathlib.Analysis.Normed.Lp.lpSpace
+-import Mathlib.Analysis.Normed.Operator.NormedSpace
+-import Mathlib.Analysis.Normed.Ring.InfiniteSum
+-import Mathlib.Data.Finsupp.Antidiagonal
+-import Mathlib.Data.Finsupp.Weight
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/WeightedSeries.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import Mathlib.Analysis.Normed.Lp.lpSpace
++public import Mathlib.Analysis.Normed.Operator.NormedSpace
++public import Mathlib.Analysis.Normed.Ring.InfiniteSum
++public import Mathlib.Data.Finsupp.Antidiagonal
++public import Mathlib.Data.Finsupp.Weight
++
++@[expose] public section
++
+ 
+ open Finset
+ open scoped ENNReal NNReal Topology
+--- upstream/ClassicalComplexWPT/L1PowerSeries.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/L1PowerSeries.lean
+@@ -1,5 +1,16 @@
+-import ClassicalComplexWPT.WeightedSeries
+-import Mathlib.Analysis.Analytic.Constructions
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/L1PowerSeries.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.WeightedSeries
++public import Mathlib.Analysis.Analytic.Constructions
++
++@[expose] public section
++
+ 
+ open scoped ENNReal NNReal Topology
+ noncomputable section
+--- upstream/ClassicalComplexWPT/L1PolynomialEvaluation.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/L1PolynomialEvaluation.lean
+@@ -1,6 +1,17 @@
+-import ClassicalComplexWPT.L1PowerSeries
+-import ClassicalComplexWPT.L1Division
+-import ClassicalComplexWPT.NormalizedCoefficients
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/L1PolynomialEvaluation.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.L1PowerSeries
++public import OnLeConjecture.External.ClassicalComplexWPT.L1Division
++public import OnLeConjecture.External.ClassicalComplexWPT.NormalizedCoefficients
++
++@[expose] public section
++
+ 
+ open Finset
+ open scoped ENNReal NNReal Topology
+--- upstream/ClassicalComplexWPT/NormalizedCoefficients.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/NormalizedCoefficients.lean
+@@ -1,7 +1,21 @@
+-import ClassicalComplexWPT.AnalyticSeries
+-import ClassicalComplexWPT.ExactOrder
+-import ClassicalComplexWPT.WeightedSeries
+-import ClassicalComplexWPT.WeightedCoefficientMap
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/NormalizedCoefficients.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.AnalyticSeries
++public import OnLeConjecture.External.ClassicalComplexWPT.ExactOrder
++public import OnLeConjecture.External.ClassicalComplexWPT.WeightedSeries
++public import OnLeConjecture.External.ClassicalComplexWPT.WeightedCoefficientMap
++
++@[expose] public section
++
++-- Preserve the upstream proof formatting and resource limits.
++set_option linter.style.setOption false
++
+ 
+ open Filter
+ open scoped BigOperators ENNReal NNReal Topology
+--- upstream/ClassicalComplexWPT/AnalyticSeries.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/AnalyticSeries.lean
+@@ -1,6 +1,20 @@
+-import ClassicalComplexWPT.ExactOrder
+-import Mathlib.Analysis.Analytic.ChangeOrigin
+-import Mathlib.Analysis.Analytic.Uniqueness
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/AnalyticSeries.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.ExactOrder
++public import Mathlib.Analysis.Analytic.ChangeOrigin
++public import Mathlib.Analysis.Analytic.Uniqueness
++
++@[expose] public section
++
++-- Preserve the upstream proof formatting and resource limits.
++set_option linter.style.longLine false
++
+ 
+ /-!
+ # Moving Taylor coefficients
+--- upstream/ClassicalComplexWPT/WeightedCoefficientMap.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/WeightedCoefficientMap.lean
+@@ -1,5 +1,20 @@
+-import ClassicalComplexWPT.AnalyticSeries
+-import Mathlib.Analysis.Normed.Lp.lpSpace
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/WeightedCoefficientMap.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.AnalyticSeries
++public import Mathlib.Analysis.Normed.Lp.lpSpace
++
++@[expose] public section
++
++-- Preserve the upstream proof formatting and resource limits.
++set_option linter.style.setOption false
++set_option linter.style.show false
++
+ 
+ /-!
+ # Analytic maps into a weighted coefficient space
+--- upstream/ClassicalComplexWPT/PreparationSequences.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/PreparationSequences.lean
+@@ -1,5 +1,19 @@
+-import ClassicalComplexWPT.L1Division
+-import ClassicalComplexWPT.NormalizedCoefficients
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/PreparationSequences.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.L1Division
++public import OnLeConjecture.External.ClassicalComplexWPT.NormalizedCoefficients
++
++@[expose] public section
++
++-- Preserve the upstream option scope while adapting its module interface.
++set_option linter.style.setOption false
++
+ 
+ open Filter
+ open scoped ENNReal NNReal Topology
+--- upstream/ClassicalComplexWPT/WeightedGermEvaluation.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/WeightedGermEvaluation.lean
+@@ -1,4 +1,15 @@
+-import ClassicalComplexWPT.WeightedEvaluation
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/WeightedGermEvaluation.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.WeightedEvaluation
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped ENNReal NNReal Topology
+--- upstream/ClassicalComplexWPT/WeightedEvaluation.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/WeightedEvaluation.lean
+@@ -1,5 +1,16 @@
+-import ClassicalComplexWPT.WeightedCoefficientMap
+-import ClassicalComplexWPT.L1PowerSeries
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/WeightedEvaluation.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.WeightedCoefficientMap
++public import OnLeConjecture.External.ClassicalComplexWPT.L1PowerSeries
++
++@[expose] public section
++
+ 
+ /-!
+ # Reconstruction from weighted `ℓ¹` coefficients
+--- upstream/ClassicalComplexWPT/PublicExistence.lean
++++ OnLeConjecture/External/ClassicalComplexWPT/PublicExistence.lean
+@@ -1,7 +1,21 @@
+-import ClassicalComplexWPT.PreparationSequences
+-import ClassicalComplexWPT.WeightedEvaluation
+-import ClassicalComplexWPT.L1PolynomialEvaluation
+-import ClassicalComplexWPT.WeightedGermEvaluation
++module
++
++/- Vendored from BochaoKong/classical-complex-wpt, commit b4a7273fe5c9752753c52e10494097569089642d.
++   Original path: ClassicalComplexWPT/PublicExistence.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.PreparationSequences
++public import OnLeConjecture.External.ClassicalComplexWPT.WeightedEvaluation
++public import OnLeConjecture.External.ClassicalComplexWPT.L1PolynomialEvaluation
++public import OnLeConjecture.External.ClassicalComplexWPT.WeightedGermEvaluation
++
++@[expose] public section
++
++-- Preserve the upstream option scope while adapting its module interface.
++set_option linter.style.setOption false
++
+ 
+ open Filter
+ open scoped BigOperators ENNReal NNReal Topology
+--- upstream/LocalComplexGeometry/WPTBridge/GermDivision.lean
++++ OnLeConjecture/External/LocalComplexGeometry/WPTBridge/GermDivision.lean
+@@ -1,7 +1,18 @@
+-import LocalComplexGeometry.Germs.Coordinates
+-import LocalComplexGeometry.WPTBridge.DivisionUniqueness
+-import Mathlib.RingTheory.Ideal.Operations
+-import Mathlib.RingTheory.Ideal.Span
++module
++
++/- Vendored from BochaoKong/nullstellensatz, commit 029697242294aea7989bf5d391199696a43490df.
++   Original path: LocalComplexGeometry/WPTBridge/GermDivision.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Coordinates
++public import OnLeConjecture.External.LocalComplexGeometry.WPTBridge.DivisionUniqueness
++public import Mathlib.RingTheory.Ideal.Operations
++public import Mathlib.RingTheory.Ideal.Span
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped BigOperators Topology
+--- upstream/LocalComplexGeometry/WPTBridge/DivisionUniqueness.lean
++++ OnLeConjecture/External/LocalComplexGeometry/WPTBridge/DivisionUniqueness.lean
+@@ -1,4 +1,15 @@
+-import LocalComplexGeometry.WPTBridge.Division
++module
++
++/- Vendored from BochaoKong/nullstellensatz, commit 029697242294aea7989bf5d391199696a43490df.
++   Original path: LocalComplexGeometry/WPTBridge/DivisionUniqueness.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.LocalComplexGeometry.WPTBridge.Division
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped BigOperators ENNReal NNReal Topology
+--- upstream/LocalComplexGeometry/WPTBridge/Division.lean
++++ OnLeConjecture/External/LocalComplexGeometry/WPTBridge/Division.lean
+@@ -1,4 +1,15 @@
+-import LocalComplexGeometry.WPTBridge.DivisionCore
++module
++
++/- Vendored from BochaoKong/nullstellensatz, commit 029697242294aea7989bf5d391199696a43490df.
++   Original path: LocalComplexGeometry/WPTBridge/Division.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.LocalComplexGeometry.WPTBridge.DivisionCore
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped BigOperators ENNReal NNReal Topology
+--- upstream/LocalComplexGeometry/WPTBridge/DivisionCore.lean
++++ OnLeConjecture/External/LocalComplexGeometry/WPTBridge/DivisionCore.lean
+@@ -1,4 +1,15 @@
+-import ClassicalComplexWPT.PreparationUniqueness
++module
++
++/- Vendored from BochaoKong/nullstellensatz, commit 029697242294aea7989bf5d391199696a43490df.
++   Original path: LocalComplexGeometry/WPTBridge/DivisionCore.lean. Retrieved 2026-10-29.
++   Apache 2.0 license retained in this directory.
++   Module visibility and import paths adapted to this project.
++   Proof compatibility edits are recorded in verification/2026-10-29/ruckert-compatibility.patch. -/
++
++public import OnLeConjecture.External.ClassicalComplexWPT.PreparationUniqueness
++
++@[expose] public section
++
+ 
+ open Filter
+ open scoped ENNReal NNReal Topology

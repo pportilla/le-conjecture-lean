@@ -1,0 +1,18 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "scope": "X-avoiding stabilization center-block theorems; only independent O-weight transport lemmas reused for the full differential. X-avoiding invariance is not transferred.",
+  "files": [
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Stabilization/Unblocked.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Stabilization/Unblocked.lean",
+      "upstream_sha256": "1a8d916ff6703c6e4f8f189a3e4ed8bb4082dac617388e409b0d76929c6d1b83",
+      "ported_sha256": "ae4b80cbd137785b66f3c025a4a9ebdf2625c0f1c026e8383bccd0d790292706",
+      "compatibility_changes": [
+        "Import prefixes redirected and source attribution added; no proof edits."
+      ]
+    }
+  ]
+}

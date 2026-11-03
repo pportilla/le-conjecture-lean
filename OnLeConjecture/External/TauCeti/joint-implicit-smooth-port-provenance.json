@@ -1,0 +1,19 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "license": "Apache-2.0",
+  "retrieved": "2026-10-29",
+  "files": [
+    {
+      "upstream_path": "TauCeti/Analysis/Calculus/JointImplicitFunction.lean",
+      "upstream_sha256": "3a472cd5e64ca1572fc9b744ad13dc9cb7f9eedc2c45bf05c9e776987077ad28",
+      "local_path": "OnLeConjecture/External/TauCeti/Analysis/Calculus/JointImplicitFunctionSmooth.lean",
+      "compatibility_changes": [
+        "Retain ordinary continuous-differentiability joint implicit function results.",
+        "Omit analyticAt_jointImplicitFunctionOfProdDomain and TauCeti.Analysis.Analytic.Inverse import.",
+        "Replace module documentation with exact subset/provenance description.",
+        "No retained statement or proof changed."
+      ]
+    }
+  ]
+}

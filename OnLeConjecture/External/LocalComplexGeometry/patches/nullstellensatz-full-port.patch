@@ -1,0 +1,689 @@
+--- upstream/LocalComplexGeometry/FiniteProjection/PreparedQuotient.lean
++++ OnLeConjecture/External/LocalComplexGeometry/FiniteProjection/PreparedQuotient.lean
+@@ -1,8 +1,19 @@
+-import LocalComplexGeometry.WPTBridge.GermDivision
+-import Mathlib.LinearAlgebra.Isomorphisms
+-import Mathlib.LinearAlgebra.Quotient.Basic
+-import Mathlib.LinearAlgebra.StdBasis
+-import Mathlib.RingTheory.Ideal.Quotient.Operations
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/FiniteProjection/PreparedQuotient.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.WPTBridge.GermDivision
++public import Mathlib.LinearAlgebra.Isomorphisms
++public import Mathlib.LinearAlgebra.Quotient.Basic
++public import Mathlib.LinearAlgebra.StdBasis
++public import Mathlib.RingTheory.Ideal.Quotient.Operations
++
++@[expose] public section
+ 
+ open scoped BigOperators
+ 
+@@ -132,7 +143,7 @@
+     (ha0 : ∀ i, a i 0 = 0) :
+     (HolomorphicGerm (n + 1) ⧸ preparedPolynomialIdeal a ha) ≃ₗ[HolomorphicGerm n]
+       (Fin d → HolomorphicGerm n) :=
+-  LinearEquiv.ofLinear
++  LinearEquiv.ofLinearMap
+     (preparedQuotientRemainderLinearMap a ha ha0)
+     (preparedQuotientRemainderSection a ha)
+     (preparedQuotientRemainder_rightInverse a ha ha0)
+--- upstream/LocalComplexGeometry/Geometry/FiniteProjection.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Geometry/FiniteProjection.lean
+@@ -1,8 +1,19 @@
+-import LocalComplexGeometry.Germs.Coordinates
+-import ClassicalComplexWPT.Main
+-import Mathlib.Analysis.Complex.Polynomial.Basic
+-import Mathlib.Topology.MetricSpace.ProperSpace
+-import Mathlib.Topology.Maps.Proper.CompactlyGenerated
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Geometry/FiniteProjection.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Coordinates
++public import OnLeConjecture.External.ClassicalComplexWPT.Main
++public import Mathlib.Analysis.Complex.Polynomial.Basic
++public import Mathlib.Topology.MetricSpace.ProperSpace
++public import Mathlib.Topology.Maps.Proper.CompactlyGenerated
++
++@[expose] public section
+ 
+ open Filter
+ open scoped BigOperators Topology
+@@ -201,7 +212,7 @@
+     (hb : ∀ i, ‖b i‖ < r ^ (d - (i : ℕ)) / (2 * (d : ℝ)))
+     (hzero : w ^ d + ∑ i : Fin d, b i * w ^ (i : ℕ) = 0) :
+     ‖w‖ < r := by
+-  letI : Nonempty (Fin d) := Fin.pos_iff_nonempty.mp hd
++  let : Nonempty (Fin d) := Fin.pos_iff_nonempty.mp hd
+   by_contra hwr
+   have hrw : r ≤ ‖w‖ := le_of_not_gt hwr
+   have hwpos : 0 < ‖w‖ := hr.trans_le hrw
+--- upstream/LocalComplexGeometry/Germs/Representatives.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Germs/Representatives.lean
+@@ -1,4 +1,15 @@
+-import LocalComplexGeometry.Germs.Basic
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Germs/Representatives.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Basic
++
++@[expose] public section
+ 
+ /-!
+ # Canonical chosen analytic representatives
+--- upstream/LocalComplexGeometry/Nullstellensatz/Coordinates.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/Coordinates.lean
+@@ -1,6 +1,17 @@
+-import LocalComplexGeometry.Germs.Coordinates
+-import LocalComplexGeometry.Noetherian.Ruckert
+-import LocalComplexGeometry.Nullstellensatz.ZeroSetGerms
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/Coordinates.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Coordinates
++public import OnLeConjecture.External.LocalComplexGeometry.Noetherian.Ruckert
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.ZeroSetGerms
++
++@[expose] public section
+ 
+ open Filter
+ open scoped Topology
+@@ -17,7 +28,7 @@
+ 
+ noncomputable section
+ 
+-private theorem continuousLinearMap_tendsto_zero {n m : ℕ}
++theorem continuousLinearMap_tendsto_zero {n m : ℕ}
+     (L : ComplexEuclidean n →L[ℂ] ComplexEuclidean m) :
+     Tendsto L (𝓝 0) (𝓝 0) := by
+   have h : Tendsto L (𝓝 (0 : ComplexEuclidean n)) (𝓝 (L 0)) :=
+--- upstream/LocalComplexGeometry/Nullstellensatz/DivisibilitySpecialization.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/DivisibilitySpecialization.lean
+@@ -1,7 +1,18 @@
+-import LocalComplexGeometry.Nullstellensatz.GenericFiber
+-import LocalComplexGeometry.Nullstellensatz.PolynomialFibers
+-import LocalComplexGeometry.Nullstellensatz.QuotientPolynomialSpecialization
+-import LocalComplexGeometry.Noetherian.Ruckert
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/DivisibilitySpecialization.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.GenericFiber
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.PolynomialFibers
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.QuotientPolynomialSpecialization
++public import OnLeConjecture.External.LocalComplexGeometry.Noetherian.Ruckert
++
++@[expose] public section
+ 
+ open Filter
+ open scoped Topology
+@@ -83,6 +94,7 @@
+ 
+ variable {n : ℕ} (P : Ideal (HolomorphicGerm (n + 1))) [P.IsPrime]
+ 
++omit [P.IsPrime] in
+ /-- A denominator-cleared generic divisibility certificate specializes to
+ the expected root implication on the contracted analytic zero set. -/
+ theorem eventually_eval_eq_zero_of_genericMinpolyDivisibilityLiftCertificate
+@@ -94,7 +106,7 @@
+       HolomorphicGerm.representative C.denominator z ≠ 0 →
+       ∀ w : ℂ, (germPolynomialRepresentativeAt e Q z).eval w = 0 →
+         (germPolynomialRepresentativeAt k R z).eval w = 0 := by
+-  letI : IsNoetherianRing (HolomorphicGerm n) :=
++  let : IsNoetherianRing (HolomorphicGerm n) :=
+     holomorphicGerm_isNoetherian_core n
+   let I : Ideal (HolomorphicGerm n) := lowerDimensionalContraction P
+   let π : HolomorphicGerm n →+* (HolomorphicGerm n ⧸ I) :=
+@@ -184,7 +196,7 @@
+             (HolomorphicGerm.coefficientRepresentatives C.coefficients) z).eval w =
+           HolomorphicGerm.representative C.denominator z *
+             (germPolynomialRepresentativeAt k R z).eval w := by
+-  letI : IsNoetherianRing (HolomorphicGerm n) :=
++  let : IsNoetherianRing (HolomorphicGerm n) :=
+     holomorphicGerm_isNoetherian_core n
+   let I : Ideal (HolomorphicGerm n) := lowerDimensionalContraction P
+   let π : HolomorphicGerm n →+* (HolomorphicGerm n ⧸ I) :=
+--- upstream/LocalComplexGeometry/Nullstellensatz/DivisionRepresentatives.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/DivisionRepresentatives.lean
+@@ -1,6 +1,17 @@
+-import LocalComplexGeometry.Germs.Representatives
+-import LocalComplexGeometry.Nullstellensatz.PreparedRootLocality
+-import LocalComplexGeometry.WPTBridge.GermDivision
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/DivisionRepresentatives.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Representatives
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.PreparedRootLocality
++public import OnLeConjecture.External.LocalComplexGeometry.WPTBridge.GermDivision
++
++@[expose] public section
+ 
+ open Filter
+ open scoped BigOperators Topology
+--- upstream/LocalComplexGeometry/Nullstellensatz/GenericFiber.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/GenericFiber.lean
+@@ -1,13 +1,24 @@
+-import LocalComplexGeometry.FiniteProjection.PreparedQuotient
+-import LocalComplexGeometry.Germs.Ring
+-import Mathlib.Algebra.CharP.Algebra
+-import Mathlib.FieldTheory.Perfect
+-import Mathlib.LinearAlgebra.Dimension.Localization
+-import Mathlib.RingTheory.Algebraic.Integral
+-import Mathlib.RingTheory.Finiteness.Quotient
+-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+-import Mathlib.RingTheory.Localization.Integral
+-import Mathlib.RingTheory.Polynomial.Resultant.Basic
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/GenericFiber.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.FiniteProjection.PreparedQuotient
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Ring
++public import Mathlib.Algebra.CharP.Algebra
++public import Mathlib.FieldTheory.Perfect
++public import Mathlib.LinearAlgebra.Dimension.Localization
++public import Mathlib.RingTheory.Algebraic.Integral
++public import Mathlib.RingTheory.Finiteness.Quotient
++public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
++public import Mathlib.RingTheory.Localization.Integral
++public import Mathlib.RingTheory.Polynomial.Resultant.Basic
++
++@[expose] public section
+ 
+ /-!
+ # The generic fibre of a prepared prime quotient
+@@ -62,7 +73,7 @@
+ theorem lowerDimensionalContraction_isPrime {n : ℕ}
+     {P : Ideal (HolomorphicGerm (n + 1))} (hP : P.IsPrime) :
+     (lowerDimensionalContraction P).IsPrime := by
+-  letI : P.IsPrime := hP
++  let : P.IsPrime := hP
+   infer_instance
+ 
+ /-- The canonical map from the contracted quotient is injective. -/
+@@ -97,7 +108,7 @@
+   let q : (HolomorphicGerm (n + 1) ⧸ I) →ₐ[HolomorphicGerm n]
+       AmbientGermQuotient P :=
+     Ideal.Quotient.factorₐ (HolomorphicGerm n) hIP
+-  letI : Module.Finite (HolomorphicGerm n)
++  let : Module.Finite (HolomorphicGerm n)
+       (HolomorphicGerm (n + 1) ⧸ I) :=
+     WPTBridge.preparedQuotient_moduleFinite a ha ha0
+   exact Module.Finite.of_surjective q.toLinearMap
+@@ -113,7 +124,7 @@
+     (P : Ideal (HolomorphicGerm (n + 1)))
+     (hmem : WPTBridge.preparedPolynomialGerm a ha ∈ P) :
+     Module.Finite (ContractedGermQuotient P) (AmbientGermQuotient P) := by
+-  letI : Module.Finite (HolomorphicGerm n) (AmbientGermQuotient P) :=
++  let : Module.Finite (HolomorphicGerm n) (AmbientGermQuotient P) :=
+     ambientQuotient_moduleFinite_over_germs a ha ha0 P hmem
+   exact Module.Finite.of_restrictScalars_finite
+     (HolomorphicGerm n) (ContractedGermQuotient P) (AmbientGermQuotient P)
+@@ -127,7 +138,7 @@
+     (P : Ideal (HolomorphicGerm (n + 1)))
+     (hmem : WPTBridge.preparedPolynomialGerm a ha ∈ P) :
+     Algebra.IsIntegral (ContractedGermQuotient P) (AmbientGermQuotient P) := by
+-  letI : Module.Finite (ContractedGermQuotient P) (AmbientGermQuotient P) :=
++  let : Module.Finite (ContractedGermQuotient P) (AmbientGermQuotient P) :=
+     ambientQuotient_moduleFinite a ha ha0 P hmem
+   exact Algebra.IsIntegral.of_finite
+     (ContractedGermQuotient P) (AmbientGermQuotient P)
+@@ -358,6 +369,7 @@
+   simp only [Ideal.Quotient.mkₐ_eq_mk]
+ 
+ set_option synthInstance.maxHeartbeats 100000 in
++-- The finite generic quotient requires the upstream typeclass-search allowance.
+ @[simp]
+ theorem aeval_genericRemainderPolynomial {d : ℕ}
+     (r : Fin d → HolomorphicGerm n) :
+@@ -374,6 +386,7 @@
+     aeval_contractedRemainderPolynomial]
+ 
+ set_option synthInstance.maxHeartbeats 100000 in
++-- The finite generic quotient requires the upstream typeclass-search allowance.
+ @[simp]
+ theorem aeval_genericPreparedPolynomial {d : ℕ}
+     (a : Fin d → ClassicalComplexWPT.Base n → ℂ)
+@@ -453,7 +466,7 @@
+     (ha0 : ∀ i, a i 0 = 0)
+     (hmem : WPTBridge.preparedPolynomialGerm a ha ∈ P) :
+     FiniteDimensional (ContractedFractionField P) (AmbientFractionField P) := by
+-  letI : Module.Finite (ContractedGermQuotient P) (AmbientGermQuotient P) :=
++  let : Module.Finite (ContractedGermQuotient P) (AmbientGermQuotient P) :=
+     ambientQuotient_moduleFinite a ha ha0 P hmem
+   infer_instance
+ 
+@@ -465,7 +478,7 @@
+     (ha0 : ∀ i, a i 0 = 0)
+     (hmem : WPTBridge.preparedPolynomialGerm a ha ∈ P) :
+     IsIntegral (ContractedFractionField P) (genericLastCoordinate P) := by
+-  letI : FiniteDimensional (ContractedFractionField P) (AmbientFractionField P) :=
++  let : FiniteDimensional (ContractedFractionField P) (AmbientFractionField P) :=
+     genericFractionField_finiteDimensional P a ha ha0 hmem
+   exact IsIntegral.of_finite (ContractedFractionField P) (genericLastCoordinate P)
+ 
+--- upstream/LocalComplexGeometry/Nullstellensatz/IdealRepresentatives.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/IdealRepresentatives.lean
+@@ -1,5 +1,16 @@
+-import LocalComplexGeometry.Germs.Representatives
+-import LocalComplexGeometry.Nullstellensatz.ZeroSetGerms
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/IdealRepresentatives.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Representatives
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.ZeroSetGerms
++
++@[expose] public section
+ 
+ open Filter
+ open scoped Topology
+--- upstream/LocalComplexGeometry/Nullstellensatz/Main.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/Main.lean
+@@ -1,5 +1,16 @@
+-import LocalComplexGeometry.Nullstellensatz.PreparedPrime
+-import LocalComplexGeometry.Nullstellensatz.RadicalReduction
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/Main.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.PreparedPrime
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.RadicalReduction
++
++@[expose] public section
+ 
+ open Filter
+ open scoped BigOperators Topology
+--- upstream/LocalComplexGeometry/Nullstellensatz/MinpolyResultant.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/MinpolyResultant.lean
+@@ -1,7 +1,18 @@
+-import LocalComplexGeometry.Nullstellensatz.GenericFiber
+-import LocalComplexGeometry.Nullstellensatz.QuotientPolynomialSpecialization
+-import LocalComplexGeometry.Nullstellensatz.ResultantSpecialization
+-import LocalComplexGeometry.Germs.Representatives
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/MinpolyResultant.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.GenericFiber
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.QuotientPolynomialSpecialization
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.ResultantSpecialization
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Representatives
++
++@[expose] public section
+ 
+ open Filter
+ open scoped Topology
+--- upstream/LocalComplexGeometry/Nullstellensatz/PolynomialFibers.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PolynomialFibers.lean
+@@ -1,5 +1,16 @@
+-import LocalComplexGeometry.Geometry.FiniteProjection
+-import Mathlib.FieldTheory.Separable
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/PolynomialFibers.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Geometry.FiniteProjection
++public import Mathlib.FieldTheory.Separable
++
++@[expose] public section
+ 
+ open scoped BigOperators
+ 
+--- upstream/LocalComplexGeometry/Nullstellensatz/PolynomialRepresentativeOperations.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PolynomialRepresentativeOperations.lean
+@@ -1,6 +1,17 @@
+-import LocalComplexGeometry.Nullstellensatz.GenericFiber
+-import LocalComplexGeometry.Nullstellensatz.PolynomialFibers
+-import LocalComplexGeometry.Nullstellensatz.QuotientPolynomialSpecialization
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/PolynomialRepresentativeOperations.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.GenericFiber
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.PolynomialFibers
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.QuotientPolynomialSpecialization
++
++@[expose] public section
+ 
+ open Filter
+ open scoped BigOperators Topology
+--- upstream/LocalComplexGeometry/Nullstellensatz/PolynomialSpecialization.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PolynomialSpecialization.lean
+@@ -1,6 +1,17 @@
+-import LocalComplexGeometry.Germs.Representatives
+-import Mathlib.Algebra.Polynomial.Eval.Coeff
+-import Mathlib.Order.Filter.Finite
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/PolynomialSpecialization.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Representatives
++public import Mathlib.Algebra.Polynomial.Eval.Coeff
++public import Mathlib.Order.Filter.Finite
++
++@[expose] public section
+ 
+ open Filter
+ open scoped Topology
+--- upstream/LocalComplexGeometry/Nullstellensatz/PreparedPrime.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PreparedPrime.lean
+@@ -1,14 +1,25 @@
+-import LocalComplexGeometry.Nullstellensatz.GenericFiber
+-import LocalComplexGeometry.Nullstellensatz.DivisibilitySpecialization
+-import LocalComplexGeometry.Nullstellensatz.DivisionRepresentatives
+-import LocalComplexGeometry.Nullstellensatz.MinpolyResultant
+-import LocalComplexGeometry.Nullstellensatz.PolynomialFibers
+-import LocalComplexGeometry.Nullstellensatz.PolynomialRepresentativeOperations
+-import LocalComplexGeometry.Nullstellensatz.PrimeCancellation
+-import LocalComplexGeometry.Nullstellensatz.PrimeInduction
+-import LocalComplexGeometry.Nullstellensatz.PreparedRootLocality
+-import LocalComplexGeometry.Nullstellensatz.ResultantSpecialization
+-import LocalComplexGeometry.Nullstellensatz.PolynomialSpecialization
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/PreparedPrime.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.GenericFiber
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.DivisibilitySpecialization
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.DivisionRepresentatives
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.MinpolyResultant
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.PolynomialFibers
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.PolynomialRepresentativeOperations
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.PrimeCancellation
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.PrimeInduction
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.PreparedRootLocality
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.ResultantSpecialization
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.PolynomialSpecialization
++
++@[expose] public section
+ 
+ open Filter
+ open scoped Topology
+--- upstream/LocalComplexGeometry/Nullstellensatz/PreparedRootLocality.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PreparedRootLocality.lean
+@@ -1,4 +1,15 @@
+-import LocalComplexGeometry.Geometry.FiniteProjection
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/PreparedRootLocality.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Geometry.FiniteProjection
++
++@[expose] public section
+ 
+ open Filter
+ open scoped Topology
+--- upstream/LocalComplexGeometry/Nullstellensatz/PrimeBase.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PrimeBase.lean
+@@ -1,5 +1,16 @@
+-import LocalComplexGeometry.Germs.Ring
+-import LocalComplexGeometry.Nullstellensatz.RadicalReduction
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/PrimeBase.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Ring
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.RadicalReduction
++
++@[expose] public section
+ 
+ /-!
+ # The zero-dimensional prime case
+@@ -26,7 +37,7 @@
+       isUnit_iff_ne_zero.mpr he0
+     have hfunit : IsUnit f :=
+       (MulEquiv.isUnit_map holomorphicGermZeroEquiv).mp heunit
+-    letI : P.IsPrime := hP
++    let : P.IsPrime := hP
+     exact (Ideal.notMem_of_isUnit P hfunit) hf
+   · exact bot_le
+ 
+--- upstream/LocalComplexGeometry/Nullstellensatz/PrimeCancellation.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PrimeCancellation.lean
+@@ -1,4 +1,15 @@
+-import LocalComplexGeometry.Nullstellensatz.RadicalReduction
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/PrimeCancellation.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.RadicalReduction
++
++@[expose] public section
+ 
+ /-!
+ # Cancellation on a prime analytic zero set
+@@ -40,7 +51,7 @@
+     (S : Finset ι) (f : ι → R)
+     (hf : ∀ i ∈ S, f i ∉ P) :
+     (∏ i ∈ S, f i) ∉ P := by
+-  letI : P.IsPrime := hP
++  let : P.IsPrime := hP
+   change (∏ i ∈ S, f i) ∈ P.primeCompl
+   exact Submonoid.prod_mem P.primeCompl fun i hi ↦ hf i hi
+ 
+--- upstream/LocalComplexGeometry/Nullstellensatz/PrimeInduction.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PrimeInduction.lean
+@@ -1,6 +1,17 @@
+-import LocalComplexGeometry.Nullstellensatz.Coordinates
+-import LocalComplexGeometry.Nullstellensatz.PrimeBase
+-import LocalComplexGeometry.WPTBridge.PreparedAssociate
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/PrimeInduction.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.Coordinates
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.PrimeBase
++public import OnLeConjecture.External.LocalComplexGeometry.WPTBridge.PreparedAssociate
++
++@[expose] public section
+ 
+ /-!
+ # Reduction of the prime theorem to prepared coordinates
+@@ -23,10 +34,10 @@
+ drives generic-fiber elimination. -/
+ def PreparedPrimeZeroSetStep (n : ℕ) : Prop :=
+   ∀ {d : ℕ}
+-    (hd : 0 < d)
++    (_hd : 0 < d)
+     (a : Fin d → ClassicalComplexWPT.Base n → ℂ)
+     (ha : ∀ i, AnalyticAt ℂ (a i) 0)
+-    (ha0 : ∀ i, a i 0 = 0)
++    (_ha0 : ∀ i, a i 0 = 0)
+     (P : Ideal (HolomorphicGerm (n + 1))),
+     P.IsPrime → preparedPolynomialGerm a ha ∈ P →
+       vanishingIdeal (idealZeroSetGerm P) = P
+@@ -59,7 +70,7 @@
+     let e : HolomorphicGerm (n + 1) ≃+* HolomorphicGerm (n + 1) :=
+       coordinatePullback L
+     let J : Ideal (HolomorphicGerm (n + 1)) := P.map e
+-    letI : P.IsPrime := hP
++    let : P.IsPrime := hP
+     have hJprime : J.IsPrime := by
+       dsimp [J]
+       infer_instance
+--- upstream/LocalComplexGeometry/Nullstellensatz/QuotientPolynomialSpecialization.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/QuotientPolynomialSpecialization.lean
+@@ -1,6 +1,17 @@
+-import LocalComplexGeometry.Nullstellensatz.IdealRepresentatives
+-import LocalComplexGeometry.Nullstellensatz.PolynomialSpecialization
+-import LocalComplexGeometry.Nullstellensatz.ResultantSpecialization
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/QuotientPolynomialSpecialization.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.IdealRepresentatives
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.PolynomialSpecialization
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.ResultantSpecialization
++
++@[expose] public section
+ 
+ open Filter
+ open scoped Topology
+--- upstream/LocalComplexGeometry/Nullstellensatz/RadicalReduction.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/RadicalReduction.lean
+@@ -1,6 +1,17 @@
+-import LocalComplexGeometry.Noetherian.Ruckert
+-import LocalComplexGeometry.Nullstellensatz.ZeroSetGerms
+-import Mathlib.RingTheory.Ideal.MinimalPrime.Basic
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/RadicalReduction.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Noetherian.Ruckert
++public import OnLeConjecture.External.LocalComplexGeometry.Nullstellensatz.ZeroSetGerms
++public import Mathlib.RingTheory.Ideal.MinimalPrime.Basic
++
++@[expose] public section
+ 
+ open Filter
+ open scoped BigOperators Topology
+--- upstream/LocalComplexGeometry/Nullstellensatz/ResultantSpecialization.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/ResultantSpecialization.lean
+@@ -1,6 +1,17 @@
+-import LocalComplexGeometry.Geometry.FiniteProjection
+-import Mathlib.FieldTheory.Separable
+-import Mathlib.RingTheory.Polynomial.Resultant.Basic
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/ResultantSpecialization.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Geometry.FiniteProjection
++public import Mathlib.FieldTheory.Separable
++public import Mathlib.RingTheory.Polynomial.Resultant.Basic
++
++@[expose] public section
+ 
+ open Filter
+ open scoped BigOperators Topology
+--- upstream/LocalComplexGeometry/Nullstellensatz/ZeroSetGerms.lean
++++ OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/ZeroSetGerms.lean
+@@ -1,5 +1,16 @@
+-import LocalComplexGeometry.Germs.Basic
+-import Mathlib.RingTheory.Noetherian.Basic
++/-
++Vendored from BochaoKong/nullstellensatz, commit
++029697242294aea7989bf5d391199696a43490df, retrieved 2026-10-29.
++Original source: LocalComplexGeometry/Nullstellensatz/ZeroSetGerms.lean
++https://github.com/BochaoKong/nullstellensatz/tree/029697242294aea7989bf5d391199696a43490df
++Licensed under Apache 2.0. See the retained LICENSE in this source directory.
++-/
++module
++
++public import OnLeConjecture.External.LocalComplexGeometry.Germs.Basic
++public import Mathlib.RingTheory.Noetherian.Basic
++
++@[expose] public section
+ 
+ open Filter
+ open scoped Topology

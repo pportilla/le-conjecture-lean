@@ -1,0 +1,20 @@
+/.lake
+/.migration
+
+# Local editor and operating-system files
+.DS_Store
+*~
+
+# LaTeX intermediates (PDFs of written notes may be versioned)
+*.aux
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.run.xml
+*.synctex.gz
+docs/**/*.log
+
+# Synchronization conflict copies
+*.nextcloud-conflict*

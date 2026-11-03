@@ -1,0 +1,3969 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=24mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array,longtable,enumitem}
+\usepackage{xcolor,fancyhdr}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,urlcolor=blue!45!black,citecolor=blue!45!black]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\formalname}[1]{\leavevmode\par\noindent\textnormal{\small Proposed name: \texttt{#1}.}\par\smallskip}
+\newcommand{\WG}{\operatorname{wordGrid}}
+\newcommand{\can}{\operatorname{can}}
+\setlist{itemsep=3pt,topsep=5pt}
+\setlength{\emergencystretch}{3em}
+\setlength{\parskip}{3pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Statement E: the exterior native map}
+\fancyfoot[C]{\thepage}
+\title{Statement E: An Explicit Exterior Native Map\\[6pt]
+\large A finite event construction and a direct canonical-class proof}
+\author{}
+\date{2 November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Statement E of the supplied problem brief, using its expressly
+granted analytic word, native-complex, and binary-seam inputs.  A finite
+projection of a suitably chosen nearby normalization gives a transitive
+factorization of the central event word into conjugated local branch
+words and positive single generators.  Explicit signed word-grid
+relations, a finite Hurwitz algorithm, and star scissors turn this into
+an exact seam of marked factor grids.  We give the protected-summand
+cancellation rules needed to remove every conjugator.
+
+The local maps are constructed directly on the native complexes over
+$\mathbb F_2[T,T^{-1}]$.  A rectangle identity gives a polynomial
+degree-zero detecting equivalence for each degree-minus-one O switch.
+Component derivatives turn the global class calculation into the
+determinant of an explicitly chosen rooted-tree incidence matrix.
+Explicit auxiliary contractions and an explicit simple-factor
+functional finish the construction.  The resulting map has Maslov
+degree zero, shifts $(0,\mu(V)/2)$, and sends the canonical class to
+the canonical class.  All additional analytic and combinatorial
+lemmas are proved, including the native maps used on intermediate
+auxiliary marking pairs.  The document includes exact seam formulas,
+the full operation count, exceptional cases, a fully indexed
+$S=4,\mu(V)=1$ example, and a dependency ledger.
+\end{abstract}
+\begingroup
+\small
+\setlength{\parskip}{0pt}
+\tableofcontents
+\endgroup
+\newpage
+
+
+\section{Statement E and the inputs used}
+\label{sec:statement}
+
+We use the notation and the explicitly granted inputs of the supplied
+problem brief~\cite{brief}.  An \emph{assembly} and a \emph{level} mean
+the data specified there, including their invariant identities.  The
+assertion proved here is the chain-map statement itself.
+
+\begin{theorem}[Statement E]\label{thm:E}
+Let $\boldsymbol n:(\mathbb C^2,0)\to(\mathbb C^3,0)$ be a holomorphic
+map germ with an injective representative and $(d\boldsymbol n)_0=0$.
+There exist an assembly, an allowed nonzero level $s_0$, a positive word
+$\mathbf w$ on $S$ strands, positive words $\beta_j$ on $a'_j$ strands
+for the enumerated singular points $Q_j$, and grids $D_j$ such that
+\begin{align*}
+ &\operatorname{cycles}(\pi(\mathbf w))=b,
+ &&\ell(\mathbf w)+S(S-1)+b=2\delta(W)+S,\\
+ &2\le a'_j\le t_J,\qquad \operatorname{cycles}(\pi(\beta_j))=1,
+ &&\ell(\beta_j)+1=2\delta_j+a'_j,
+\end{align*}
+each $\beta_j$ contains every generator, and
+$\operatorname{wordGrid}(\beta_j)\sim D_j$.
+Every $D_j$ has size at least two.  They are seam prepared, and there
+is an $\mathbb F_2$-linear chain map in each Maslov degree
+\[
+ \psi:C\bigl(\operatorname{wordGrid}(\mathbf d_S\mathbf w)\bigr)
+       \longrightarrow C\bigl(\operatorname{iteratedSeamGrid}(D)\bigr)
+\]
+of Maslov degree zero, with bifiltration shifts $(0,\mu(V)/2)$, for which
+\[
+ \psi_*\operatorname{can}
+       \bigl(\operatorname{wordGrid}(\mathbf d_S\mathbf w)\bigr)
+   =\operatorname{can}\bigl(\operatorname{iteratedSeamGrid}(D)\bigr).
+\]
+One can take $a'_j=a_j$.  More strongly, the constructed $D_j$ satisfy
+$X(0)=0$, $O(\mathrm{last})=0$, and
+$X(\mathrm{last})=\mathrm{last}$ simultaneously.  Thus all row
+rotations in the final iterated seam are the identity.
+\end{theorem}
+
+The proof constructs the map directly.  Some intermediate homogeneous
+maps have degrees $-1$ and $+1$; their composite has degree zero.
+Auxiliary pairs of marking permutations are used for the formulas
+of those maps.  The source and target in the theorem are valid native
+grids.  This is an alternative to the restricted M/X/B movie in
+Section~3.4 of the brief.  In particular, it makes no claim to be a
+movie consisting only of those three permitted kinds.
+
+Here is the numerical structure of the construction.  A finite event
+factorization has $N$ singular factors and $B$ positive single-generator
+factors.  Put
+\begin{equation}\label{eq:global-counts}
+ r=N+B,\qquad s=(S-1)(r-1),\qquad
+ U=\sum_{j=1}^N(S-a_j)+B(S-2).
+\end{equation}
+The analytic calculation proves
+\begin{equation}\label{eq:B-intro}
+ B=S-\sum_j a_j+N-1+\mu(V),
+ \qquad s-U=\mu(V).
+\end{equation}
+The scissor construction has $s-U$ X switches and $U$ O switches.
+The O switches are paired algebraically with $U$ auxiliary
+contractions.  A determinant calculation, proved below from rectangle
+counts, gives the canonical-class identity for this complete
+composition.  A separate degree-zero normalization of each four-mark
+auxiliary block contributes no filtration shift.  Finally an explicit
+functional removes each single-generator tensor factor.
+
+\subsection{The admitted inputs}
+
+We use the following statements precisely in the form granted in
+Sections~2 and~5 of the brief:
+\begin{enumerate}
+\item The assembly and arbitrarily small allowed levels exist;
+$v=z_0\circ\boldsymbol n$ is reduced; the nearby normalization is
+smooth; its singular image germs are unibranch with
+$2\le a_j\le t_J$; $N\ge1$; and
+\[
+ 2\delta(V)+M=S,\quad
+ \delta(W)=\delta(V)+\sum_j\delta_j,\quad
+ \mu(V)=2\delta(V)-b+1,\quad S\ge4.
+\]
+The branch count of the source and central image is the same $b$.
+\item The central and local \emph{event-word} constructions (I1),
+(I2), (B1), and (B2) are available for transverse projections.
+Thus the central word is $\mathbf d_S\mathbf w$, with
+$\mathbf w$ positive of cycle count $b$, and
+\[
+ \ell(\mathbf d_S\mathbf w)=2\delta(W)+S-b,\qquad
+ \ell(\beta_j)=2\delta_j+a_j-1.
+\]
+The local $\beta_j$ is a positive word with one cycle and every
+generator.  We use these event words, rather than an inference from
+ambient link isotopy.
+\item The native rectangle differential squares to zero.  The
+degree-zero polynomial homology image of every valid grid is one
+dimensional and nonzero.  The given native commutation and cyclic
+permutation maps have degree zero, shifts $(0,0)$, and preserve its
+nonzero element.  The supplied combinatorial corner reduction
+expresses the other stabilization orientations using the primitive
+orientations, commutations, and cyclic permutations.
+\item The binary seam--tensor comparison is a filtered chain homotopy
+equivalence of degree zero and shifts $(0,0)$ in both directions,
+with the stipulated canonical-class identity.  No naturality of
+that comparison for derivatives of O variables is assumed or used.
+\end{enumerate}
+All projection, event-factorization, signed-word, marked-cancellation,
+seam-coordinate, auxiliary-map, and class-pairing assertions beyond
+these inputs are proved below.  Weierstrass preparation and division,
+continuity of polynomial roots, the implicit function theorem,
+Puiseux parametrization, and the one-variable maximum principle are
+the elementary analytic tools permitted by the brief.  The explicit
+compact vector-field flows used below also give their own local
+trivializations.
+
+\section{Conventions and native maps along ordinary moves}
+\label{sec:conventions}
+
+All coefficients are in $\mathbb F_2$ and
+$\Lambda=\mathbb F_2[T,T^{-1}]$.  A size-$n$ grid is specified by
+permutations $O,X$ of $\{0,\ldots,n-1\}$, with
+$O(c)\ne X(c)$ and $n\ge2$.  A marking in square $(c,r)$ has centre
+$(c+\tfrac12,r+\tfrac12)$.  A state $x$ is a permutation, represented
+by the lattice points $(c,x(c))$.  For finite sets,
+\[
+ I(P,Q)=\#\{(p,q):p_1<q_1,\ p_2<q_2\},\qquad
+ J(P,Q)=\frac{I(P,Q)+I(Q,P)}2.
+\]
+Write
+\[
+ M_O(x)=J(x,x)-2J(x,O)+J(O,O)+1,\qquad
+ A(x)=\frac{M_O(x)-M_X(x)}2-\frac{n-1}2 .
+\]
+The complex is the free $\Lambda$-module on the states, with
+\[
+ d x=\sum_y\ \sum_{q\in\operatorname{Rect}^{\circ}(x,y)}
+            T^{n_O(q)}y,\qquad
+ \deg(T^kx)=M_O(x)-2k.
+\]
+Here the southwest and northeast corners of a rectangle from $x$
+to $y$ belong to $x$, its other corners belong to $y$, and its
+interior contains no point of $x$.  Rectangles containing X markings
+are counted.  The two filtration coordinates of $T^kx$ are
+$(-k,A(x)-k)$.  The polynomial subcomplex $P$ is spanned by the
+monomials with $k\ge0$.  Its nonzero degree-zero homology image in
+$C$ is denoted $\operatorname{can}$.
+
+The following two rectangle formulas follow by the four-corner
+indicator calculation in $J$:
+\begin{equation}\label{eq:rectangle-gradings}
+ M_O(x)-M_O(y)=1-2n_O(q),\qquad
+ A(x)-A(y)=n_X(q)-n_O(q)
+\end{equation}
+for an empty rectangle $q:x\to y$.  For a nonempty rectangle, the
+first right-hand side has the additional term
+$2\#(\operatorname{Int}q\cap x)$.  To verify the formulas, replace
+the two diagonal state points by the other diagonal.  A state point
+inside contributes two to the $J(x,x)$ difference; a marking inside
+contributes two to the $2J(x,O)$ difference; points outside contribute
+zero.  The moving corners contribute one.  Choose cuts outside a
+torus rectangle to obtain the same calculation for wrapping
+rectangles.  Transposing both coordinates preserves these formulas
+and the gradings, with the state permutation replaced by its inverse.
+
+An \emph{auxiliary pair} permits $O(c)=X(c)$.  Its complex and
+gradings use the same formulas.  Its canonical class is well defined
+whenever $n\ge2$: choose the disjoint permutation $Y(c)=O(c+1)$ and
+identify its O complex with the valid grid $(O,Y)$.  The complex,
+degree, polynomial subcomplex, and resulting class do not depend
+on this choice.  Auxiliary pairs are used only for explicitly given
+algebraic maps; the theorem's endpoints are valid grids.
+
+\begin{lemma}[Polynomial nonvanishing; uses the canonical-class input]
+\label{lem:N}
+\formalname{polynomialImageNonzero}
+A degree-zero chain map with first shift zero sends the canonical
+class either to zero or to the target's canonical class.  Thus
+nonvanishing of that image suffices for the required class identity.
+\end{lemma}
+\begin{proof}
+The map takes $P$ into $P$ and therefore takes the degree-zero
+polynomial homology image into that of the target.  The latter has
+exactly one nonzero element.  The same argument applies to auxiliary
+pairs by their O-complex identification.
+\end{proof}
+
+\begin{lemma}[Transport along ordinary moves; uses the native move inputs]
+\label{lem:move-transport}
+\formalname{movesToNativeMap}
+Every explicit finite ordinary-move sequence between grids of size
+at least two gives $\Lambda$-linear maps in both directions of degree zero, shifts
+$(0,0)$, and canonical-class identity.  After O markings are coloured
+constantly on each component, the maps may be chosen to intertwine,
+on homology, the sums of the O derivatives of every colour.  A
+stabilization gives its new O the colour of its component.
+\end{lemma}
+\begin{proof}
+For the degree, filtration, and class assertions, apply the granted
+maps to each commutation and cyclic permutation.  For a primitive
+stabilization use the explicit maps verified in
+Section~\ref{sec:type-r-independent}; for another corner apply the
+supplied combinatorial corner reduction and compose those maps.
+Reverse the reduction to obtain the other direction.  Induction on
+the length of the sequence proves the assertions.  The separate-variable
+proof in Section~\ref{sec:type-r-independent} verifies the derivative
+claim for the primitive maps, commutations, and permutations.
+Its differentiated identities compose, so the same induction proves
+that assertion.  This proves the map version of the corner reduction
+and the finite-sequence assertion M702; no invariance theorem for
+isotopic links is used.
+\end{proof}
+
+For completeness, the seam of sizes $n+1,m+1$, under the conditions
+$X_G(n)=n$, $X_H(0)=0$, $O_H(m)=0$, is the size-$n+m+1$ pair
+\begin{equation}\label{eq:seam-definition}
+ \Sigma.Y(c)=
+ \begin{cases}
+   G.Y(c),&c<n,\\
+   n+H.Y(d),&c=n+d,\ H.Y(d)\ne0,\\
+   G.Y(n),&c=n+d,\ H.Y(d)=0,
+ \end{cases}
+ \quad Y\in\{O,X\}.
+\end{equation}
+For arbitrary prepared factors, at an intermediate size $q$ the
+specified row rotation is addition of
+$q-1-X(\mathrm{last})$ modulo $q$.  The iterated size is
+$\sum_j\operatorname{size}(D_j)-(N-1)$.  Our stronger preparation
+makes each of these additions zero.
+
+Generators have indices starting at zero and
+$\rho_m=\sigma_0\cdots\sigma_{m-2}$,
+$\mathbf d_m=\rho_m^m$.  The positive letter $\sigma_r$ has the
+three-column marking heights
+\[
+ O=(r+\tfrac12,r,r+1),\qquad
+ X=(r,r+1,r+\tfrac12).
+\]
+The negative letter uses
+$O=(r+\tfrac12,r+1,r)$,
+$X=(r+1,r,r+\tfrac12)$.
+Integer-height arcs join successive occurrences of that rank
+cyclically; the middle arc joins the first and third column of its
+letter.  Rows are ordered by their heights, with a specified tie
+order.  This recovers the positive word grid of the brief up to its
+allowed tie changes.  A completely unused rank, in the signed
+extension, is retained as an explicit four-mark $2\times2$ component
+when it arises by cancellation.  All initial word normalizations
+will retain every generator.
+
+Tracing a component through either three-column gadget exchanges
+its two integer ranks.  Consequently the components of a closed
+signed word grid correspond to the cycles of its word permutation.
+This can also be checked by iterating
+$c\mapsto X^{-1}(O(c))$: the internal middle arc is traversed once
+and the next integer arc is precisely the outgoing arc of the
+transposed rank.  This elementary incidence observation will be used
+to count the auxiliary components.
+
+
+\section{A finite projection and its explicit event factorization}
+\label{sec:finite-projection-complete}
+
+\begin{lemma}[Finite event factorization; new analytic]
+\label{lem:analytic-factorization}
+\formalname{finiteProjectionEventFactorization}
+For an assembly as in Theorem~\ref{thm:E}, there are an allowed level
+$s\ne0$ and a transverse projection $h$ such that a connected compact
+normalization level has a proper finite projection of degree $S$,
+unramified at its boundary and containing all the level's singular
+points.  There is a finite signed-word derivation, up to whole-word
+conjugacy, of
+\[
+ \mathbf d_S\mathbf w\ \sim\
+ \prod_{l=1}^{N+B}\gamma_l\eta_l\gamma_l^{-1},
+\]
+where the cores consist of the $N$ supplied local positive event
+words and $B$ positive single generators.  The permutations of the
+conjugated factors $\gamma_l\eta_l\gamma_l^{-1}$
+generate a transitive group, and
+$B=S-\sum_j a_j+N-1+\mu(V)$.  All projection, level, path, and
+finite-event choices are made by the rules in the proof.
+\end{lemma}
+\begin{proof}
+
+We prove the analytic assertions needed for the event construction.  In
+particular we do not require that a single linear projection have only
+simple critical points or distinct critical values.  Ordinary higher
+ramification will be replaced by a finite local family of simple
+ramifications, at the level of boundary configurations.
+
+\subsection{An elementary local finite-map fact}
+
+We first spell out the finite-map consequence of Weierstrass preparation
+that will be used.  Suppose $F=(f,g)$ is holomorphic near a point of
+$\mathbb C^2$ and that its fibre through that point is isolated there.
+Then $F$ is open at that point and has finite fibres on a sufficiently
+small representative.  Translate the point and its value to zero, and
+choose source coordinates $(u,w)$ in which $f$ is regular in $w$.
+Preparation, with $s$ as parameter, writes $f(u,w)-s$ as a unit times a
+monic polynomial $P(u,s;w)$ of some degree $p$.  Divide $g(u,w)-t$ by
+$P$, obtaining a polynomial remainder $Q(u,s,t;w)$ of degree less than
+$p$.  Multiplication by $Q$ in the free module with basis
+$1,w,\ldots,w^{p-1}$ modulo $P$ is a $p\times p$ matrix.  Its determinant
+$R(u,s,t)$ vanishes exactly when $P$ and $Q$ have a common root.  This
+last assertion follows by factoring $P$ over $\mathbb C$: multiplication
+by $Q$ is invertible in each factor $\mathbb C[w]/(w-a)^e$ exactly when
+$Q(a)\ne0$.
+
+The isolated-fibre assumption says that $R(u,0,0)$ has an isolated zero
+at $u=0$.  A second preparation therefore writes $R$ as a unit times a
+monic polynomial in $u$, with coefficients holomorphic in $(s,t)$.
+For every sufficiently small $(s,t)$, its roots remain near zero by
+continuity of roots.  Each is accompanied by a common root of $P,Q$,
+also near zero.  Thus every sufficiently small target point has a
+preimage in any prescribed sufficiently small source neighbourhood.
+The same two monic equations bound the number of points in a fibre.
+This proves the asserted local openness and finiteness, using only
+preparation, division, and continuity of polynomial roots.
+
+We will also use the elementary observation that a compact analytic
+subset of an open subset of $\mathbb C^2$ is finite.  If it had a
+positive-dimensional irreducible component, choose a coordinate linear
+function nonconstant on that component and a point where its absolute
+value is maximal.  A local curve branch through that point, parametrized
+by preparation or Puiseux expansion, contradicts the one-variable
+maximum principle.  A function constant on a local branch of an
+irreducible component is constant on that component by analytic
+continuation, so the chosen nonconstant function supplies such a
+nonconstant branch.  A two-dimensional component contains an open set,
+where the usual maximum principle gives the same contradiction.  Finally,
+a compact zero-dimensional analytic set is finite, since its points
+are isolated and a finite collection of their isolating neighbourhoods
+covers it.
+
+\subsection{A proper representative with the correct number of sheets}
+
+Put $v=z_0\circ\boldsymbol n$.  Choose a target-section coordinate
+$\xi_0$ transverse to all the central branches, and a complementary
+coordinate $\zeta$.  Write $h_0=\xi_0\circ\boldsymbol n$ and
+$k=\zeta\circ\boldsymbol n$.  The common zero of $(v,h_0)$ is isolated:
+on $v=0$ its image lies in $W\cap\{\xi_0=0\}$, whose germ is just the
+origin by transversality; injectivity then gives the unique preimage.
+
+Choose a closed Euclidean source ball $\overline B_R$ inside a
+representative on which $\boldsymbol n$ is injective, with zero as the
+only common zero of $(v,h_0)$.  Choose it also inside a representative
+of the finitely many curve branches and isolated points of the
+critical-set germ of $\boldsymbol n$; the finite-branch assertion is
+proved below.  We also take it inside the isolated-critical-point
+representative of $v$, justified below.  Thus those
+later arguments will not require changing
+this already fixed ball.  Then
+\[
+ \eta=\min_{\partial B_R}\max(|v|,|h_0|)>0.
+\]
+There is no additional boundary-choice assertion hidden here: the
+boundary is compact and contains no common zero.  Choose positive
+target radii smaller than $\eta$.  The set
+\[
+ \Omega=\{p\in B_R:|v(p)|<\epsilon_0, |h_0(p)|<\rho_0\}
+\]
+maps properly to $\Delta_{\epsilon_0}\times\Delta_{\rho_0}$, since the
+preimage of any compact subset is a closed subset of $\overline B_R$
+disjoint from its boundary.  Its fibres are compact analytic subsets
+and hence finite.  Local openness follows from the preceding
+Weierstrass argument.
+
+Each connected component of $\Omega$ is open and closed in $\Omega$.
+Its image is open by local openness and closed by properness.  Thus
+every nonempty component maps onto the connected target bidisc and
+contains a point above $(0,0)$.  Since that fibre consists only of zero,
+$\Omega$ is connected and the map is onto.
+
+For a small nonzero $\xi_0$, the central curve has exactly $S$ distinct
+points above it.  Indeed its transverse Weierstrass degree is its
+multiplicity $S$, and on each normalized branch
+$\xi_0=t^m u(t)$ with $u(0)\ne0$; after replacing $t$ by
+$t\,u(t)^{1/m}$, this is $t^m$.  Its derivative is nonzero off zero,
+and the distinct central branches do not intersect away from zero after
+shrinking.  Injectivity identifies these $S$ points with their $S$
+source preimages.  At each such source point, $dv\ne0$.
+The restriction of $\boldsymbol n$ from the smooth source branch to
+the smooth image branch is locally an injective holomorphic map of
+one complex variable.  Its first nonzero power must have exponent
+one, since a higher power has more than one nearby preimage by
+continuity of roots.  Its derivative is therefore nonzero.
+The transverse Puiseux calculation now gives
+$dh_0|_{\ker dv}\ne0$, so $d(v,h_0)$ is invertible.
+
+Here $dv$ has no zero in a sufficiently small punctured source
+neighbourhood.  To verify this from reducedness, a positive-dimensional
+branch of the analytic set $\{dv=0\}$ would have $v$ constant, hence
+zero, on its normalization.  It would therefore be contained in the
+singular locus of the reduced plane curve $v=0$.  That singular locus
+is isolated: otherwise a factor of the reduced equation would divide
+both its partial derivatives, contrary to squarefreeness in
+Weierstrass preparation.  This justifies choosing the initial ball
+inside a representative with no other isolated critical points.
+
+Fix $0<\rho<\rho_0$ and a small closed annulus around $|h_0|=\rho$.
+The inverse image of that annulus at $v=0$ is compact and
+$d(v,h_0)$ is invertible there.  Properness and a convergent-subsequence
+argument therefore allow $\epsilon_0$ to be decreased so that this
+invertibility holds on the annulus for all $|v|\le\epsilon_0$.
+In particular all the vertical-boundary fibres are unramified, and
+their cardinality is $S$, by the implicit function theorem and
+properness, starting with their known cardinality at $v=0$.
+
+At this point, before choosing the nonzero level, choose a smooth
+central point $p$ with $0<|h_0(p)|<\rho/4$.  The implicit function
+theorem for $v$ gives a section $\sigma(s)$ through $p$.  Fix a smaller
+radius $\epsilon>0$ on which it is defined, with
+$|h_0(\sigma(s))|<\rho/2$ on the closed disc of that radius.  Decrease
+the preceding representative radius to this $\epsilon$ now.  This
+order of choices ensures that a later choice of an allowed nonzero
+level need not be changed in order to obtain a section.
+
+\subsection{Capturing the singular points and choosing the final direction}
+
+The critical set of $\boldsymbol n$ is a proper analytic subset of the
+source: if all its $2\times2$ minors vanished identically, the local
+rank theorem on the open rank-one locus would produce positive-dimensional
+fibres, contradicting injectivity.  Its germ has only finitely many
+curve branches.  The function $v$ is nonconstant on each such branch
+$C$.  Indeed, on its normalization the map
+$\boldsymbol n|_C$ is nonconstant and generically has nonzero derivative.
+At those points the rank of $d\boldsymbol n$ is one and its image is
+spanned by the tangent to $\boldsymbol n(C)$.  If $v|_C$ vanished
+identically, $z_0$ would annihilate that image, giving $dv=0$ along
+$C$, contrary to the isolated critical point of $v$.
+
+On a normalized critical branch, therefore,
+$v=t^q a(t)$ with $q\ge1$ and $a(0)\ne0$.  For every fixed small
+parameter-disc annulus its absolute value has a positive minimum.
+Consequently every intersection of these branches with $v=s$ tends to
+zero as $s\to0$.  By the choice of the source ball above, these
+are all the critical points of $\boldsymbol n$ in that representative.
+In particular,
+by choosing an allowed nonzero level sufficiently small, all of the
+singular points listed in that level lie in $B_R$ and satisfy
+$|h_0|<\rho/4$.  None is lost when the finite representative is used.
+There are no additional singular points, since the restriction is
+injective and is the normalization, as assumed in the question.
+
+Fix such a level $s$.  If necessary replace
+$h_0$ by $h=h_0+\lambda k$, with $\lambda$ arbitrarily small.  There
+are only finitely many forbidden values of $\lambda$: those for which
+the new projection vanishes on a central tangent or on the tangent of
+one of the finitely many branches at the $Q_j$.  Every nonzero tangent
+vector excludes at most one $\lambda$, since $(\xi_0,\zeta)$ are
+coordinates.  Choose $\lambda$ outside that finite set.
+
+All the representative properties can be retained with the already
+chosen level $s$.  Explicitly, $k$ and $\det d(v,k)$ are bounded on
+$\overline B_R$, while $\det d(v,h_0)$ has a positive lower bound on
+the compact vertical-boundary annulus.  Choose $|\lambda|$ so small
+that $h-h_0$ is smaller than its annular collar width and
+$\lambda\det d(v,k)$ is smaller than half that lower bound.  Then
+$d(v,h)$ is still invertible on $|h|=\rho$ for the same small range
+of $v$.  Also require $|h-h_0|<\eta-\rho$ on
+$\overline B_R$.  At a boundary point with $|v|\le\epsilon<\eta$
+we have $|h_0|\ge\eta$, and hence $|h|>\rho$.
+Thus no preimage of the closed target bidisc meets
+$\partial B_R$.  Properness follows exactly as before.  Transversality
+on the central branches gives a unique common zero of $(v,h)$:
+their Puiseux units remain nonzero uniformly for sufficiently small
+$\lambda$.  Compact fibres are finite, so the same openness and
+connectedness arguments apply to the new $\Omega$.  The central sheet
+count is still $S$.  This small change does not remove any $Q_j$ from
+the representative.  Also require $|\lambda|$ small enough that the
+already chosen section still satisfies $|h(\sigma(s))|<3\rho/4$ on
+the closed base disc.  This is possible by compactness of its image.
+We henceforth use $h$ and this representative, with the previously
+fixed $\epsilon$ and the previously chosen nonzero level.
+
+At every $Q_j$, transversality gives local degree exactly $a_j$.
+We impose no condition that ordinary critical points be simple or that
+their values be distinct.
+
+\subsection{Connectedness of the compact level}
+
+Distinguish the open set $\Omega$ from the set with its vertical boundary
+adjoined:
+\[
+ E=\{p\in B_R:|v(p)|<\epsilon, |h(p)|\le\rho\},
+ \qquad E_s=v^{-1}(s)\cap E.
+\]
+The fibres $E_s$ are compact.  For $s\ne0$ they are smooth complex
+curves with smooth boundary, because $dv\ne0$ and $d(v,h)$ is
+invertible near $|h|=\rho$.  The assertion of compactness here refers
+to $E_s$, not to the open fibre in $\Omega$.
+
+We give the needed local trivializations explicitly.  In source
+coordinates $z_1,z_2$, put
+\[
+ Y_0=\frac{(\overline{v_{z_1}},\overline{v_{z_2}})}
+ {|v_{z_1}|^2+|v_{z_2}|^2},\qquad
+ Y_b=\frac{(h_{z_2},-h_{z_1})}
+ {v_{z_1}h_{z_2}-v_{z_2}h_{z_1}}.
+\]
+The first is defined away from the zero level, and the second is
+defined on the vertical-boundary collar.  Both satisfy $dv(Y)=1$,
+and $dh(Y_b)=0$.  Choose a smooth function of $|h|$ equal to one near
+$\rho$ and zero outside that collar, and use it to interpolate between
+$Y_0$ and $Y_b$.  The resulting vector field $Y$ satisfies $dv(Y)=1$
+and is tangent to the vertical boundary.  For a short smooth base path
+$\gamma$, integrate
+\[
+ \dot p(t)=\gamma'(t)Y(p(t)).
+\]
+On a compact strip over a closed subdisc avoiding zero this vector field
+and its derivatives are bounded.  Its solutions therefore exist for
+the required sufficiently short interval; they cannot leave through the
+vertical boundary, and reversing the path gives the inverse.  These
+flows identify nearby compact fibres and their boundaries.  A finite
+subdivision handles any compact base path in the punctured disc.
+In particular the finite sets of their connected components are locally
+constant and have unique transport along paths.
+
+The open set $\Omega\setminus\{v=0\}$ is path connected.  Indeed
+$\Omega$ is connected.  Connect two points by a chain of convex balls
+inside it, choosing intermediate points outside $v=0$.  On a complex
+line through two such points the restriction of $v$ is not identically
+zero.  It has only finitely many zeros near the compact segment, and
+small arcs in that complex line detour around them.  Performing this
+operation in the finitely many balls gives a path in the complement.
+
+The section $\sigma(s)$ was chosen before the nonzero level and before
+the small projection perturbation.  By the explicit order of choices
+above it is defined on the \emph{entire} disc $\Delta_\epsilon$ and
+stays in $\Omega$ for the final projection.  No further shrinking,
+and no change of the selected nonzero level, is required here.
+
+Now fix a nonzero base value $s_*$.  Any component of $E_{s_*}$ contains
+an interior point.  Join that point to $\sigma(s_*)$ by a path in
+$\Omega\setminus\{v=0\}$.  Its projection is a loop in
+$\Delta_\epsilon^*$.  Let $C_x$ be the component of the chosen initial
+point, let $C_0$ contain $\sigma(s_*)$, and let $T$ be the bijection of
+component sets supplied by transport around this loop.  The chosen
+path proves $T(C_x)=C_0$.  The path obtained by applying the section
+$\sigma$ to the same base loop proves $T(C_0)=C_0$.  Injectivity of
+$T$ gives $C_x=C_0$; no equality of their initial components has been
+assumed.  This proves that $E_{s_*}$ is
+connected.  The argument uses a section on the entire punctured disc,
+so no classification of its fundamental group or winding-number theorem
+is needed.
+
+On each compact smooth level, $h$ is nonconstant on each component
+because its fibres are finite.  Its critical points are therefore
+isolated and finite; there are none on the boundary collar.  Away from
+their finitely many values, properness and the implicit function theorem
+give a covering.  The punctured base disc is path connected, and its
+regular fibres have the same cardinality as those near its outer circle,
+namely $S$.
+
+\subsection{Local factors, without a generic-Morse projection}
+
+Fix a critical value $c$.  Its finitely many preimages have disjoint
+normalization neighbourhoods and distinct $\zeta$ coordinates, by
+injectivity of $\boldsymbol n$.  There are only finitely many such
+fibres.  Rotate the complementary $\zeta$ coordinate by a fixed unit
+complex number avoiding the finitely many directions for which two
+distinct values in one of those fibres have the same real part.
+Choose small $\zeta$ discs whose real projections are disjoint within
+each such fibre.  Thus the sheets of each local cluster occupy
+consecutive positions in their real-coordinate order.  Choose a sufficiently small
+disc about $c$ so that each moving cluster stays in its own disc.  The
+remaining sheets stay away from those discs.
+
+At a singular point $Q_j$, the supplied branch-word construction in the
+transverse coordinates $(h,\zeta)$ gives the positive event word
+$\beta_j$ on $a_j$ sheets, with the cycle, generator-occurrence, and
+length properties stated in the question.  We use that explicit
+event-word construction, not only a statement about the knot type of
+its closure.
+
+At a smooth critical point, a normalization parameter can be chosen so
+that $h-c=t^d$ for some $d\ge2$: take a holomorphic $d$th root of the
+unit in its leading expansion.  Since the plane curve is smooth there,
+$\zeta(t)$ has nonzero derivative and is injective on a smaller
+parameter disc.  Replace $t^d$ locally by
+\[
+ p_u(t)=t^d-u\varepsilon t,\qquad 0\le u\le1,
+\]
+where $\varepsilon\ne0$ is sufficiently small.  On a fixed sufficiently
+small circle $|h-c|=r$, all $d$ roots remain in that parameter disc and
+remain distinct throughout the family.  To verify this explicitly,
+the critical points satisfy $dt^{d-1}=u\varepsilon$, and their critical
+values are $(1-d)t^d$, whose absolute values are less than $r$ when
+$\varepsilon$ is small.  Thus no critical value reaches the boundary
+circle; continuity of roots and injectivity of $\zeta(t)$ give a
+continuous family of configurations of distinct points there.
+
+For $u=1$, the $d-1$ critical points are simple and their critical
+values are distinct: multiplication by $\varepsilon/d$ identifies the
+distinct roots of $dt^{d-1}=\varepsilon$ with their $d$th powers.
+Near each of them the projection is, after a holomorphic coordinate
+change, $t\mapsto t^2$.  Its two roots make one counterclockwise half
+twist.  Cutting its local base disc along paths to these $d-1$ values
+therefore expresses its boundary configuration as a product of
+$d-1$ conjugated positive single-generator events.  The preceding
+boundary family identifies this factorization with the original
+ordinary ramification.  The local conjugating words are simply
+concatenated with its transport word in the global base.
+
+If several clusters have the same original critical value, their motions
+take place in disjoint $\zeta$ discs.  They can be performed consecutively
+instead of simultaneously: replace their common angular parameter by
+nondecreasing functions which run one cluster at a time.  Linear
+interpolation of these parameter functions is an explicit homotopy of
+configurations, because points in different discs never meet.  Thus the
+same factorization separates all the singular-cluster factors and all
+the ordinary positive single-generator factors, without assuming
+distinct original critical values.
+
+\subsection{Why the configuration homotopies give finite word relations}
+
+We record the elementary finite-event verification used above and
+below.  A continuous family of configurations of $S$ distinct complex
+points on a compact parameter rectangle has a positive minimum pairwise
+separation.  Its labels can be continued on the rectangle: cover the
+image locally by disjoint root discs and continue labels across a fine
+triangulation; consistency around each small triangle follows because
+each root stays in its own disc.  Triangle deletion gives consistency
+on the whole rectangle.
+
+For a transport path which has not already been assigned an event word,
+use a generic piecewise-affine approximation within these root discs,
+keeping its endpoint configurations fixed.  The finitely many endpoint
+configurations can be chosen with distinct real coordinates, by a small
+rotation and by moving the cut endpoints on their regular circles.
+The resulting path has finitely many transverse events and defines its
+word.  Thus no finiteness or transversality assertion about an arbitrary
+unperturbed continuous transport path is needed.
+
+Approximate the labelled coordinates by piecewise-affine functions on a
+sufficiently fine triangulation, keeping the error smaller than one
+quarter of the minimum separation.  The approximation, and the straight
+homotopy to it, still have distinct points.  On boundary paths already
+used to define words, choose vertices between their finitely many
+transverse events; sufficiently small changes preserve their words.
+The vertex coordinates may now be chosen generically within those open
+error bounds.  Only finitely many polynomial conditions are to be
+avoided: a real-coordinate tie at a vertex, coincident zero lines in a
+triangle, four equal real coordinates, three independent pair-equalities,
+an event intersection on a mesh edge, or equality of the movie-parameter
+coordinates of two unrelated exceptional events.  Each is a proper
+polynomial condition in the free vertex coordinates.  For example,
+three independent affine pair-differences have a common zero only if
+their three coefficient rows have zero determinant; its determinant is
+not identically zero.  Structural equalities involving three indices
+are retained, since the three pair-differences then satisfy their
+necessary linear relation.  Moving mesh vertices slightly, if needed,
+also avoids vertical interior edges.  Finitely many proper polynomial
+zero sets cannot fill any open choice of the vertex coordinates.
+
+In every triangle a pair-equality
+$\operatorname{Re}(z_i-z_j)=0$ is now a straight segment.  These segments
+form a finite arrangement.  As a vertical movie-parameter slice moves,
+its event word changes only in the following ways.
+First, at a local turn of one pair-equality arc along a mesh edge,
+two crossings of the same pair are born or disappear; their signs are
+opposite because the real difference crosses zero in opposite
+directions while the imaginary difference keeps its sign.  Second,
+two independent pair-equality arcs cross, interchanging events on
+disjoint adjacent pairs, which is far commutation.  Third, three real
+coordinates coincide.  Their imaginary coordinates remain distinct,
+and their six possible height orders give the braid relation, its
+inverse, or one of the four mixed-sign forms
+\[
+ aba^{-1}=b^{-1}ab,\quad
+ ab^{-1}a^{-1}=b^{-1}a^{-1}b,\quad
+ a^{-1}ba=bab^{-1},\quad
+ a^{-1}b^{-1}a=ba^{-1}b^{-1}.
+\]
+Each displayed relation follows from $aba=bab$ by multiplication and
+cancellation.  The arrangement has finitely many segments, turns, and
+intersections, so this procedure supplies a finite list of these word
+operations.  It neither invokes Reidemeister's theorem nor identifies a
+configuration-space fundamental group with an Artin group.
+
+This argument first applies to a homotopy of loops with fixed basepoint
+configuration, for which no event reaches the two endpoint edges of the
+parameter rectangle.  In a loop homotopy $L_s$ with moving basepoint
+$b(s)$, replace $L_s$ by the based loop
+\[
+ b|_{[0,s]}*L_s*\overline{b|_{[0,s]}}.
+\]
+These loops form a continuous homotopy with basepoint $b(0)$.
+The preceding argument then compares the initial event word with the
+conjugate of the final event word by the transport word of $b$.
+Equivalently, keeping an unbased loop cut records a crossing through
+that cut as a cyclic word rotation.  This treats the boundary case as
+well as every interior event of the arrangement.
+
+\subsection{Global factorization, exponent count, and transitivity}
+
+Choose polygonal cuts from a regular boundary basepoint to disjoint small
+discs about the distinct critical values.  The cuts are disjoint except
+at their basepoint and have a specified cyclic order there.  The cut
+disc with the small discs removed has a finite triangulation.  Removing
+its triangles successively deforms its outer boundary to the ordered
+product of path--small-circle--reverse-path loops.  The roots are
+distinct throughout.  Apply the finite-event verification above and
+the local factorizations just proved.  It gives an equality by explicit
+finite event relations of the form
+\[
+ w_{\rm out}\ \sim\ \prod_{l=1}^{N+B}\gamma_l b_l\gamma_l^{-1},
+\]
+where the $N$ singular factors are the positive words $\beta_j$ and the
+other $B$ factors are positive single generators.  Here
+$B$ is the sum of the ordinary ramification orders $d-1$; it need not
+be the number of original ordinary critical points.
+
+Over $|h|=\rho$ the source sheets vary by the implicit function theorem
+without collision as $v$ moves from zero to the chosen level, and
+$\zeta\circ\boldsymbol n$ separates them by injectivity.  Thus their
+outer configurations form a homotopy of closed $S$-braids.  If its
+basepoint configuration moves, include its transport path; the resulting
+word comparison is a conjugacy, again furnished by the finite-event
+verification.  The central branch construction supplied in the question
+then compares this outer word with $\mathbf d_S\mathbf w$.  All the
+relations and conjugacies preserve exponent sums.  Therefore
+\begin{align*}
+ B
+ &=2\delta(W)+S-b-\sum_j(2\delta_j+a_j-1)\\
+ &=S-\sum_j a_j+N-1+\mu(V).
+\end{align*}
+This computation uses only the supplied branch lengths and delta
+identities; no argument principle or Riemann--Hurwitz calculation is
+needed here.
+
+Finally let $\mathcal V$ be the finite set of critical values of the
+original finite projection.  Remove the \emph{entire} finite set
+$h^{-1}(\mathcal V)$ from the connected smooth normalization $E_s$,
+not just its ramification points.  A connected real surface remains
+path connected after finitely many interior points are removed: take
+a finite chartwise path and detour around those points in small
+coordinate discs.  A path in this complement between two points of
+one regular fibre projects to a loop avoiding $\mathcal V$.
+
+The monodromy of that loop is generated by the small critical-value
+loops.  Explicitly, approximate it polygonally away from the punctures,
+make it transverse to the chosen cuts, and contract each portion in the
+cut region by deleting triangles.  Its finitely many crossings of the
+cuts record a word in the path--circle--reverse-path loops.  This gives
+the required expression without a fundamental-group presentation.
+Consequently the permutations of the original critical-value loops
+act transitively on the $S$ sheets.  Every such permutation is a product
+of the permutations of the separated factors above, including the
+$d-1$ factors replacing an ordinary higher ramification.  Hence the
+permutations of all $N+B$ displayed factors also generate a transitive
+group, as required.
+
+\end{proof}
+
+
+\section{A rectangle proof of the native O-saddle pairing}
+
+\begin{lemma}[Native O calculus and incidence pairing; new combinatorial]
+\label{lem:O-calculus}
+\formalname{nativeOSaddleIncidence}
+For every labelled O diagram of size at least two, the differentiated
+rectangle maps $\Phi_i$ below are polynomial chain maps of degree
+$+1$, annihilating the canonical class on homology.  An adjacent O
+exchange has the explicit diagonal degree-$-1$ maps $F,F'$ below,
+with shifts $(0,-1/2)$.  For either of the two exchanged labels $i$,
+$K_i=\Phi_iF+F\Phi_i$ is a polynomial degree-zero homotopy equivalence,
+preserves the canonical class, and intertwines all marking
+derivatives on homology.  For any sequence of O exchanges, with
+intervening degree-zero polynomial canonical-class maps intertwining
+the colour derivatives, the product of as many colour derivatives
+as O exchanges has the determinant action
+\eqref{eq:determinant-pairing}.  In particular a rooted-tree incidence
+matrix gives coefficient one.
+\end{lemma}
+\begin{proof}
+
+All coefficients in this section have characteristic two.  Label the $n$
+$O$ markings and put $R=\mathbb F_2[U_1,\ldots,U_n]$.  The full
+multivariable grid differential is
+\[
+ D_Gx=\sum_y\sum_{r\in\operatorname{Rect}^{\circ}(x,y)}
+       \left(\prod_{h=1}^n U_h^{n_h(r)}\right)y,
+ \qquad n_h(r)=\#(r\cap O_h)\in\{0,1\}.
+\]
+Its square is zero: nonannular index-two domains have two decompositions
+into empty rectangles; the remaining domains are the horizontal and vertical
+annuli, and each $O_h$ occurs in precisely one annulus of each kind, giving
+$U_h+U_h=0$.  This argument counts rectangles containing $X$ markings.
+Write $d_G$ for the specialization $U_h=T$ for every $h$.
+
+\subsection{Derivative maps and a rectangle homotopy}
+
+Define
+\[
+ \Phi_h^G=\left.\frac{\partial D_G}{\partial U_h}\right|_{U_1=\cdots=U_n=T},
+ \qquad
+ \Phi_h^G(x)=\sum_{y,r} n_h(r)T^{n_O(r)-1}y.
+\]
+Every nonzero summand has $n_O(r)\ge1$, so this is a polynomial map,
+including when the original complex has been localized in $T$.  It has
+Maslov degree $+1$ and first filtration shift zero.  Since
+\[
+ A(y)-n_O(r)+1-A(x)=1-n_X(r),
+\]
+its second filtration shift is at most $1$.  If $O_h$ and an $X$ marking
+occupy the same square, the second shift is at most zero.
+
+Differentiating $D_G^2=0$ proves
+\[
+ d_G\Phi_h^G+\Phi_h^Gd_G=0.
+\]
+The differential is linear in each individual $U_h$, so its coefficient
+of $U_h^2$ in $D_G^2$ proves $(\Phi_h^G)^2=0$ strictly.  For $h\ne k$,
+twice differentiating proves
+\[
+ \Phi_h^G\Phi_k^G+\Phi_k^G\Phi_h^G
+ =d_G B_{hk}+B_{hk}d_G,
+ \qquad
+ B_{hk}=\left.\frac{\partial^2D_G}{\partial U_h\partial U_k}
+         \right|_{U=T}.
+\]
+Thus the induced derivative operators commute on homology.
+
+Let $p$ lie in the interior of a vertical grid circle, away from the
+horizontal grid circles, and suppose the two columns adjacent to this
+circle contain $O_i$ and $O_j$.  For a rectangle $r$ let $a_p(r)$ be one
+if its vertical boundary passes through $p$, and zero otherwise.  Define
+the multivariable map
+\[
+ \mathcal A_p^G(x)=\sum_{y,r} a_p(r)
+                      \prod_hU_h^{n_h(r)}y.
+\]
+Then
+\begin{equation}\label{eq:relative-rectangle-action}
+ D_G\mathcal A_p^G+\mathcal A_p^GD_G=(U_i+U_j)\operatorname{id}.
+\end{equation}
+Here is the entire additional check beyond the usual proof that $D_G^2=0$.
+For a decomposition $r_1*r_2$ the contribution to the left side is weighted
+by $a_p(r_1)+a_p(r_2)$.  This is the multiplicity at $p$, modulo two, of
+the vertical boundary of the composite domain, and hence is independent
+of its decomposition.  The two decompositions of every nonannular domain
+therefore cancel with the same weight.  The vertical boundary of a
+horizontal annulus is zero.  A vertical annulus has weight one precisely
+when it is one of the two annuli adjacent to the circle containing $p$.
+These two annuli contain $O_i$ and $O_j$, respectively.  Each has the usual
+unique empty-rectangle decomposition at each state, giving exactly the
+right side of \eqref{eq:relative-rectangle-action}.
+
+Let $A_p^G=\mathcal A_p^G|_{U=T}$.  Differentiating
+\eqref{eq:relative-rectangle-action} in $U_i$ and then specializing gives
+\begin{equation}\label{eq:clifford-relation}
+ \Phi_i^GA_p^G+A_p^G\Phi_i^G
+ =\operatorname{id}+d_GB_i^G+B_i^Gd_G,
+ \qquad
+ B_i^G=\left.\frac{\partial\mathcal A_p^G}{\partial U_i}\right|_{U=T}.
+\end{equation}
+The same identity holds with $j$ in place of $i$.
+
+\subsection{The O switch and its two detecting operators}
+
+Consider adjacent nonwrapping columns $a,a+1$.  In $G$ suppose
+\[
+ O_i=(a+\tfrac12,r+\tfrac12),\qquad
+ O_j=(a+\tfrac32,s+\tfrac12),\qquad r<s.
+\]
+In $H$ interchange these two $O$ markings, preserving their labels and
+their rows.  All other $O$ markings and all $X$ markings stay fixed.
+Set
+\[
+ e(x)=\mathbf1_{\{r<x(a+1)\le s\}},\qquad
+ F(x)=T^{e(x)}x,\qquad F'(x)=T^{1-e(x)}x.
+\]
+The elementary $J$-function calculation gives
+\[
+ M_O^H(x)-M_O^G(x)=2e(x)-1.
+\]
+The rectangle Maslov formula consequently gives, for every empty rectangle
+$q:x\longrightarrow y$,
+\begin{equation}\label{eq:O-exponent-change}
+ n_O^H(q)-n_O^G(q)=e(y)-e(x).
+\end{equation}
+It follows term by term that $F$ and $F'$ are chain maps of Maslov degree
+$-1$, with shifts $(0,-\tfrac12)$, and
+\[
+ F'F=T\operatorname{id},\qquad FF'=T\operatorname{id}.
+\]
+The reverse local pattern is covered by interchanging $F,F'$ and $G,H$.
+A cyclic permutation of columns reduces a wrapping column pair to this
+case.
+
+Define the degree-zero maps
+\[
+ K_i=\Phi_i^HF+F\Phi_i^G,\qquad
+ K'_i=\Phi_i^GF'+F'\Phi_i^H.
+\]
+Both preserve the polynomial subcomplex, and both have shifts
+$(0,\tfrac12)$.  Take $p=(a+1,r+\tfrac12)$.  A rectangle contains exactly
+one of $O_i^G,O_i^H$ precisely when its vertical boundary passes through
+$p$.  This is because the two points lie in adjacent squares on the same
+horizontal level, and the unique grid circle between them is $x=a+1$.
+Using \eqref{eq:O-exponent-change} to compare every individual rectangle
+therefore proves the exact identities
+\begin{equation}\label{eq:conjugated-derivative}
+ F'\Phi_i^HF=T\Phi_i^G+A_p^G,
+ \qquad F\Phi_i^GF'=T\Phi_i^H+A_p^H.
+\end{equation}
+For example, the coefficient of a rectangle $q:x\to y$ on the left of
+the first identity is
+\[
+ n_i^H(q)T^{e(x)+n_O^H(q)-1+1-e(y)}
+ =n_i^H(q)T^{n_O^G(q)}.
+\]
+The right side has coefficient
+$(n_i^G(q)+a_p(q))T^{n_O^G(q)}$, which is the same.
+
+Expanding and using $(\Phi_i^G)^2=(\Phi_i^H)^2=0$ gives
+\[
+ \begin{split}
+ K'_iK_i
+ &=\Phi_i^G(F'\Phi_i^HF)+(F'\Phi_i^HF)\Phi_i^G\\
+ &=\Phi_i^GA_p^G+A_p^G\Phi_i^G
+ =\operatorname{id}+d_GB_i^G+B_i^Gd_G.
+ \end{split}
+\]
+The identical calculation in $H$ gives
+$K_iK'_i=\operatorname{id}+d_HB_i^H+B_i^Hd_H$.
+Thus $K_i$ is a polynomial-preserving, degree-zero chain homotopy
+equivalence, with the displayed explicit inverse and homotopies.
+
+For later use, the induced $K_i$ intertwines every labelled derivative
+operator.  To prove this, first work over the ring in which only
+$U_i=U_j=u$ has been imposed.  The same rectangle calculation makes
+$F=u^e\operatorname{id}$ a chain map over this ring.  Differentiation in
+$u$ proves
+\[
+ K_i+K_j=d_HJ+Jd_G,\qquad J(x)=e(x)x.
+\]
+Differentiation in any other $U_k$ proves the strict identity
+$\Phi_k^HF=F\Phi_k^G$.  Now $\Phi_i^HK_i=K_i\Phi_i^G$ follows strictly
+from the square-zero identity.  For $j$ it follows on homology by
+replacing $K_i$ with $K_j$.  For any other $k$, it follows from the strict
+identity for $F$ and the commutation, on homology, of the derivative maps.
+In particular,
+\begin{equation}\label{eq:K-derivative-naturality}
+ (\Phi_k^H)_*(K_i)_*=(K_i)_*(\Phi_k^G)_*
+ \quad\hbox{for every label }k.
+\end{equation}
+
+\subsection{Why every derivative annihilates the canonical class}
+
+We first prove the slightly stronger fact
+\begin{equation}\label{eq:positive-polynomial-image-zero}
+ \operatorname{im}\bigl(H_m(P(G))\longrightarrow H_m(C(G))\bigr)=0
+ \qquad(m>0).
+\end{equation}
+This uses the explicitly proved $K_i$ equivalences and a finite
+permutation inequality; it uses no homology computation or grid isotopy
+theorem.  The differential, Maslov grading, and polynomial subcomplex
+ignore $X$.  Work temporarily with $O$-only grids and bubble-sort the
+$O$ permutation to $O(c)=n-1-c$ by adjacent column exchanges.  Each
+exchange has the degree-zero polynomial-preserving equivalence $K_i$
+constructed above.  Its proof did not use
+\eqref{eq:positive-polynomial-image-zero} or any assertion about the
+canonical class.  Each $K_i$ is injective on Laurent homology and maps
+the polynomial image into the polynomial image.  It therefore suffices
+to verify \eqref{eq:positive-polynomial-image-zero} for antidiagonal $O$.
+If ordinary grid notation is desired throughout, choose an arbitrary
+disjoint $X$ permutation at each stage; neither the complexes in this
+argument nor their first filtrations change.
+
+For a state $x$, put $\pi(c)=n-1-x(c)$, let
+$F(\pi)=\sum_c|\pi(c)-c|$, let $D(\pi)=\#\{c:\pi(c)<c\}$, and write
+$\operatorname{inv}(\pi)$ for its inversion count.  Directly from $J$,
+\[
+ M_O(x)=\operatorname{inv}(\pi)-\sum_c|\pi(c)-c+1|+1
+        =\operatorname{inv}(\pi)-F(\pi)-n+2D(\pi)+1.
+\]
+If $c(\pi)$ denotes the number of cycles, then
+\[
+ \operatorname{inv}(\pi)+n-c(\pi)\le F(\pi),
+ \qquad D(\pi)\le n-c(\pi).
+\]
+For completeness, prove the first inequality by repeatedly taking the
+least nonfixed index $i$, putting $j=\pi^{-1}(i)>i$, and interchanging
+the values at $i,j$.  Write $v=\pi(i)>i$.  This decreases the footrule
+by $2\min(v-i,j-i)$ and decreases the inversion count by
+\[
+ 1+2\#\{k:i<k<j,\ i<\pi(k)<v\}
+ \le 2\min(v-i,j-i)-1.
+\]
+It therefore decreases $F-\operatorname{inv}$ by at least one.  The
+transposition splits off the fixed point $i$ from its cycle, and hence
+exactly $n-c(\pi)$ such steps produce the identity.  This proves the
+first inequality.  The second follows because each cycle of length
+$q$ has at most $q-1$ deficient indices.  Consequently
+\[
+ M_O(x)\le -\bigl(n-c(\pi)\bigr)-n+2D(\pi)+1
+          \le D(\pi)-n+1\le0.
+\]
+Every polynomial monomial thus has nonpositive Maslov degree.  This
+proves \eqref{eq:positive-polynomial-image-zero}.  Equality $M_O=0$ forces
+$D(\pi)=n-1$ and hence
+$\pi=(n-1,0,1,\ldots,n-2)$, giving the unique state
+$\theta=(0,n-1,n-2,\ldots,1)$.  Thus the degree-zero polynomial
+chain group is the one-dimensional space generated by $\theta$.
+The supplied canonical-class theorem says that its degree-zero
+homology has nonzero image in Laurent homology.  It follows at once
+that $\theta$ is a cycle with nonzero Laurent class, and this class is
+the canonical class in the normal form.
+
+Since $\Phi_i^G$ is polynomial preserving of degree $+1$, applying it to
+a polynomial degree-zero representative of the canonical class and using
+\eqref{eq:positive-polynomial-image-zero} gives
+\[
+ (\Phi_i^G)_*\operatorname{can}(G)=0.
+\]
+Because $K_i$ has degree zero, preserves the polynomial subcomplex, and
+is an isomorphism on homology, Lemma N gives
+$(K_i)_*\operatorname{can}(G)=\operatorname{can}(H)$.  We have therefore
+proved the explicit O-switch pairing identities
+\begin{equation}\label{eq:O-switch-top-pairing}
+ (\Phi_i^H)_*F_*\operatorname{can}(G)
+ =(\Phi_j^H)_*F_*\operatorname{can}(G)=\operatorname{can}(H),
+ \qquad
+ (\Phi_k^H)_*F_*\operatorname{can}(G)=0\quad(k\notin\{i,j\}).
+\end{equation}
+
+\subsection{Component colours and the determinant formula}
+
+The fresh-label hypothesis can be removed.  Assign each $O$ marking a
+colour in a fixed finite set.  At a given stage put
+\[
+ \Psi_c=\sum_{\operatorname{col}(i)=c}\Phi_i.
+\]
+These are degree-one chain maps, polynomial preserving, whose induced
+operators commute and square to zero.  Indeed, the squares of the
+individual $\Phi_i$ vanish, and every mixed summand in $\Psi_c^2$ is an
+anticommutator, already proved null-homotopic.  Each $\Psi_c$ annihilates
+the canonical class by the positive-degree polynomial vanishing theorem.
+
+Suppose an O switch $F_e$ exchanges labels $i_e,j_e$.  The colour is
+attached to the labelled marking and moves with it.  Set
+\[
+ b_{c,e}=\mathbf1_{\{\operatorname{col}(i_e)=c\}}
+          +\mathbf1_{\{\operatorname{col}(j_e)=c\}}
+          \ \in\mathbb F_2.
+\]
+On homology the identities already proved give
+\begin{equation}\label{eq:colour-switch-commutator}
+ (\Psi_c^{\rm after})_* (F_e)_*
+ =(F_e)_*(\Psi_c^{\rm before})_*+b_{c,e}(K_e)_*.
+\end{equation}
+The same $K_e$ can be used for either endpoint of the edge since
+$K_{i_e}\simeq K_{j_e}$.  Moreover $K_e$ intertwines every $\Psi_c$.
+
+Let $F_1,\ldots,F_d$ be any sequence of $d$ O switches, and choose
+$d$ colours $c_1,\ldots,c_d$.  Let $B=(b_{c_r,e})_{1\le r,e\le d}$.
+Then
+\begin{equation}\label{eq:determinant-pairing}
+ (\Psi_{c_1}^{\rm final})_*\cdots(\Psi_{c_d}^{\rm final})_*
+ (F_d)_*\cdots(F_1)_*\operatorname{can}(G_0)
+ =\det(B)\,\operatorname{can}(G_d).
+\end{equation}
+To prove the formula, move the derivatives successively to the right
+using \eqref{eq:colour-switch-commutator}.  At a position still occupied
+by $F_e$ a derivative either passes through or consumes that position,
+replacing $F_e$ by $b_{c,e}K_e$.  A later derivative passes through a
+$K_e$ without any extra term, so a position can be consumed at most once.
+Every term in which a derivative reaches the initial canonical class
+vanishes.  Since there are exactly $d$ derivatives and $d$ positions,
+each surviving term consumes every position exactly once.  Such terms
+are indexed by bijections between the derivatives and the positions.
+Their coefficients sum to the permanent of $B$, which equals its
+determinant in characteristic two.  In every such term the operator
+product is exactly $K_d\cdots K_1$, in its original order; no
+commutativity of a $K$ with an $F$ is being used.  That product sends the
+initial canonical class to the final one.  This proves the formula.
+
+There may also be arbitrary intervening degree-zero, polynomial-preserving
+canonical-class maps $P$ which intertwine the colour derivatives.  The
+same expansion passes derivatives through each $P$ and proves the
+identical formula with the $P$'s left in their original positions.
+
+Here is the precise coefficient rule that gives colour naturality for
+native moves.  Replace the independent marking variables by colour
+variables $V_c$, namely $U_i=V_{\operatorname{col}(i)}$, and denote the
+resulting differential by $D^{\rm col}$.  For any chain map
+$P^{\rm col}$ defined over this polynomial ring, differentiation of
+\[
+ D_H^{\rm col}P^{\rm col}=P^{\rm col}D_G^{\rm col}
+\]
+in $V_c$, followed by $V_c=T$, proves
+\[
+ \Psi_c^HP+P\Psi_c^G=d_H P_c+P_cd_G,
+ \qquad P_c=\left.\frac{\partial P^{\rm col}}{\partial V_c}\right|_{V=T}.
+\]
+For a stabilization the new $O$ marking must inherit the colour of the
+old $O$ marking whose variable it is identified with; a destabilization
+uses the reverse rule.  Under that rule the native polygon formulas
+lift to the colour ring: paired domains have the same complete marking
+monomial, and the exceptional stabilization annulus terms have the two
+equal colour variables.  This explains exactly why differentiating by
+one arbitrarily chosen representative marking is insufficient, whereas
+the full colour derivative is natural under these moves.
+
+Finally, suppose the graph whose vertices are the colours and whose
+edges are the O switches is a tree on $d+1$ vertices.  Choose one root
+colour and choose all the other $d$ colours in
+\eqref{eq:determinant-pairing}.  Then $B$ is its incidence matrix with
+the root row removed, so $\det(B)=1$.  A proof requiring no graph
+linear algebra is induction on $d$: a nonroot leaf exists, its row has
+exactly one entry equal to one, and expansion along that row removes
+that leaf and its incident edge.  The empty tree has determinant one.
+The same argument applies component by component to a forest with one
+root per component.
+
+To apply this to deaths, colour every marking of each final isolated
+unknot by the colour of that component.  Ordinary moves reducing that
+component to a doubly marked square preserve its colour derivative by
+the preceding rule.  At the doubly marked square the derivative has
+second filtration shift zero.  The degree-one death can be written
+$R\Psi_c$, where $R$ is the degree-zero top projection and has second
+shift $+\tfrac12$.  The derivative for a different dying component
+commutes past $R$ on homology, since that projection changes no marking
+of the other colour.  All deaths therefore give a product of the
+component derivatives followed by the degree-zero top projections.
+If their switch incidence graph is the rooted forest just described,
+\eqref{eq:determinant-pairing} proves that the complete map carries the
+canonical class to the canonical class.
+
+\end{proof}
+
+
+\section{Auxiliary contractions and four-mark normalization}
+\label{sec:aux-death}
+
+In this section only, an \emph{auxiliary marking pair} is a pair of
+permutations $(O,X)$ for which some values $O(c)=X(c)$ are allowed.  This
+does not enlarge the class of native endpoints.  Its chain module,
+differential, and two grading functions are given by exactly the formulas
+in the question.  The complex and its polynomial image depend only on
+$O$.  Consequently its canonical class is defined by identifying this
+complex with the native complex of any valid pair having the same $O$.
+Such a valid pair exists in every size at least two; for example, take
+$X(c)=O(c+1)$ cyclically.  The resulting class is independent of this
+choice, because these are literal identifications of the chain complex
+and of its polynomial subcomplex.
+
+
+The derivative $\Phi_i$ is the explicitly defined rectangle map of
+Lemma~\ref{lem:O-calculus}.  At a coincident O/X square it has
+degree $+1$ and shifts $(0,0)$, by
+$A(y)-n_O(q)+1-A(x)=1-n_X(q)\le0$.
+
+\subsection{Exact local coordinates}
+
+\begin{lemma}[Local auxiliary contraction; new combinatorial]\label{lem:aux-death}
+\formalname{nativeAuxiliaryContraction}
+Let $G$ be a valid grid of size $N\ge2$ and choose an X square
+$(c,r)$, so $G.X(c)=r$.  Insert a column immediately to the right of
+column $c$ and a row immediately above row $r$.  Embed the old indices by
+\[
+ \iota_c(a)=\begin{cases}a&a\le c,\\a+1&a>c,\end{cases}
+ \qquad
+ \iota_r(b)=\begin{cases}b&b\le r,\\b+1&b>r.\end{cases}
+\]
+Let $B$ be the auxiliary pair retaining all embedded old markings and
+having an additional O and X together in square $(c+1,r+1)$.  Label this
+new O marking $i$.  There is an explicitly specified chain map
+\[
+ D_B:C(B)\longrightarrow C(G)
+\]
+of degree $+1$ and shifts $(0,\tfrac12)$.  There is also a degree-zero
+map $\rho_B:C(B)\to C(G)$ with those shifts and with
+$\rho_{B*}\operatorname{can}(B)=\operatorname{can}(G)$, such that
+\[
+ D_B=\rho_B\Phi_i.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $A$ have the same O markings as $B$, and replace the two X markings
+$(c,r),(c+1,r+1)$ by
+$(c,r+1),(c+1,r)$.  In the indicated $2\times2$ block $A$ therefore has
+\[
+ \begin{array}{c|cc}
+ &c&c+1\\ \hline
+ r+1&X&O_i\\
+ r&\varnothing&X
+ \end{array}
+\]
+and all its other markings are the embedded markings of $G$.  This is
+exactly an X stabilization of $G$, with the southwest square empty.
+It is valid: the old O in column $c$ was not in row $r$, so after
+insertion it occupies neither of the displayed X squares.  All remaining
+validity conditions follow from those of $G$.
+
+Use the explicit type-R destabilization count
+$R_A:C(A)\to C(G)$ defined below.  Section~\ref{sec:type-r-independent}
+proves directly that this particular formula has degree zero, shifts
+$(0,0)$, and preserves the canonical class.  The identity of the
+underlying O-complexes defines
+$I:C(B)\to C(A)$.  The usual adjacent-X grading calculation depends
+only on the X permutations, not on disjointness from O, and therefore
+applies here: $M_X^A(x)-M_X^B(x)\in\{-1,1\}$ for every state.  Hence
+$I$ has shifts $(0,1/2)$.  Because it is a literal O-complex and
+polynomial-subcomplex identity, it preserves the canonical class.
+
+Set
+\[
+ \rho_B=R_A I,\qquad D_B=R_A I\Phi_i.
+\]
+The preceding derivative calculation applies to $B$, since $O_i$ and
+its X coincide.  Thus $\Phi_i$ has degree $+1$ and shifts $(0,0)$,
+which proves every stated chain, degree, and filtration property.
+The canonical-class identity for $\rho_B$ follows from the identities
+for $I$ and $R_A$.
+\end{proof}
+
+\begin{corollary}[Paired contraction; new combinatorial]\label{cor:paired-aux-contraction}
+\formalname{pairedAuxiliaryContraction}
+Suppose an O-switch map $F:C(K)\to C(B)$ has degree $-1$, shifts
+$(0,-1/2)$, and satisfies
+\[
+ \Phi_{i*}F_*\operatorname{can}(K)=\operatorname{can}(B).
+\]
+Then $D_BF$ has degree zero, shifts $(0,0)$, and sends
+$\operatorname{can}(K)$ to $\operatorname{can}(G)$.
+\end{corollary}
+\begin{proof}
+Compose the maps and their grading bounds, and use
+$D_B=\rho_B\Phi_i$ and the canonical-class identity for $\rho_B$.
+\end{proof}
+
+\subsection{Labelled naturality and the persistent root variable}
+
+For global compositions, choose a label $0$ which survives all the
+contractions.  Place the auxiliary square in Lemma~\ref{lem:aux-death}
+next to the X in the row of $O_0$.  The O marking traditionally paired
+with $O_i$ in this stabilization is then exactly $O_0$.
+Use the coefficient ring
+\[
+ \mathbb F_2[T,U_j:j\ne0,i],\qquad U_0=U_i=T,
+\]
+for its top destabilization map.  The explicit polynomial representative
+of that map is the following.  Put $p=(c+1,r+1)$ at the crossing of
+the newly inserted circles, and let $e(y)$ delete $p$ from a state
+$y$ containing it, followed by removal of the new row and column.
+A domain $q:x\to y$ is an array of integers $q_{a,b}$ on the
+grid squares, with cyclic indices, satisfying at every intersection
+$(a,b)$ the boundary equation
+\[
+ q_{a,b}+q_{a-1,b-1}-q_{a-1,b}-q_{a,b-1}
+   =\mathbf 1_{\{x(a)=b\}}-\mathbf 1_{\{y(a)=b\}}.
+\]
+This is the northeast-plus-southwest minus northwest-minus-southeast
+corner convention used for the empty rectangles.  Count nonnegative
+domains from $x$ to $y$ of type R: at every point of
+$(x\cup y)\setminus\{p\}$ at least three adjacent multiplicities
+vanish; at $p$ three
+multiplicities are $k$ and the southeast multiplicity is $k+1$; and
+$y\setminus x$ has $2k+2$ points.  A domain contributes
+\[
+ \left(\prod_{j\ne i}U_j^{n_{O_j}(q)}\right)e(y).
+\]
+The set of domains is finite: the number $2k+2$ is at most the grid size,
+and the zero-multiplicity conditions determine a domain of each boundary
+type uniquely.  There is no factor $U_i$ in this weight.  This is the
+usual top projection representative of the native X-destabilization map.
+
+The verification of its chain equation retains these separate
+variables.  Its cancellations have two forms.  In the first, a rectangle
+and a type-R domain are cut in the other order, with the same total
+domain; the marking monomials are therefore identical.  In the second,
+the alternative domains differ by one of the thin annuli in the inserted
+row or column.  These annuli contain $O_i$ or the O marking in the row
+of the lower X, namely $O_0$, and no other O markings.  Their coefficient
+contributions agree after $U_i=U_0=T$.  No identification of any other
+$U_j$ is involved.  Equivalently, before that identification the only
+uncancelled term is $(U_i+U_0)$ times the complementary type-L domain
+count.  This establishes the required chain equation over the displayed
+ring, rather than merely after setting every variable to $T$.
+
+Consequently, for each surviving label $j\ne0,i$, differentiating the
+chain equation and then setting all variables to $T$ yields
+\[
+ \Phi_j^G R_A+R_A\Phi_j^A
+ =\partial R_{A,j}+R_{A,j}\partial,
+ \qquad
+ R_{A,j}=\left.\frac{\partial R_A}{\partial U_j}\right|_{U=T}.
+\]
+The identity $I$ changes no O label or differential, so the same
+homotopy relation holds for $\rho_B$.  This is exactly the naturality
+needed to move the derivative operators of the remaining contractions
+past $\rho_B$.  The root label is never differentiated.  If instead a
+surviving label is used as the variable paired with $U_i$, differentiation
+also produces $R_A\Phi_i$; choosing the persistent root as above avoids
+that extra term.
+
+\subsection{Moving and removing an arbitrary separated auxiliary component}
+
+The preceding construction also works when $G$ has other doubly-marked
+squares, provided the chosen X square $(c,r)$ is not itself doubly
+marked.  The type-R formula depends on the O markings and the
+position of the stabilization, but not on any other X marking.
+Its chain equation and its independent canonical-class proof in
+Section~\ref{sec:type-r-independent} hold for all O diagrams.
+The Alexander estimate there is the negative of a sum of
+nonnegative X multiplicities.  It therefore remains valid when some
+of those X markings coincide with O markings.  The derivative estimate
+at the distinguished doubled square and the adjacent-X-exchange
+estimate likewise remain valid.  Hence Lemma~\ref{lem:aux-death}
+applies in this more general situation.
+
+For the same reason, commutation maps extend to auxiliary pairs whenever
+their marking segments are noninterleaving.  More explicitly, use the
+usual empty-pentagon count, putting the O-multiplicity monomial on every
+pentagon.  Its differential and homotopy-inverse verifications pair
+domains with identical O multiplicities, exactly as for a native
+commutation.  None of these verifications uses disjointness of the X and
+O markings.  The grading comparison for a pentagon is unchanged and its
+Alexander loss is the total nonnegative X multiplicity.  Thus both
+directions have degree zero and shifts $(0,0)$, and the homotopy
+equivalence preserves the polynomial image and hence the canonical
+class.  Keeping separate O variables in these domain identities also
+gives labelled derivative naturality by differentiation.
+
+Here is an explicit check of the degenerate segment used below.  Suppose
+the doubled square is in the left of the two adjacent columns, whose
+horizontal coordinates are $(a,a+1)$ and $(a+1,a+2)$, and its marking
+height is $v+1/2$.  Choose a small open interval $J$ about $v+1/2$,
+contained in that row and containing no marking height of the other
+column.  Replace the intervening vertical circle $x=a+1$ by the graph
+$x=f(y)$, periodic in $y$, with $f=a+1/4$ on a smaller interval about
+$v+1/2$, $f=a+7/4$ outside $J$, and exactly one monotone transition at
+each end of $J$.  This graph avoids every marking, meets each horizontal
+grid circle once, and intersects $x=a+1$ exactly twice.  It puts the
+doubled marking in the right region and both markings of the other
+column in the left region, and hence gives precisely the commuted
+diagram after straightening.  Reflection gives the construction for a
+doubled right column.  Interchange the coordinates for a row move.
+
+To check every grading and cancellation at the coinciding punctures,
+choose a disk around the doubled marking disjoint from all grid circles
+and from this new graph.  Temporarily separate O and X by arbitrarily
+small distinct displacements inside that disk.  The small segment between
+the displaced heights still lies in $J$, so the same commutation curves
+work.  Each rectangle, pentagon, and hexagon domain has constant
+multiplicity on the disk; therefore its O and X multiplicities are
+unchanged by bringing the two points back together.  The pairwise orders
+of the X markings and their orders relative to every state coordinate
+are unchanged as well, so the $J$-grading comparisons are unchanged.
+The rectangle--pentagon and pentagon--hexagon cancellation proofs use
+only these incidences and multiplicities.  They thus verify the maps,
+homotopies, and filtration bounds also at the coinciding marking.  This
+is a direct verification of the polygon formulas on auxiliary pairs,
+not an appeal to a topological invariance theorem for them.
+
+\begin{lemma}[Singleton transport; new combinatorial]\label{lem:dummy-transport}
+\formalname{auxiliarySingletonTransport}
+Let $E$ be an auxiliary pair of size $n\ge3$ with
+$E.O(u)=E.X(u)=v$, and label this doubled marking $i$.  Delete its column
+and row and call the resulting auxiliary pair $G$, of size $n-1$.
+Choose a surviving root marking whose row $r$ in $G$ is not doubly
+marked, and put $c=G.X^{-1}(r)$.  There is an explicit finite sequence of
+noninterleaving commutations taking $E$ to $B(G,c,r)$, with all labels
+retained.  In particular there is a degree-$+1$ map
+\[
+ \mathcal E_i:C(E)\longrightarrow C(G)
+\]
+with shifts $(0,1/2)$, and a degree-zero canonical-class-preserving map
+$\rho_i:C(E)\to C(G)$ with the same shifts, such that
+\[
+ (\mathcal E_i)_*=(\rho_i)_*(\Phi_i)_*.
+\]
+The maps intertwine every surviving derivative except possibly that of
+the root; the root derivative is not needed.
+\end{lemma}
+
+\begin{proof}
+For clarity, deleting the dummy means the exact formulas
+\[
+ G.Y\bigl(a-\mathbf1_{a>u}\bigr)
+ =E.Y(a)-\mathbf1_{E.Y(a)>v}
+ \quad(a\ne u,\quad Y\in\{O,X\}).
+\]
+The desired insertion indices are $u_*=c+1$ and $v_*=r+1$.
+If $u<u_*$, commute the dummy column successively across the pairs
+$(u,u+1),(u+1,u+2),\ldots,(u_*-1,u_*)$; if $u>u_*$, use the reverse
+list $(u-1,u),(u-2,u-1),\ldots,(u_*,u_*+1)$.  Use no column moves if
+$u=u_*$.  Then apply the analogous list of row commutations to move
+the dummy row from $v$ to $v_*$.  There are exactly
+$|u-u_*|+|v-v_*|$ commutations.
+
+Every one is noninterleaving.  The dummy column has both endpoints at
+the same row, and no other column has either marking in that row,
+because the dummy already uses both the unique O and the unique X of
+that row.  A singleton segment cannot interleave with a segment whose
+endpoints are distinct from that singleton.  The same argument applies
+to the dummy row.  It applies also when the adjacent column or row
+belongs to another doubled marking.  These moves never change the
+relative order of the retained rows or the retained columns.  Therefore,
+after deletion of the dummy, their result is still exactly $G$ with its
+original indexing.  With insertion positions $c+1,r+1$, the resulting
+pair is exactly $B(G,c,r)$, as asserted.
+
+Let $P:C(E)\to C(B(G,c,r))$ be the composition of the commutation maps.
+Set
+\[
+ \rho_i=\rho_B P,
+ \qquad
+ \mathcal E_i=D_B P=\rho_B\Phi_i^B P.
+\]
+All the degree, filtration, and canonical-class assertions follow from
+the preceding lemmas.  Differentiating the fully labelled commutation
+identities proves $\Phi_i^B P\simeq P\Phi_i^E$, giving the displayed
+identity on homology.  Naturality for the other surviving labels follows
+from the same commutation identities and from the root-variable
+destabilization identity proved above.
+\end{proof}
+
+Consequently, after any prior algebraic or geometric cancellation has
+left a list of doubled singleton components, their removal is an
+explicit operation on the marking permutations: apply the adjacent
+transposition lists in Lemma~\ref{lem:dummy-transport} and then the
+displayed contraction.  There is no additional link-equivalence or
+component-placement assertion at this stage.  The remaining hypothesis
+for a global application is that its previous construction has indeed
+produced these singleton components and a surviving root row with
+distinct O and X markings.
+
+\subsection{The component-colour version}
+
+The same statements hold when several O markings have one common
+component colour.  Assign a variable $V_\alpha$ to each colour and
+substitute $U_j=V_{\operatorname{colour}(j)}$ in the multivariable
+differential.  Its derivative, after collapse to $T$, is
+\[
+ \Phi_\alpha=\sum_{j:\operatorname{colour}(j)=\alpha}\Phi_j.
+\]
+This follows by the polynomial chain rule, including terms whose
+rectangle contains several markings of that colour.  Thus derivative
+naturality follows directly from the same chain-map identities, with no
+requirement that a colour have only one O marking.  In an ordinary
+stabilization, give its new O the colour of the component on which the
+stabilization is performed.  The two variables identified by its top
+projection then already coincide.
+
+In a dummy contraction, let $\delta$ be the colour of the deleted
+singleton and $\alpha_0$ the persistent root colour.  The top projection
+substitutes $V_\delta=V_{\alpha_0}$.  Differentiation in a retained colour
+different from $\alpha_0$ gives ordinary derivative naturality;
+differentiation in $V_{\alpha_0}$ produces
+\[
+ (\Phi_{\alpha_0}^{\rm out})_*\rho_*
+ =\rho_*\bigl((\Phi_{\alpha_0}^{\rm in})_*
+                    +(\Phi_\delta^{\rm in})_*\bigr).
+\]
+The contraction itself is $\rho_*\Phi_{\delta*}$.  Its extra term
+vanishes because $\Phi_{\delta*}^2=0$.  More generally every colour
+derivative squares to zero on homology: expand its square as a sum of
+individual squares and mixed anticommutators, use $\Phi_j^2=0$, and
+differentiate $\mathcal D^2=0$ in two different variables to see that
+each mixed anticommutator is null-homotopic.  This verifies the
+substitution rule required when contracting several dummy components
+in succession.
+
+\subsection{Collapsing the four-mark unknot block}
+
+\begin{proposition}[Four-mark collapse; new combinatorial]\label{prop:four-mark-collapse}
+\formalname{fourMarkBlockCollapse}
+Suppose an auxiliary grid has a doubled singleton in square $(c,r)$,
+and has, elsewhere, a persistent component with a row whose O and X
+are distinct.  Expand the singleton by inserting a column immediately
+to its right and a row immediately above it, and replace it by the
+four-mark block
+\[
+ \begin{array}{c|cc}
+ &c&c+1\\ \hline
+ r+1&X&O_i\\
+ r&O_j&X.
+ \end{array}
+\]
+Here $j$ is the old O label and $i$ is the newly introduced label.
+There is an explicit map from this expanded grid to the original
+auxiliary grid of degree zero and shifts $(0,0)$, preserving the
+canonical class.  It intertwines the component-colour derivatives when
+$i$ and $j$ are assigned the original singleton's colour.
+\end{proposition}
+
+\begin{proof}
+This four-mark pattern is not an ordinary three-corner
+destabilization, and we do not treat it as one.  Instead, exchange its
+two O markings.  The explicit O-switch map $F$ has degree $-1$ and
+shifts $(0,-1/2)$.  Its target has two doubled singleton squares, at
+$(c,r+1)$ and $(c+1,r)$.  The former carries the new label $i$, and
+the latter carries the old label $j$, because labels travel with their
+original O rows under this exchange.
+
+Apply Lemma~\ref{lem:dummy-transport} to contract the singleton $i$,
+using the persistent component as root.  Call that degree-$+1$ map
+$\mathcal E_i$.  The composite $\mathcal E_i F$ has degree zero and
+shifts $(0,0)$.  The O-switch pairing identity gives
+\[
+ (\Phi_i)_*F_*\operatorname{can}
+ =\operatorname{can}
+\]
+in the intermediate auxiliary complex.  Since
+$(\mathcal E_i)_*=(\rho_i)_*(\Phi_i)_*$ and $\rho_i$ preserves the
+canonical class, the composite preserves it as well.
+
+Deleting the singleton $i$ means deleting column $c$ and row $r+1$.
+The retained singleton at $(c+1,r)$ therefore becomes $(c,r)$.
+Every other inserted-row or inserted-column shift is undone by these
+deletions.  The exact target marking permutations are consequently
+those of the original auxiliary grid.
+
+Here is also the colour-naturality check; it is needed because the
+source has two O markings of the singleton's colour.  Write $A$ for
+the expanded source and $B$ for the intermediate two-singleton pair.
+On homology put
+\[
+ K_i=\Phi_i^B F+F\Phi_i^A,
+ \qquad K_j=\Phi_j^B F+F\Phi_j^A.
+\]
+The O-switch calculation gives $K_i=K_j$ on homology, and $K_i$
+intertwines each derivative.  Using commutation of derivatives on
+homology and their square-zero identities, we obtain
+\begin{align*}
+ \Phi_j^B\Phi_i^B F
+       +\Phi_i^B F(\Phi_i^A+\Phi_j^A)
+ &=\Phi_i^B K_j+\Phi_i^B F\Phi_i^A\\
+ &=\Phi_i^B K_i+K_i\Phi_i^A=0.
+\end{align*}
+After applying $\rho_i$, this is precisely naturality between the
+surviving $\Phi_j$ and the source colour derivative
+$\Phi_i+\Phi_j$.  Other markings of that colour commute through the
+construction.  Derivatives of all other retained colours are natural
+by the preceding substitution calculation; for the persistent root,
+its possible extra term vanishes by $\Phi_i^2=0$.
+\end{proof}
+
+
+\section{The explicit polynomial stabilization maps}
+\label{sec:type-r-independent}
+
+\begin{lemma}[Polynomial top domain maps; new combinatorial]
+\label{lem:top-domain-maps}
+\formalname{nativeTopDomainMaps}
+For the X:SW stabilization and the incoming type-R formula specified
+in Section~\ref{sec:aux-death}, the map $R$ has degree zero, shifts
+$(0,0)$, and canonical-class identity.  Its multivariable chain
+defect is precisely $(U_i+U_0)L$, where $i$ is the new O and $0$
+the old O in the stabilized X row.  The outgoing formula $S$ below
+is a polynomial chain map of degree zero and shifts $(0,0)$,
+preserving the canonical class.  Both maps are natural on homology
+for component-colour derivatives after assigning the new O its
+component colour.  Together with the supplied commutation maps and
+corner reduction this proves that naturality for every ordinary
+move in both directions.
+\end{lemma}
+\begin{proof}
+
+The map used in the auxiliary contraction is the explicit type-R count,
+not an arbitrarily chosen projection supplied by the grid-move theorem.
+We verify its grading and its canonical-class action directly.  Write
+$G$ for the old grid, $A$ for its displayed X:SW stabilization, $i$ for
+the new O, and $0$ for the old O in the row of the stabilized X.  The
+definition and the domain cancellation give, before specialization,
+\begin{equation}\label{eq:R-full-variable-identity}
+ D_G R+R D_A=(U_i+U_0)L.
+\end{equation}
+Here $L$ counts the trivial domain, together with the nontrivial
+positive domains with southwest multiplicity $k-1$, the other three
+multiplicities $k$, and $2k+1$ moving state coordinates.  Its monomial,
+like that of $R$, omits $U_i$.  In particular $R$ is a chain map when
+only $U_i=U_0$ is imposed; all other variables remain independent.
+
+We use the following elementary facts about the domains in this formula.
+A domain of type R with local multiplicity $k$ has $2k+2$ moving
+coordinates and decomposes into $2k+1$ empty rectangles.  One obtains
+this decomposition by starting at the initial state's point on the
+vertical circle through the distinguished intersection $p$, following
+the first horizontal boundary segment, and removing the rectangle
+against that circle.  Repeat with the new initial point on that same
+circle.  The local zero-multiplicity condition forces each rectangle to
+be empty and determines it uniquely.  Two successive removals reduce
+the three equal multiplicities at $p$ by one and remove two moving
+coordinates.  The last step is a rectangle, the case $k=0$.  This is
+an induction on $k$.  The condition of exactly $2k+2$ moving coordinates
+excludes an additional boundary component: following the component
+through $p$ has already used all those coordinates.  The same argument
+with odd complexity proves the corresponding statement for L domains.
+It also proves finiteness: $2k+2$ is at most the grid size, each boundary
+segment has finitely many endpoints and two possible circular arcs,
+and its local multiplicity at $p$ determines the remaining additive
+constant of the domain.
+
+\subsection{The domain cancellation with separate variables}
+
+Here are the cuts proving \eqref{eq:R-full-variable-identity}.  They
+are included because retaining the old variables is essential.  Lift
+a rectangle of $G$ to the corresponding rectangle of $A$.  Such a
+rectangle either avoids $p$, or has $p$ as its sole interior state
+point; in the latter case its coefficient still omits the new O.
+Compare an R count followed by one of these lifted rectangles with
+an empty rectangle of $A$ followed by an R count.  A \emph{moving corner} is a
+point in the symmetric difference of the two states at a step.  Let
+$m=2k+2$ be the complexity of the R domain.
+
+For clarity the complete cutting list is the following.  In this
+list $A_j$ means that the rectangle avoids $p$ and shares $j$ moving
+corners with the R domain; $B$ means that $p$ is a corner of the
+rectangle; $C$ that $p$ lies on an open rectangle edge; and $D_j$ that
+$p$ is the rectangle's sole interior state point and there are $j$
+shared moving corners.  A subscript $m$ records the R complexity.
+The symbol $C^-$ denotes the rectangle on the left of $p$, and
+$C^+$ the rectangle above $p$.  For $C^-$ let $\delta$ be the
+innermost horizontal width of the R domain; for $C^+$ use its
+innermost vertical height.
+\[
+\begin{array}{c|c|c}
+\text{first presentation}&\text{other presentation}&\text{operation}\\\hline
+A_0&A_0&\text{reverse the order of the pieces}\\
+A_1&A_1&\text{the other cut at the concave corner}\\
+(A_2)_m&(D_0)_{m-2}&\text{transfer two consecutive turns},\quad m\ge4\\
+B_4\ (m=2)&\text{the other thin annulus}
+       &\text{new-column / old-root-row annuli}\\
+(C^-)_m, \delta=1&(D_1)_m&\text{add the new-column annulus}\\
+(C^-)_m, \delta>1&(A_3)_{m+2}&\text{add the new-column annulus}\\
+(C^+)_m, \delta=1&(D_1)_m&\text{add the old-root-row annulus}\\
+(C^+)_m, \delta>1&(A_3)_{m+2}&\text{add the old-root-row annulus}
+\end{array}
+\]
+The last two rows also have the L-domain presentation described below;
+the $B_4$ row has the trivial L-domain presentation.
+
+We explain both exhaustiveness and the indicated constructions.
+Away from $p$, three zero quadrants at every state point permit zero,
+one, or two shared moving corners.  Zero corners allow the two pieces
+to be removed in either order.  One shared corner produces a unique
+concave corner, with the two cuts indicated in the table.  With two
+shared corners, following the boundary removes two successive turns
+of the R domain and puts $p$ into the lifted rectangle; reversing
+that cut restores those two turns.  This is exactly the $A_2/D_0$
+pair.  Three shared corners force the fourth side to go once around
+a row or column circle: the rectangle has width or height one and
+the associated innermost R width or height is one.  These are the
+$A_3$ entries, recovered uniquely by deleting the specified annulus.
+
+If the extra rectangle has $p$ as a corner, its two intermediate
+coordinates are the unique state points on the two circles through
+$p$.  The R zero-quadrant conditions force $m=2$, with the same
+two moving coordinates.  The composite is consequently a thin
+annulus, either the new-column annulus or the row annulus containing
+$O_0$.  If $p$ is instead on an open edge, the same quadrant conditions
+allow precisely a rectangle to the left or above $p$; the bottom and
+right alternatives would leave an initial state point in a positive
+quadrant of the R domain.  These are $C^-,C^+$.  Adding the annulus
+shown in the table completes the boundary across $p$.  When
+$\delta=1$, the completed boundary cuts off a rectangle with $p$ as
+its sole interior state point.  When $\delta>1$, it cuts off a thin
+rectangle avoiding $p$ and introduces two further turns in the R
+boundary.  The cut starts at the initial state's point in the
+inserted row or column, so it is unique; deleting that same annulus
+is the inverse construction.  A lifted rectangle having $p$ inside
+can share only zero or one moving corner, giving exactly $D_0,D_1$.
+Finally an empty input rectangle with $p$ strictly inside cannot
+precede an R domain: follow the R boundary from its initial point on
+the vertical circle through $p$ to the first exit from that rectangle.
+Either this initial point is already inside the rectangle, violating
+emptiness, or that first exit puts one of its corner state points in
+a positive quadrant of the R domain, violating the three-zero rule.
+Thus the table accounts for every contribution.
+
+For the first three rows the complete two-chain is unchanged by the
+cut, and so is every old marking multiplicity.  The same holds for
+the $C^-$ rows except for adding the new-column annulus.  That
+annulus contains only $O_i$, whose multiplicity in the R factor is
+omitted from the coefficient.  Hence these contributions cancel in
+pairs with their full old-variable monomials intact.
+
+For $B_4$, the two annuli have coefficients $U_i$ and $U_0$.  They
+give $(U_i+U_0)$ times the trivial L-domain coefficient.  In a $C^+$
+row the underlying composite itself has three equal multiplicities
+$k+1$ at $p$ and southwest multiplicity $k$; it is an L domain of
+complexity $m+1$.  Let $w$ be its monomial omitting $U_i$.  The
+rectangle in the $C^+$ presentation contains $O_i$, so its
+contribution is $U_iw$.  Adding the old-root-row annulus gives the
+other presentation, with contribution $U_0w$.  Their sum is exactly
+$(U_i+U_0)w$.  Every nontrivial L domain is obtained once in this
+way: cut at its innermost horizontal boundary segment through the
+distinguished circle, leaving the even-complexity R domain.  This
+is the inverse of the $C^+$ construction.  Together with the trivial
+case it accounts for the whole right side of
+\eqref{eq:R-full-variable-identity}.
+
+No argument in this cancellation used X markings.  It needs only
+one O per row and column, the new O in the northeast square, and
+the designation of the old O in the row immediately below it.
+It therefore also holds when that old O happens to occupy the
+southwest square.  This observation justifies the temporary O-only
+normal form used below, as well as auxiliary coincident markings
+elsewhere.  Substituting $U_i=U_0$ proves the claimed multivariable
+chain equation without identifying any further variables.
+
+\subsection{Gradings and polynomial coefficients}
+
+Cyclically choose coordinates so that $G$ has size $n$, the stabilized
+X lies in its last column and row $0$, and the new column and new row
+of $A$ are column $n$ and row $1$.  Thus $p=(n,1)$.  If $y$ contains
+$p$ and $e(y)$ deletes that coordinate, direct substitution in $J$ gives
+\[
+ M_A(y)=M_G(e(y))-1,\qquad A_A(y)=A_G(e(y))-1.
+\]
+For the first equality, the extra contributions to
+$J(y,y),-2J(y,O_A),J(O_A,O_A)$ are respectively $1,-3,1$.
+The analogous change of $M_X$ is zero, proving the second equality
+after the change of grid size is included.  These calculations use
+only the row and column permutations.  They remain true if an old
+O coincides with the chosen old X.
+
+Let $q:x\to y$ be a type-R domain with three local multiplicities $k$.
+Its multiplicity at the new O is $k$, and that at the southeast X is
+$k+1$.  Put $w(q)=\sum_{j\ne i}n_{O_j}(q)$.  Summing the rectangle
+grading formulas over the decomposition above gives
+\[
+ M_A(x)-M_A(y)=2k+1-2(k+w(q))=1-2w(q).
+\]
+Consequently $T^{w(q)}e(y)$ has exactly the degree of $x$.  For the
+second filtration coordinate the same calculation gives
+\[
+ A_G(e(y))-w(q)-A_A(x)
+   =1+k-n_X(q)
+   =-\!\sum_{X\ne X_{\rm SE}}n_X(q)\le0.
+\]
+All exponents $w(q)$ are nonnegative.  Thus $R$ has degree zero and
+shifts $(0,0)$, also for auxiliary marking pairs with other coincident
+O and X markings.
+
+\subsection{Compatibility with O switches away from the new column}
+
+The following argument concerns only O diagrams, so a temporary
+coincidence with an X marking has no effect.  Exchange O markings in
+two adjacent old columns.  They are still adjacent in $A$, since its
+new column is last.  Let $F_G,F_A$ be the respective diagonal O-switch
+maps, and let $R,R'$ be the type-R counts before and after this change.
+Their domain sets are identical: the definition of a type-R domain
+does not refer to O markings.
+
+Write $\varepsilon_A,\varepsilon_G$ for the switch indicators on the
+two grids, reserving $e(y)$ for deletion of $p$.  For any such domain
+$q:x\to y$, the same boundary computation as for a rectangle gives
+\[
+ n_{O'}(q)-n_O(q)=\varepsilon_A(y)-\varepsilon_A(x).
+\]
+It can equivalently be obtained by summing the rectangle identities
+over its decomposition.  The new O has not moved.  Since the switch
+uses old columns, $\varepsilon_A(y)=\varepsilon_G(e(y))$.  Comparing
+the monomial of each individual domain therefore gives the exact identity
+\begin{equation}\label{eq:R-switch-exact}
+ R'F_A=F_G R.
+\end{equation}
+The same assertion holds for the reverse diagonal switch map.
+
+Choose, among the two exchanged labels, a label $j\ne0$.  There is
+always such a label.  Differentiation of
+\eqref{eq:R-full-variable-identity} after $U_i=U_0$ proves that $R$
+and $R'$ intertwine $\Phi_j$ on homology.  Using
+\eqref{eq:R-switch-exact} in the definition of the degree-zero
+Clifford maps $K_j$ consequently gives
+\begin{equation}\label{eq:R-K-naturality}
+ R'_* (K_j^A)_*=(K_j^G)_* R_*.
+\end{equation}
+This remains valid when label $0$ itself is one of the exchanged
+markings: the detecting label $j$ is the other one, so its variable
+remains independent of $U_i=U_0$.
+
+\subsection{An explicit normal-form evaluation}
+
+Bubble-sort the old O permutation to $O_G(c)=n-1-c$, using adjacent
+old columns only.  Each $K_j$ in \eqref{eq:R-K-naturality} preserves
+the canonical class and is invertible on homology.  It follows that
+the desired nonvanishing for $R$ is equivalent to nonvanishing in
+this one normal form.  The old O in row $0$ is then in the last
+column; hence the chosen old X would coincide with it.  This temporary
+O-only calculation is legitimate: the type-R domain identity and
+\eqref{eq:R-K-naturality} use no X markings, and canonical classes
+are defined from the O complex using any disjoint X permutation.
+
+The stabilized O permutation in this normal form is
+\[
+ O_A=(n,n-1,\ldots,2,0,1).
+\]
+It is obtained from the size-$(n+1)$ antidiagonal by interchanging
+its last two O markings.  Write
+\[
+ \theta=(0,n,n-1,\ldots,2,1),\qquad
+ \theta_G=(0,n-1,n-2,\ldots,1).
+\]
+The antidiagonal canonical cycle is $\theta$.  For this last O switch
+the degree-minus-one diagonal map is
+$F(x)=T^{1-\mathbf1_{\{x(n)=1\}}}x$, so it sends $\theta$ to itself.
+Every derivative of $\theta$ in the antidiagonal complex is zero
+already on chains, since it would have positive degree and polynomial
+coefficients, while that complex has no positive-degree polynomial
+generators.  The Clifford identity therefore identifies the canonical
+cycle of $A$ as
+\[
+ z=\Phi_i^A\theta.
+\]
+
+Here this cycle can be written completely explicitly.  For
+$0\le b\le n-1$, let $x_b$ be obtained from $\theta$ by interchanging
+its coordinates in columns $b,n$.  The empty rectangles from
+$\theta$ through the new O are exactly the $n$ rectangles with
+southwest corner $(n,1)$ and northeast corner $(b,\theta(b))$,
+using the circular intervals from $n$ to $b$ and from $1$ to
+$\theta(b)$.  Indeed, a rectangle through that O which did not start
+on column $n$ would contain the state point $(n,1)$ in its interior.
+For the displayed rectangles all intervening antidiagonal state
+points and all old O markings lie outside.  Each contains the new
+O once and no other O.  Hence
+\[
+ z=\sum_{b=0}^{n-1}x_b.
+\]
+Every $x_b$ has Maslov degree zero.  The only possible degree-zero
+polynomial output of $R$ in the old antidiagonal complex is
+$\theta_G$ with coefficient $1$, since its other states have strictly
+negative Maslov degree.  The corresponding stabilized terminal state
+is precisely $\theta$.
+
+Since $x_b$ differs from $\theta$ in two coordinates, a type-R domain
+from $x_b$ to $\theta$ must have $k=0$; it is a rectangle with
+northwest corner $p=(n,1)$.  For $b=0$ the unique such rectangle is
+the single square in the new column and row $0$.  It contains no O
+marking and contributes $\theta_G$.  For every $b\ge1$, the only
+rectangle with the required southeast multiplicity at $p$ uses the
+circular intervals from column $n$ to column $b$ and from row
+$\theta(b)$ to row $1$.  It contains the unchanged state point
+$(0,0)$ strictly in its interior, so it is not a type-R domain.
+Therefore
+\[
+ Rz=\theta_G.
+\]
+This proves nonvanishing in the normal form.  Transport through
+\eqref{eq:R-K-naturality} proves it for every O permutation.  Since
+$R$ has degree zero and preserves the polynomial subcomplex, Lemma N
+now yields
+\begin{equation}\label{eq:R-canonical-independent}
+ R_*\operatorname{can}(A)=\operatorname{can}(G).
+\end{equation}
+This establishes the property of this specific polynomial formula
+without using any unspecified stabilization map or any comparison
+with holomorphic Floer homology.
+
+\subsection{The outgoing top map and colour naturality in both directions}
+
+For completeness, the stabilization direction has an equally explicit
+polynomial representative.  Given a state $x$ of $G$, extend it by $p$
+to a state $\widetilde x$ of $A$.  Define
+\[
+ Sx=\sum_y\sum_{q:\widetilde x\to y}
+       \prod_{j\ne i}U_j^{n_{O_j}(q)}y,
+\]
+where the inner sum is over nonnegative outgoing domains satisfying
+the same three-zero rule away from $p$, having multiplicity $k+1$
+in the northeast square at $p$ and $k$ in the other three squares,
+and having $2k+2$ moving coordinates.  These domains have the same
+finite boundary description and rectangle decomposition as the
+incoming domains, with arrows reversed and the local vertical
+coordinate reflected.  This description is a definition of the
+formula, not an instruction to reflect the grid or its complex.
+
+The boundary cuts in the preceding table apply with their arrows
+reversed and with north and south interchanged.  The two annuli in
+the exceptional rows are now the new-column and new-row annuli.
+Each contains only the new O, and in each presentation its
+multiplicity belongs to the outgoing domain, whose monomial omits
+that O.  Their coefficients are therefore equal.  More explicitly,
+the reflected $C^+$ configuration has an extra rectangle below $p$.
+That rectangle contains no new O.  Its union with the outgoing
+domain has northeast, southeast, and southwest multiplicities
+$k+1$ and northwest multiplicity $k$.  Adding the new-row annulus
+changes the northeast multiplicity to $k+2$ and the other three to
+$k+1$.  These are the two alternative presentations; both have
+exactly the same old-variable monomial.  The complexity-two
+exception has the same two equal coefficients.  The other rows
+cancel by equal total domains or by the new-column annulus, exactly
+as before.  Consequently
+\begin{equation}\label{eq:S-full-variable-identity}
+ D_A S=S D_G
+\end{equation}
+already with \emph{all} O variables independent, interpreting the
+source as extended by the unused variable $U_i$.
+
+For an outgoing domain with parameter $k$, its multiplicity at
+$O_i$ is $k+1$ and at the southeast X is $k$.  Its $2k+1$-rectangle
+decomposition and the displayed state-extension grading formulas give
+\[
+ M_A(y)-2\sum_{j\ne i}n_{O_j}(q)=M_G(x),
+\qquad
+ A_A(y)-\sum_{j\ne i}n_{O_j}(q)-A_G(x)
+       =k-n_X(q)\le0.
+\]
+Thus $S$ has degree zero and shifts $(0,0)$.
+
+Its canonical-class action follows by the same normal-form method,
+and can be checked particularly simply.  The O-switch boundary
+identity gives
+\[
+ F_A S=S'F_G
+\]
+term by term.  Differentiating \eqref{eq:S-full-variable-identity}
+and using this exact identity gives the corresponding $K$-naturality
+on homology.  Therefore sort the old O permutation as above and
+evaluate $S$ on $\theta_G$.  Its extension is $\theta$.
+
+An outgoing domain starting at $\theta$ cannot have $k>0$.
+Indeed, the southeast unit square at $p=(n,1)$ is the northwest
+square at the initial state point $(0,0)$, using the circular last
+column.  Its multiplicity is $k$.  The three-zero rule at $(0,0)$
+would then leave a positive northwest quadrant alone.  This has
+the boundary sign of a terminal corner, whereas $(0,0)$ is an
+initial state point; if that point were also terminal, all four
+quadrants would have to vanish.  Both possibilities contradict
+$k>0$.  Hence $k=0$.  The domains are precisely the $n$ rectangles
+from $\theta$ to $x_b$ already enumerated above.  Their only O is
+the new one, whose factor is omitted.  We conclude
+\[
+ S\theta_G=\sum_{b=0}^{n-1}x_b=z.
+\]
+Transport by $K$ proves that this specific map $S$ preserves the
+canonical class for every old O diagram.
+
+Finally identify the new O variable with the variable of the
+component on which the stabilization is performed, and give every
+other component its own variable.  Equations
+\eqref{eq:R-full-variable-identity} and
+\eqref{eq:S-full-variable-identity} are now chain equations over
+that colour ring in both directions.  Differentiating in any colour
+variable proves naturality for the sum of its marking derivatives.
+For a commutation the empty-pentagon formula retains the complete
+O monomial of each polygon; the alternate rectangle--pentagon cut
+has that same monomial, so its chain equation is valid over the
+colour ring too.  Cyclic permutations simply relabel these
+monomials.  The granted corner reduction expresses every other
+stabilization orientation using these corner maps and such
+commutations and permutations.  Every extra O in that reduction is
+on the same physical component as the O with which its variable is
+identified.  Composing the differentiated identities therefore proves
+colour naturality for every ordinary move used in the construction,
+in both directions, on arbitrary homology classes.
+
+\end{proof}
+
+
+\section{Explicit relations for signed word grids}
+
+\begin{lemma}[Signed word-grid relations; new combinatorial]
+\label{lem:signed-relations}
+\formalname{signedWordGridRelations}
+Every finite derivation by Artin relations, far commutations, free
+inverse cancellation or insertion, and cyclic whole-word rotations
+has a finite ordinary-grid realization under the signed gadget
+convention above.  All local replacements work in arbitrary signed
+contexts with the indicated port incidences.  A rank becoming
+unused is retained as the specified four-mark block.  For an
+Artin/free derivation whose initial and final words contain every
+generator, the external guard
+in the proof makes every word in the initial normalization contain
+every generator.  All displayed rules specify legal noninterleaving
+exchanges and genuine three-corner stabilization patterns.
+\end{lemma}
+\begin{proof}
+
+The negative-letter gadget has outgoing heights
+$(r+\tfrac12,r+1,r)$ and incoming heights
+$(r+1,r,r+\tfrac12)$ in its three consecutive columns.  Integer-height
+arcs join consecutive occurrences cyclically, exactly as for positive
+letters.  The following constructions work in an arbitrary signed-word
+context, and use no topological equivalence theorem.
+
+\subsection{Two elementary grid rules}
+
+We distinguish strict noninterleaving commutations from the case of a
+shared endpoint.  The latter case can also be performed by ordinary grid
+moves, as follows.  Suppose consecutive columns $A,B$ have
+\[
+ (O_A,X_A)=(r,p),\qquad (O_B,X_B)=(q,r).
+\]
+First assume $p\ne q$.  The row $r$ joins the consecutive columns $A,B$.
+Move this row toward row $p$, along the arc of the row circle from $r$
+to $p$ which avoids $q$, stopping adjacent to $p$.  Every row actually
+crossed has both its markings outside $A,B$, so each exchange is a strict
+noninterleaving row commutation.  The block with columns $A,B$ and rows
+$r,p$ has precisely the three markings
+\[
+ O(A,r),\quad X(A,p),\quad X(B,r).
+\]
+Destabilize, deleting column $A$ and row $r$, and replacing the two $X$'s
+by $X(B,p)$.  Now stabilize this $X$ using a new column on the opposite
+side of $B$: restore row $r$ and put
+\[
+ (O_B,X_B)=(q,r),\qquad (O_A,X_A)=(r,p)
+\]
+in the order $B,A$.  Move the short row $r$ back through the same rows
+in reverse order.  This is exactly the required exchange of $A,B$.
+
+If $p=q$, the two columns form a two-row unknot block.  Insert a row $t$
+next to $p$ and a column $D$ immediately before $A$, by the $X$
+stabilization
+\[
+ D:(O=t,X=p),\quad A:(O=r,X=t),\quad B:(O=p,X=r).
+\]
+Exchange $A,B$ by the preceding rule, then exchange $D,B$ by its
+$O/X$-interchanged version.  Both exchanges have distinct nonshared
+endpoints.  The order is now $B,D,A$.  Destabilize the block
+$O(D,t),X(D,p),X(A,t)$, deleting $D,t$.  The result is $B,A$ with exactly
+the required markings.  All other possible shared-endpoint patterns
+follow by interchanging $O,X$ and/or reversing the names of the two
+columns.  Transposing this rule proves its row version.  Henceforth
+``exchange'' means a strict commutation or this fully specified
+replacement when endpoints coincide.
+
+The second rule contracts a bivalent column.  Suppose column $C$ carries
+$O$ in row $u$ and $X$ in a different row $v$, with $u,v$ adjacent, and
+let $E$ be the other column carrying an $X$ in row $u$.  Slide $C$
+around the column circle until immediately before $E$.  Its marking
+interval has consecutive endpoints, so all intervening exchanges are
+noninterleaving or shared-endpoint exchanges just treated.  If
+$O(E)\ne v$, destabilize the three-corner block
+\[
+ O(C,u),\qquad X(C,v),\qquad X(E,u),
+\]
+deleting $C,u$ and replacing $X(E,u)$ by $X(E,v)$.  This joins the two
+horizontal arcs.  If $O(E)=v$, the block is instead an isolated $2\times2$
+unknot and is retained as such.
+
+The inverse rule subdivides any horizontal arc: at its $X$ endpoint
+insert an adjacent row and column using the reverse displayed
+three-corner pattern, then slide the resulting short vertical column to
+the desired position.  Thus an incoming and an outgoing port which were
+the same horizontal arc can always be separated by an ordinary
+stabilization, with a bivalent column outside a specified local word
+block.  After a local construction this subdivision can be contracted
+unless that entire strand has become unused, in which case its
+$2\times2$ unknot block is retained.
+
+\subsection{Choice of row orders at a repeated height}
+
+At an integer height the horizontal arcs run between successive
+occurrences of that rank.  Their interiors in the column circle are
+disjoint.  At a half-integer height the arcs lie in distinct three-column
+letter blocks and again have disjoint interiors.  Therefore any two
+rows of the same height can be exchanged after bringing them next to
+one another: their endpoint pairs are nonalternating, with shared
+endpoints covered by the first rule above.  Bubble-sort consequently
+realizes every desired tie-break by ordinary grid moves.
+
+\subsection{Cancellation of consecutive inverse letters}
+
+Consider $\sigma_r\sigma_r^{-1}$ and name its six consecutive columns
+$A_0,A_1,A_2,B_0,B_1,B_2$.  Denote its horizontal rows by
+\[
+\begin{array}{c|c|c}
+\text{height}&\text{row}&\text{arc}\\\hline
+r&a&\text{previous occurrence}\to A_0\\
+r&b&A_1\to B_1\\
+r&c&B_2\to\text{next occurrence}\\
+r+\tfrac12&p&A_0\to A_2\\
+r+\tfrac12&q&B_0\to B_2\\
+r+1&d&\text{previous occurrence}\to A_1\\
+r+1&e&A_2\to B_0\\
+r+1&f&B_1\to\text{next occurrence}.
+\end{array}
+\]
+Thus the marking lists in these six columns are
+\[
+ O=(p,b,e,q,f,c),\qquad X=(a,d,p,e,b,q).
+\]
+If $a=c$ or $d=f$, subdivide that horizontal arc outside this six-column
+block by the second elementary rule.  These rows are then distinct.
+The subdivision is remembered as belonging to a rank which will become
+unused after the cancellation.
+
+Choose $p,q$ to be the last two rows at height $r+\tfrac12$, in that
+order, and $e$ to be the first row at height $r+1$.  Perform:
+\begin{enumerate}
+\item The rows $q,e$ and columns $A_2,B_0$ contain
+      $O(A_2,e),X(B_0,e),O(B_0,q)$.  Delete $B_0,e$ by
+      destabilization, replacing these by $O(A_2,q)$.
+\item Exchange $A_2,B_1$.  The former has endpoints $p,q$, while the
+      latter has endpoints $b,f$, so the intervals are nested.  Now
+      $A_1,B_1$ are adjacent and row $b$ is a short row.  Move it next
+      to $d$.  Destabilize
+      $O(A_1,b),X(A_1,d),X(B_1,b)$, deleting $A_1,b$ and putting
+      $X(B_1,d)$.
+\item Destabilize the block
+      $O(A_2,q),X(A_2,p),X(B_2,q)$, deleting $A_2,q$ and putting
+      $X(B_2,p)$.  The rows $p,q$ are still adjacent.
+\item Exchange $B_1,B_2$.  Both endpoints of $B_1$ are in the upper
+      integer-height group, and the interval of $B_2$ runs from the
+      lower group to $p$, so they are disjoint.  Now row $p$ has the
+      adjacent endpoints $A_0,B_2$.  Move it next to $c$ and
+      destabilize
+      $O(A_0,p),X(B_2,p),O(B_2,c)$, deleting $B_2,p$ and putting
+      $O(A_0,c)$.
+\item The remaining two local columns are
+      $A_0:(O=c,X=a)$ and $B_1:(O=f,X=d)$.  Bring $a,c$ together
+      within their common height group and apply bivalent contraction
+      to $A_0$; do the same with $d,f$ and $B_1$.
+\end{enumerate}
+For a rank which still occurs outside the cancelled pair, the final
+contraction is a three-corner destabilization.  For an unused rank, the
+remembered subdivision column and this final column form precisely an
+isolated $2\times2$ unknot; retain that block as the resolution of the
+unused strand.  There is no death or saddle in this case.  The two
+columns of this block can be brought together, and the block can be
+moved to any prescribed auxiliary position using the elementary
+exchanges above.
+
+When both ranks persist, the construction uses exactly six
+destabilizations, with exchanges and harmless tie-break changes.  All
+six gadget columns have disappeared, and the two surviving
+integer-height arcs are exactly the arcs formed by skipping the two
+cancelled occurrences.  Columns outside the block retain their cyclic
+order; if necessary make one cyclic column permutation to restore the
+chosen cut.  The resulting grid is the signed word grid with the pair
+removed, up to tie-break changes.  This checks the endpoint by marking
+incidence, not by a link-isotopy assertion.
+
+For $\sigma_r^{-1}\sigma_r$, reverse the local row coordinate, applying
+the same rule with upper and lower ranks interchanged.  This means
+conjugating each explicit move by row reflection, not performing a
+reflection as a grid move.  Commutations and the eight stabilization
+patterns are closed under that reflection, so the reflected sequence is
+again a sequence of the permitted moves.  Inverse-pair insertion is the
+reverse of the corresponding sequence.
+
+\subsection{The three-letter Artin relation}
+
+For the source block $\sigma_r\sigma_{r+1}\sigma_r$ label its columns
+$0,1,\ldots,8$.  Each outgoing row is labelled by its starting column.
+Let $9,10,11$ denote the incoming port rows at integer heights
+$r,r+1,r+2$.  If any such port is the same arc as its outgoing port,
+first subdivide that arc outside the block as above, so all twelve
+distinguished rows are distinct.  No other subdivision is required.
+
+The initial $X$ incidences in the nine columns are
+\[
+ X=(9,10,0,2,11,3,1,4,6),\qquad O(c)=c.
+\]
+Choose tie-breaks so that the distinguished rows have the relative order
+\[
+ (1,7,9,\ 0,6,\ 2,4,8,10,\ 3,\ 5,11).
+\]
+The groups displayed correspond respectively to heights
+$r,r+\tfrac12,r+1,r+\tfrac32,r+2$.  Outgoing port rows $7,8,5$ end at
+columns outside the block; incoming port rows $9,10,11$ start at
+columns outside the block.
+
+In the following table $C_{a,b}$ exchanges the columns with persistent
+labels $a,b$, and $R_{a,b}$ exchanges the rows with those labels.  Each
+column pair is adjacent at its indicated step.  For rows, first slide
+the internal row across any nondistinguished rows between the indicated
+pair, then perform the exchange.  Such intermediate rows have both
+endpoints outside the local column block, so these preliminary slides
+are strict noninterleaving commutations.
+
+The last two columns verify noninterleaving at every step.  For a column
+exchange the numbers are positions in the current order of the twelve
+distinguished rows.  For a row exchange they are positions in the
+current order of the nine local columns; $*$ is any outside column, all
+of which lie in the complementary interval after position $8$ when
+the circle is cut immediately before the local block.  The endpoint
+pairs are disjoint, nested, or share an endpoint.  Shared endpoints use
+the fully specified elementary rule above.
+\[
+\begin{array}{r|c|c|c}
+1&C_{0,1}&(2,3)&(0,8)\\
+2&R_{1,7}&(0,6)&(7,*)\\
+3&R_{6,2}&(6,8)&(2,3)\\
+4&C_{5,6}&(9,10)&(1,5)\\
+5&C_{5,7}&(9,10)&(0,6)\\
+6&C_{5,8}&(9,10)&(5,7)\\
+7&C_{2,3}&(3,4)&(4,9)\\
+8&C_{2,4}&(3,4)&(6,11)\\
+9&C_{2,6}&(3,4)&(1,5)\\
+10&C_{2,7}&(3,4)&(0,6)\\
+11&C_{4,6}&(6,11)&(1,5)\\
+12&R_{6,4}&(3,7)&(4,5)\\
+13&R_{2,4}&(2,6)&(4,5)\\
+14&R_{6,8}&(3,7)&(7,*)\\
+15&R_{6,10}&(3,7)&(0,*)\\
+16&R_{6,3}&(3,7)&(2,8)\\
+17&C_{3,6}&(5,8)&(1,9)\\
+18&C_{0,6}&(2,3)&(1,9)\\
+19&R_{1,9}&(0,1)&(2,*)\\
+20&R_{1,0}&(0,1)&(2,6)\\
+21&C_{3,4}&(5,8)&(4,11)\\
+22&C_{0,4}&(1,2)&(4,11)\\
+23&R_{1,4}&(0,1)&(2,5)\\
+24&C_{6,4}&(4,9)&(3,11)\\
+25&C_{3,7}&(5,8)&(0,3)\\
+26&R_{1,2}&(0,2)&(5,6)\\
+27&C_{3,2}&(4,8)&(2,4)\\
+28&R_{1,8}&(0,2)&(7,*)\\
+29&R_{1,10}&(0,2)&(0,*)
+\end{array}
+\]
+Every row exchange includes an internal row: these are rows
+$0,1,2,3,4,6$, whose two endpoints always remain among the nine local
+columns.  Thus the preliminary slides past entirely external rows are
+always permitted.  In rows of the table involving a port, the displayed
+noninterleaving condition holds for every possible outside endpoint,
+not just for one choice of closure.
+
+After step 29 the column order is
+\[
+ (1,4,6,0,7,2,3,8,5)
+\]
+and the distinguished row order is
+\[
+ (7,9,\ 0,\ 4,2,8,10,\ 1,3,\ 6,5,11).
+\]
+The five groups now have heights
+$r,r+\tfrac12,r+1,r+\tfrac32,r+2$.  Reinsert the entirely external rows
+in height order: only internal rows need to pass them, and those
+exchanges are harmless as just proved.  The three incoming and three
+outgoing port rows never change their heights or their order relative
+to external rows.
+
+To check the endpoint, identify the new three-letter columns with the
+old labels by
+\[
+ (\text{new }0,\ldots,8)\longmapsto(1,4,6,0,7,2,3,8,5).
+\]
+The unchanged $O/X$ incidence, with the final row-height groups just
+listed, is precisely the gadget sequence
+$\sigma_{r+1}\sigma_r\sigma_{r+1}$.  In particular the three incoming
+ports and the three outgoing ports are the same, so this is a
+replacement in an arbitrary surrounding word.  Contract any temporary
+port subdivisions, then choose the specified final tie-break.  This
+finishes a completely local grid proof of the Artin relation.
+
+The all-negative relation follows by reflecting the local height
+coordinate and conjugating each listed grid move by that reflection.
+Alternatively it follows by inserting inverse pairs, applying the
+positive relation, and cancelling inverse pairs.  No mixed-sign
+relation beyond these generators of the group congruence is needed.
+
+\subsection{Far commutation and cyclic rotation}
+
+If $|i-j|\ge2$, every vertical marking interval in the three columns
+of a $\sigma_i^{\pm1}$ gadget lies in the height strip $[i,i+1]$, and
+those of a $\sigma_j^{\pm1}$ gadget lie in $[j,j+1]$.  These strips are
+disjoint.  Move the three columns of the second block past the three
+columns of the first block, one at a time, for nine strict column
+commutations.  The rank sets are disjoint, so the integer-arc incidence
+does not change except for the indicated block order.  This proves far
+commutation for every choice of signs.
+
+For a cyclic word rotation $uv\mapsto vu$, cyclically permute the
+columns by $3\ell(u)$.  Integer-arc incidence is cyclic and hence
+unchanged, and the row-height order is unchanged.  Correcting the
+tie-break by row exchanges gives the chosen word grid.  Any auxiliary
+unused-strand blocks can be kept at their prescribed positions by
+sliding their short rows and columns as above.
+
+Consequently every finite derivation using free inverse cancellation,
+Artin relations, far commutation, and cyclic word rotations has an
+explicit finite realization by ordinary grid moves.  Each generator
+of the derivation is replaced by the rule specified here; there is no
+appeal to the topological statement that isotopic link grids are
+connected by moves.
+
+\subsection{Moving a consecutive active block to the first ranks}
+
+Set $\rho=\sigma_0\sigma_1\cdots\sigma_{S-2}$.  For
+$0\le i\le S-3$ the following calculation uses only the two positive
+Artin relations just realized:
+\begin{align*}
+ \rho\sigma_i
+ &= (\sigma_0\cdots\sigma_{i-1})
+       \sigma_i\sigma_{i+1}\sigma_i
+       (\sigma_{i+2}\cdots\sigma_{S-2})\\
+ &= (\sigma_0\cdots\sigma_{i-1})
+       \sigma_{i+1}\sigma_i\sigma_{i+1}
+       (\sigma_{i+2}\cdots\sigma_{S-2})\\
+ &=\sigma_{i+1}\rho.
+\end{align*}
+The first equality moves the final $\sigma_i$ left past indices at
+least $i+2$; the last moves $\sigma_{i+1}$ left past indices at most
+$i-1$.  Empty strings at the ends are omitted.  Appending
+$\rho^{-1}$ and freely cancelling proves
+$\rho\sigma_i\rho^{-1}=\sigma_{i+1}$ by a finite word derivation.
+Taking inverses gives the same identity for $\sigma_i^{-1}$.
+Consequently, if $\beta$ uses only indices $0,\ldots,a-2$ and
+$a+k\le S$, iteration gives
+\[
+ \operatorname{shift}_k(\beta)=\rho^k\beta\rho^{-k}.
+\]
+This identity is obtained letter by letter, inserting inverse pairs
+between consecutive letters when needed.  It therefore has an
+explicit ordinary-grid realization by the preceding rules.  In
+particular it applies to a one-crossing factor, as well as to a local
+positive word on any consecutive block of active strands.
+
+\subsection{A guard preserving the ambient number of strands}
+
+When a finite word derivation is to be realized before the scissor
+construction, its intermediate grids can all be kept on the prescribed
+$S$ ranks, with every generator present, as follows.  Put
+$p=\rho\rho^{-1}$.  This literal word contains every generator and
+hence uses every rank, and represents the identity.  Suppose $\alpha$
+contains every generator and a finite derivation by local Artin and free
+relations changes $\alpha$ into a product
+$Q=q_1\cdots q_r$, where every $q_j$ has been padded as
+$p\widetilde q_jp$.  Perform the derivation in the sequence
+\[
+ \alpha\longrightarrow p\alpha
+ \longrightarrow pQ\longrightarrow Q.
+\]
+The first arrow inserts inverse pairs in front of $\alpha$; its
+original letters keep every generator present during that insertion.  In
+the middle arrow, keep the displayed external copy of $p$ unchanged
+and perform the chosen derivation entirely in the remaining suffix.
+The local grid rules allow arbitrary surrounding words, so this is
+exactly the prescribed realization with a fixed guard.  It is not
+necessary to rotate this external guard through any factor.  For the
+last arrow cancel its central inverse pairs successively.  The
+individually padded suffix $Q$ keeps every generator present until that
+external copy has disappeared.
+
+If a preceding comparison is only up to whole-word conjugacy, first
+absorb that conjugacy into every factor conjugator:
+$c(q_1\cdots q_r)c^{-1}=\prod_j(cq_jc^{-1})$.
+Inserting $c^{-1}c$ between factors is a finite free derivation.
+This gives exactly the Artin/free suffix derivation used here; no
+cyclic rotation of a proper substring is being asserted to be a
+word relation.
+The conjugator can itself be read from any finite comparison that
+uses whole-word rotations.  Maintain an identity
+$\alpha=cvc^{-1}$, starting with $c$ empty and $v=\alpha$.
+A local Artin or free step changes $v$ and leaves $c$ fixed.
+For a rotation $v=ab\mapsto ba$, replace $c$ by $ca$:
+\[
+ c(ab)c^{-1}=(ca)(ba)(ca)^{-1},
+\]
+where the equality is realized by inserting $aa^{-1}$ immediately
+after the displayed $b$.  This records a finite derivation using
+only local Artin and free relations.  At the end absorb the recorded
+$c$ into the factor conjugators as above, before inserting the guard.
+
+Thus the guard is absent before any scissor, factor exposure, or marked
+conjugacy cleanup.  Each remaining factor has the form
+\[
+ p\gamma\eta\gamma^{-1}p
+   =(p\gamma)\eta(p\gamma)^{-1},
+\]
+as a literal word, because $p^{-1}=p$.  Its padding is consequently
+removed by the same marked inverse-pair cancellation as its
+conjugator.  No extra cyclic rotation of a guard, or assumption about
+a marked component during the guarded derivation, is required.
+
+\end{proof}
+
+
+\section{Cancelling inverse letters while retaining an attached summand}
+
+\begin{lemma}[Marked inverse cancellation; new combinatorial]
+\label{lem:marked-cancellation}
+\formalname{markedInverseCancellation}
+Let a closed signed word have a marked horizontal integer-rank arc
+in a nontrivial permutation cycle, with an arbitrary prepared grid
+$H$ inserted in that arc in the frame specified below.  A consecutive
+inverse pair at the marked cut can be cancelled by the displayed
+ordinary moves while preserving all internal marking data of $H$.
+The mark changes by the cancelled letter's transposition, and the
+exact frame is restored.  Iteration reduces a marked
+$\gamma\eta\gamma^{-1}$ to $\eta$, with tracked rank
+$\pi(\gamma)^{-1}(k)$ from initial rank $k$.  Unused unmarked ranks
+become precisely the stated four-mark components.  These moves
+are natural for component-colour derivatives.
+\end{lemma}
+\begin{proof}
+
+Here a protected grid $H$ may contain other components in addition to its
+marked component.  Use its supplied seam preparation, so that
+\[
+ X_H(0)=0,\qquad O_H(h-1)=0.
+\]
+These are exactly the right-hand preparation conditions for the binary
+seam.  No further reordering of the protected grid is required.  In
+particular, its last X need not be in its top row.
+
+\subsection{The frame and its elementary exchanges}
+
+In a base grid choose a horizontal arc from $O(P,b)$ to $X(Z,b)$.
+The framed insertion of $H$ into that arc has the following data:
+the base column $Z$ is retained, with its X moved from $b$ to a new row
+$t$; the first column of $H$ has X in row $b$; its last column has O
+in row $t$; and every other marking of $H$ is in an internal H row.
+Thus the two exterior rows are
+\[
+ b:P\longrightarrow H_{\rm first},\qquad
+ t:H_{\rm last}\longrightarrow Z.
+\]
+The row circle is ordered as
+\begin{equation}\label{eq:exact-marked-frame}
+ (t,\ \hbox{all other base rows in their old cyclic order after }b,
+       \ b,\ H_1,\ldots,H_{h-1}).
+\end{equation}
+The H columns form one contiguous block and retain their internal order.
+
+This frame is obtained from an existing seam by explicit ordinary moves.
+The marked column $Z$ of the base grid has been removed in that seam:
+$X(Z,b)$ is represented by the first H column's X, and $O(Z,u)$ by the
+last H column's O.  O-stabilize at this last O, inserting a column $C$
+immediately to its right and a row $t$ next to $u$, with
+\[
+ O(H_{\rm last},t),\quad X(C,t),\quad O(C,u).
+\]
+Regard $C$ as the restored base column $Z$.  Its O is exactly the O that
+the base column originally had.  The row $t$ has consecutive column
+endpoints $H_{\rm last},C$, so it can be moved to immediately after $b$
+in the cyclic order of the base rows, using strict exchanges and the
+explicit shared-endpoint rule.  Then gather all H internal rows between
+$b,t$, preserving their order.  To justify every exchange in this last
+operation, an H internal row has both endpoints in the H column block.
+An exterior row has both endpoints outside that block, or one endpoint
+at its first or last column.  These pairs are always disjoint, nested,
+or share an endpoint.  Thus every exchange is one already explicitly
+realized by ordinary grid moves.  This proves
+\eqref{eq:exact-marked-frame} from the seam, without an isotopy theorem.
+
+The frame has an equally explicit inverse.  In an exact frame move the
+H block immediately before the restored base column $Z$, using the
+column exchanges established below.  The output row $t$ is then short,
+with endpoints $H_{\rm last},Z$.  Move it next to $u=O(Z)$ and
+O-destabilize the block
+\[
+ O(H_{\rm last},t),\quad X(Z,t),\quad O(Z,u),
+\]
+deleting $Z,t$ and putting $O(H_{\rm last},u)$.  This restores exactly
+the seam marking formula.  Choose the column cut at the removed marked
+column and the base row cut after the input row, then gather the
+internal H rows above the base rows.  The same permitted row exchanges
+give the actual binary seam, with its prescribed internal row orders.
+
+Two elementary facts will be used repeatedly.
+\begin{enumerate}
+\item In the exact frame, every H column can be exchanged with every
+base column.  Cut rows at $t$ in \eqref{eq:exact-marked-frame}.  All base
+column endpoints lie between $t$ and $b$.  Every H column except its
+last has both endpoints between $b$ and $H_{h-1}$; the last H column
+joins $t$ to its own internal X row, which is above $b$, and therefore
+encloses the whole base interval.  The only
+endpoint equalities are handled by the shared-endpoint rule.  Hence
+the complete H block can be moved to any gap in the base column order,
+without changing that order or the order within H.
+\item Even after the two exterior port rows have changed, every
+internal H row can be exchanged with every exterior row.  The column
+argument in the preceding paragraph still applies: the only exterior
+endpoints in the H block are at its first and last columns.  Thus the
+H internal rows can be placed in any desired interval of the row
+circle, preserving the order of all exterior rows and their own
+internal order.  If the two port rows are adjacent in the base order,
+putting the H internal rows between the input and output ports restores
+the exact frame.
+\end{enumerate}
+
+The following boundary absorptions also use only three-corner
+destabilizations.  If a base column $L$ immediately precedes H and has
+$O(L,b),X(L,d)$, while the H input is $X(H_{\rm first},b)$, move the
+short row $b$ next to $d$ and delete $L,b$.  The H input becomes
+$X(H_{\rm first},d)$.  Dually, if a base column $R$ immediately follows
+H and has $X(R,t),O(R,f)$, while $O(H_{\rm last},t)$ is the H output,
+move the short row $t$ next to $f$ and delete $R,t$.  The H output
+becomes $O(H_{\rm last},f)$.  The other corner is empty in each case.
+These are the usual X- and O-destabilization patterns, respectively.
+
+\subsection{Marked lower connector of a positive--negative pair}
+
+Use the six-column notation of the unmarked cancellation theorem:
+\[
+ O=(p,b,e,q,f,c),\qquad X=(a,d,p,e,b,q)
+\]
+in columns $A_0,A_1,A_2,B_0,B_1,B_2$.  Insert framed H into the lower
+connector $b:A_1\to B_1$.  Thus $B_1$ now has X in the frame's output
+row $t$, and the H ports are $b,t$.  Apply the preliminary port
+subdivision of the unmarked rule if the unmarked lower ports $a,c$
+coincide.  The marked upper ports $d,f$ are distinct in the application:
+otherwise the tracked marked component would be the isolated rank
+which becomes unused, contrary to its nontrivial permutation cycle.
+
+First do the ordinary destabilization deleting $B_0,e$ and putting
+$O(A_2,q)$, and exchange $A_2,B_1$.  Beforehand H may be moved to a
+gap outside these columns by the first framing fact.  Move its block
+into the gap between $A_1,B_1$.  Absorb $A_1,b$ into its left boundary,
+giving H input $d$, and absorb $B_1,t$ into its right boundary, giving
+H output $f$.  Thus H now replaces the upper bivalent column which
+occurs after the corresponding two stages of the unmarked cancellation.
+
+Place all H internal rows just above the upper integer-height rows
+$d,f$, using the second framing fact.  Consequently every endpoint of
+an H column is above the lower and middle rows of the remaining
+$A_0,A_2,B_2$ portion.  Delete $A_2,q$ by the ordinary three-corner
+destabilization, placing $X(B_2,p)$.  Exchange the entire H column block
+past $B_2$: its intervals and that of $B_2$ are disjoint.  Row $p$ now
+has consecutive endpoints $A_0,B_2$, so perform the ordinary
+destabilization deleting $B_2,p$ and putting $O(A_0,c)$.  Finally
+contract the unmarked lower bivalent column $A_0$.
+
+If the unmarked rank persists, all six original letter columns have
+been removed by six destabilizations.  The H columns and internal
+rows are unchanged in either case.  Its
+new input and output rows are precisely $d,f$, the two portions of the
+upper-rank arc obtained by deleting the inverse pair.  This is the
+same insertion on that arc, before the reframing specified below.
+If the unmarked lower rank becomes unused, the last bivalent
+contraction instead retains $A_0$ and its preliminary subdivision
+column as the $2\times2$ auxiliary block of the unmarked rule; the
+other five letter columns have been removed.
+
+\subsection{Marked upper connector of a positive--negative pair}
+
+Now insert framed H into $e:A_2\to B_0$, so $B_0$ has X in row $t$.
+Subdivide the unmarked upper arc outside the block if $d=f$.
+The marked lower ports $a,c$ are distinct by the same nontrivial-cycle
+argument.
+Move H between $A_2,B_0$.  Absorb $A_2,e$ at its left boundary, giving
+H input $p$, and absorb $B_0,t$ at its right boundary, giving H output
+$q$.  H now replaces the middle bivalent column occurring after the
+first stage of the ordinary cancellation.
+
+Place its internal rows immediately above the middle row $q$ and below
+\emph{every} upper integer-height row.  The interval of $B_1$, whose
+endpoints are $b,f$, then contains every H column interval.  Exchange
+the whole H block past $B_1$.  The columns $A_1,B_1$ are now adjacent,
+so the ordinary short-row move and destabilization delete $A_1,b$ and
+put $X(B_1,d)$.
+
+Absorb $B_2,q$ at the right boundary of H, giving output $c$.
+Its input is still $p$.  All H column endpoints are now below the
+upper-rank endpoints $d,f$ of $B_1$, so exchange $B_1$ past the entire
+H block by disjoint-interval commutations.  Absorb $A_0,p$ at the left
+boundary of H, giving input $a$.  Contract the unmarked upper bivalent
+column $B_1$.
+
+Again exactly six original letter columns have disappeared if the
+unmarked rank persists.  H is
+unchanged internally and is now inserted on the lower-rank arc with
+ports $a,c$.  An unused unmarked upper rank is treated by retaining its
+ordinary $2\times2$ auxiliary block, consisting of $B_1$ and the
+preliminary subdivision column; the other five letter columns have
+disappeared.
+
+\subsection{Reframing and iteration}
+
+The port rows $d,f$ in the first case, or $a,c$ in the second, belong to
+one integer-height group in the word with the pair removed.  They can
+be made adjacent in either prescribed tie order.  Here is the needed
+noninterleaving check even when H is present.  Let $P,Q$ be the
+preceding and following occurrences of this rank.  The remaining H
+block lies in the cyclic column interval from $P$ to $Q$ which formerly
+contained the six-letter-gadget columns.  The two port intervals are
+$P\to H_{\rm first}$ and $H_{\rm last}\to Q$.  All other rows at this
+integer height are arcs between different consecutive occurrences;
+their interiors are disjoint from that interval, or contain it after
+choosing a planar cut.  Hence each of the two port rows exchanges with
+every such tie row by a strict or shared-endpoint exchange.
+
+Put the input port immediately before the output port in the base
+cyclic order.  By the second framing fact move the H internal rows
+between them.  This restores \eqref{eq:exact-marked-frame} exactly and
+allows the procedure to be repeated for the next inverse pair.
+
+The negative--positive case is obtained by reversing the local row
+coordinate in every displayed move, interchanging upper and lower
+ranks.  This conjugates the move formulas, not the protected summand:
+its internal rows are labelled in the opposite order while describing
+the reflected formulas, and those labels are then translated back.
+Every actual step is still an ordinary grid move and the protected
+marking data are unchanged.  A marked rank not touched by the cancelled letters is an
+exterior port: move H away from the local block by the first framing
+fact and apply the unmarked cancellation.  Thus every case is covered.
+The rank carrying the mark changes by the transposition of the
+cancelled letter when the marked connector is involved, exactly as
+following that strand through its first crossing prescribes.
+
+In particular, for a factor $\gamma\eta\gamma^{-1}$ with a marked
+component, lift the cyclic column rotation moving $\gamma$ from the front to the end
+by moving the protected H block aside using its exact frame.  The
+word becomes $\eta\gamma^{-1}\gamma$, and the mark is at the interface
+of the inverse words.  Cancel the innermost inverse pair, using the
+marked rule when its rank meets the mark and the unmarked rule
+otherwise.  Reframe after each cancellation.  Induction removes all
+of $\gamma^{-1}\gamma$ and leaves H attached to the permutation-tracked
+component of $\eta$.  The endpoint is checked by the explicit port
+incidences above.  No assertion that unmarked isotopy implies marked
+grid equivalence is used.
+
+More explicitly, if $\gamma$ has successive generator indices
+$i_1,\ldots,i_m$, the central pairs cancel in that order.  A starting
+mark $k$ ends at
+$s_{i_m}\cdots s_{i_1}(k)=\pi(\gamma)^{-1}(k)$, with the composition
+convention of the brief.  Since
+$\pi(\gamma\eta\gamma^{-1})=\pi(\gamma)\pi(\eta)\pi(\gamma)^{-1}$,
+membership in the nontrivial cycle of the conjugate implies that this
+ending mark belongs to the nontrivial cycle of $\eta$.
+
+In the application the marked component belongs to the nontrivial
+permutation cycle of the factor.  Conjugation and the successive
+interface cancellations preserve that property for the tracked
+component.  Its surviving rank therefore cannot become unused.  Only
+an unmarked rank can produce an auxiliary $2\times2$ block in these
+steps, exactly as recorded in the two cancellation cases.
+
+All new or removed O markings in a boundary absorption lie on the
+marked component.  Shared-endpoint exchanges involve the same
+component at their shared corner.  Give a new O the colour of that
+component.  Strict exchanges retain every label, and the stabilization
+variable identifications only identify equal colours.  Therefore the
+entire marked construction is natural for the component-colour
+derivative operators by the differentiated domain identities already
+proved.
+
+\end{proof}
+
+
+\section{A signed-factorization scissor construction}
+
+Write $r=N+B$, where $B$ is the total smooth ramification order,
+with each smooth local Coxeter word split into its positive-generator factors.  Let $a_l$ be the
+length of the nontrivial permutation cycle of the $l$th monodromy factor:
+$a_l=a_j$ at a singular point, and $a_l=2$ at a smooth simple branch point.
+
+\begin{lemma}[Exponent count; uses the word lengths and invariant identities]
+\label{lem:exponent-count}
+\formalname{exteriorRamificationCount}
+Suppose the outer event word has an Artin-group factorization
+\[
+ w_{\rm out}=q_1\cdots q_r,
+ \qquad q_l=\gamma_l\eta_l\gamma_l^{-1},
+\]
+where the $\eta_l$ are the $N$ local positive words and $B$ positive generators.
+Then
+\[
+ B=S-\sum_{j=1}^N a_j+N-1+\mu(V).
+\]
+\end{lemma}
+\begin{proof}
+The exponent-sum homomorphism sends an Artin generator to $1$ and is invariant
+under conjugation.  Hence the supplied length identities give
+\[
+ 2\delta(W)+S-b
+ =\sum_j(2\delta_j+a_j-1)+B.
+\]
+Substitute $\delta(W)-\sum_j\delta_j=\delta(V)$ and
+$2\delta(V)=\mu(V)+b-1$.
+\end{proof}
+
+\begin{lemma}[A common strand; new combinatorial]
+\label{lem:hurwitz}
+\formalname{commonStrandHurwitz}
+Let $c_1,\ldots,c_r$ be nontrivial cycles on a finite set, and suppose the group
+they generate is transitive.  Fix a letter $o$.  A finite algorithm of Hurwitz
+moves transforms the tuple into one in which every cycle moves $o$.
+The algorithm lifts to a tuple of arbitrary braid factors having these
+permutations, preserving its product and the individual conjugacy classes.
+\end{lemma}
+\begin{proof}
+Call a factor good when its support contains $o$.  At least one factor is good.
+If some are bad, transitivity of the support hypergraph provides a bad cycle
+$c$ whose support meets that of a good cycle $g$.  Move $c$ next to $g$, keeping
+$c$ itself unchanged: moving $c$ past a factor $h$ replaces $h$ by
+$chc^{-1}$ or $c^{-1}hc$.  Since $c(o)=o$, this does not change whether $h$ is
+good.  If necessary use one further Hurwitz move to put a good factor first.
+
+For $H(g,c)=(gcg^{-1},g)$, direct multiplication gives
+\[
+ H^{2k}(g,c)=((gc)^k g(gc)^{-k},(gc)^k c(gc)^{-k}).
+\]
+The orbit of $o$ under $gc$ meets $\operatorname{supp}(g)\cap
+\operatorname{supp}(c)$.  Indeed, until that orbit first enters
+$\operatorname{supp}(c)$, the map $gc$ acts as $g$.  A full $g$-cycle visits
+the nonempty intersection; its first visit to the support of $c$ lies in the
+intersection.  Choose an integer $k$ such that $(gc)^{-k}(o)$ belongs to that
+intersection.  After $H^{2k}$ both factors are good.  The number of good
+factors has increased, so repetition terminates.  All the displayed formulas
+are group identities and thus apply to braid factors as well.
+\end{proof}
+
+\begin{lemma}[Prescribed factor order; new combinatorial]
+\label{lem:ordered-hurwitz}
+\formalname{orderedCommonStrandHurwitz}
+Suppose every cycle in a tuple of nontrivial cycles moves a distinguished
+letter $o$.  Any prescribed order of the labelled conjugacy classes can
+be obtained by a finite sequence of Hurwitz moves such that every cycle
+in the final tuple still moves $o$.  The same algorithm applies to braid
+factors, preserves their product, and keeps each factor in its labelled
+conjugacy class.
+\end{lemma}
+\begin{proof}
+It suffices to exchange two adjacent labelled factors $g,c$ while
+retaining the distinguished letter in both final supports.  Put $P=gc$.
+The previous Hurwitz formula gives
+\[
+ H^{2k+1}(g,c)=
+ \bigl(P^k g c g^{-1}P^{-k},\ P^k gP^{-k}\bigr).
+\]
+The first entry is a conjugate of $c$ and the second a conjugate of
+$g$, so their labels are exchanged.  Both entries move $o$ precisely
+when
+\[
+ x_k=P^{-k}(o)\in \operatorname{supp}(g)\cap
+                              g(\operatorname{supp}(c)).
+\]
+There is a nonnegative $k$ with this property.  Start with
+$x_0=o\in\operatorname{supp}(g)$.  As long as
+$x_k\notin g(\operatorname{supp}(c))$, the point $g^{-1}(x_k)$ is
+fixed by $c$, and hence
+\[
+ x_{k+1}=c^{-1}g^{-1}(x_k)=g^{-1}(x_k).
+\]
+Thus, until the desired intersection is reached, the sequence follows
+the backward $g$-cycle through $o$.  That cycle reaches $g(o)$ in at
+most $|\operatorname{supp}(g)|-1$ steps, and
+$g(o)\in\operatorname{supp}(g)\cap g(\operatorname{supp}(c))$
+because $c$ moves $o$.  This proves termination and gives an explicit
+finite search for $k$.
+
+Use this adjacent exchange in an ordinary bubble sort of the factor
+labels.  After each completed exchange all factors again move $o$;
+the number of label inversions strictly decreases.  The other factors
+are untouched, and the displayed Hurwitz identities preserve the
+product at every step.  All identities hold in the braid group as
+well, so the same signed-word operations prove the braid assertion.
+In the application, order the singular factors by $Q_1,\ldots,Q_N$
+first, followed by the simple factors in any fixed order.
+\end{proof}
+
+\begin{lemma}[Star scissors and the incidence forest; new combinatorial]
+\label{lem:scissor-forest}
+\formalname{scissorIncidenceForest}
+Suppose $r\ge1$ factors on $S$ strands are conjugates of words with
+one nontrivial cycle of length $a_l\ge2$, their permutations are
+transitive, and every such cycle contains strand $0$.  Pad each
+factor as specified below.  The star rule gives
+$s=(S-1)(r-1)$ adjacent-row scissors and a final grid with one main
+component and $U=\sum_l(S-a_l)$ auxiliary components.  Exactly $U$
+specified scissors can use the O-switch map followed by a strict
+row commutation; all others use the X identity.  The endpoints
+are the same for either choice.  The incidence matrix of these
+$U$ O maps, with the main-component row removed, has determinant
+one.  Moreover
+$s-U=\sum_l a_l-r-S+1$.
+\end{lemma}
+\begin{proof}
+\subsection{Signed word grids and the scissor switches}
+
+Use the signed three-column convention of Section~\ref{sec:conventions}.  For both signs the
+integer-rank incoming corner precedes the outgoing corner of that occurrence.
+Consequently, at any fixed integer rank, the arcs between successive
+occurrences have pairwise disjoint column intervals, except for the unique
+closing arc, whose interval contains all the others.  Thus all tie orders at
+an integer rank are related by ordinary, four-distinct-endpoint row
+commutations.  Half-integer arcs of distinct letters have disjoint intervals.
+
+Pad each factor on both ends by an identity word $\rho\rho^{-1}$, where
+$\rho=\sigma_0\cdots\sigma_{S-2}$.  Every rank then occurs, every factor
+begins with $+\sigma_0$, and every factor ends with $\sigma_0^{-1}$.
+Padding does not alter the factor or its permutation.
+
+Fix a rank $k\geq1$.  Let $p_l$ be the last outgoing $k$-corner of factor $l$
+and $q_l$ its first incoming $k$-corner.  In the concatenation, let $R_l$ be
+the row with $O$ at $p_l$ and $X$ at $q_{l+1}$, indices taken modulo $r$.
+Perform the star sequence
+\[
+ (R_1,R_2),\ (R_1,R_3),\ldots,(R_1,R_r),
+\]
+where a pair means exchanging its two X entries.  After the $l$th stage,
+factors $2,\ldots,l$ close separately at this rank, while the row $R_1$
+connects $p_1$ to $q_{l+1}$.  At the last stage factor $1$ closes as well.
+All row intervals at this rank remain pairwise disjoint or nested: the
+active interval spans the consecutive factors already processed, the newly
+closed factor intervals lie inside it, the remaining short connectors are
+disjoint, and the original last connector encloses the rest.  Therefore each
+requested pair can be brought to adjacent rows by ordinary row commutations.
+None of the swaps creates an $O=X$ collision, since the incoming and outgoing
+corners of an occurrence are distinct columns.
+
+Leave rank $0$ unchanged.  The total number of switches is
+\[
+ s=(S-1)(r-1).
+\]
+An adjacent-row X switch has the same explicit chain map and filtration bound
+as an adjacent-column X switch: the map is the identity on the O-complex,
+and transposing both coordinates in the $J$-formula gives the same
+$M_X$ difference $\pm1$.  This proves shifts $(0,1/2)$ and degree $0$.
+
+
+\paragraph{The O replacement at a specified scissor.}
+Bring $R_1,R_l$ into adjacent row positions $u,u+1$, in that order.
+Let their O columns be $a=p_1<b=p_l$, and let their X columns before
+the switch be the current $q_l,q_{l+1}$.  All four columns are
+distinct, because every factor has the stated padding.  Transpose
+the adjacent-column O formula.  It is the explicit state map
+\[
+ F_{\rm row}(x)=
+ T^{\,\mathbf1_{\{a<x^{-1}(u+1)\le b\}}}x
+\]
+to the grid obtained by exchanging the O entries of these rows.
+It has degree $-1$ and shifts $(0,-1/2)$.  In that grid the two
+row intervals are $p_l\!-\!q_l$ and $p_1\!-\!q_{l+1}$.
+They are disjoint or nested, with four distinct endpoints: the
+first closes factor $l$ and the second spans the active sequence
+of factors.  Commute the two entire rows.  Their O entries and
+labels return to their original outgoing factor columns, while
+their X entries have been exchanged.  This is exactly the X-scissor
+endpoint.  The row-commutation map after $F_{\rm row}$ gives the
+selected map.  The detecting $K$ of Lemma~\ref{lem:O-calculus},
+followed by that same commutation, retains its canonical-class
+and derivative identities.  Thus the incidence formula applies
+without any new local map assertion.
+
+\subsection{The explicit forest for O-switch selection}
+
+After common-strand normalization, every factor has just one nontrivial
+cycle, and that cycle contains $0$.  The unchanged rank-$0$ connections join
+all these components into one main component.  Every fixed rank of a factor
+gives one auxiliary component, reduced below to an explicit unknot block.  Hence their number is
+\[
+ U=\sum_{j=1}^N(S-a_j)+B(S-2).
+\]
+At rank $k\geq1$, the scissor edges form the star with center factor $1$ and
+leaves $2,\ldots,r$.  Its vertex at factor $l$ is main if $k$ belongs to that
+factor's nontrivial cycle, and is an auxiliary component otherwise.
+Transitivity ensures at least one main vertex at each rank.
+
+If factor $1$ is main, select the edges to precisely the auxiliary leaves.
+If it is auxiliary, let $l_*$ be the first main leaf; select $(1,l_*)$ and
+the edges from $1$ to every other auxiliary leaf.  This is a tree rooted at
+the main component, with exactly one edge per auxiliary vertex.  Taking all
+ranks gives $U$ selected edges.  The reduced incidence matrix is square with
+determinant $1$ over $\mathbb F_2$: remove leaves successively, expanding
+along their unique incident edge.  In particular this selection is suitable
+for an incidence-determinant formulation of the O-switch/death class
+calculation.
+
+Finally,
+\[
+ s-U=(S-1)(N+B-1)-\sum_j(S-a_j)-B(S-2)
+     =\sum_j a_j+B-N-S+1=\mu(V).
+\]
+
+
+
+\end{proof}
+
+
+\section{Exact seam coordinates and successive factor cleanup}
+
+\begin{lemma}[Exact seam coordinates and factor cleanup; new combinatorial]
+\label{lem:seam-cleanup}
+\formalname{cyclicSeamCoordinates}\formalname{seamFactorCleanup}
+Assume the scissor factors are $\gamma_l\eta_l\gamma_l^{-1}$, where
+$\eta_l$ is supported on its $a_l$ active ranks, contains every
+active generator, and has one full $a_l$-cycle, as in the analytic
+factorization.  The preparation at a specified arc below gives a triply prepared
+grid by one X stabilization and cyclic permutations.  On triply
+prepared factors the seam operation is strictly associative, and
+the displayed cyclic block rule exposes any chosen factor by
+explicit ordinary moves.  The raw scissor endpoint is that cyclic
+block grid.  Successive marked cancellations preserve an exact
+iterated-seam invariant and reduce all factors to framed core word
+grids with their unused-rank blocks.  Applying the proved block
+normalizations and singleton contractions deletes exactly those
+auxiliary rows and columns and leaves the exact seam of the
+framed active core grids.
+\end{lemma}
+\begin{proof}
+
+Call a grid $D$ of size $n\geq2$ \emph{triply prepared} if
+\begin{equation}\label{eq:triple-preparation}
+ X_D(0)=0,\qquad O_D(n-1)=0,\qquad X_D(n-1)=n-1.
+\end{equation}
+These conditions imply all the preparation conditions required of both
+the left and the right factor of the supplied binary seam.  In this
+section every iterated seam of triply prepared factors uses the identity
+row rotation at every stage.
+
+\subsection{Preparation at a specified arc}
+
+Let an arc of a grid $G$ of size $g\geq2$ run from $O(P,b)$ to
+$X(Z,b)$.  X-stabilize at the latter marking.  Insert a column $W$
+immediately before $Z$ in the column circle, and insert a row $t$
+immediately after $b$ in the row circle, with the three markings
+\begin{equation}\label{eq:specified-frame-stabilization}
+ O(W,t),\qquad X(W,b),\qquad X(Z,t),
+\end{equation}
+the old $X(Z,b)$ having been removed.  Cut the column circle immediately
+before $Z$, and cut the row circle immediately before $t$.  Then $Z$ is
+first, $W$ last, $t$ bottom, and $b$ top.  The resulting grid, denoted
+$D(G,b)$, is triply prepared and has size $g+1$.  Formula
+\eqref{eq:specified-frame-stabilization} is an ordinary X stabilization;
+the two choices of cuts are cyclic permutations.  The new O has the
+colour of the component containing the specified arc.  No component is
+created or merged.
+
+\subsection{Strict associativity and a cyclic block formula}
+
+Let $D_1,\ldots,D_r$ be triply prepared, with sizes $n_l$, and set
+\[
+ e_l=n_l-1,\qquad c_l=\sum_{i<l}e_i,\qquad d=\sum_{l=1}^r e_l.
+\]
+Their iterated seam $T$ has size $d+1$.  Substitution in the binary
+seam formula shows that $T$ is itself triply prepared.  It also shows
+that the seam operation is strictly associative on these data: both
+parenthesizations have the same O and X in every column, with offsets
+given by the corresponding sums of the $e_l$.  In particular, no
+unmentioned grid move or row rotation is concealed in reassociation.
+Explicitly, for $0\leq j<e_l$ and $Y\in\{O,X\}$,
+\[
+ Y_T(c_l+j)=c_l+Y_{D_l}(j),\qquad O_T(d)=0,\quad X_T(d)=d.
+\]
+This formula follows by induction from the binary formula, because
+the unique zero-row O of each right factor lies in its last column
+and its last X is in its top row.  It proves the associativity and
+preparation assertions directly.
+
+Suppose $r\geq2$.  Let $M=d$ be the last column of $T$ and $A=0$ its
+first column.  Across the toroidal last/first column boundary and the
+top/bottom row boundary there are exactly the three markings
+\[
+ X(M,d),\qquad O(M,0),\qquad X(A,0).
+\]
+The fourth corner $(A,d)$ is empty.  Indeed, the X of $A$ is in row
+$0$, while its O is in the first factor's row block, hence in a row
+at most $e_1<d$.  X-destabilize this block, deleting $M$ and row $0$
+and replacing its X markings by $X(A,d)$ before renumbering.  A cyclic
+cut makes this an ordinary adjacent-row, adjacent-column
+destabilization if the convention requires a planar $2\times2$ block.
+
+Denote the resulting size-$d$ grid by $C(D_1,\ldots,D_r)$.  Its columns
+and rows are divided into blocks of sizes $e_l$.  For
+$0\leq j<e_l$ its complete marking formula is
+\begin{equation}\label{eq:cyclic-block-grid}
+\begin{split}
+ O_C(c_l+j)&=c_l+O_{D_l}(j)-1,\\
+ X_C(c_l+j)&=
+ \begin{cases}
+ c_l-1\pmod d,&j=0,\\
+ c_l+X_{D_l}(j)-1,&j>0.
+ \end{cases}
+\end{split}
+\end{equation}
+All values on the first line lie in the $l$th row block, since the only
+O in row $0$ of $D_l$ is in its omitted last column.  The same is true
+of the second line for $j>0$.  The first X of a block lies in the top
+row of the preceding block, with the blocks read cyclically.  This is
+the entire effect of the destabilization.
+
+The formula is literally cyclically symmetric.  To put factor $D_l$
+first, cyclically rotate the column blocks by $c_l$ and the row blocks
+by the same amount.  These are permitted cyclic column and row
+permutations.  Apply the inverse X stabilization at the first-column
+X in the top row: add a last column $M$ and a bottom row $0$, place
+$O(M,0),X(M,\mathrm{top}),X(0,0)$, and remove the old
+first-column/top-row X.  One obtains exactly
+\[
+ \Sigma(D_l,D_{l+1},\ldots,D_r,D_1,\ldots,D_{l-1}),
+\]
+where the displayed expression is strictly associative.  Thus any
+factor can be exposed as the left factor of a binary seam whose right
+factor is the contiguous seam of all the others.  This conclusion is
+proved by marking coordinates, without a commutativity assertion for
+connected sums.
+
+The formula includes factors of size $2$: then $e_l=1$ and the
+$j>0$ case for that block is simply absent.  Since $r\geq2$, $d\geq2$,
+so the temporary destabilized grid never has size $1$.  When $r=1$
+there is no cyclic factor permutation to perform, and the operation is
+omitted; its fourth corner need not be empty in that case.
+
+\subsection{The raw scissor endpoint is already this cyclic grid}
+
+Let $q_1,\ldots,q_r$ be the padded signed factors in the scissor
+construction, and let $G_l$ be their standalone word grids.  At each
+factor the first letter is $\sigma_0$ and the last letter is
+$\sigma_0^{-1}$.  Thus its first column $A_l$ is the first incoming
+rank-$0$ corner, its last column $B_l$ is the last outgoing rank-$0$
+corner, and its closing rank-$0$ row $b_l$ runs
+$O(B_l,b_l)\to X(A_l,b_l)$.
+
+Apply the preparation formula
+\eqref{eq:specified-frame-stabilization} to the standalone grid $G_l$
+at this arc and call the result $D_l$.  This defines $D_l$ explicitly;
+it is not an assertion that unrelated factor moves lift through a
+seam.  Its nonlast columns are exactly the columns of $G_l$, in their
+original cyclic order, and its nonbottom rows are exactly the rows of
+$G_l$, cut just after $b_l$, so that $b_l$ is last.  Its omitted last
+column and bottom row are precisely the added frame.
+
+After the scissor switches at every rank other than $0$, the raw
+endpoint has these same column blocks.  Every row is internal to one
+block except the rank-$0$ rows
+\[
+ R_l:O(B_l)\longrightarrow X(A_{l+1}),
+ \qquad l\pmod r.
+\]
+Assign $R_l$ to row block $l$.  Within each block put the rows in the
+cyclic order of $G_l$ starting immediately after its closing rank-$0$
+row; put $R_l$ last.  These row permutations are realized as follows.
+Rows internal to different column blocks have disjoint intervals.
+For $l<r$, $R_l$ has consecutive column endpoints $B_l,A_{l+1}$;
+$R_r$ is the closing interval containing every other column.  Hence
+every pair of rows with different block labels has disjoint or nested
+intervals, or shares an endpoint.  Every needed adjacent exchange is
+therefore either a strict noninterleaving commutation or the explicit
+shared-endpoint replacement already proved.
+
+To implement independent cyclic cuts, gather one row colour into a
+consecutive block by these exchanges.  Move its first row globally
+around the row circle, then exchange it back past all other colours
+until it is last in its own block.  Repeating realizes any cyclic
+rotation of that colour while preserving all other cyclic orders.
+After choosing the required cyclic order for every colour, use a
+stable sort of the colour labels, which exchanges only different
+colours.  This is a finite algorithm producing the stated row order.
+
+The raw scissor endpoint in this order is exactly
+$C(D_1,\ldots,D_r)$ by \eqref{eq:cyclic-block-grid}: its only changed X
+is the first one in each block, now on the preceding block's last
+row.  Consequently a single global X stabilization, the inverse of
+the destabilization above, gives the exact iterated seam of the
+triply prepared $D_l$.  This preparation changes neither the saddle
+count nor any component colour.  The added O is on the main component.
+For $r=1$ the raw endpoint is simply $G_1$, and this same stated
+stabilization is exactly $G_1\to D(G_1,b_1)$.  It does not rely on a
+preceding cyclic-seam destabilization.
+
+\subsection{The invariant under marked inverse-pair cancellation}
+
+Maintain the following exact invariant: the current grid is the
+strict iterated seam of triply prepared factor grids, one for each
+monodromy factor; a factor consists of its current marked word part
+and the explicitly retained $2\times2$ blocks of its unused ranks,
+each with its two rows and its two columns adjacent.
+All such auxiliary components keep their prescribed colours.  The
+cyclic block rule exposes any desired factor $D$ first.  By strict
+associativity the resulting grid is exactly
+\[
+ \Sigma(D,H),
+\]
+where $H$ is the contiguous seam of the other factors.  For $r\geq2$,
+$H$ has size at least $2$, is triply prepared, and its complete
+marking data will be protected during the following operation.
+
+Here $D=D(G,b)$ is the one-stabilization preparation of its underlying
+marked word part, including any retained auxiliary blocks.  The binary
+seam formula already gives its exact framed insertion form: the word
+column $Z$ is retained with X in the bottom row $t$, the first H
+column has X in the top base row $b$, and the last H column has O in
+$t$.  Its internal H rows lie above $b$.  No additional stabilization
+to restore the virtual frame column is performed.  Cancel the padding and the
+conjugator of the exposed factor by the marked inverse-pair theorem, using unmarked
+inverse-pair cancellation whenever the current mark does not meet the
+two affected ranks.  At every marked cancellation the protected H
+block retains its columns, internal rows, their orders, and every
+internal marking.  Only its incoming and outgoing port rows change.
+The local theorem restores the exact frame after each cancellation.
+For a factor $\gamma\eta\gamma^{-1}$, the successive transpositions
+track the mark into the nontrivial permutation cycle of $\eta$.
+Therefore the marked rank never becomes unused.  The unused ranks are
+exactly the $S-a_l$ fixed strands of that factor, and each is retained
+as one explicit isolated $2\times2$ grid.
+
+It remains to check that the output frame recovers the same global
+invariant, rather than merely representing an attached summand.  Let
+the resulting base word part have the arc
+$O(P,b)\to X(Z,b)$.  Its framed insertion has H input
+$X(H_{\rm first},b)$ and H output $O(H_{\rm last},t)$, while the
+retained base column $Z$ has X in row $t$.  Introduce the
+\emph{virtual} last column $W$ with $O(W,t),X(W,b)$.  First use the
+frame's proved column-exchange rule to move the entire H block
+immediately before the retained base column $Z$, preserving all
+internal and exterior column orders.  Then cut immediately before
+$Z$, so the base columns come first and the H block last.  With row
+cut $t$ first and $b$ last among the base rows, the
+virtual base grid is exactly $D(G,b)$ from
+\eqref{eq:specified-frame-stabilization}.  The virtual column is
+precisely the column deleted by the seam formula.  Substitution in
+that formula recovers all actual markings of the frame, including
+$X(H_{\rm first},b)$ and $O(H_{\rm last},t)$.  Thus the actual output
+grid is literally
+\[
+ \Sigma(D(G,b),H).
+\]
+The exposed factor has been replaced by another triply prepared one,
+and every other factor is unchanged.  This proves the induction
+invariant and permits the next factor to be exposed by the cyclic
+block rule.  No general statement that an unmarked equivalence lifts
+through a seam is needed.
+
+Postpone all auxiliary contractions until every factor has been
+cleaned.  An auxiliary $2\times2$ block can then be placed at the
+prescribed location by ordinary moves.  First move its two columns together
+to the desired column position: their row endpoints are the same two
+adjacent rows, and no exterior column uses either row, so all these
+exchanges are strictly noninterleaving.  With its columns adjacent,
+move its two rows to the desired row position; the same argument
+applies with coordinates transposed.  The block has no shared marking
+with the main component.  If necessary exchange its two rows by the
+proved shared-endpoint rule to give the four-mark pattern of
+Proposition~\ref{prop:four-mark-collapse}.
+
+For each block first apply that proposition's explicit degree-zero,
+shift-zero collapse to a doubled singleton.  These maps preserve the
+canonical class and intertwine its component-colour derivative.  Only
+after these collapses apply the degree-$+1$, shift-$(0,1/2)$ singleton
+contractions of Lemma~\ref{lem:dummy-transport}, using the persistent
+main component as root.  These are the $U$ contractions in the
+incidence-determinant calculation.  A four-mark block is never
+treated as an ordinary three-corner destabilization.  Intermediate
+doubled singletons are auxiliary marking pairs with the explicitly
+defined complexes and maps of those two results.
+
+Their exact target formulas delete only the selected auxiliary rows
+and columns, retaining all others in their original relative order.
+In particular the first-column X, bottom O, and last-column top X of
+every main frame remain.  At the end the actual grid is exactly the
+seam of the same factor frames with their auxiliary blocks removed.
+The persistent main component has a row with distinct O and X
+throughout, as required for the contractions.  This proves the target
+claim at the level of marking permutations as well as the required
+colour naturality.
+
+After all factors have been processed and the prescribed $U$ blocks
+have died, each remaining factor is the frame preparation of
+$\operatorname{wordGrid}(\eta_l)$ at a rank in its unique active
+cycle.  Its size is at least $3$, since the unframed word grid has size
+at least $2$.  Reversing its one frame stabilization, together with
+its explicit cyclic cuts, gives an ordinary-move equivalence with
+$\operatorname{wordGrid}(\eta_l)$.  Thus the preparation condition and
+the required \texttt{MovesTo} condition are both verified without any
+further rank normalization.
+
+
+\end{proof}
+
+
+\section{Removing the simple factors and fixing the target}
+
+\begin{lemma}[Simple-factor projection and exact target;
+new combinatorial, uses the binary seam comparison]
+\label{lem:simple-factor}
+\formalname{simpleFactorProjection}
+Suppose the cleaned factors have been ordered with the singular
+factors first in their prescribed order and the simple factors last.
+The functional \eqref{eq:simple-factor-functional} on
+$C(\operatorname{wordGrid}(\sigma_0))$ is a $\Lambda$-linear
+degree-zero chain map to $\Lambda$ with shifts $(0,0)$ and sends
+the canonical class to $1$.  Consequently the seam of the cleaned
+singular and simple factors admits a degree-zero, shift-zero,
+canonical-class-preserving map to the prescribed iterated seam
+of the singular factors alone.
+\end{lemma}
+\begin{proof}
+
+All ordinary moves and all prescribed auxiliary deaths in the preceding
+section occur before using a seam--tensor comparison.  Thus the
+component-colour derivative proof of the O-switch/death canonical-class
+identity applies to the explicit marking pairs and their specified maps
+throughout.  At that stage the canonical-class
+calculation is the one completed in Section~\ref{sec:final-proof}.
+The following operations add no further degree or filtration shift.
+
+For a smooth-ramification factor, its active word is a positive
+generator on two strands.  Its three-by-three word grid has
+\[
+ O=(1,0,2),\qquad X=(0,2,1).
+\]
+Here a state such as $021$ denotes the values of its row permutation
+in increasing column order.  Direct enumeration of the two possible
+empty rectangles for each transposition gives
+\[
+\begin{array}{c|c}
+ x&\partial x\\\hline
+ 012&021+102+T\,210\\
+ 120&021+102+T\,210\\
+ 201&021+102+T\,210\\
+ 021&0\\
+ 102&0\\
+ 210&0.
+\end{array}
+\]
+The Maslov and Alexander values of the states used below are
+\[
+ (M_O,A)(021)=(-2,-1),\qquad
+ (M_O,A)(102)=(-2,-2),\qquad
+ (M_O,A)(210)=(0,0).
+\]
+With $\Lambda$ having zero differential and its usual monomial degree
+and bifiltration, define the $\Lambda$-linear map
+\begin{equation}\label{eq:simple-factor-functional}
+ \epsilon(210)=1,\qquad \epsilon(021)=T,\qquad
+ \epsilon(012)=\epsilon(102)=\epsilon(120)=\epsilon(201)=0.
+\end{equation}
+The displayed differential table gives $\epsilon\partial=T+T=0$.
+The two nonzero images have exactly the degrees of their inputs.
+Their filtration coordinates satisfy
+\[
+ (0,0)=(0,A(210)),\qquad (-1,-1)\leq(0,A(021))=(0,-1).
+\]
+Multiplication by $T^k$ translates both input and output coordinates
+by $(-k,-k)$, proving shifts $(0,0)$ for every monomial.  The degree-zero
+cycle $210$ lies in the polynomial subcomplex, and
+\eqref{eq:simple-factor-functional} proves its class nonzero.  Hence
+it is the supplied canonical class and is sent to $1$.
+
+Before the scissor construction, use
+Lemma~\ref{lem:ordered-hurwitz} to order the labelled singular factors
+as $Q_1,\ldots,Q_N$, followed by the $B$ simple factors, while keeping
+strand $0$ in every nontrivial factor cycle.  The subsequent factor
+exposures change this order only by cyclic rotation: each uses the
+cyclic block rule, and marked cancellation changes only the exposed
+factor.  After cleanup and the auxiliary contractions, apply that same
+cyclic block rule to put the factor labelled $Q_1$ first.  This is
+possible because $N\ge1$.  The actual grid is now the exact seam of
+the cleaned singular factors in their prescribed order, followed by
+the cleaned simple factors.  All these ordering operations are
+ordinary moves of degree and shift zero.
+
+For a cleaned simple factor $H$, define
+\[
+ \epsilon_H=\epsilon\circ M_H:C(H)\longrightarrow\Lambda,
+\]
+where $M_H$ reverses its one frame stabilization and cyclic cuts to
+the three-by-three word grid.  This map is $\Lambda$-linear.  Indeed,
+the ordinary maps chosen here are the explicitly proved polynomial
+domain maps: a commutation is its pentagon count, the primitive
+stabilization directions are the incoming and outgoing domain counts,
+and the other corners use their finite corner reductions.  Each is a
+sum of state terms with powers of $T$, extended $\Lambda$-linearly.
+Cyclic row and column permutations use their literal state bijections
+and preserve rectangle weights; these too are $\Lambda$-linear.
+The earlier proofs give their degree, shift, and class properties.
+Consequently $\epsilon_H$ has degree zero, shifts $(0,0)$, and sends
+$\operatorname{can}(H)$ to $1$.
+
+Remove the last simple factor one at a time.  By the strict seam
+formula the current grid is $\Sigma(G,H)$, where $H$ is that last
+simple factor and $G$ is the exact seam of the remaining prefix.
+The prefix always includes the $N\ge1$ singular factors, so it is a
+valid grid of size at least two.  Apply the supplied \emph{binary}
+comparison, followed by
+\begin{equation}\label{eq:ordered-binary-stripping}
+ C(\Sigma(G,H))\xrightarrow{\ \Theta_{G,H}\ }
+ C(G)\otimes_\Lambda C(H)
+ \xrightarrow{\ \operatorname{id}\otimes\epsilon_H\ }
+ C(G)\otimes_\Lambda\Lambda\cong C(G).
+\end{equation}
+The second arrow is well defined because $\epsilon_H$ is
+$\Lambda$-linear.  It is a chain map of degree zero and shifts
+$(0,0)$: if a monomial term of $\epsilon_H(y)$ is $T^m$, its shift
+bounds say $m\ge0$ and $-m\le A_H(y)$, so the image of
+$T^k(x\otimes y)$ has coordinates
+\[
+ (-k-m,A_G(x)-k-m)
+ \le (-k,A_G(x)+A_H(y)-k).
+\]
+The canonical-class identity of the binary comparison, followed by
+$\epsilon_H\operatorname{can}(H)=1$, proves the identity for
+\eqref{eq:ordered-binary-stripping}.
+
+Repeat this operation exactly $B$ times.  Its exact target after each
+step is the prefix grid $G$, so no comparison is tensored with an
+identity map and no inverse or iterated tensor comparison is used.
+In particular no $\Lambda$-linearity of the supplied
+$\Theta_{G,H}$ is assumed.  The final target is literally the seam
+of the retained singular factors $D_1,\ldots,D_N$ in their required
+order, with identity row rotations.  Every step has degree zero,
+shifts $(0,0)$, and preserves the canonical class.  If $B=0$ this
+entire removal operation is the identity.
+
+The original scissor uses $s$ saddles, of which $U$ are O switches;
+the other $s-U$ are X switches.  The O switches and their $U$ deaths
+cancel in degree and filtration shift.  Since the exact count proved
+earlier gives $s-U=\mu(V)$, the resulting map has degree zero and
+shifts $(0,\mu(V)/2)$.  All size bounds required in Statement E hold,
+and every local factor is related by ordinary moves to its supplied
+positive word grid.
+
+If $r=1$, transitivity forces the sole nontrivial cycle to contain all
+$S$ ranks.  Since there is at least one singularity, this sole factor
+is a singularity factor.  Thus $U=s=0$ and the exact count gives
+$\mu(V)=0$.  There is no scissor and no factor permutation.  Apply
+standalone cyclic word rotation and the unmarked free-cancellation
+rule to reach its local positive word grid, then the one stabilization
+\eqref{eq:specified-frame-stabilization} gives its prepared target.
+This separately covers the only case in which the cyclic seam
+destabilization was not used.
+
+\end{proof}
+
+
+\section{Construction of the complete map and proof of Statement E}
+\label{sec:final-proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:E}]
+Choose the assembly supplied by the brief.  Apply the finite-projection
+and event-factorization lemma to choose a sufficiently small allowed
+level and a projection transverse at every central and local branch.
+It gives the central positive word
+$\alpha=\mathbf d_S\mathbf w$, the local positive words $\beta_j$,
+and a finite derivation, using signed Artin relations and conjugacy,
+of
+\[
+ \alpha\ \sim\ q_1\cdots q_r,\qquad
+ q_l=\gamma_l\eta_l\gamma_l^{-1},\qquad r=N+B.
+\]
+If the initial comparison is by whole-word conjugacy, absorb its
+conjugator $c$ into every $\gamma_l$.  Indeed
+$c(q_1\cdots q_r)c^{-1}=\prod_l(cq_lc^{-1})$, with a finite free
+derivation obtained by inserting $c^{-1}c$ between consecutive
+factors.  The guarded word normalization can therefore use only
+local Artin and free relations in its suffix.
+Each $\eta_l$ is a local $\beta_j$, supported on its first $a_j$
+strands, or $\sigma_0$ on its first two strands.  A cluster originally
+in another consecutive interval is put in this form by the explicit
+identity $\operatorname{sh}_k(\eta)=\rho_S^k\eta\rho_S^{-k}$.
+The factor permutations generate a transitive group on $S$ points.
+In particular every local degree is at most $S$, since it is a
+cluster in an $S$-point regular fibre.
+
+Apply the finite Hurwitz algorithm with distinguished strand $0$.
+It preserves the product and the individual conjugacy classes and
+puts strand $0$ in every nontrivial factor cycle.  Remember the
+original singularity index attached to each local factor.  The
+odd-Hurwitz interchange rule then orders the factors as the singular
+factors $1,\ldots,N$, followed by all the simple factors, with strand
+$0$ still in every nontrivial cycle after each completed interchange.
+Pad each
+factor on both ends by
+$p=\rho_S\rho_S^{-1}$.  Since $p^{-1}=p$ as a literal signed word,
+\[
+ p\gamma_l\eta_l\gamma_l^{-1}p
+       =(p\gamma_l)\eta_l(p\gamma_l)^{-1}.
+\]
+The signed-word rules, with the external guard described there,
+give an explicit ordinary-move map from the specified native source
+grid to the grid of this concatenation.  It has degree and shift zero
+and sends the canonical class to the canonical class.
+
+Perform the star scissors at ranks $1,\ldots,S-1$.  There are
+$s=(S-1)(r-1)$ operations.  Select the $U$ edges of the explicitly
+specified rooted forest, where
+$U=\sum_j(S-a_j)+B(S-2)$.  At every unselected edge use the
+adjacent-row X identity.  At every selected edge use the transposed
+diagonal O-switch map followed by the specified noninterleaving
+whole-row commutation.  Thus both choices have exactly the same
+endpoint markings.  The selected choice has degree $-1$ and shifts
+$(0,-1/2)$, while the unselected choice has degree zero and shifts
+$(0,1/2)$.
+
+Colour the O markings by their components at the completed scissor
+endpoint: colour $0$ is the single main component, and the other
+$U$ colours are its auxiliary components.  Transport these labels
+back through the scissors.  This is legitimate without any
+monochromatic assumption on an earlier component.  Every intervening
+row exchange during the scissors has four distinct endpoint columns,
+so it uses a labelled commutation and identifies no O variables.
+An X switch leaves the O differential and its labels unchanged.
+For a selected O switch the two final endpoint colours are exactly
+the two vertices of its forest edge.  The final incidence matrix,
+with its root row removed, therefore has determinant one.
+
+Use the explicit cyclic-grid stabilization to obtain the exact seam
+of triply prepared factors.  Expose one factor at a time by the
+cyclic seam formula.  Its padding and conjugator are removed by the
+marked inverse-pair rules while the complementary factor grid is
+retained as the protected block.  The exact frame is restored after
+every cancellation and the resulting factor is again triply
+prepared.  Thus this is an actual finite sequence on the whole grid.
+The tracked rank is in the core's nontrivial cycle.  Precisely its
+$S-a_l$ fixed ranks become four-mark $2\times2$ components; the marked
+rank never disappears.  Complete this procedure for every factor.
+
+For a retained four-mark block with the opposite O diagonal, exchange
+its two adjacent rows by the explicit shared-endpoint rule, so that
+it has the displayed collapse pattern.  Normalize each of the $U$
+four-mark blocks to a doubled singleton by
+the explicit degree-zero, shift-zero, colour-natural map of
+Proposition~\ref{prop:four-mark-collapse}.  These are algebraic
+normalizations, with their full formulas proved above.  They cannot
+be replaced by three-corner destabilizations.  All ordinary moves
+and these normalizations preserve the canonical class and intertwine
+every component-colour derivative on homology.  Denote their
+composite, following the scissors, by $P$.
+
+Finally remove the $U$ doubled singletons by the explicit contraction
+maps, always taking a surviving O of the main component as root.
+For the singleton of colour $c$ its contraction is, on homology,
+$\rho_c\Psi_c$, with $\rho_c$ of degree zero and second shift $1/2$,
+preserving the canonical class.  A derivative of another dying
+colour commutes past $\rho_c$; the possible root-substitution
+correction contains $\Psi_c^2$ and is zero.  Hence the induced map of
+all contractions is the ordered product of the $\rho_c$'s following
+the product of all $U$ dying-colour derivatives.  Pass those
+derivatives back through $P$ and use the determinant identity
+\eqref{eq:determinant-pairing}.  Since the reduced forest incidence
+matrix has determinant one, the result before the $\rho_c$'s is
+exactly the canonical class.  Each $\rho_c$ preserves that class.
+This proves nonvanishing and, by Lemma~\ref{lem:N}, the required
+canonical-class identity for the entire map so far.
+
+The target markings at this stage are literally the seam of the
+cleaned triply prepared factor grids.  Deleting a singleton deletes
+only its row and column and preserves the order of all retained
+rows and columns.  The auxiliary blocks occupy no main frame port,
+so these exact deletions commute with the displayed seam marking
+formula.  Every cleaned factor is the one-frame preparation of the
+word grid of its $\eta_l$, at its tracked active arc.
+
+The cyclic exposures preserve the cyclic order of all factors.
+Use the explicit cyclic seam rule to restore the chosen first factor,
+so that the singular factors are again $1,\ldots,N$ and the simple
+factors are last.  If a simple factor remains, write the actual grid
+as $\Sigma(G,H)$, where $H$ is its last prepared simple factor.
+Apply the supplied \emph{binary} comparison
+\[
+ C(\Sigma(G,H))\longrightarrow C(G)\otimes_\Lambda C(H).
+\]
+Reverse the frame preparation of $H$ and apply
+\eqref{eq:simple-factor-functional}, obtaining a $\Lambda$-linear
+map $\epsilon_H:C(H)\to\Lambda$ of degree and shift zero.
+Consequently $\operatorname{id}_{C(G)}\otimes_\Lambda\epsilon_H$
+is well defined and gives a map to $C(G)$.  This composition uses
+no $\Lambda$-linearity of the supplied binary comparison.  It
+preserves the canonical class.  Repeat for the $B$ final simple
+factors.  No iterated tensoring of that comparison, or derivative
+naturality for it, is used.
+
+All these maps have degree zero and shifts $(0,0)$.  Put $D_j$ equal
+to the retained prepared grid of
+$\beta_j$.  It is related to $\operatorname{wordGrid}(\beta_j)$
+by the explicitly given moves.  The exact final grid is
+$\operatorname{iteratedSeamGrid}(D)$, with every row rotation equal
+to the identity.
+
+The degree of the composite is $-U+U=0$.  Its first shift is zero.
+Its second shift is
+\[
+ \frac{s-U}{2}-\frac U2+\frac U2
+     =\frac{s-U}{2}
+     =\frac{\mu(V)}2.
+\]
+Every equality uses the explicitly verified bounds for its maps;
+in particular the four-mark normalizations contribute zero.
+The available local words give $a'_j=a_j\in[2,t_J]$ and all their
+required cycle, generator, and length properties.  The central
+word has the required properties by (I1)--(I2).
+
+If $r=1$, the separate construction in the endpoint lemma uses
+standalone conjugator cancellation and one frame stabilization.
+Transitivity gives $a_1=S$, and $N\ge1$ gives $N=1,B=0$.
+Thus $U=s=\mu(V)=0$, and the same conclusion follows with no
+scissors, auxiliary contractions, or tensor-factor deletions.
+This proves every assertion of Statement E.
+\end{proof}
+
+\subsection{Complete operation count}
+
+The finite generating rules above specify every marking permutation,
+every adjacent pair, and every three-corner destabilization.  Since
+this is a direct algebraic construction, its count must distinguish
+the maps of nonzero degree from ordinary X switches:
+\[
+\begin{array}{l|c|c|c}
+\text{operation}&\text{number}&\text{degree}
+ &\text{second shift}\\\hline
+\text{scissor X identity}&s-U=\mu(V)&0&1/2\\
+\text{selected scissor O map}&U&-1&-1/2\\
+\text{four-mark normalization}&U&0&0\\
+\text{final singleton contraction}&U&+1&1/2\\
+\text{ordinary and endpoint maps}&\text{finite}&0&0
+\end{array}
+\]
+There are no births.  If every four-mark normalization is expanded
+into its defining O switch and singleton contraction, the complete
+formula uses $2U$ O switches and $2U$ singleton contractions, besides
+the $\mu(V)$ X identities.  The added pairs still have total degree
+and shift zero.  Thus the effective X count minus birth count is
+exactly $\mu(V)$, and the actual shift computation is the displayed
+sum, not an application of the restricted M/X/B movie assertion.
+
+All counts are explicit functions of the brief's invariants:
+\[
+\begin{split}
+B&=S-\sum_j a_j+N-1+2\delta(V)-b+1,\\
+r&=N+B,\qquad s=(S-1)(N+B-1),\\
+U&=NS-\sum_j a_j+B(S-2).
+\end{split}
+\]
+The number of zero-shift moves is finite by the stated algorithms:
+the finite event derivation, finite Hurwitz iteration, finite
+bubble sorts, the 29-step Artin rule, and finitely many inverse
+cancellations.  No bound on that harmless count is needed.
+
+
+\section{A fully indexed example with \texorpdfstring{$S=4$ and $\mu=1$}{S=4 and mu=1}}
+\label{sec:worked-four}
+
+This is a numerical and combinatorial instance of the construction;
+no assertion is made that these data are realized by a holomorphic
+counterexample.  Write $012$ for $\sigma_0\sigma_1\sigma_2$, and take
+\[
+ \alpha=(012)^5 0=\mathbf d_4\,(0120),\qquad
+ \beta_1=(012)^5,\qquad \eta_2=\sigma_0.
+\]
+The numerical data are
+\[
+ S=4,\quad M=2,\quad b=2,\quad N=1,\quad a_1=t_J=4,
+ \quad \delta(V)=1,\quad \delta(W)=7,\quad\delta_1=6,
+ \quad\mu(V)=1.
+\]
+They satisfy $2\delta(V)+M=S$, $\delta(W)=\delta(V)+\delta_1$,
+$\mu(V)=2\delta(V)-b+1$, and $\delta(W)\ge S(S-1)/2$.
+The lengths are $\ell(\alpha)=16=2\delta(W)+S-b$ and
+$\ell(\beta_1)=15=2\delta_1+a_1-1$.  With the stated permutation
+convention,
+\[
+ \pi(\beta_1)=(0\ 1\ 2\ 3),\quad
+ \pi(\eta_2)=(0\ 1),\quad
+ \pi(\alpha)=(0\ 2\ 3)(1).
+\]
+Thus $B=1$, both factor cycles contain $0$, and the common-strand
+algorithm needs no Hurwitz move in this example.
+
+For the source and the unprepared local grid, order equal-height arcs
+by their outgoing column.  The columns in the following tables are
+zero-indexed; each pair of rows $O(c),X(c)$ specifies the complete
+native tuple $(O,X)$.
+
+\paragraph{Source grid: size $48$.}\mbox{}
+\[
+\begin{array}{c|rrrrrrrrrrrr}
+c&0&1&2&3&4&5&6&7&8&9&10&11\\
+O(c)&6&0&12&23&13&28&38&29&43&7&1&14\\
+X(c)&5&22&6&12&37&23&28&47&38&0&13&7\\
+\hline
+c&12&13&14&15&16&17&18&19&20&21&22&23\\
+O(c)&24&15&30&39&31&44&8&2&16&25&17&32\\
+X(c)&14&29&24&30&43&39&1&15&8&16&31&25\\
+\hline
+c&24&25&26&27&28&29&30&31&32&33&34&35\\
+O(c)&40&33&45&9&3&18&26&19&34&41&35&46\\
+X(c)&32&44&40&2&17&9&18&33&26&34&45&41\\
+\hline
+c&36&37&38&39&40&41&42&43&44&45&46&47\\
+O(c)&10&4&20&27&21&36&42&37&47&11&5&22\\
+X(c)&3&19&10&20&35&27&36&46&42&4&21&11\\
+\end{array}
+\]
+
+Put
+\[
+ p=012\,\overline2\,\overline1\,\overline0,
+ \qquad q_1=p\beta_1p,\qquad q_2=p0p,\qquad Q=q_1q_2,
+\]
+where a bar denotes a negative generator.  Their lengths are
+$27,13,40$, respectively.  Inserting the four displayed identity
+words gives an explicit free-insertion derivation from $\alpha$ to
+$Q$; the signed-word rules realize it by ordinary grid moves.
+The first factor uses columns $0,\ldots,80$, and the second uses
+columns $81,\ldots,119$.
+
+At each integer rank, put all internal arcs first in outgoing-column
+order, then put the two connector rows $R_1,R_2$ last, in that order.
+At each half-integer height use outgoing-column order.  These
+tie changes are the already proved ordinary row moves.  The resulting
+complete padded grid is as follows.
+
+\paragraph{Padded grid $G^0$: size $120$.}\mbox{}
+\[
+\begin{array}{c|rrrrrrrrrrrr}
+c&0&1&2&3&4&5&6&7&8&9&10&11\\
+O(c)&14&0&28&55&29&68&94&69&107&95&108&70\\
+X(c)&13&54&14&28&93&55&68&119&94&107&69&95\\
+\hline
+c&12&13&14&15&16&17&18&19&20&21&22&23\\
+O(c)&56&71&30&15&31&1&16&2&32&57&33&72\\
+X(c)&70&29&56&30&0&15&1&31&16&32&71&57\\
+\hline
+c&24&25&26&27&28&29&30&31&32&33&34&35\\
+O(c)&96&73&109&17&3&34&58&35&74&97&75&110\\
+X(c)&72&108&96&2&33&17&34&73&58&74&109&97\\
+\hline
+c&36&37&38&39&40&41&42&43&44&45&46&47\\
+O(c)&18&4&36&59&37&76&98&77&111&19&5&38\\
+X(c)&3&35&18&36&75&59&76&110&98&4&37&19\\
+\hline
+c&48&49&50&51&52&53&54&55&56&57&58&59\\
+O(c)&60&39&78&99&79&112&20&6&40&61&41&80\\
+X(c)&38&77&60&78&111&99&5&39&20&40&79&61\\
+\hline
+c&60&61&62&63&64&65&66&67&68&69&70&71\\
+O(c)&100&81&113&21&7&42&62&43&82&101&83&114\\
+X(c)&80&112&100&6&41&21&42&81&62&82&113&101\\
+\hline
+c&72&73&74&75&76&77&78&79&80&81&82&83\\
+O(c)&102&118&84&63&92&44&22&53&12&23&8&45\\
+X(c)&114&83&102&84&43&63&44&7&22&12&53&23\\
+\hline
+c&84&85&86&87&88&89&90&91&92&93&94&95\\
+O(c)&64&46&85&103&86&115&104&116&87&65&88&47\\
+X(c)&45&92&64&85&118&103&115&86&104&87&46&65\\
+\hline
+c&96&97&98&99&100&101&102&103&104&105&106&107\\
+O(c)&24&48&9&25&10&49&26&11&50&66&51&89\\
+X(c)&47&8&24&9&48&25&10&49&26&50&88&66\\
+\hline
+c&108&109&110&111&112&113&114&115&116&117&118&119\\
+O(c)&105&90&117&106&119&91&67&93&52&27&54&13\\
+X(c)&89&116&105&117&90&106&91&51&67&52&11&27\\
+\end{array}
+\]
+
+The three scissor operations are now adjacent-row operations without
+any preliminary row exchanges.  Both their row positions and the
+columns containing the exchanged entries are explicit:
+\[
+\begin{array}{c|c|c|c|c}
+\text{rank}&(R_1,R_2)&\text{O columns}&\text{X columns}&\text{operation}\\\hline
+1&(53,54)&(79,118)&(1,82)&X\\
+2&(92,93)&(76,115)&(4,85)&O\text{, then whole-row commutation}\\
+3&(118,119)&(73,112)&(7,88)&O\text{, then whole-row commutation}
+\end{array}
+\]
+Here the X operation is the explicitly proved adjacent-row version:
+its chain map is the identity on the O complex.  The listed X columns
+identify the two tuple entries; they are not asserted to be adjacent
+columns.  Transposing the adjacent-column grading calculation proves
+its second shift $1/2$.
+
+For exact intermediate tuples, let $\tau_{a,b}Y$ mean exchange entries
+$a,b$ of a permutation tuple $Y$, and let $s_{u,v}Y$ mean exchange
+the row values $u,v$ wherever they occur.  If the displayed padded tuple
+is $(O,X)$, put
+\[
+ X_1=\tau_{1,82}X,\qquad
+ X_2=\tau_{4,85}X_1,\qquad
+ X_3=\tau_{7,88}X_2.
+\]
+The full successive grid list, including the O-switch targets, is
+\[
+\begin{split}
+G^0&=(O,X),\\
+G^1&=(O,X_1),\\
+H^2&=(\tau_{76,115}O,X_1),\\
+G^2&=(s_{92,93}\tau_{76,115}O,s_{92,93}X_1)=(O,X_2),\\
+H^3&=(\tau_{73,112}O,X_2),\\
+G^3&=(s_{118,119}\tau_{73,112}O,s_{118,119}X_2)=(O,X_3).
+\end{split}
+\]
+Every tuple is valid.  The two whole-row commutations are strict:
+after the first O exchange their marking intervals are $[4,76]$ and
+$[85,115]$; after the second they are $[7,73]$ and $[88,112]$.
+Thus no shared-endpoint convention is needed here.  On a state $x$
+the O-switch maps in these coordinates are explicitly
+\[
+ F_2(x)=T^{\mathbf1_{\{76<x^{-1}(93)\le115\}}}x,
+ \qquad
+ F_3(x)=T^{\mathbf1_{\{73<x^{-1}(119)\le112\}}}x.
+\]
+These are the transposed O-switch formulas already proved, so each
+has degree $-1$ and shifts $(0,-1/2)$.
+
+The component counts of $G^0,G^1,G^2,G^3$ are respectively
+$2,1,2,3$.  At $G^3$ the rank-$0$ connections form the main component;
+the fixed ranks $2,3$ of $q_2$ give the other two components.  The
+selected O-switch graph has one edge from the main component to each
+of them, and its reduced incidence matrix is $I_2$.  The determinant
+pairing therefore proves nonvanishing for the two prescribed
+contractions.  The marked cancellation algorithm removes both copies
+of $p$ from each factor.  It leaves the active words $\beta_1$ and
+$\sigma_0$, together with exactly the two retained ordinary
+$2\times2$ auxiliary blocks.  Applying the proved four-mark collapse
+and singleton contraction to each block, and then the simple-factor
+functional after the seam--tensor comparison, gives the stated local
+target.  This uses the map construction of Statement E, with its
+explicit degree $-1$ and $+1$ intermediate maps.
+
+The count is
+\[
+ r=2,\qquad s=(S-1)(r-1)=3,\qquad
+ U=(S-a_1)+B(S-2)=2,\qquad s-U=1=\mu(V).
+\]
+There is one X switch of degree $0$ and second shift $1/2$, two O
+switches of degree $-1$ and second shift $-1/2$, and two prescribed
+auxiliary contractions of degree $+1$ and second shift $1/2$.
+The four-mark collapses each have degree and shift zero.  Expanding
+their formulas adds two further O switches and two further singleton
+contractions; thus the completely expanded map uses four of each,
+still with one X switch.  These added pairs cancel in both degree
+and shift.  Consequently
+the complete map has degree $0$, shifts $(0,1/2)$, and sends the
+canonical class to the canonical class.
+
+Finally choose the local prepared grid $D_1$ explicitly.  In the
+outgoing-column tie order of $\operatorname{wordGrid}(\beta_1)$,
+its closing rank-$0$ arc is in row $b=4$, ending in column $0$.
+X-stabilize there by inserting a column immediately before column
+$0$ and a row immediately after row $4$, with the pattern
+$O(W,t),X(W,4),X(0,t)$.  Cut at old column $0$ and the new row $t$.
+This produces the following size-$46$ tuple.  Its first X and last O
+are in row $0$, its last X is in row $45$, and reversing that single
+stabilization proves $D_1\sim\operatorname{wordGrid}(\beta_1)$.
+Since $N=1$, the target iterated seam is exactly this grid.
+
+\paragraph{Target prepared grid $D_1$: size $46$.}\mbox{}
+\[
+\begin{array}{c|rrrrrrrrrrrr}
+c&0&1&2&3&4&5&6&7&8&9&10&11\\
+O(c)&1&41&6&16&7&21&31&22&36&2&42&8\\
+X(c)&0&15&1&6&30&16&21&40&31&41&7&2\\
+\hline
+c&12&13&14&15&16&17&18&19&20&21&22&23\\
+O(c)&17&9&23&32&24&37&3&43&10&18&11&25\\
+X(c)&8&22&17&23&36&32&42&9&3&10&24&18\\
+\hline
+c&24&25&26&27&28&29&30&31&32&33&34&35\\
+O(c)&33&26&38&4&44&12&19&13&27&34&28&39\\
+X(c)&25&37&33&43&11&4&12&26&19&27&38&34\\
+\hline
+c&36&37&38&39&40&41&42&43&44&45&&\\
+O(c)&5&45&14&20&15&29&35&30&40&0&&\\
+X(c)&44&13&5&14&28&20&29&39&35&45&&\\
+\end{array}
+\]
+
+All tables and intermediate permutations above are generated by the
+accompanying elementary script.  It checks every permutation and
+O/X inequality, computes the component cycles as
+$X^{-1}\circ O$, verifies the displayed row operations and the
+strict noninterleaving inequalities, and checks the target frame
+coordinates.  The chain-map, degree, filtration, and class claims
+follow from the proved general formulas, rather than from a numerical
+test of the $120!$-state complex.
+
+\section{Exceptional cases and exact scope}
+\label{sec:exceptions}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{.24\textwidth}>{\raggedright\arraybackslash}p{.69\textwidth}}
+\toprule
+Case from the brief & Treatment in the construction\\
+\midrule
+\endhead
+One central branch, $b=1$ &
+Nothing in the scissor or class argument requires multiple boundary
+components.  The formula gives $\mu(V)=2\delta(V)$, so the X count
+is even as required.\\[5pt]
+One singular point, $N=1$ &
+There can still be $B>0$ simple factors.  The construction first
+handles all $r=1+B$ factors and then removes the simple tensor
+factors.  The final iterated seam is just $D_1$.  The distinct case
+$r=1$ is treated explicitly in the proof.\\[5pt]
+Several tangent directions &
+Choose a central transverse direction first, construct the finite
+representative and the global section, then choose a sufficiently
+small allowed level.  A small projection shear avoids the finite
+set of forbidden central and local tangent directions without
+changing that level.  Higher ordinary ramification and repeated
+critical values are handled explicitly; simplicity is not assumed.\\[5pt]
+Empty $\mathbf w$, ordinary $S$-fold central point &
+The word $\mathbf d_S$ still contains every generator, so every
+combinatorial rule applies.  Under the full assembly identities
+the further condition $b=S$ gives
+$\mu(V)=2\delta(V)-S+1=1-M<0$, since $M\ge2$; hence that entire
+ordinary-point specialization cannot occur for such an assembly.
+This elementary numerical observation is not an invocation of
+the conjecture.\\[5pt]
+Smallest $S=4$ &
+No estimate is weakened at this value.  In the $\mu(V)=1$ case
+there is exactly one ordinary X identity, with the O/contraction
+pairs having total shift zero.  Section~\ref{sec:worked-four}
+gives all relevant indexed tuples for a finite example.\\[5pt]
+Missing generators &
+The original source contains every generator because of its full
+twist.  The external guard retains every generator throughout
+initial signed-word normalization.  Later unused ranks are kept
+as explicit two-row, two-column components of the defined signed
+extension and are removed only by the proved auxiliary maps.\\[5pt]
+Grid sizes and successor sizes &
+The positive word grids have size $3\ell\ge3$.  Every prepared
+factor has one additional row and column.  A cyclic seam
+destabilization is used only with at least two factors, so its
+temporary size is at least two.  Auxiliary contractions retain the
+nontrivial main factor.  No size-zero or size-one complex occurs.
+Every final factor size is a successor as required.\\[5pt]
+$U=0$, $B=0$, or $s=0$ &
+Products over empty sets are identities and the empty incidence
+determinant is one.  No auxiliary map is used when $U=0$, and no
+functional is used when $B=0$.  The case $s=0$ is exactly the
+separately handled $r=1$ case.\\[5pt]
+Large $\sum_j a_j-(N-1)$ &
+The construction never assumes this quantity is at most $S$.
+Each individual $a_j\le S$ follows from the finite projection.
+Any excess in the sum is absorbed by the actual count
+$\sum_j a_j+B-N-S+1=\mu(V)$.\\
+\bottomrule
+\end{longtable}
+
+\section{Dependency ledger and references}
+\label{sec:ledger}
+
+All entries labelled new below are proved in this document.
+The names are proposed short names for later formalization; no claim
+of a completed Lean formalization is made.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{.32\textwidth}>{\raggedright\arraybackslash}p{.45\textwidth}>{\raggedright\arraybackslash}p{.15\textwidth}}
+\toprule
+Result & Proposed short name and type & Status\\
+\midrule
+\endhead
+Nonvanishing implies the class identity &
+\texttt{polynomialImageNonzero}; uses canonical image & Proved\\[3pt]
+Composition along ordinary moves &
+\texttt{movesToNativeMap}; uses primitive moves and corner reduction & Proved\\[3pt]
+Finite projection and event factorization &
+\texttt{finiteProjectionEventFactorization}; new analytic & Proved\\[3pt]
+O derivatives, saddle pairing, positive-degree vanishing, incidence formula &
+\texttt{nativeOSaddleIncidence}; new combinatorial & Proved\\[3pt]
+Explicit incoming and outgoing polynomial projection formulas &
+\texttt{nativeTopDomainMaps}; new combinatorial & Proved\\[3pt]
+Colour naturality of native moves &
+\texttt{nativeMoveColourNaturality}; new combinatorial & Proved\\[3pt]
+Singleton contraction, transport, and substitution &
+\texttt{nativeAuxiliaryContraction}; new combinatorial & Proved\\[3pt]
+Paired O switch and contraction &
+\texttt{pairedAuxiliaryContraction}; new combinatorial & Proved\\[3pt]
+Exact transport and deletion of a singleton &
+\texttt{auxiliarySingletonTransport}; new combinatorial & Proved\\[3pt]
+Four-mark block normalization &
+\texttt{fourMarkBlockCollapse}; new combinatorial & Proved\\[3pt]
+Signed relations, shared endpoints, subdivisions, and guard &
+\texttt{signedWordGridRelations}; new combinatorial & Proved\\[3pt]
+Marked inverse cancellation with a protected grid &
+\texttt{markedInverseCancellation}; new combinatorial & Proved\\[3pt]
+Common strand by finite Hurwitz moves &
+\texttt{commonStrandHurwitz}; new combinatorial & Proved\\[3pt]
+Star scissors and explicit rooted forest &
+\texttt{scissorIncidenceForest}; new combinatorial & Proved\\[3pt]
+Triple preparation, strict seam coordinates, and cyclic exposure &
+\texttt{cyclicSeamCoordinates}; new combinatorial & Proved\\[3pt]
+Successive factor cleanup and exact auxiliary deletions &
+\texttt{seamFactorCleanup}; new combinatorial & Proved\\[3pt]
+Simple-factor functional and binary seam reduction &
+\texttt{simpleFactorProjection}; new combinatorial, uses binary seam & Proved\\[3pt]
+Exact ramification count &
+\texttt{exteriorRamificationCount}; uses the word lengths and invariant identities & Proved\\[3pt]
+Ordered interchange of common-strand factors &
+\texttt{orderedCommonStrandHurwitz}; new combinatorial & Proved\\[3pt]
+Statement E &
+\texttt{ExteriorNativeMapStatement}; uses the preceding results
+and the admitted inputs & Proved\\
+\bottomrule
+\end{longtable}
+
+The external source ledger is short.  The attached brief~\cite{brief}
+is used for exactly the inputs listed in Section~\ref{sec:statement}:
+assembly and invariant facts; the central and branch event words;
+the native complex and canonical-image theorem; the supplied
+commutation and corner-reduction facts; and the binary seam--tensor
+equivalence.  These are hypotheses supplied for the problem.
+The formulas for incoming and outgoing local domains were checked
+against Definitions~13.3.7, 13.3.10, 13.4.2, and~13.4.3 of
+Ozsv\'ath--Stipsicz--Szab\'o~\cite{OSS}; their chain, grading, colour,
+and class properties needed here are verified directly in this
+document.  No theorem identifying grids of isotopic links, no
+Markov or Reidemeister theorem, no surface movie theorem, and no
+comparison with holomorphic knot Floer homology enters the proof.
+
+\begin{thebibliography}{9}
+\bibitem{brief}
+\emph{Problem brief: the exterior native map in the Lean proof of
+L\^e's conjecture}, supplied Markdown attachment, prepared
+2 November 2026.  The input assumptions and the target Statement E
+are those of Sections~2, 3.1, and~5.
+\bibitem{OSS}
+P.~S. Ozsv\'ath, A.~I. Stipsicz, and Z.~Szab\'o,
+\emph{Grid Homology for Knots and Links},
+American Mathematical Society, 2015.
+Author-hosted preliminary text:
+\url{https://web.math.princeton.edu/~petero/GridHomologyBook.pdf}.
+Only the explicitly identified local domain definitions are used
+for a convention check; the needed identities are proved here.
+\end{thebibliography}
+
+
+\end{document}

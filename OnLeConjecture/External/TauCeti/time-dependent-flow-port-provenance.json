@@ -1,0 +1,39 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "upstream": "TauCeti/MeasureTheory/Integral/Cosh.lean",
+      "local": "OnLeConjecture/External/TauCeti/MeasureTheory/Integral/Cosh.lean",
+      "sha256": "fe52ad36e3697ed1588ab8d1798e1e1f67e8327fb4fd46f876a7b9bf4cb27e75",
+      "changes": [
+        "TauCeti imports prefixed with OnLeConjecture.External"
+      ],
+      "preserved_upstream": "verification/2026-10-29/upstream/time-dependent-flow/TauCeti/MeasureTheory/Integral/Cosh.lean",
+      "local_sha256": "fe52ad36e3697ed1588ab8d1798e1e1f67e8327fb4fd46f876a7b9bf4cb27e75"
+    },
+    {
+      "upstream": "TauCeti/Analysis/ODE/GlobalSolution.lean",
+      "local": "OnLeConjecture/External/TauCeti/Analysis/ODE/GlobalSolution.lean",
+      "sha256": "b9973fb3d10fafbd8bfd1ef9a4fa4665ae7f4d4b0423e22c7134b5fa8e8d0852",
+      "changes": [
+        "TauCeti imports prefixed with OnLeConjecture.External"
+      ],
+      "preserved_upstream": "verification/2026-10-29/upstream/time-dependent-flow/TauCeti/Analysis/ODE/GlobalSolution.lean",
+      "local_sha256": "89463fd88d0adf969e901e62aa478995f53e95f9c1bfbfb516372c2cd3d0afd3"
+    },
+    {
+      "upstream": "TauCeti/Dynamics/Flow/TimeDependent.lean",
+      "local": "OnLeConjecture/External/TauCeti/Dynamics/Flow/TimeDependent.lean",
+      "sha256": "c23c55fea423600540906d2747497a6acf78e292214ef6749393a8383ec94032",
+      "changes": [
+        "TauCeti imports prefixed with OnLeConjecture.External",
+        "Two convert tactics changed to convert! in the clock-coordinate derivative proof for Lean v4.33.1 compatibility",
+        "Added expose attributes to timeDependentSuspension and timeDependentFlow for cross-module use"
+      ],
+      "preserved_upstream": "verification/2026-10-29/upstream/time-dependent-flow/TauCeti/Dynamics/Flow/TimeDependent.lean",
+      "local_sha256": "189fd1da8e32bcc16c5d7c782c3eb029664af08c974a42c5b2161c4f7597810d"
+    }
+  ]
+}

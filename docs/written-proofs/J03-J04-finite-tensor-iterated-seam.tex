@@ -1,0 +1,496 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable,array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\lean}[1]{\textnormal{\nolinkurl{#1}}}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\F}{\mathbb{F}_2}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\Lev}{L}
+\newcommand{\ins}{\operatorname{ins}}
+\newcommand{\rot}{\operatorname{rot}}
+\DeclareMathOperator{\seam}{Seam}
+
+\title[J03 and J04: finite tensor algebra and the iterated seam]{J03 and J04: finite tensor
+algebra of grid complexes\\ and the iterated seam comparison}
+\date{2 November 2026}
+
+\begin{document}
+
+\begin{abstract}
+We prove the statements of jobs J03 and J04 of the dependency audit: the finite tensor algebra
+of native grid complexes (records M005, M609, M610, M615) and the comparison between the iterated
+seam grid and the finite tensor of its factors (records M608, M612). All maps are filtered chain
+maps with shifts $(0,0)$, and each comparison carries the canonical class of its source to the
+canonical class of its target. The proofs are formalized in Lean, and Section~\ref{sec:lean} lists
+the corresponding declarations. As in the record of M609 in the audit, the chain map in M609 is
+the restriction of one $\Lam$-linear map of the underlying modules, and the constructed map has the
+same property. Remark~\ref{rem:linear} explains why this hypothesis is needed for the
+construction.
+\end{abstract}
+
+\maketitle
+
+\section{Setting}\label{sec:setting}
+
+Throughout, $K$ is a field of characteristic two and $\Lam=K[T,T^{-1}]$. All homology classes
+concerning canonical classes are taken with $K=\F$.
+
+\subsection{Native grid complexes}
+For a grid diagram $G$ of size $n$ with set of states $S(G)$, the module $C(G)$ is the free
+$\Lam$-module with basis $S(G)$, and $\partial_G\colon C(G)\to C(G)$ is the $\Lam$-linear
+full rectangle differential in which every $O$ variable is specialized to $T$ (Lean:
+\lean{laurentDifferential}). A monomial $T^kx$ with $x\in S(G)$ has Maslov degree $M(x)-2k$ and
+filtration coordinates $(-k,\,A(x)-k)$, where $M$ and $A$ are the Maslov and Alexander gradings of
+the grid. For $r\in\mathbb{Z}$ let $C_r(G)\subseteq C(G)$ be the $K$-span of the monomials of
+Maslov degree $r$, and for $a,b\in\mathbb{R}$ let $\Lev_{a,b}(G)\subseteq C(G)$ be the
+$K$-submodule of chains all of whose monomials $T^kx$ satisfy $-k\le a$ and $A(x)-k\le b$. The
+\emph{native complex} $\cC(G)$ is the $\mathbb{Z}$-graded complex of $K$-vector spaces
+$(C_r(G),\partial_G)$ with the bifiltration $F_{a,b}\cC_r(G)=C_r(G)\cap\Lev_{a,b}(G)$ (Lean:
+\lean{laurentMaslovComplex}, \lean{laurentMaslovBifiltration}). A chain map $\varphi$ between two
+bifiltered complexes has \emph{shifts} $(s_1,s_2)$ if $\varphi(F_{a,b})\subseteq F_{a+s_1,b+s_2}$
+for all $a,b$ (Lean: \lean{Bifiltration.Shifts}).
+
+\subsection{Canonical classes}
+For a grid diagram $G$ of size at least two, $\xi_G\in H_0(\cC(G))$ denotes the normalized class of
+the project (Lean: \lean{gridCanonicalClass}). For every choice of $O$ variable, it is the unique
+nonzero class in the image of the corresponding polynomial homology, and $c_G$ denotes the cycle of $\cC_0(G)$ with nonnegative exponents chosen to
+represent it (Lean: \lean{gridCanonicalCycle}). We use the following proved fact.
+
+\begin{proposition}[\lean{gridCanonicalClass_homotopyEquiv}]\label{prop:class-transport}
+Let $G$ and $H$ be grid diagrams of sizes at least two, and let $e$ be a homotopy equivalence
+from $\cC(G)$ to $\cC(H)$ over $\F$ whose forward map has shifts $(0,s)$ for some real $s$. Then
+$e_*(\xi_G)=\xi_H$.
+\end{proposition}
+
+\subsection{Finite and binary tensors}
+For a finite index type $\iota$ and grid diagrams $(G_i)_{i\in\iota}$, put
+$C(G_\bullet)=\bigotimes_{\Lam,i\in\iota}C(G_i)$ with the differential
+$\partial=\sum_{i\in\iota}\partial_i$, where $\partial_i$ applies $\partial_{G_i}$ to the $i$th
+factor. Since $K$ has characteristic two, no signs occur and $\partial^2=0$. The piece
+$C_r(G_\bullet)$ is the $K$-span of the elements $T^j\otimes_ix_i$ with $x_i\in C_{p_i}(G_i)$ and
+$\sum_ip_i-2j=r$, and the level $\Lev_{A,B}(G_\bullet)$ is the $K$-span of the elements
+$T^j\otimes_ix_i$ with $x_i\in\Lev_{a_i,b_i}(G_i)$, $\sum_ia_i-j\le A$ and $\sum_ib_i-j\le B$. These
+define the native finite tensor complex $\cC(G_\bullet)$ and its bifiltration (Lean:
+\lean{laurentFiniteMaslovComplex}, \lean{laurentFiniteMaslovBifiltration}). If every $G_i$ has
+size at least two, the \emph{canonical tensor class} is
+$\xi_{G_\bullet}=[\otimes_ic_{G_i}]\in H_0(\cC(G_\bullet))$ (Lean:
+\lean{gridCanonicalFiniteTensorClass}). The binary tensor $\cC(G\otimes H)$ is defined in the same
+way from $C(G)\otimes_\Lam C(H)$, and its canonical class is $\xi_{G\otimes H}=[c_G\otimes c_H]$
+(Lean: \lean{laurentTensorMaslovComplex}, \lean{gridCanonicalBinaryTensorClass}).
+
+\subsection{Maps induced on pieces}
+Each of the three complexes above has chain groups equal to homogeneous $K$-submodules of one
+underlying module, a differential induced by one underlying map, and filtration levels induced by
+one family of underlying submodules (Lean: \lean{PieceComplexData}).
+
+\begin{lemma}[\lean{PieceComplexData.hom}, \lean{PieceComplexData.hom_shifts}]\label{lem:pieces}
+Let $\cC$ and $\cC'$ be complexes of this form with underlying modules $M$ and $M'$, and let
+$f\colon M\to M'$ be a $K$-linear map that maps each piece of degree $r$ into the piece of degree
+$r$ and satisfies $f\circ\partial=\partial'\circ f$. Then the restrictions of $f$ form a chain map
+$f_\#\colon\cC\to\cC'$. If moreover $f(\Lev_{a,b})\subseteq\Lev'_{a,b}$ for all $a,b$, then $f_\#$ has
+shifts $(0,0)$. If $f$ is a linear equivalence whose inverse has the same properties, then $f_\#$
+is an isomorphism of complexes.
+\end{lemma}
+
+\begin{proof}
+The restriction $C_{r+1}\to C'_{r+1}$ composed with $\partial'$ equals $\partial$ composed with the
+restriction $C_r\to C'_r$ by $f\circ\partial=\partial'\circ f$. The statement on levels is immediate
+from the definition of the bifiltrations, and the restrictions of $f^{-1}$ are inverse to those of
+$f$.
+\end{proof}
+
+\section{Finite tensor algebra (J03)}\label{sec:j03}
+
+\subsection{The singleton tensor (M005, alias M611)}
+
+\begin{proposition}\label{prop:singleton}
+Let $\iota$ have exactly one element $i_0$ and let $(G_i)$ be grid diagrams. The map
+$c\mapsto\otimes_i c$ induces an isomorphism $\cC(G_{i_0})\cong\cC(G_\bullet)$ with shifts $(0,0)$
+in both directions. If $G_{i_0}$ has size at least two, the isomorphism maps $\xi_{G_{i_0}}$ to
+$\xi_{G_\bullet}$.
+\end{proposition}
+
+\begin{proof}
+The map $c\mapsto\otimes_ic$ is the inverse of the $\Lam$-linear equivalence
+$\bigotimes_{i\in\iota}C(G_i)\to C(G_{i_0})$ of Mathlib (\lean{PiTensorProduct.subsingletonEquiv}),
+which sends $T^j\otimes_ix_i$ to $T^jx_{i_0}$. Since $\sum_ip_i=p_{i_0}$ and
+$\sum_ia_i=a_{i_0}$, it maps $C_r(G_\bullet)$ into $C_r(G_{i_0})$ and $\Lev_{A,B}(G_\bullet)$ into
+$\Lev_{A,B}(G_{i_0})$, because multiplication by $T^j$ lowers both coordinates by $j$. Its inverse
+maps $C_r(G_{i_0})$ and $\Lev_{A,B}(G_{i_0})$ into the corresponding submodules, taking $j=0$. The
+equivalence intertwines $\partial$ and $\partial_{G_{i_0}}$ by
+\lean{laurentFiniteDifferential_subsingleton}. Lemma~\ref{lem:pieces} gives the isomorphism and the
+shifts. The forward map sends the cycle $c_{G_{i_0}}$ to $\otimes_ic_{G_i}$, hence
+$\xi_{G_{i_0}}$ to $\xi_{G_\bullet}$.
+\end{proof}
+
+\subsection{Reindexing (M610)}
+
+\begin{proposition}\label{prop:reindex}
+Let $e\colon\iota\to\iota'$ be a bijection of finite index types and let $(G_i)_{i\in\iota}$ be grid
+diagrams. Reindexing induces an isomorphism $\cC(G_\bullet)\cong\cC(G_{e^{-1}(\bullet)})$ with
+shifts $(0,0)$ in both directions. If every $G_i$ has size at least two, it maps $\xi_{G_\bullet}$
+to $\xi_{G_{e^{-1}(\bullet)}}$.
+\end{proposition}
+
+\begin{proof}
+Let $R$ be the $\Lam$-linear equivalence of Mathlib (\lean{PiTensorProduct.reindex}), which sends
+$T^j\otimes_ix_i$ to $T^j\otimes_{i'}x_{e^{-1}(i')}$. Since
+$\sum_{i'}p_{e^{-1}(i')}=\sum_ip_i$, the map $R$ sends generators of $C_r(G_\bullet)$ to generators
+of $C_r(G_{e^{-1}(\bullet)})$, and the same holds for levels. Every pure tensor
+$\otimes_{i'}y_{i'}$ of the reindexed family equals $R(\otimes_ix_i)$ for the family
+$x_{e^{-1}(i')}=y_{i'}$, so $R^{-1}$ maps generators to generators as well. For the differential,
+$R(\partial\otimes_ix_i)=\sum_iR(\otimes_k\tilde x^{(i)}_k)$, where $\tilde x^{(i)}$ replaces $x_i$ by
+$\partial_{G_i}x_i$. Substituting $i=e^{-1}(i')$ identifies this sum with
+$\partial R(\otimes_ix_i)$. Lemma~\ref{lem:pieces} gives the isomorphism and the shifts, and $R$
+sends $\otimes_ic_{G_i}$ to $\otimes_{i'}c_{G_{e^{-1}(i')}}$.
+\end{proof}
+
+If two families of sized grid diagrams are equal as families of pairs (size, diagram), their
+finite tensor complexes are equal, and the identification preserves the bifiltrations and the
+canonical tensor classes (Lean: \lean{laurentFiniteMaslovFamilyIso}). This is used for the
+transport along size equalities in Section~\ref{sec:j04}.
+
+\subsection{Powers of the cyclic row translation (M615)}
+
+\begin{proposition}\label{prop:rows}
+Let $G$ be a grid diagram of size $n$ and $k\ge0$. Relabeling rows by $\sigma^k$, where $\sigma$ is
+the cyclic translation of $\{0,\dots,n-1\}$, induces an isomorphism
+$\cC(G)\cong\cC(G^{\sigma^k})$ with shifts $(0,0)$ in both directions. If $n\ge2$, it maps $\xi_G$
+to $\xi_{G^{\sigma^k}}$, and its inverse maps $\xi_{G^{\sigma^k}}$ to $\xi_G$.
+\end{proposition}
+
+\begin{proof}
+For $k=1$, the relabeling preserves the full Laurent coefficients, the Maslov degrees and the
+Alexander gradings (\lean{laurentCoefficient_relabelRows_finRotate},
+\lean{laurentMaslovDegree_relabelRows_finRotate}, \lean{alexander_relabelRows_finRotate}). Since
+relabeling by $\sigma^{k+1}$ is relabeling by $\sigma^k$ followed by relabeling by $\sigma$, induction
+on $k$ gives the three invariances for $\sigma^k$. The relabeling $C(G)\to C(G^{\sigma^k})$ of states
+is $\Lam$-linear, intertwines the differentials and preserves and reflects pieces and levels.
+Lemma~\ref{lem:pieces} gives the isomorphism and the shifts in both directions, and
+Proposition~\ref{prop:class-transport} gives the statements on classes.
+\end{proof}
+
+\subsection{Insertion of one factor and reassociation (M609)}
+
+Let $\kappa$ be a finite index type presented as the image of an injective map
+$\iota\to\kappa$ together with one further index $*$ (Lean: \lean{FactorInsertion}). The examples
+are $\kappa=\iota\sqcup\{*\}$ realized as $\mathrm{Option}\,\iota$, and $\kappa=\{0,\dots,N\}$ with
+$\iota=\{0,\dots,N-1\}$ and $*=N$. For grid diagrams $(G_k)_{k\in\kappa}$, write $G_\iota$ for the
+restricted family. The assignment $(\otimes_ix_i,\,y)\mapsto\otimes_kz_k$, where $z_i=x_i$ and
+$z_*=y$, is multilinear in the $x_i$ and linear in $y$. By the universal property it defines a
+$\Lam$-bilinear map
+\[
+\ins\colon C(G_\iota)\times C(G_*)\to C(G_\bullet).
+\]
+
+\begin{lemma}[\lean{insertLinear_mem_maslovPiece}, \lean{insertLinear_mem_bifiltrationLevel},
+\lean{laurentFiniteDifferential_insertLinear}]\label{lem:insert}
+For $z\in C_r(G_\iota)$ and $y\in C_q(G_*)$ we have $\ins(z,y)\in C_{r+q}(G_\bullet)$. For
+$z\in\Lev_{A,B}(G_\iota)$ and $y\in\Lev_{c,d}(G_*)$ we have
+$\ins(z,y)\in\Lev_{A+c,B+d}(G_\bullet)$. For all $z$ and $y$,
+\[
+\partial\,\ins(z,y)=\ins(\partial z,y)+\ins(z,\partial_{G_*}y).
+\]
+\end{lemma}
+
+\begin{proof}
+On generators, $\ins(T^j\otimes_ix_i,y)=T^j\otimes_kz_k$, and the degrees and coordinates of the
+$z_k$ are those of the $x_i$ together with those of $y$. Their sums are therefore
+$\sum_ip_i+q$, $\sum_ia_i+c$ and $\sum_ib_i+d$. For the differential, the sum
+$\sum_{k\in\kappa}\partial_k$ splits into the terms $k$ in the image of $\iota$, which give
+$\ins(\partial z,y)$, and the term $k=*$, which gives $\ins(z,\partial_{G_*}y)$. Both sides are
+$\Lam$-linear in $z$, so the identity on pure tensors suffices.
+\end{proof}
+
+\begin{definition}[\lean{LaurentGridFiniteMap}]\label{def:laurent-map}
+Let $T$ be a grid diagram and $(D_i)_{i\in\iota}$ a family of grid diagrams. A \emph{filtered
+$\Lam$-linear map} $f\colon C(T)\to C(D_\bullet)$ is a $\Lam$-linear map that maps $C_r(T)$ into
+$C_r(D_\bullet)$, satisfies $f\circ\partial_T=\partial\circ f$, and maps $\Lev_{a,b}(T)$ into
+$\Lev_{a,b}(D_\bullet)$ for all $r,a,b$. By Lemma~\ref{lem:pieces} it induces a chain map
+$f_\#\colon\cC(T)\to\cC(D_\bullet)$ with shifts $(0,0)$.
+\end{definition}
+
+\begin{definition}[\lean{LaurentGridInduced}, \lean{LaurentTensorInduced}]\label{def:induced}
+A chain map $\theta\colon\cC(T)\to\cC(D_\bullet)$ is \emph{$\Lam$-induced} if there is a
+$\Lam$-linear map $f\colon C(T)\to C(D_\bullet)$ whose restriction to $C_r(T)$ is $\theta_r$ for every
+$r$. The same definition applies to chain maps from a binary tensor complex
+$\cC(T\otimes H)$, with $f$ defined on $C(T)\otimes_\Lam C(H)$.
+\end{definition}
+
+\begin{lemma}[\lean{LaurentGridInduced.exists_laurentGridFiniteMap}]\label{lem:bridge}
+Let $\theta\colon\cC(T)\to\cC(D_\bullet)$ be a $\Lam$-induced chain map with shifts $(0,0)$, induced by
+$f$. Then $f$ is a filtered $\Lam$-linear map and $f_\#=\theta$.
+\end{lemma}
+
+\begin{proof}
+For $c\in C_r(T)$, the element $f(c)=\theta_r(c)$ lies in $C_r(D_\bullet)$. For a state $x$, the basis
+vector $x$ lies in $C_{M(x)}(T)$, and the chain map identity for $\theta$ in degree $M(x)$ gives
+$f(\partial_Tx)=\partial f(x)$. Both $f\circ\partial_T$ and $\partial\circ f$ are $\Lam$-linear and the
+states form a $\Lam$-basis of $C(T)$, hence $f\circ\partial_T=\partial\circ f$. A chain
+$c\in\Lev_{a,b}(T)$ is the $K$-linear combination of its monomials $T^kx$, and each of these lies in
+$\Lev_{a,b}(T)$, because the level is defined by a condition on each monomial. Each monomial is
+homogeneous, so the shifts $(0,0)$ of $\theta$ give $f(T^kx)\in\Lev_{a,b}(D_\bullet)$. Summing gives
+$f(c)\in\Lev_{a,b}(D_\bullet)$. Finally $f_\#=\theta$, because both restrict $f$.
+\end{proof}
+
+\begin{theorem}[M609]\label{thm:reassociation}
+Let $T$ and $H$ be grid diagrams of sizes at least two, let $(D_i)_{i\in\iota}$ be grid diagrams of
+sizes at least two, and let $D'$ be the family over $\mathrm{Option}\,\iota$ with $D'_*=H$ and
+$D'_i=D_i$. Let $\theta\colon\cC(T)\to\cC(D_\bullet)$ be a $\Lam$-induced chain map with shifts
+$(0,0)$ and $\theta_*(\xi_T)=\xi_{D_\bullet}$. Then there is a $\Lam$-induced chain map
+$\psi\colon\cC(T\otimes H)\to\cC(D'_\bullet)$ with shifts $(0,0)$ and
+$\psi_*(\xi_{T\otimes H})=\xi_{D'_\bullet}$.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:bridge}, $\theta=f_\#$ for a filtered $\Lam$-linear map $f$. More generally, let
+$\kappa$ be presented as above and let $f\colon C(T)\to C(G_\iota)$ be a filtered $\Lam$-linear map.
+The map $(c,y)\mapsto\ins(f(c),y)$ is $\Lam$-bilinear, so it defines a $\Lam$-linear map
+$\Psi_f\colon C(T)\otimes_\Lam C(G_*)\to C(G_\bullet)$ with $\Psi_f(c\otimes y)=\ins(f(c),y)$.
+Lemma~\ref{lem:insert} shows that $\Psi_f$ maps the generators $c\otimes y$ of the binary pieces and
+levels into the corresponding pieces and levels, using monotonicity of the levels. For the
+differential,
+\[
+\Psi_f(\partial c\otimes y+c\otimes\partial y)=\ins(\partial f(c),y)+\ins(f(c),\partial y)
+=\partial\,\Psi_f(c\otimes y).
+\]
+By Lemma~\ref{lem:pieces}, $\psi=(\Psi_f)_\#$ has shifts $(0,0)$, and $\psi$ is $\Lam$-induced by
+$\Psi_f$ (Lean: \lean{LaurentGridFiniteMap.insertTensor},
+\lean{LaurentTensorFiniteMap.laurentTensorInduced}).
+
+For the classes, let $y$ be a cycle of degree zero in $\cC(G_*)$. The map $S_y=\ins(-,y)$ is a
+chain map $\cC(G_\iota)\to\cC(G_\bullet)$ by Lemma~\ref{lem:insert}, because $\partial y=0$ (Lean:
+\lean{insertCycleHom}). For a cycle $c$ of degree zero in $\cC(T)$, the cycles
+$\Psi_f(c\otimes y)$ and $S_y(f(c))$ coincide, so
+$\psi_*[c\otimes y]=S_{y*}(f_{\#*}[c])$. With $c=c_T$ and $y=c_{G_*}$ this gives
+\[
+\psi_*(\xi_{T\otimes G_*})=S_{y*}(\xi_{G_\iota})=[\ins(\otimes_ic_{G_i},c_{G_*})]
+=[\otimes_kc_{G_k}]=\xi_{G_\bullet}.
+\]
+The case $\kappa=\mathrm{Option}\,\iota$ and $G=D'$ is the theorem.
+\end{proof}
+
+\begin{remark}\label{rem:linear}
+The proposal for M609 cited in the job listing of J03 allows an arbitrary chain map
+$\theta\colon\cC(T)\to\cC(D_\bullet)$ of complexes of $K$-vector spaces. The formula
+$c\otimes y\mapsto\theta(c)\otimes y$ is well defined on the balanced tensor product
+$C(T)\otimes_\Lam C(H)$ only if it respects the relation $(Tc)\otimes y=c\otimes(Ty)$, which
+requires $\theta(Tc)=T\theta(c)$. The record of M609 in the dependency audit adds the hypothesis
+that $\theta$ is $\Lam$-induced and the same conclusion for $\psi$, and Theorem~\ref{thm:reassociation}
+is that statement. The final comparison map of the route is a composite
+$\theta_{\mathrm{tr}}\circ\varphi$, where $\varphi$ comes from the cobordism and the iterated
+comparison $\theta_{\mathrm{tr}}$ of Section~\ref{sec:j04} is applied last. Composition requires no
+linearity of $\varphi$, so no other map of the route needs to be $\Lam$-induced. We do not know whether the proposal for an arbitrary chain map holds,
+and it is not needed.
+\end{remark}
+
+\section{The iterated seam comparison (J04)}\label{sec:j04}
+
+\subsection{The binary seam (M608)}
+For grid diagrams $G$ of size $n+1$ and $H$ of size $m+1$ with $X_G(n)=n$ and $X_H(0)=0$, the
+shared corner seam grid $\seam(G,H)$ of size $n+m+1$ is \lean{connectedSumSeamGrid}. Assume also
+$O_H(m)=0$. The seam contraction gives a $\Lam$-linear projection
+$\pi\colon C(\seam(G,H))\to C(G)\otimes_\Lam C(H)$, the corrected projection followed by the inverse
+tensor coordinates (Lean: \lean{seamTensorProjection}). It maps levels into levels
+(\lean{seamFullContraction_proj_mem_bifiltration_of_last_O},
+\lean{seamTensorCoordinatesEquiv_symm_mem_bifiltration}).
+
+\begin{lemma}[M608, \lean{seamParity_of_positivePaths}]\label{lem:m608}
+If the seam positive path comparisons hold for the pair of sizes $(n,m)$, then the parity identity
+used as the hypothesis of \lean{seamNativeTensorHomotopyEquiv} holds for every such pair $G,H$.
+\end{lemma}
+
+\begin{proof}
+The comparisons are equivalent to the equality of the retained seam differential with the
+tensor coordinate differential over $\F$
+(\lean{seamRetainedDifferential_eq_tensorCoordinate_iff_positive_paths}), and this equality is
+equivalent to the parity identity (\lean{seamRetainedDifferential_eq_tensorCoordinate_iff_evalOne}).
+\end{proof}
+
+Under the parity identity, $\pi$ commutes with the differentials and maps the piece of degree $r$
+into the piece of degree $r$, and $\pi_\#$ is the forward map of the homotopy equivalence
+\lean{seamNativeTensorHomotopyEquiv}. It satisfies $\pi_{\#*}(\xi_{\seam(G,H)})=\xi_{G\otimes H}$
+by \lean{seamNativeTensor_hom_canonicalClass}. The comparisons hold for all sizes by M601
+(\lean{seamPositivePathComparisons}), so Lemma~\ref{lem:m608} applies without hypothesis.
+
+\subsection{Prepared families and the iterated seam grid}
+
+\begin{definition}[\lean{SeamPrepared}]\label{def:prepared}
+A family $(D_j)_{0\le j<N}$ of grid diagrams of sizes $s_j$ is \emph{prepared} if every $s_j$ is
+positive, $X_{D_0}(s_0-1)=s_0-1$ when $N>0$, and $X_{D_j}(0)=0$ and $O_{D_j}(s_j-1)=0$ for every
+$j\ne0$.
+\end{definition}
+
+For a grid diagram $G$ of size $n+1$, some power $\sigma^k$ of the cyclic row translation satisfies
+$\sigma^k(X_G(n))=n$ (\lean{exists_cyclicRows_send} for $n\ge1$, and $k=0$ for $n=0$). We fix one
+such power and put $\rot(G)=G^{\sigma^k}$, so that $X_{\rot(G)}(n)=n$ (Lean: \lean{seamLeftGrid}).
+
+Let $(E_j)_{0\le j\le M}$ be grid diagrams of sizes $p_j+1$ with $X_{E_j}(0)=0$ for $j\ge1$. The
+\emph{seam chain} is defined by
+\[
+T_0=E_0,\qquad T_{k+1}=\seam(\rot(T_k),E_{k+1})\quad(0\le k<M)
+\]
+(Lean: \lean{seamChainGrid}). By induction $T_k$ has size $\sum_{j\le k}p_j+1$. For a prepared family
+$(D_j)_{0\le j<N}$ with $N=M+1$, put $p_j=s_j-1$ and let $E_j$ be $D_j$ viewed as a grid of size
+$p_j+1$. The \emph{iterated seam grid} of $D$ is $T_M$, transported to the size
+$\sum_js_j-(N-1)=\sum_jp_j+1$ (Lean: \lean{iteratedSeamGrid}, \lean{iteratedSeamSize},
+\lean{iteratedSeamSize_succ}). For $N=0$ it is the grid of size zero.
+
+\begin{lemma}[\lean{two_le_iteratedSeamSize}]\label{lem:size}
+If $N>0$ and $s_j\ge2$ for all $j$, then $\sum_js_j-(N-1)\ge2$.
+\end{lemma}
+
+\begin{proof}
+We have $\sum_js_j\ge2N$, hence $\sum_js_j-(N-1)\ge N+1\ge2$.
+\end{proof}
+
+\begin{lemma}[\lean{exists_seamPrepared_movesTo}]\label{lem:prepare}
+Every family $(D_j)$ of grid diagrams of sizes at least two is related factorwise by grid moves to
+a prepared family of grid diagrams of sizes at least two.
+\end{lemma}
+
+\begin{proof}
+For $j=0$, relabel the rows of $D_0$ by a power of $\sigma$ that sends $X_{D_0}(s_0-1)$ to $s_0-1$
+(\lean{exists_cyclicRows_send}). Cyclic row relabelings are grid moves
+(\lean{cyclicRows_pow_movesTo}). For $j\ne0$, \lean{exists_seamPreparedGrid} gives a grid $D'_j$ of
+size $s_j+1$ reached by grid moves with $X_{D'_j}(0)=0$ and $O_{D'_j}(s_j)=0$.
+\end{proof}
+
+\subsection{The comparison (M612)}
+
+\begin{theorem}[M612]\label{thm:iterated}
+Assume the seam positive path comparisons for all pairs of sizes. Let $N>0$ and let
+$(D_j)_{0\le j<N}$ be a prepared family of grid diagrams of sizes at least two, with iterated seam
+grid $G_{\mathrm{tr}}$. Then there is a chain map $\theta\colon\cC(G_{\mathrm{tr}})\to\cC(D_\bullet)$
+over $\F$ with shifts $(0,0)$ and $\theta_*(\xi_{G_{\mathrm{tr}}})=\xi_{D_\bullet}$. Since the
+comparisons are proved (M601), the conclusion holds without hypothesis.
+\end{theorem}
+
+\begin{proof}
+We first prove, by induction on $M$, the following statement for the seam chain of grid diagrams
+$(E_j)_{0\le j\le M}$ of sizes $p_j+1\ge2$ with $X_{E_j}(0)=0$ and $O_{E_j}(p_j)=0$ for $j\ge1$:
+there is a filtered $\Lam$-linear map $f_M\colon C(T_M)\to C(E_\bullet)$ with
+$f_{M\#*}(\xi_{T_M})=\xi_{E_\bullet}$ (Lean: \lean{exists_seamChain_finiteTensor_map}).
+
+For $M=0$, Proposition~\ref{prop:singleton} gives $f_0$, the inverse singleton equivalence.
+
+For the inductive step, let $f_M\colon C(T_M)\to C(E_{\le M})$ be given for the family
+$(E_j)_{j\le M}$, and let $k$ be the chosen power with $\rot(T_M)=T_M^{\sigma^k}$.
+\begin{enumerate}
+\item The inverse row relabeling $C(\rot(T_M))\to C(T_M)$ is a filtered $\Lam$-linear map of grid
+chains (Proposition~\ref{prop:rows}), and its induced chain map is the inverse isomorphism of
+Proposition~\ref{prop:rows}. Hence $g=f_M\circ\sigma^{-k}$ is a filtered $\Lam$-linear map
+$C(\rot(T_M))\to C(E_{\le M})$, and
+\[
+g_{\#*}(\xi_{\rot(T_M)})=f_{M\#*}(\xi_{T_M})=\xi_{E_{\le M}}
+\]
+by Proposition~\ref{prop:rows} and the induction hypothesis.
+\item Insertion of the factor $E_{M+1}$ into the last position, with $\kappa=\{0,\dots,M+1\}$ and
+$*=M+1$, gives the map $\Psi_g\colon C(\rot(T_M))\otimes_\Lam C(E_{M+1})\to C(E_{\le M+1})$ of the
+proof of Theorem~\ref{thm:reassociation}, with
+$(\Psi_g)_{\#*}(\xi_{\rot(T_M)\otimes E_{M+1}})=\xi_{E_{\le M+1}}$.
+\item The grid $\rot(T_M)$ satisfies $X_{\rot(T_M)}(s)=s$, where $s+1$ is its size, and $E_{M+1}$
+satisfies $X_{E_{M+1}}(0)=0$ and $O_{E_{M+1}}(p_{M+1})=0$. The parity identity holds for this pair
+by Lemma~\ref{lem:m608}, and $T_{M+1}=\seam(\rot(T_M),E_{M+1})$. Put $f_{M+1}=\Psi_g\circ\pi$. It is
+a filtered $\Lam$-linear map because $\pi$ and $\Psi_g$ preserve pieces, levels and differentials.
+Its induced chain map is $(f_{M+1})_\#=(\Psi_g)_\#\circ\pi_\#$, as recorded in
+\lean{LaurentTensorFiniteMap.precompSeam_hom}. Therefore
+\[
+f_{M+1\,\#*}(\xi_{T_{M+1}})=(\Psi_g)_{\#*}(\xi_{\rot(T_M)\otimes E_{M+1}})=\xi_{E_{\le M+1}}.
+\]
+\end{enumerate}
+
+For the theorem, write $N=M+1$ and let $E_j$ be $D_j$ viewed as a grid of size $(s_j-1)+1$. These
+grids satisfy the hypotheses above because the family is prepared and $s_j\ge2$. Let $f_M$ be the
+map just constructed. Put
+\[
+\theta=\tau_D\circ f_{M\#}\circ\tau_{\mathrm{tr}}^{-1},
+\]
+where $\tau_{\mathrm{tr}}\colon\cC(T_M)\to\cC(G_{\mathrm{tr}})$ is the transport along the size
+equality and $\tau_D\colon\cC(E_\bullet)\to\cC(D_\bullet)$ is the transport of families. Both
+transports are identities after the size equalities are substituted, so they have shifts $(0,0)$,
+$\tau_{\mathrm{tr}}^{-1}$ maps $\xi_{G_{\mathrm{tr}}}$ to $\xi_{T_M}$ by
+Proposition~\ref{prop:class-transport}, and $\tau_D$ maps $\xi_{E_\bullet}$ to $\xi_{D_\bullet}$.
+Shifts add under composition (\lean{Bifiltration.Shifts.comp}), so $\theta$ has shifts $(0,0)$ and
+$\theta_*(\xi_{G_{\mathrm{tr}}})=\xi_{D_\bullet}$.
+\end{proof}
+
+\begin{remark}
+The condition $X_{D_0}(s_0-1)=s_0-1$ in Definition~\ref{def:prepared} is part of the audit's
+definition and is not used in the proof, because $\rot$ is applied at every step. The theorem does
+not identify $G_{\mathrm{tr}}$ with a grid of the connected sum of the knots of the factors. That
+geometric statement is record M613 and remains open.
+\end{remark}
+
+\section{Correspondence with the Lean declarations}\label{sec:lean}
+
+All declarations are in the namespace \lean{OnLeConjecture.KnotFloer.GridFull}. The audits
+\lean{AuditGridLaurentFiniteTensorAlgebra.lean} and \lean{AuditGridConnectedSumIterated.lean}
+check that every declaration of the six modules, including internal ones, depends only on
+\lean{propext}, \lean{Classical.choice} and \lean{Quot.sound}.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.34\textwidth}>{\raggedright\arraybackslash}p{0.58\textwidth}}
+\toprule
+Statement & Lean declaration and module \\
+\midrule
+Lemma~\ref{lem:pieces} & \lean{PieceComplexData.hom}, \lean{PieceComplexData.iso},
+\lean{PieceComplexData.hom_shifts} (\lean{GridLaurentFiniteTensorSingleton}) \\
+Proposition~\ref{prop:singleton} & \lean{laurentFiniteMaslovSubsingletonIso} with
+\lean{_hom_shifts}, \lean{_inv_shifts}, \lean{_hom_canonicalClass},
+\lean{_inv_canonicalClass} (\lean{GridLaurentFiniteTensorSingleton}) \\
+Proposition~\ref{prop:reindex} & \lean{laurentFiniteMaslovReindexIso} with \lean{_hom_shifts},
+\lean{_inv_shifts}, \lean{_hom_canonicalClass}, \lean{_inv_canonicalClass}, and
+\lean{laurentFiniteMaslovFamilyIso} (\lean{GridLaurentFiniteTensorReindex}) \\
+Proposition~\ref{prop:rows} & \lean{laurentMaslovCyclicRowsPowIso} with \lean{_hom_shifts},
+\lean{_inv_shifts}, \lean{gridCanonicalClass_cyclicRowsPow},
+\lean{gridCanonicalClass_cyclicRowsPow_inv} (\lean{GridFullCyclicRowsPower}) \\
+Lemma~\ref{lem:insert}, Definitions~\ref{def:laurent-map} and~\ref{def:induced},
+Lemma~\ref{lem:bridge} & \lean{insertLinear}, \lean{LaurentGridFiniteMap},
+\lean{LaurentTensorFiniteMap}, \lean{LaurentGridInduced}, \lean{LaurentTensorInduced},
+\lean{LaurentGridInduced.exists_laurentGridFiniteMap}
+(\lean{GridLaurentFiniteTensorReassociation}) \\
+Theorem~\ref{thm:reassociation} & \lean{exists_tensorGrid_finiteTensor_map},
+\lean{LaurentGridFiniteMap.insertTensor_canonicalClass}
+(\lean{GridLaurentFiniteTensorReassociation}) \\
+Lemma~\ref{lem:m608} & \lean{seamParity_of_positivePaths}
+(\lean{GridConnectedSumSeamUnconditional}) \\
+Definition~\ref{def:prepared}, Lemmas~\ref{lem:size} and~\ref{lem:prepare} & \lean{SeamPrepared},
+\lean{iteratedSeamSize}, \lean{iteratedSeamGrid}, \lean{two_le_iteratedSeamSize},
+\lean{exists_seamPrepared_movesTo} (\lean{GridConnectedSumIterated}) \\
+Theorem~\ref{thm:iterated} & \lean{exists_seamChain_finiteTensor_map},
+\lean{exists_iteratedSeam_finiteTensor_map_of_parity},
+\lean{exists_iteratedSeam_finiteTensor_map} (\lean{GridConnectedSumIterated}) \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Deviations from the proposed API}
+\begin{enumerate}
+\item The index types of the isomorphisms of M005, M610 and the family transport are in the
+universe \lean{Type}. For $K=\F$ the native grid complex lives in the universe of
+\lean{Type}, and a finite tensor over an index type of a higher universe lives in that higher
+universe, so the proposed isomorphisms do not typecheck for such index types.
+\item M609 carries the hypothesis that $\theta$ is $\Lam$-induced and the same conclusion for
+$\psi$, as in the record of M609 in the audit. The proposal cited in the job listing of J03 omits
+both (Remark~\ref{rem:linear}). This formulation was approved on 2 November 2026.
+\item In addition to the proposed conditional theorem, the module proves the unconditional
+version \lean{exists_iteratedSeam_finiteTensor_map}, using M601.
+\end{enumerate}
+
+\end{document}

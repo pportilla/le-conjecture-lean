@@ -1,0 +1,151 @@
+{
+  "repository": "https://github.com/BochaoKong/nullstellensatz",
+  "commit": "029697242294aea7989bf5d391199696a43490df",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "closure_modules": 50,
+  "additional_modules": 22,
+  "existing_dependency": "ruckert-port-provenance.json",
+  "changes": [
+    "Module/public visibility and local import prefix.",
+    "Expose one private continuity lemma needed by an exposed definition.",
+    "Replace obsolete LinearEquiv.ofLinear by LinearEquiv.ofLinearMap.",
+    "Use let instead of letI for proof-local instances.",
+    "Mark unused bound names and omit one unused prime-instance section parameter.",
+    "Document the retained upstream typeclass-search allowances."
+  ],
+  "files": [
+    {
+      "upstream": "LocalComplexGeometry/FiniteProjection/PreparedQuotient.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/FiniteProjection/PreparedQuotient.lean",
+      "upstream_sha256": "3bd2aaca679601db006bf8def5022a7d9cfb55b76a763751123baa164476d33b",
+      "ported_sha256": "f9603546349e16e2d1f93a575edcacd78724ecee8ce0ff52951c6342061ad6c0"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Geometry/FiniteProjection.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Geometry/FiniteProjection.lean",
+      "upstream_sha256": "ad26016ff2f964fc7c71581e307e8f5542a39e9582f7f52cb2d3741b5db9206c",
+      "ported_sha256": "3875dc370129e321b0a829e1c7c2fb96fa9f0f8170ec555f885bf8cea7138fbd"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Germs/Representatives.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Germs/Representatives.lean",
+      "upstream_sha256": "ffe2f33630797265bcf065979515e08db6a3925114f5f6849434ced9193e45d3",
+      "ported_sha256": "1b5ca223df270f7e902bbe9fc51541c4729c57343f117887512e637ad7bb1b7e"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/Coordinates.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/Coordinates.lean",
+      "upstream_sha256": "e4959fa58ca4801f833b9453d8260f4043343c428a6469f1fd6d558003996956",
+      "ported_sha256": "c0d34c0a14cba4d8dae1ae7be5cf872e86edf2bda66b600a7a331aeb8e7ddf32"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/DivisibilitySpecialization.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/DivisibilitySpecialization.lean",
+      "upstream_sha256": "0df17f6d2dd5130815d876f16f41d997ffc0bdc14b763ffdb498a8e914329e7d",
+      "ported_sha256": "42b1457c516181a74e3be8535a38b7514d63c65f93cbaa8e48a1734087e730f1"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/DivisionRepresentatives.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/DivisionRepresentatives.lean",
+      "upstream_sha256": "0ff3369d61ab7aef11a83c309295229851f3194d222b4e24668a6f2576d202e9",
+      "ported_sha256": "8a0b04c40344c475f38094f095c30b2918326842048229118808a20a192de87e"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/GenericFiber.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/GenericFiber.lean",
+      "upstream_sha256": "25b35ecdad4b3516e833de4b5d8660a91d38d06f55557d612358069d657719d5",
+      "ported_sha256": "1aebe37a451a0d97d812ae0874816ddf8f5d2561218cff6ed18521578587ad6a"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/IdealRepresentatives.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/IdealRepresentatives.lean",
+      "upstream_sha256": "78cd87fb72aaf56f01d3c67db640aaeb4b48bcfd414cdd37ddf4058cce13c0f2",
+      "ported_sha256": "e22d69066ca9ea8f8cd6564b29430b2c446810baa6c4872a1492bd5b0c1b808e"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/Main.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/Main.lean",
+      "upstream_sha256": "cd55200487561b2140d8864c06b40c630dda2a8a1b69b30dd1ef2cbb2fbbe10c",
+      "ported_sha256": "5f697b50742e7596e0c7395c33e44a2068efec047c675095817f64a93acbc1e5"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/MinpolyResultant.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/MinpolyResultant.lean",
+      "upstream_sha256": "4024f596546e4b1b9e81101383dc4991761dce2068137becbef4eb8435813a09",
+      "ported_sha256": "42f820f09c0c80efcefc95c18edf55013d47f9f21a2441139e47b3e27d22610c"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/PolynomialFibers.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PolynomialFibers.lean",
+      "upstream_sha256": "42291c2767c764863fe6e07609b9c35081758f32191e965132f79485193f345f",
+      "ported_sha256": "d2451ed204a8655a89ede3f106b956a08b743882b7fc0c6ba53fa60830b3017c"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/PolynomialRepresentativeOperations.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PolynomialRepresentativeOperations.lean",
+      "upstream_sha256": "e0d2bf3198ad3c22268300057176ef9f0f4c39b83fa25dbffbb88a061458e8d5",
+      "ported_sha256": "51c42a1d225e310953dd9fa1462723c7b8f666002709e9fc498138b04fd6282d"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/PolynomialSpecialization.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PolynomialSpecialization.lean",
+      "upstream_sha256": "c9e2e6c89e4cd489f48051e122f4779b5dba49366efd285a5b10276f461406cb",
+      "ported_sha256": "0019a523ed581072414d9339d44f48a8cb5b5ed4b1b9fadcb286645881085e5f"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/PreparedPrime.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PreparedPrime.lean",
+      "upstream_sha256": "1e06709971eddab2cdd509536f96dbb24e69f45176c4273d67eeeab3d09cdcad",
+      "ported_sha256": "e137048301ca5244dc75141c967610d68eea76f5ae780dcc03e248355543132e"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/PreparedRootLocality.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PreparedRootLocality.lean",
+      "upstream_sha256": "6bd88bad1f81a20c18366087144129e03c06b951fa0bfe54e30a2a5f009c98dd",
+      "ported_sha256": "9ca284ef804ce2b56a983cdb17a61115171609c20afe3d4294dcb02e81866735"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/PrimeBase.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PrimeBase.lean",
+      "upstream_sha256": "15c7cb2c98b397f3c1e6719ac98534c0f5815edeac6824ec3cebb71c0efc7eba",
+      "ported_sha256": "f9a914a063528a3e84142c89d647a3760fb2f268e904c8162583d576bf80fdeb"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/PrimeCancellation.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PrimeCancellation.lean",
+      "upstream_sha256": "422ae01224372053dce57825888647d74c0e58d72179e19b657b0bd11b104738",
+      "ported_sha256": "0b413a5af0cf517f6c3718212c19f13674cad130059ce7e9c0f10f90ceb35ff8"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/PrimeInduction.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/PrimeInduction.lean",
+      "upstream_sha256": "232f82824bdb16a8eb56b1225ee1e9785679a4d0a9ee2b807f55ab797f8ffe46",
+      "ported_sha256": "d776d1e6c56886ce295aba565daf53f2d3a8609fa82ae8b1577f78d070f72aa7"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/QuotientPolynomialSpecialization.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/QuotientPolynomialSpecialization.lean",
+      "upstream_sha256": "1e998daea27b8ff1a1aae936748d3333f832e3a527ba551e1b5d08636d58a2ad",
+      "ported_sha256": "3d878880487af85f071b8c80463a93a2c905cdb18bca130b3ba59a39f5bfe2a9"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/RadicalReduction.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/RadicalReduction.lean",
+      "upstream_sha256": "7b8336a343b65c97a739b0c4975e53354049267dc8344d5fd48414b0ca8b6dae",
+      "ported_sha256": "7f0323dab0f413ed508a51cbde6d47cce6f9f80bc8e58e9618ff339dea37c344"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/ResultantSpecialization.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/ResultantSpecialization.lean",
+      "upstream_sha256": "a9bd4b6b87128ce56ab4f2792e11ead60be8790188a92c0f61424c584f13dc03",
+      "ported_sha256": "e0a13844d4819b68c901ff14db0b21d1b9d8203f0718b126431624166a30160e"
+    },
+    {
+      "upstream": "LocalComplexGeometry/Nullstellensatz/ZeroSetGerms.lean",
+      "local": "OnLeConjecture/External/LocalComplexGeometry/Nullstellensatz/ZeroSetGerms.lean",
+      "upstream_sha256": "4a7df3863f3eec1a9483acec0b63422748b38a6238e57b711134c7f70af634bb",
+      "ported_sha256": "dd2ffa7f5454d80ed65326cbd25f805dd1640c3456acdd871fe39a4bb03fd461"
+    }
+  ]
+}

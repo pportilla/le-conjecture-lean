@@ -1,0 +1,43 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "upstream": "TauCeti/Analysis/Calculus/ContinuousMap.lean",
+      "local": "OnLeConjecture/External/TauCeti/Analysis/Calculus/ContinuousMap.lean",
+      "upstream_sha256": "bb3c5c0a890f569d4144c5efdc561b5ccc7d4281ccfd39a4b1242e8097f24ef7",
+      "local_sha256": "bb3c5c0a890f569d4144c5efdc561b5ccc7d4281ccfd39a4b1242e8097f24ef7",
+      "changes": "Full module, proof unchanged. Import paths redirected to vendored modules. Selective module documentation records exact scope."
+    },
+    {
+      "upstream": "TauCeti/Analysis/Calculus/ImplicitFunctionTheorem.lean",
+      "local": "OnLeConjecture/External/TauCeti/Analysis/Calculus/ImplicitNeighborhood.lean",
+      "upstream_sha256": "31d917feb2af2c032baa3f1bd9e022f6f32652c73ca109bb30798452359a3bcd",
+      "local_sha256": "359beb4d14a9ecb2242f76107d312f21480cc40992f9c508fafa6984c6ad78dc",
+      "changes": "Retain only ContDiffOn.exists_isOpen_contDiffOn_implicitFunction and its variables. Omit complemented-kernel and slice-chart sections. Proof unchanged. Import paths redirected to vendored modules. Selective module documentation records exact scope."
+    },
+    {
+      "upstream": "TauCeti/Analysis/ODE/SmoothParameter.lean",
+      "local": "OnLeConjecture/External/TauCeti/Analysis/ODE/SmoothParameterGlobal.lean",
+      "upstream_sha256": "c0c1e64e37494a08fadb7e2bac71a76f8d0d9b6eeaeec0650df4372e1e657deb",
+      "local_sha256": "4b5312ea9793ec7620cf989d03596b5bef819e291dc9fd9c4cbe9feb7d3416d3",
+      "changes": "Retain the global Picard solution theorem and its prerequisites. Omit the finite-dimensional local-germ theorem and its bump-function dependency. Proofs unchanged. Import paths redirected to vendored modules. Selective module documentation records exact scope."
+    },
+    {
+      "upstream": "TauCeti/Analysis/ODE/InitialCondition.lean",
+      "local": "OnLeConjecture/External/TauCeti/Analysis/ODE/InitialConditionGlobal.lean",
+      "upstream_sha256": "8964181c0747f2969e0eb7d249302b5524acedab84081d3a5cad5fff5c82f11c",
+      "local_sha256": "c7aaf824412eabcba345c6a1862170c5a10c5ad0eeaa6237d2bd134a7c5d8ec8",
+      "changes": "Retain all global smooth-dependence results. Omit the local-vector-field theorem and its bump-function dependency. Proofs unchanged. Import paths redirected to vendored modules. Selective module documentation records exact scope."
+    },
+    {
+      "upstream": "TauCeti/Geometry/Diffeomorphism/Diffeotopy/Basic.lean",
+      "local": "OnLeConjecture/External/TauCeti/Geometry/Diffeomorphism/Diffeotopy/Basic.lean",
+      "upstream_sha256": "ca94303e54bd7f77d387e48337102b29e879acefb5209112dfd09fa87a20faf0",
+      "local_sha256": "f44456dc3b7185746b0261100b8360f01e0b0696b213b80a38ba2ee0923589a3",
+      "changes": "Full module, proof unchanged. Import paths redirected to vendored modules. Selective module documentation records exact scope."
+    }
+  ]
+}

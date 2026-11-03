@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "Please cite this repository and identify the commit you checked. Cite the companion manuscript separately when using its written arguments."
+type: software
+title: "Lê's conjecture in Lean 4"
+authors:
+  - family-names: "Portilla Cuadrado"
+    given-names: "Pablo"
+repository-code: "https://github.com/pportilla/le-conjecture-lean"
+url: "https://github.com/pportilla/le-conjecture-lean"
+abstract: "A Lean 4 and Mathlib development with a final theorem asserting that every holomorphic map germ from complex dimension two to complex dimension three with an injective representative has a nonzero differential at the origin."
+keywords:
+  - Lean 4
+  - formal verification
+  - complex analytic geometry
+  - Lê's conjecture

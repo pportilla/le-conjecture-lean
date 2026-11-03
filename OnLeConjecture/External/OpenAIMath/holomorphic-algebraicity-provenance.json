@@ -1,0 +1,122 @@
+{
+  "repository": "https://github.com/openai/math",
+  "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "local_lean": "4.33.1",
+  "local_mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "files": [
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/ComplexGroups/HolomorphicAlgebraicity/ClosedDiskFactorization.lean",
+      "local": "HolomorphicAlgebraicity/ClosedDiskFactorization.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Replaced `ite_eq_right` (not available in the local Mathlib) by `if_neg` in three `simp only` calls."
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/ComplexGroups/HolomorphicAlgebraicity/DiskFactorizationOn.lean",
+      "local": "HolomorphicAlgebraicity/DiskFactorizationOn.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/ComplexGroups/HolomorphicAlgebraicity/HolomorphicRegularity.lean",
+      "local": "HolomorphicAlgebraicity/HolomorphicRegularity.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/ComplexGroups/HolomorphicAlgebraicity/Moments.lean",
+      "local": "HolomorphicAlgebraicity/Moments.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/ComplexGroups/HolomorphicAlgebraicity/ParametricIntegralAt.lean",
+      "local": "HolomorphicAlgebraicity/ParametricIntegralAt.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/ComplexGroups/HolomorphicAlgebraicity/RootFamiliesAt.lean",
+      "local": "HolomorphicAlgebraicity/RootFamiliesAt.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/ComplexGroups/HolomorphicAlgebraicity/RootMomentsNe.lean",
+      "local": "HolomorphicAlgebraicity/RootMomentsNe.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Removed one `hprod` rewrite and restated one `change` goal in lambda form, because the local `logDeriv_prod` and `logDeriv_mul` are stated for lambda products."
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/ComplexGroups/HolomorphicAlgebraicity/SymmetricRootsOn.lean",
+      "local": "HolomorphicAlgebraicity/SymmetricRootsOn.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/ComplexGroups/HolomorphicAlgebraicity/WeierstrassPreparation.lean",
+      "local": "HolomorphicAlgebraicity/WeierstrassPreparation.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Replaced `dite_eq_left` (not available in the local Mathlib) by `dif_pos`."
+      ],
+      "mathematical_changes": []
+    }
+  ],
+  "scope": "Parametric Weierstrass preparation on a closed disk for holomorphic functions on an open subset of (Fin n → ℂ) × ℂ (`Constructions.Preparation.exists_polynomial_preparation`) and its dependencies; used only to count zeros of one-variable analytic families in `OnLeConjecture/Analytic/ParametricRootCount.lean`."
+}

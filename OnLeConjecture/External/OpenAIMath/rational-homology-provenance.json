@@ -1,0 +1,724 @@
+{
+  "repository": "https://github.com/openai/math",
+  "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "upstream_lean": "4.34.1",
+  "upstream_mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "local_lean": "4.33.1",
+  "local_mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "files": [
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/BarycentricMesh.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/BarycentricMesh.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/BarycentricSimplex.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/BarycentricSimplex.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`); `Convexity.StdSimplex.single` replaced by `stdSimplex.vertex` in `simplexVertexMap_vertex`, `BarycentricFlag.toContinuousMap_vertex` and `barycentricSubdivisionMap_vertex`",
+        "Removed `omit [Fintype ι] in` before `simplexVertexLinearMap_apply`, `simplexVertexLinearMap_eq_sum` and `continuous_simplexVertexLinearMap`, since the local `stdSimplex ℝ ι` in their statements requires `[Fintype ι]`",
+        "Proof adaptation: `simplexVertexLinearMap_mem` uses `stdSimplex.zero_le` for `Convexity.StdSimplex.weights_nonneg` (twice) and `stdSimplex.sum_eq_one` for `Convexity.StdSimplex.total_of_fintype`",
+        "Proof adaptation: `simplexVertexMap` continuity uses `Topology.IsEmbedding.subtypeVal.continuous_iff` for `(Convexity.StdSimplex.isEmbedding_toFun_comp_weights ℝ ι).continuous_iff`, and `simpa [Function.comp_def, ofCoordinates] using (continuous_simplexVertexLinearMap v).comp (isEmbedding_toFun_comp_weights ℝ κ).continuous` replaced by `exact (continuous_simplexVertexLinearMap v).comp continuous_subtype_val`",
+        "Proof adaptation: `simplexVertexMap_apply` removes `ofCoordinates` from the `simp` set (so that the `@[simp]` lemma `ofCoordinates_weights` applies)",
+        "Proof adaptation: `simplexVertexMap_eq_affine` removes `ofCoordinates` from the `simp` set",
+        "Proof adaptation: `simplexVertexMap_vertex` uses `stdSimplex.ext` for `Convexity.StdSimplex.ext`, `stdSimplex.vertex` for `Convexity.StdSimplex.single`, and `Pi.single_apply` for `Finsupp.single_apply` in `simp`",
+        "Proof adaptation: `simplexVertexMap_mem_convexHull` uses `stdSimplex.zero_le` and `stdSimplex.sum_eq_one` for `weights_nonneg` and `total_of_fintype`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/BinarySmallInclusion.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/BinarySmallInclusion.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/ContractibleModel.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/ContractibleModel.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/EventuallySmall.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/EventuallySmall.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/HomologyZeroNaturality.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/HomologyZeroNaturality.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/InjectiveHomotopyRestriction.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/InjectiveHomotopyRestriction.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/IteratedSubdivision.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/IteratedSubdivision.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`); `Convexity.StdSimplex.single` replaced by `stdSimplex.vertex` (statement of `simplexVertexMap_vertices`, body of `iteratedSubdivisionMap`)",
+        "Proof adaptation: `simplexVertexMap_vertices` uses `stdSimplex.vertex` and `Pi.single_apply` for `Convexity.StdSimplex.single` and `Finsupp.single_apply` in `simp`",
+        "Proof adaptation (identifier rename): `iteratedSimplexMap_diam_le_initial` uses `stdSimplex.vertex i` for `Convexity.StdSimplex.single i`",
+        "Proof adaptation: `iteratedSubdivisionMap_dist_le` uses `bounded_stdSimplex`, the memberships `(stdSimplex.vertex i).2`, `(stdSimplex.vertex j).2`, and `diam_stdSimplex_le` for `Convexity.StdSimplex.isBounded_range_toFun_comp_weights`, `⟨single i, rfl⟩`, `⟨single j, rfl⟩` and `Convexity.StdSimplex.diam_range_toFun_comp_weights_subset_closedBall`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/LocalHomology.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/LocalHomology.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/NormalSphere.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/NormalSphere.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Module-system visibility: removed `private` from `radiusOne`, `interpolateRadius` and `continuous_interpolateRadius`, which occur in the exposed bodies of the public definitions `normalSphereInclusion` and `normalSphereDeformation`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/PermutationLast.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/PermutationLast.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/Point.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/Point.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/RationalScalarExtension.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/RationalScalarExtension.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/RationalSingularChains.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/RationalSingularChains.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/RelativeHomologyExact.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/RelativeHomologyExact.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/RelativeScalarChains.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/RelativeScalarChains.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SimplexFillings.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SimplexFillings.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`) in `stdSimplex_contractible` and `exists_stdSimplex_boundary_succ`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SingularChainSupport.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SingularChainSupport.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`) in `singularChain_geometric_smallness`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SmallChainImage.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SmallChainImage.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SmallCircleHomology.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SmallCircleHomology.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SmallMayerVietoris.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SmallMayerVietoris.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Proof adaptation (identifier rename): `mem_subspaceSingularSubcomplex` uses `stdSimplex ℝ` for `Convexity.StdSimplex ℝ` in the type of a `let`",
+        "Proof adaptation: `integralSimplicialChainFunctor_preservesMonomorphisms` adds `apply +allowSynthFailures NatTrans.mono_of_mono_app`, `intro n`, `change Mono ((sigmaConst.obj (ModuleCat.of ℤ ℤ)).map (f.app n))`, `infer_instance` after `apply +allowSynthFailures Functor.map_mono` (same adaptation as in the previously vendored `AlgebraicTopology/IntegralHomology/SmallChains.lean`)"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SmallSimplex.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SmallSimplex.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`) throughout",
+        "Proof adaptation (identifier rename): `singularSimplex_small_subsimplices` uses `stdSimplex.vertex 0` for `Convexity.StdSimplex.single 0`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SmallSingularQuasiIso.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SmallSingularQuasiIso.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SmallSphereHomology.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SmallSphereHomology.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SmallSubdivision.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SmallSubdivision.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SmallSubdivisionHomotopy.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SmallSubdivisionHomotopy.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SphereCover.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SphereCover.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SphereHomologyInduction.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SphereHomologyInduction.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SubdivisionBoundary.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SubdivisionBoundary.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`); `Convexity.StdSimplex.map` replaced by `stdSimplex.map`",
+        "Removed `omit [Fintype ι] in` before `simplexVertexLinearMap_piSingle` and `simplexVertexLinearMap_precomp`, since the local `stdSimplex ℝ ι` in their statements requires `[Fintype ι]`",
+        "Proof adaptation: `simplexVertexMap_precomp_map` uses `DFunLike.coe_injective` for `(Convexity.StdSimplex.isEmbedding_toFun_comp_weights ℝ _).injective`",
+        "Proof adaptation: `simplexVertexMap_postcomp_map` uses `DFunLike.coe_injective` for `(Convexity.StdSimplex.isEmbedding_toFun_comp_weights ℝ _).injective`",
+        "Proof adaptation: `map_faceBarycenter` uses `DFunLike.coe_injective` for the embedding injectivity, and its first `change` states the goal with `⇑(...)` instead of `(... ).weights`",
+        "Proof adaptation: `barycentricSubdivisionMap_comp_outer_face` uses `DFunLike.coe_injective` for the embedding injectivity and `stdSimplex.map` for `Convexity.StdSimplex.map` in its `change`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SubdivisionHomotopy.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SubdivisionHomotopy.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SubdivisionNaturality.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SubdivisionNaturality.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`) in `standardZeroSimplex_eq`",
+        "Proof adaptation: `standardZeroSimplex_eq` uses `DFunLike.coe_injective` for `(Convexity.StdSimplex.isEmbedding_toFun_comp_weights ℝ (Fin 1)).injective` and `stdSimplex.sum_eq_one` for `Convexity.StdSimplex.total_of_fintype`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SubdivisionOperator.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SubdivisionOperator.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SubdivisionSigns.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SubdivisionSigns.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`) throughout",
+        "Proof adaptation: `standardSimplexFace_omitted_coordinate` proof `exact Finsupp.mapDomain_of_notMem_range x.weights j (by simp)` replaced by `classical; change stdSimplex.map j.succAbove x j = 0; rw [stdSimplex.map_coe, FunOnFinite.linearMap_apply_apply]; simp [Fin.succAbove_ne]`",
+        "Proof adaptation: `barycentricSubdivisionMap_comp_inner_face_swap` uses `DFunLike.coe_injective` for `(Convexity.StdSimplex.isEmbedding_toFun_comp_weights ℝ (Fin (n + 2))).injective`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/SubdivisionSmallness.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/SubdivisionSmallness.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicGeometry/CycleClass/Geometric/ZeroSphere.lean",
+      "local": "AlgebraicGeometry/CycleClass/Geometric/ZeroSphere.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Proof adaptation: `twoIntegerCoproductIso_sum` uses `Sigma.ι_desc` for `Sigma.ι_comp_desc` (renamed in the local Mathlib) in `simp only`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/Basic.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/Basic.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/ChainDual.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/ChainDual.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Proof adaptation: `chainFunctionalOfFunction_simplex` uses `Sigma.ι_desc` for `Sigma.ι_comp_desc` (renamed in the local Mathlib)"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/ChainRepresentatives.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/ChainRepresentatives.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/Coefficients.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/Coefficients.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`) in `singularSimplicesEquivContinuousMap` and `singularDegreewiseContinuousFunctionIso`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/ContinuousFormulas.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/ContinuousFormulas.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`) throughout, including one docstring that names the type",
+        "Proof adaptation: `standardSimplexFace` body uses `stdSimplex.map` and `stdSimplex.continuous_map (S := ℝ)` for `Convexity.StdSimplex.map` and `Convexity.StdSimplex.continuous_map ℝ`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/Evaluation.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/Evaluation.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/EvaluationNaturality.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/EvaluationNaturality.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/Formulas.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/Formulas.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/Functor.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/Functor.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/NaturalSmallChains.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/NaturalSmallChains.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Proof adaptation (identifier rename): `singularSimplex_liftsToSubspace` uses the type `C(stdSimplex ℝ (Fin (n + 1)), A)` for `C(Convexity.StdSimplex ℝ (Fin (n + 1)), A)` in a `let`"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/RelativeSequence.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/RelativeSequence.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/Representatives.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/Representatives.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/RepresentativesNaturality.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/RepresentativesNaturality.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Cohomology/Singular/UniversalCoefficient.lean",
+      "local": "AlgebraicTopology/Cohomology/Singular/UniversalCoefficient.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/DeRham/Comparison/CechCoverRows.lean",
+      "local": "AlgebraicTopology/DeRham/Comparison/CechCoverRows.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/DeRham/Comparison/SmallSingularSet.lean",
+      "local": "AlgebraicTopology/DeRham/Comparison/SmallSingularSet.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Duality/Poincare/ConnectingRepresentatives.lean",
+      "local": "AlgebraicTopology/Duality/Poincare/ConnectingRepresentatives.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Duality/Poincare/OpenRational.lean",
+      "local": "AlgebraicTopology/Duality/Poincare/OpenRational.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/AlgebraicTopology/Duality/Poincare/RationalHomologyMayerVietoris.lean",
+      "local": "AlgebraicTopology/Duality/Poincare/RationalHomologyMayerVietoris.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports of the vendored paths",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file"
+      ],
+      "mathematical_changes": []
+    },
+    {
+      "upstream": "lean/OAI/Geometry/Foundations/ConvexStdSimplexMetric.lean",
+      "local": "Geometry/Foundations/ConvexStdSimplexMetric.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed imports to public imports",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Disabled the long-line style linter in the file",
+        "Kept the upstream Formal Conjectures derivation comment (Apache 2.0) after the provenance comment",
+        "Replaced the import `Mathlib.Geometry.Convex.ConvexSpace.CompactSpaceStdSimplex` (absent in the local Mathlib) by `Mathlib.Analysis.Convex.StdSimplex`",
+        "Mathlib name change in all statements: `Convexity.StdSimplex ℝ ι` (structure with finitely supported `weights`, absent in the local Mathlib) replaced by the local `stdSimplex ℝ ι` (subtype of `ι → ℝ`), and the coordinates `x.weights` by the local coercion `⇑x`; `StdSimplex.map` replaced by `stdSimplex.map`",
+        "Because the local `stdSimplex ℝ ι` requires `[Fintype ι]`, this hypothesis was added to `coeFn`, `ofMemRange` and `ofMemRange_weights`, and `[Fintype Y]` was added to `weights_map_sum`",
+        "Removed `open _root_.Convexity` and `open _root_.Convexity.StdSimplex` (namespaces absent in the local Mathlib)",
+        "Proof adaptation: `metricSpace` body `(isEmbedding_toFun_comp_weights ℝ ι).comapMetricSpace ...` replaced by `inferInstance` (the local subtype metric is the same sup metric on barycentric coordinates)",
+        "Proof adaptation: `coeFn` body `⟨fun x => x.weights⟩` replaced by `⟨fun x => ⇑x⟩`",
+        "Proof adaptation: `ofCoordinates` structure body (via `Finsupp.equivFunOnFinite.symm`) replaced by `⟨x, hn, ht⟩`",
+        "Proof adaptation: `ofCoordinates_weights` proof `by simp [ofCoordinates]` replaced by `rfl`",
+        "Proof adaptation: `weights_map_sum` proof `classical; simp [map, Finsupp.mapDomain_apply, ...]` replaced by `rw [stdSimplex.map_coe, FunOnFinite.linearMap_apply_apply]`",
+        "Proof adaptation: `convex_range_weights` uses `stdSimplex.zero_le` for `weights_nonneg` and `stdSimplex.sum_eq_one` for `total_of_fintype` in the `simp only` set; the final `funext i; simp` replaced by `rfl`",
+        "Proof adaptation: `contractibleSpace` proved by `(convex_stdSimplex ℝ ι).contractibleSpace` at a vertex instead of transport along the embedding homeomorphism onto the coordinate range",
+        "Proof adaptation: `map_coordinates` proof `by simp [map, FunOnFinite.linearMap]; rfl` replaced by `rfl`",
+        "Proof adaptation: `locallyPathConnectedSpace` proved by `(convex_stdSimplex ℝ ι).locallyPathConnectedSpace` instead of transport along the embedding homeomorphism"
+      ],
+      "mathematical_changes": []
+    }
+  ],
+  "compatibility": "The upstream Mathlib represents the topological standard simplex as `Convexity.StdSimplex ℝ ι` (finitely supported barycentric weights); the local Mathlib uses `stdSimplex ℝ ι`, the subtype of `ι → ℝ` of nonnegative coordinate vectors with sum one, which requires `[Fintype ι]` and carries the subtype sup metric. All statements mentioning the simplex were transcribed to `stdSimplex ℝ ι`; the coordinates `x.weights` correspond to `⇑x`. No other statement was changed.",
+  "scope": "Ordinary singular homology toolkit: rational Mayer–Vietoris long exact sequence for an open cover of a space and for two open subsets (`RationalHomologyMayerVietoris`, `OpenRational`), integral homology of the circle and of standard spheres (`SmallCircleHomology`, `SphereHomologyInduction`), homology of a point and of contractible spaces (`Point`, `ContractibleModel`), and the ℤ-to-ℚ coefficient comparison (`RationalScalarExtension`, `RationalSingularChains`), with their dependencies (barycentric subdivision, small chains, singular cochain formulas)."
+}

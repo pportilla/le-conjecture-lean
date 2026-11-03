@@ -1,0 +1,34 @@
+--- a/LocalComplexGeometry/Noetherian/Ruckert.lean
++++ b/LocalComplexGeometry/Noetherian/Ruckert.lean
+@@ -24,7 +24,7 @@
+     ∀ n : ℕ, IsNoetherianRing (HolomorphicGerm n)
+   | 0 => holomorphicGerm_isNoetherian_zero
+   | n + 1 => by
+-      letI : IsNoetherianRing (HolomorphicGerm n) :=
++      let : IsNoetherianRing (HolomorphicGerm n) :=
+         holomorphicGerm_isNoetherian_core n
+       rw [isNoetherianRing_iff_ideal_fg]
+       intro I
+--- a/LocalComplexGeometry/Analytic/Regularization.lean
++++ b/LocalComplexGeometry/Analytic/Regularization.lean
+@@ -101,7 +101,7 @@
+     {E : Type*} [NormedAddCommGroup E] [NormedSpace ℂ E]
+     (p : FormalMultilinearSeries ℂ E ℂ) (d : ℕ) (v : E)
+     (hd : 0 < d) (h : p d (fun _ ↦ v) ≠ 0) : v ≠ 0 := by
+-  letI : Nonempty (Fin d) := Fin.pos_iff_nonempty.mp hd
++  let : Nonempty (Fin d) := Fin.pos_iff_nonempty.mp hd
+   intro hv
+   subst v
+   exact h (show (p d) (0 : Fin d → E) = 0 from (p d).map_zero)
+--- a/LocalComplexGeometry/Germs/Coordinates.lean
++++ b/LocalComplexGeometry/Germs/Coordinates.lean
+@@ -149,7 +149,8 @@
+     Filter.Germ.value (functionGermPullbackHom L φ) = Filter.Germ.value φ := by
+   refine Filter.Germ.inductionOn φ ?_
+   intro f
+-  simp [functionGermPullbackHom]
++  change f (L 0) = f 0
++  rw [L.map_zero]
+ 
+ @[simp]
+ theorem functionGermPullbackHom_id (n : ℕ) :

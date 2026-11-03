@@ -1,0 +1,25 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "license": "Apache-2.0",
+  "retrieved": "2026-10-29",
+  "files": [
+    {
+      "upstream_path": "TauCeti/Geometry/Manifold/Instances/Sigma.lean",
+      "upstream_sha256": "b7068c24420b5d589813ba847895cb551be1dc530e77bdaa3d330c035d3818aa",
+      "local_path": "OnLeConjecture/External/TauCeti/Geometry/Manifold/Instances/Sigma.lean",
+      "local_sha256": "e694e5aec40ef70b2991a9da1e9f9394b9da8c2011588f1845d8ad40de682a73",
+      "compatibility_changes": [
+        "Supply the IsEmpty instance for the dependent sum explicitly in the empty-model case, since the pinned mathlib lacks automatic synthesis. All nonempty charts and proofs are unchanged."
+      ]
+    }
+  ],
+  "audit": "AuditSigmaManifold.lean",
+  "audit_endpoints": 10,
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "scope": "Upstream indexed charted-space structure, plus separately authored native smooth-manifold and component-calculus proofs in DifferentialTopology/SigmaManifold.lean."
+}

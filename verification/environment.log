@@ -1,0 +1,5 @@
+UTC: 2026-11-03T10:11:04Z
+Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+leanprover/lean4:v4.33.1
+b91622f022e58b1c32b62191b5e3998730dcb9cb7229eb87ef195f276c995f55  lakefile.toml
+5e6288f16e276106776a8db7411d16dff6c73b45413af5dd88c6cc4c0c7fafb1  lake-manifest.json

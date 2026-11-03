@@ -1,0 +1,885 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,array,booktabs,tabularx}
+\usepackage[hidelinks]{hyperref}
+\setlength{\emergencystretch}{2em}
+\allowdisplaybreaks
+\title{Combinatorial lower bounds for torus grids and positive word grids}
+\author{A complete proof of the requested lower bounds}
+\date{2 November 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove, with the conventions of the supplied problem brief, that
+\[
+\nu_{G_{a,k}}(t)=\frac{t}{2}\,\frac{(a-1)ka}{2}
+\qquad(a\ge2,\ k\ge1,\ 0\le t\le2/a).
+\]
+We give a uniform, explicitly specified finite construction solving every
+problem $P(a,k)$. Independently, we prove the factor bound directly for every
+positive word with one-cycle permutation. This fulfills the alternative
+expressly permitted in Target B and removes the need for the proposed
+torus-word-to-torus-grid move equivalence. We also prove the subsequence
+statement and the requested insertion assembly. Only the facts designated
+[Lean] or [Written] in the brief are used as preexisting results. No published
+grid-homology theorem or holomorphic result is an additional dependency.
+\end{abstract}
+
+\section{Conventions and a comparison principle}
+
+All grid coordinates, rectangles, gradings and canonical classes have exactly
+the conventions of Section 2 of the brief. In particular, marking coordinates
+refer to squares, state coordinates to grid points, and the full differential
+counts empty rectangles regardless of their $X$-markings. Integers modulo $n$
+are compared using representatives in $\{0,\ldots,n-1\}$.
+
+\textbf{Definition 1.1.}
+For a nonzero chain $z$ and $0\le t\le2$, write
+\[
+L_t^G(z)=\max_{U^e x\in\operatorname{supp}z}
+\left(\frac{t}{2}A_G(x)-e\right).
+\]
+Let $\mathcal Z(O)$ be the set of degree-zero cycles representing the canonical
+class in the complex with $O$-markings $O$. This notation is legitimate:
+the graded complex, its differential and its polynomial subcomplex depend
+only on $O$. The canonical class, being the unique nonzero element of the
+polynomial image, also depends only on $O$.
+
+\textbf{Lemma 1.2 (finite minimum).}
+For every grid of size at least two and $0\le t\le2$,
+\[
+\nu_G(t)=\min_{z\in\mathcal Z(O_G)}L_t^G(z)\in\mathbb R.
+\]
+\textit{Proof.}
+There is at most one monomial on each state in degree zero, so this chain
+group is finite-dimensional over the finite field $\mathbb F_2$. There are
+therefore finitely many chains and finitely many canonical representatives.
+This set is nonempty, and none of its elements is zero because the canonical
+class is nonzero. By Fact 2.6.3, a chain is in the weighted filtration at level
+$s$ exactly when each monomial in its support has level at most $s$.
+Consequently the infimum in Definition 2.6.4 is the displayed finite
+minimum. This also proves finiteness for every intermediate link grid used
+below. $\square$
+
+\textbf{Lemma 1.3 (comparison with a rescaled parameter).}
+Let $G,Q$ be grids of the same size with the same $O$-markings. Suppose
+$b>0$, $h\in\mathbb R$, and
+\[
+A_G(x)\ge h+bA_Q(x)\qquad\text{for every state }x.
+\]
+For every $t\ge0$ such that $t\le2$ and $bt\le2$,
+\[
+\nu_G(t)\ge\frac{th}{2}+\nu_Q(bt).
+\]
+\textit{Proof.}
+For every integer $e$ and every state $x$,
+\[
+\lambda_t^G(U^e x)\ge\frac{th}{2}+\lambda_{bt}^Q(U^e x).
+\]
+The representative cycles in the two complexes are exactly the same set
+$\mathcal Z(O)$. For each such cycle, taking the maximum over its support
+preserves the inequality. Its $Q$-level is at least $\nu_Q(bt)$ by Lemma 1.2.
+Taking the minimum of the $G$-levels proves the claim. This argument compares
+different parameters directly; it does not invoke a same-parameter
+filtered-map theorem. $\square$
+
+\section{Auxiliary grids with zero threshold}
+
+\textbf{Definition 2.1.}
+For $n\ge2$ and any permutation $O$ of $\mathbb Z_n$, define
+\[
+Q(O):\qquad O_Q(c)=O(c),\qquad X_Q(c)=O(c-1\bmod n).
+\]
+This is a grid because $c\ne c-1$ and $O$ is injective. Denote by $e_c$ its
+horizontal row arc, with $O$ in column $c$ and $X$ in column $c+1$.
+All these arcs advance exactly one column cyclically.
+
+\textbf{Lemma 2.2 (explicit reduction).}
+Every $Q(O)$ is related by an explicitly determined finite sequence of grid
+moves to
+\[
+B_2:\qquad O=(1,0),\quad X=(0,1).
+\]
+\textit{Proof.}
+For each current size $n\ge3$, perform the following operations.
+
+First cyclically translate rows to put $e_0$ in the bottom row. Move that row
+upwards until the row immediately above it is $e_1$ or $e_{n-1}$, stopping at
+the first such encounter. Every row passed has the form $e_j$ with
+$2\le j\le n-2$. Its planar horizontal interval $[j,j+1]$ is disjoint from
+$[0,1]$, including their endpoints. Each swap is therefore an allowed
+ordinary row commutation. Since both neighboring edges occur somewhere
+above the initial bottom row, this procedure stops.
+
+If $e_1$ is above $e_0$, the adjacent rows, in columns $0,1$, have $O$ at the
+southwest and northeast squares, $X$ at the southeast square, and a blank
+northwest square. The other marking of the upper row is its $X$ in column
+$2$. Delete column $1$ and the lower row by an $O$-destabilization, placing
+the merged $O$ at the northwest square.
+
+If $e_{n-1}$ is above $e_0$, cyclically translate columns by $+1$. Old columns
+$n-1,0,1$ become columns $0,1,2$. The upper row now has $O$ in column $0$
+and $X$ in column $1$, and the lower row has $O$ in column $1$ and $X$ in
+column $2$. The southwest square of the block in columns $0,1$ is blank.
+Delete column $1$ and the upper row by an $O$-destabilization, placing the
+merged $O$ at that southwest square.
+
+The blank square in either case is indeed unmarked: its row has its other
+marking in column $2$, distinct from $0,1$ because $n\ge3$. Both
+destabilizations merge the edges $0\longrightarrow1$ and
+$1\longrightarrow2$. After deleting column $1$, their merged edge again
+advances one column, and every other edge still advances one column
+cyclically. Thus the new grid is again $Q(O')$ at size $n-1$.
+
+For explicit relabelling, let $r_0,r_1$ be the rows of these two edges just
+before destabilization, and let $\rho$ be the increasing relabelling after
+deleting $r_0$. Then
+\[
+O'(0)=\rho(r_1),\qquad O'(c)=\rho(O(c+1))\quad(1\le c\le n-2).
+\]
+The remaining $X$-markings obey $X'(c)=O'(c-1)$, including column $0$,
+whose $X$ is in row $\rho(O(n-1))=O'(n-2)$.
+
+The size decreases once in each iteration. At size two, a cyclic row
+translation if needed gives $B_2$. This specifies all moves and terminates
+after $n-2$ destabilizations. When $n=3$, there are no intervening
+nonneighboring edges, so the same procedure applies without commutations.
+No commutation of rows sharing an endpoint is used. $\square$
+
+\textbf{Lemma 2.3 (zero auxiliary threshold).}
+For every $n\ge2$, every $O\in\mathfrak S_n$ and $0\le u\le2$,
+\[
+\nu_{Q(O)}(u)=0.
+\]
+\textit{Proof.}
+The two states of $B_2$ have gradings
+\[
+\begin{array}{c|ccc}
+x&M_O(x)&M_X(x)&A(x)\\
+(0,1)&0&-1&0\\
+(1,0)&-1&0&-1
+\end{array}
+\]
+as follows by substitution into Definition 2.4.1 of the brief.
+For each source state there are exactly two empty rectangles. From $(0,1)$,
+both have $O$-count zero; from $(1,0)$, both have $O$-count one. Thus the two
+terms cancel in each case over $\mathbb F_2$.
+Only $(0,1)$ can carry an integer Laurent exponent in degree zero, and that
+exponent is zero. It is the canonical anchor by Fact 2.7.3, and its level
+is zero for all $u\in[0,2]$. Therefore $\nu_{B_2}(u)=0$.
+Lemma 2.2 and the already-formalized native move invariance, Fact 2.8.2,
+give the result. No topological identification of the auxiliary grids
+with an unknot is required. $\square$
+
+\textbf{Definition 2.4 (Alexander contribution).}
+For any grid $G=(O,X)$ of size $n$, set
+\[
+C_G(c,r)=\sum_{j=0}^{c-1}
+\left(\mathbf1_{\{X(j)<r\}}-\mathbf1_{\{O(j)<r\}}\right),
+\qquad
+K_G=\frac{J(O,O)-J(X,X)-(n-1)}{2}.
+\]
+The sum is empty when $c=0$.
+
+\textbf{Lemma 2.5 (Alexander contribution formula).}
+For every state $x$,
+\[
+A_G(x)=K_G+\sum_{c=0}^{n-1}C_G(c,x(c)).
+\]
+\textit{Proof.}
+Subtracting the definitions of the two Maslov gradings gives
+$A_G(x)=J_{\mathrm c}(x,X)-J_{\mathrm c}(x,O)+K_G$.
+For a single state point $(c,r)$, twice the centered-$J$ difference is
+\[
+\sum_{j\ge c}\left(\mathbf1_{\{r\le X(j)\}}-\mathbf1_{\{r\le O(j)\}}\right)
++\sum_{j<c}\left(\mathbf1_{\{X(j)<r\}}-\mathbf1_{\{O(j)<r\}}\right).
+\]
+The first sum equals the second: both marking permutations have exactly
+$n-r$ values at least $r$, and complementary inequalities are strict as
+displayed. Hence the centered-$J$ difference is $C_G(c,r)$. Summing over
+the state proves the formula, including boundary rows and columns.
+$\square$
+
+\textbf{Lemma 2.6 (auxiliary Alexander grading).}
+For every $Q=Q(O)$ and every state $x$,
+\[
+A_Q(x)=-T_O(x),\qquad
+T_O(x)=\#\{c:x(c)>O(c-1\bmod n)\}.
+\]
+\textit{Proof.}
+Put $p=O(n-1)$ and $b_c=O(c-1)$. The sum defining $C_Q$ telescopes:
+\[
+C_Q(c,r)=\mathbf1_{\{p<r\}}-\mathbf1_{\{b_c<r\}}.
+\]
+For $c=0$ the right side is also zero. Since $x$ is a permutation,
+\[
+\sum_cC_Q(c,x(c))=(n-1-p)-T_O(x).
+\]
+The word of values of $X_Q$ is obtained from the word of values of $O$
+by moving its last value $p$ to the front. Pairs not involving this value
+are unchanged. The number of increasing pairs involving it changes from
+$p$ to $n-1-p$. Thus
+\[
+J(X_Q,X_Q)-J(O,O)=n-1-2p,
+\qquad K_Q=p-(n-1).
+\]
+Lemma 2.5 now gives $A_Q=-T_O$. $\square$
+
+\section{The torus-grid lower bound: Target A}
+
+\textbf{Definition 3.1.}
+For $y\in\mathfrak S_N$, write
+\[
+F(y)=\sum_{c=0}^{N-1}|y(c)-c|,\qquad
+D(y)=F(y)-\operatorname{inv}(y),\qquad
+d(y)=\#\{c:y(c)<c\}.
+\]
+As in the brief, $\theta_s y$ adds $s$ to all values modulo $N$, and
+$\bar x(c)=-x(c)\bmod N$.
+
+\textbf{Lemma 3.2 (one value rotation).}
+For all $N\ge2$ and $y\in\mathfrak S_N$,
+\[
+D(\theta_1y)-D(y)=N-1-2d(y).
+\]
+\textit{Proof.}
+Let $p=y^{-1}(N-1)$. All value comparisons not involving column $p$
+are unchanged by the rotation. The maximum at $p$ becomes the minimum:
+its $N-1-p$ inversions with later columns disappear, and its $p$ pairs
+with earlier columns become inversions. Hence
+\[
+\operatorname{inv}(\theta_1y)-\operatorname{inv}(y)=2p-(N-1).
+\]
+For $c\ne p$, the change in $|y(c)-c|$ is $-1$ when $y(c)<c$ and $+1$
+otherwise. Column $p$ is not deficient, and its contribution changes by
+$p-(N-1-p)=2p-(N-1)$. Therefore
+\[
+F(\theta_1y)-F(y)=(N-1-2d(y))+2p-(N-1)=2p-2d(y).
+\]
+Subtracting proves the claim. This includes $p=0$ and $p=N-1$; the
+corresponding collections of inversion pairs are empty. $\square$
+
+\textbf{Lemma 3.3 (rotation inequality).}
+For every $N\ge2$, $y\in\mathfrak S_N$ and integer $1\le a<N$,
+\[
+D(\theta_a y)-D(y)\ge a(N-a)-2a\,d(y).
+\]
+\textit{Proof.}
+For $0\le s<N$, exactly $s$ values wrap under addition of $s$ modulo $N$.
+A nonwrapping value increases, so it cannot create a new deficiency.
+Consequently $d(\theta_s y)\le d(y)+s$, including $s=0$.
+Summing Lemma 3.2 for $\theta_s y$, $0\le s<a$, gives
+\[
+D(\theta_a y)-D(y)
+=a(N-1)-2\sum_{s=0}^{a-1}d(\theta_s y)
+\ge a(N-1)-2ad(y)-a(a-1).
+\]
+The last expression is $a(N-a)-2ad(y)$. All wrapping contributions
+have been counted explicitly. $\square$
+
+\textbf{Lemma 3.4 (the particular auxiliary grid).}
+Define
+\[
+B_N:\qquad O(c)=N-1-c,\qquad X(c)=-c\bmod N.
+\]
+Then $B_N=Q(O)$, its threshold is zero on $[0,2]$, and
+\[
+A_{B_N}(x)=-d(\bar x)\qquad(x\in\mathfrak S_N).
+\]
+\textit{Proof.}
+The equality $X(c)=O(c-1)$ is immediate, so Lemmas 2.3 and 2.6 apply.
+To identify the count in Lemma 2.6, put $y=\bar x$ and let $p$ be the
+column where $y(p)=x(p)=0$. For $c>0$ with $c\ne p$, the inequality
+$x(c)>N-c$ is equivalent to $y(c)<c$. If $p>0$, column $p$ contributes
+one to $d(y)$ and zero to $T_O(x)$, while column $0$ contributes zero
+to $d(y)$ and one to $T_O(x)$. If $p=0$, neither exception contributes.
+Thus $T_O(x)=d(y)$ in both cases.
+
+For this particular family, the moves can be shortened to exactly
+$N-2$ destabilizations. In columns $0,1$ and rows $N-2,N-1$, the
+markings are $O$ northwest and southeast, $X$ northeast, and a blank
+southwest square. For $N\ge3$, the other marking in column $0$ is
+$X$ at row $0\ne N-2$, so the blank is genuine. Delete column $1$
+and row $N-1$, placing $O$ at $(0,N-2)$. Old columns $c\ge2$ become
+$c-1$, and the resulting permutations are exactly those of $B_{N-1}$.
+$\square$
+
+\textbf{Theorem 3.5 (M806, including the sharp endpoint).}
+For every $a\ge2$, $k\ge1$, put
+\[
+q=ka+1,\qquad N=a+q,\qquad g=\frac{(a-1)(q-1)}{2}.
+\]
+Then
+\[
+\nu_{G_{a,k}}(t)=\frac{tg}{2}\qquad(0\le t\le2/a).
+\]
+In particular,
+\[
+\nu_{G_{a,k}}(2/a)=\frac{g}{a}=\frac{(a-1)k}{2}.
+\]
+\textit{Proof.}
+For a state $x$, put $y=\bar x$. The written grading formulas
+4.2.2 and 4.2.5 of the brief give
+\[
+A_{G_{a,k}}(x)=\frac{D(\theta_a y)-D(y)-(N-1)}{2}.
+\]
+By Lemmas 3.3 and 3.4,
+\[
+A_{G_{a,k}}(x)\ge
+\frac{a(N-a)-(N-1)}{2}-a\,d(y)
+=g+aA_{B_N}(x).
+\]
+Here the constant identity is
+$a(N-a)-(N-1)=aq-a-q+1=(a-1)(q-1)=2g$.
+The two grids have exactly the same $O$-markings. Apply Lemma 1.3
+with $b=a$, $h=g$ and $Q=B_N$. Because $0\le at\le2$,
+\[
+\nu_{G_{a,k}}(t)\ge\frac{tg}{2}+\nu_{B_N}(at)=\frac{tg}{2}.
+\]
+The canonical anchor $x^O(c)=-c$ has $M_O=0$ and $A=g$ by Fact 2.7.3
+and Lemma 4.2.5 of the brief. Its level is $tg/2$, proving the reverse
+inequality. There is no restriction to $k=1$, and the proof applies
+unchanged when $a=2$ or $t=0$. $\square$
+
+\section{Uniform finite certificates and Target C}
+
+This section makes the solution of $P(a,k)$ explicit as a finite formula.
+The construction depends only on $N$, and the same set works for every
+required parameter pair of that size.
+
+\textbf{Definition 4.1 (allowed columns and rectangle matrix).}
+Fix a required size $N=(k+1)a+1$ and set
+\[
+E_N=\{y\in\mathfrak S_N:D(y)\text{ is even and }D(y)\ge2d(y)\}.
+\]
+Order permutations lexicographically. Over $\mathbb F_2$, form the matrix
+$R_N$ with columns $E_N$ and rows $\{*\}\cup\mathfrak S_N$, putting
+the row $*$ first and ordering the other rows lexicographically. Define
+\[
+R_N(*,y)=\mathbf1_{\{y=\mathrm{id}\}},\qquad
+R_N(v,y)=\#\operatorname{Rect}^{\circ}(y,v)\bmod2.
+\]
+Set $b_*=1$ and $b_v=0$ for every permutation row.
+
+These entries are completely finite and use no marking restrictions.
+More explicitly, for $u,v\in\mathbb Z_N$ let $\Delta(u,v)$ be the
+representative of $v-u$ modulo $N$. For each ordered pair $L\ne R$,
+include a contribution precisely when $v=y\circ(L\ R)$ and there is
+no column $c$ satisfying both
+\[
+0<\Delta(L,c)<\Delta(L,R),\qquad
+0<\Delta(y(L),y(c))<\Delta(y(L),y(R)).
+\]
+Sum these contributions modulo two. This formula includes rectangles
+wrapping in either direction, as well as intervals with empty interior.
+
+\textbf{Lemma 4.2 (consistency of the certificate equations).}
+The system $R_N\eta=b$ is consistent.
+\textit{Proof.}
+By Lemma 3.4, $\nu_{B_N}(2)=0$. The dual certificate theorem, Fact 2.6.5,
+therefore provides a functional on $C_0(B_N)$ that annihilates boundaries,
+takes value one on the canonical anchor, and vanishes below level zero.
+For $y=\bar x$ of even defect, Lemma 4.2.2 of the brief and Lemma 3.4 give
+\[
+M_O(x)=-D(y),\qquad
+\lambda_2^{B_N}(U^{-D(y)/2}\bar y)=\frac{D(y)}{2}-d(y).
+\]
+Thus the functional's possible support consists exactly of columns in
+$E_N$. Its value on the anchor gives the row $*$ equation.
+
+For an odd-defect permutation $v$, the degree-one monomial on $\bar v$
+is $U^{(-D(v)-1)/2}\bar v$. Reflection, Fact 2.8.6, puts its outgoing
+empty rectangles to $\bar y$ in bijection with the rectangles from
+$y$ to $v$. The Maslov rectangle formula, Fact 2.4.2, makes every
+corresponding output exponent exactly $-D(y)/2$. Consequently the
+equation that the functional annihilates this boundary is precisely
+the row $v$ of $R_N\eta=b$.
+
+For an even-defect $v$, all entries in that row vanish. Indeed,
+$F(y)$ is even because the sum of positive displacements equals the
+absolute sum of negative displacements. Hence $D(y)$ has the parity
+of $\operatorname{inv}(y)$. A transposition changes that parity,
+so an empty rectangle from an even-defect $y$ can only end at an
+odd-defect state. This treats every row of the system. $\square$
+
+\textbf{Definition 4.3 (an explicit determinant formula).}
+Let $r$ be the largest order of a square minor of $R_N$ with determinant
+one. Choose the lexicographically first pair of row and column index
+sets $(I,J)$ of size $r$ with this property, and put $M=R_N[I,J]$.
+There is at least one such minor since the anchor column has entry one
+in row $*$. For $1\le j\le r$, let $M_j$ be obtained from $M$ by
+replacing column $j$ with $b_I$. Define the vector $\eta_N$ by
+\[
+(\eta_N)_{J_j}=\det(M_j),\qquad
+(\eta_N)_y=0\quad(y\notin J),
+\qquad
+Y_N=\{y\in E_N:(\eta_N)_y=1\}.
+\]
+All determinants and entries are in $\mathbb F_2$. This is a finite
+formula indexed by $N$; Gaussian elimination is an equivalent
+implementation.
+
+\textbf{Lemma 4.4 (verification of the formula).}
+The vector $\eta_N$ satisfies $R_N\eta_N=b$.
+\textit{Proof.}
+The columns indexed by $J$ are independent because their restriction
+to $I$ is invertible. They span all columns: otherwise subtracting
+from a column the linear combination matching it on $I$ would give
+a nonzero residual in a row outside $I$, producing a nonzero minor
+of order $r+1$. This contradicts the definition of $r$.
+By Lemma 4.2, $b$ is in the column span, so it is a linear combination
+of the columns in $J$. Restriction to $I$ determines those coefficients
+uniquely. Cramer's rule, with $\det M=1$, gives precisely
+$\det M_j$. Thus the full vector equation holds. $\square$
+
+\textbf{Theorem 4.5 (all four conditions of $P(a,k)$).}
+For every $a\ge2$, $k\ge1$, the set $Y_{(k+1)a+1}$ solves $P(a,k)$.
+\textit{Proof.}
+The anchor row of Lemma 4.4 gives $\mathrm{id}\in Y_N$. Membership
+in $E_N$ gives even defect. For each target $v$, its row gives
+\[
+\sum_{y\in Y_N}\#\operatorname{Rect}^{\circ}(y,v)=0
+\quad\text{in }\mathbb F_2.
+\]
+To spell out the rectangle cases: if $v$ is not obtained from $y$
+by a transposition, its contribution is zero. If it is obtained by
+swapping columns $L,R$, the only candidates are the two ordered
+rectangles $(L,R)$ and $(R,L)$. Zero or two empty candidates
+contribute zero; exactly one contributes one. Their emptiness is
+tested by the modular-distance formula in Definition 4.1, with no
+special exclusion for wrapping rectangles or marking contents.
+The row equation states exactly that the sum of all these remaining
+ones is even. Even-defect targets receive none, as proved in
+Lemma 4.2. These are all possible rectangle cancellations.
+
+Finally Lemma 3.3 gives, for $y\in Y_N$,
+\[
+(a-1)D(y)+D(\theta_a y)
+\ge a(N-a)+a(D(y)-2d(y))\ge a(N-a)=aq.
+\]
+These are the four required conditions. $\square$
+
+\textbf{Corollary 4.6 (functional and mirror cycle).}
+An explicit dual functional is obtained by setting
+\[
+\varphi_{a,k}(U^{-D(\bar x)/2}x)=\mathbf1_{\{\bar x\in Y_N\}}
+\]
+on the degree-zero basis and extending linearly. It annihilates
+boundaries by the preceding rectangle calculation and has value
+one on the canonical anchor. Its support lies at or above $g/a$
+at $t=2/a$. For any $0\le t\le2/a$, put $\sigma=at/2$. On this support,
+\[
+\lambda_t=(1-\sigma)\frac{D(\bar x)}{2}
++\sigma\lambda_{2/a}\ge\frac{tg}{2},
+\]
+using the written nonnegativity of $D$ from Lemma 4.2.4 of the brief.
+Thus it certifies the entire interval, not only the endpoint.
+The corresponding mirror cycle is explicitly
+\[
+z_{a,k}=\sum_{y\in Y_N}U^{D(y)/2}y\in C(H_{a,k}).
+\]
+It has degree $1-N$, coefficient one at $\mathrm{id}$ and nonnegative
+exponents. For an empty rectangle $y\longrightarrow v$, the formula
+$D(v)=D(y)-1+2|O_H\cap r|$ makes the output exponent
+$(D(v)+1)/2$, independent of the source rectangle. The same parity
+row therefore cancels its coefficient, proving $dz_{a,k}=0$.
+
+\textbf{Corollary 4.7 (Target C).}
+For every $k\ge1$, $P(2,k)$ is solved by $Y_{2k+3}$, and
+\[
+\nu_{G_{2,k}}(t)=\frac{tk}{2}\qquad(0\le t\le1).
+\]
+The argument uses the already-formalized native Fact 2.8.2, but none
+of OSSbook Theorem 10.3.1, Proposition 4.6.15 or Chapter 5 as an
+external theorem. In particular, it introduces none of the book
+dependencies that Target C asks to remove.
+
+\section{A direct proof for positive word grids}
+
+We now establish Statement F directly. This also proves the
+torus-word lower bound required by Target B's expressly permitted
+alternative.
+
+\textbf{Definition 5.1 (a preferred admissible word grid).}
+Let $a\ge2$ and let $w=(s_0,\ldots,s_{\ell-1})$ be a positive word
+in which every generator $0,\ldots,a-2$ occurs. Put $n=3\ell$ and
+$\delta=(\ell-a+1)/2$. Construct its arcs as in Definition 2.11.3
+of the brief, ordering rows by height and, within each height, by
+increasing start column. Denote this grid by $W$.
+
+\textbf{Lemma 5.2 (tie choices).}
+Every admissible word grid of $w$ is related to $W$ by explicitly
+specified row commutations.
+\textit{Proof.}
+At an integer strand height, write successive incoming and outgoing
+columns as $I_j,O_j$. They satisfy
+$I_j<O_j<I_{j+1}$, since the incoming and outgoing columns within
+one occurrence differ by one and occurrences are ordered by letter
+index. The arcs join $O_j$ to $I_{j+1}$ cyclically. The nonwrapping
+planar intervals are pairwise disjoint. The unique wrapping
+interval, drawn between its two endpoints in the planar cut,
+strictly contains all the others. All endpoints are distinct.
+Thus any two rows at this height are noninterleaving. If there is
+only one occurrence, no row swap is needed.
+
+At a half-integer height, each interval is $[3h,3h+2]$ for a
+different letter index $h$, so these intervals are pairwise
+disjoint. Again the corresponding rows are noninterleaving.
+In each height block, perform adjacent swaps to sort the start
+columns into increasing order, choosing the first adjacent
+inversion at each step. Each is an allowed row commutation,
+and the number of inversions decreases. This reaches $W$.
+$\square$
+
+\textbf{Definition 5.3 (active arcs, including wraparound).}
+For an arc with start column $p$, end column $q$ and row rank $R$,
+declare it active at the cut through grid points in column $c$ as
+follows: if $p<q$, require $p<c\le q$; if $p>q$, require $c>p$
+or $c\le q$. Equivalently, $c\in(p,q]_{\circ}$.
+Let $F_c(r)$ count active arcs with rank less than $r$, and put
+$U(r)=F_0(r)$. Thus $U(r)$ counts wrapping arcs with rank less
+than $r$. This convention places the cut before the markings in
+column $c$, exactly as required by the centered-$J$ grading.
+
+\textbf{Lemma 5.4 (contribution from active arcs).}
+For the word grid, and indeed for any grid with these directed
+horizontal arcs,
+\[
+C_W(c,r)=U(r)-F_c(r).
+\]
+\textit{Proof.}
+The contribution of one arc to the prefix sum in Definition 2.4 is
+\[
+\left(\mathbf1_{\{q<c\}}-\mathbf1_{\{p<c\}}\right)
+\mathbf1_{\{R<r\}}.
+\]
+If $p<q$, its first factor is $-1$ for $p<c\le q$ and zero
+otherwise. If $p>q$, it is $1$ for $q<c\le p$ and zero otherwise;
+this is $1$ minus the active-arc indicator in that case.
+Thus the factor is always the wrapping indicator minus the
+active-arc indicator. Sum over all arcs. The inequalities also
+cover $c=0$ and equality at either endpoint. $\square$
+
+\textbf{Lemma 5.5 (active counts and newly started ranks).}
+At every cut there are exactly $a$ active arcs, with distinct
+heights. Put $b_c=O_W(c-1)$, and let $j_c$ be the number of active
+arcs strictly below the active arc at row $b_c$. Then
+\[
+\sum_{c=0}^{n-1}j_c=\sum_{h=0}^{\ell-1}(3s_h+1).
+\]
+\textit{Proof.}
+Immediately before a letter of index $s$, the active arcs are
+one at each integer strand height $0,\ldots,a-1$. Across that
+letter's three columns the successive replacements are:
+the arc at $s$ is replaced by the middle arc at $s+1/2$;
+the arc at $s+1$ is replaced by the outgoing arc at $s$;
+the middle arc is replaced by the outgoing arc at $s+1$.
+Thus the active count remains $a$ throughout and returns to
+the integer heights before the next letter. At cut zero, the
+active arcs are the unique wrapping connector at each integer
+height, so this argument starts and closes cyclically.
+
+The arc starting in column $c-1$ is active at cut $c$, and it
+has row $b_c$. At cuts $3h+1,3h+2,3h+3$, its zero-based height
+rank is respectively $s_h,s_h,s_h+1$. The final cut $n$ is cut
+zero, so these triples account for all cuts exactly once.
+Summing gives the formula. $\square$
+
+\textbf{Lemma 5.6 (the two constant counts).}
+For the preferred word grid,
+\[
+\sum_{r=0}^{n-1}U(r)=\sum_{h=0}^{\ell-1}(3s_h+2),
+\qquad
+J(O_W,O_W)-J(X_W,X_W)=2\ell-a.
+\]
+\textit{Proof of the first identity.}
+At each integer height, the unique wrapping arc starts at the
+last occurrence, so its row is last in its height class.
+There are no wrapping arcs at half-integer heights. Therefore
+a row of integer height $s$ has exactly $s$ wrapping rows below
+it, and a row of height $s+1/2$ has exactly $s+1$ wrapping rows
+below it. Each letter contributes its three starting arcs at
+heights $s+1/2,s,s+1$, giving $(s+1)+s+(s+1)=3s+2$.
+
+\textit{Proof of the second identity.}
+Count increasing pairs of marking rows in column order.
+For pairs from two different letter blocks with different
+heights, the $O$ and $X$ contributions agree: each block has
+the same height multiset $\{s,s+1/2,s+1\}$ for both markings.
+Within a single block, the $O$ heights are $(s+1/2,s,s+1)$
+and the $X$ heights are $(s,s+1,s+1/2)$; each has two
+increasing pairs. Hence the total difference from unequal
+heights is zero.
+
+For equal half-integer heights, start and end columns of the
+middle arcs have the same order, giving difference zero.
+At an integer height with $m$ occurrences, the row ranks at
+the $O$-columns occur in order $0,1,\ldots,m-1$, while the
+row ranks at the $X$-columns occur in order
+$m-1,0,\ldots,m-2$. The latter has $m-1$ fewer increasing
+pairs. This also gives zero when $m=1$.
+Every strand position occurs, and the total number of such
+occurrences is $2\ell$. Summing $m-1$ over the $a$ integer
+heights gives $2\ell-a$. These cases exhaust all pairs.
+$\square$
+
+\textbf{Theorem 5.7 (pointwise word-grid comparison).}
+Let $Q=Q(O_W)$. For every state $x$,
+\[
+A_W(x)\ge\delta+aA_Q(x),\qquad
+\delta=\frac{\ell-a+1}{2}.
+\]
+\textit{Proof.}
+For each cut $c$, the active arc at row $b_c$ has exactly
+$j_c$ active arcs below it. If $r\le b_c$, then
+$F_c(r)\le j_c$. If $r>b_c$, then $F_c(r)\le a$ because
+there are $a$ active arcs. Both cases give
+\[
+C_W(c,r)+a\mathbf1_{\{r>b_c\}}
+\ge U(r)-j_c.
+\]
+Apply this with $r=x(c)$ and sum over columns. Since a state
+uses every row exactly once, Lemmas 2.5, 2.6 and 5.6 give
+\[
+A_W(x)-aA_Q(x)
+\ge K_W+\sum_{r=0}^{n-1}U(r)-\sum_{c=0}^{n-1}j_c.
+\]
+Here
+\[
+K_W=\frac{2\ell-a-(3\ell-1)}{2}
+=\frac{-\ell-a+1}{2},
+\]
+and the difference of the two sums is $\ell$ by Lemmas 5.5
+and 5.6. The resulting constant is
+$(-\ell-a+1)/2+\ell=(\ell-a+1)/2=\delta$.
+$\square$
+
+\textbf{Theorem 5.8 (factor bound and Target B's alternative).}
+For every $a\ge2$ and positive word $w$ containing every
+generator, every admissible word grid satisfies
+\[
+\nu_{\operatorname{wordGrid}(w)}(t)
+\ge\frac{t}{2}\,\frac{\ell(w)-a+1}{2}
+\qquad(0\le t\le2/a).
+\]
+In particular, Statement F holds. Also, for every $a\ge2$
+and $k\ge1$,
+\[
+\nu_{\operatorname{wordGrid}(c_a^{\,ka+1})}(t)
+\ge\frac{tg}{2}\qquad(0\le t\le2/a).
+\]
+\textit{Proof.}
+Apply Lemma 1.3 to Theorem 5.7 with $b=a$ and $h=\delta$.
+Lemma 2.3 gives $\nu_Q(at)=0$, so the bound holds for $W$.
+Lemma 5.2 and Fact 2.8.2 transfer it to every admissible
+choice of word grid.
+
+If the word permutation is an $a$-cycle, every generator
+occurs: omission of generator $r$ would make every factor
+preserve the nonempty proper subset $\{0,\ldots,r\}$, so
+their product could not be an $a$-cycle. Moreover its sign
+gives $\ell\equiv a-1\pmod2$, and full occurrence gives
+$\ell\ge a-1$. Thus $\delta$ is the nonnegative integer
+in Statement F, proving that statement.
+
+For $c_a^q$ with $q=ka+1$, its length is $q(a-1)$ and
+$\delta=(a-1)(q-1)/2=g$. Substitution proves the torus-word
+bound. This is precisely the alternative to an explicit
+move equivalence authorized in Target B: the lower bound
+has been proved directly for the word grid itself. No
+assertion of the separate move equivalence M807 is needed
+or used. $\square$
+
+\section{Subsequences and insertion assembly: Targets D and E}
+
+\textbf{Proposition 6.1 (Target D).}
+For $a\ge2$, a positive word $w=(s_0,\ldots,s_{\ell-1})$
+and an integer $q\ge\ell$, the word $w$ is a subsequence
+of $c_a^q$.
+\textit{Proof.}
+If $\ell=0$, use the empty embedding. Otherwise define
+\[
+f(i)=i(a-1)+s_i\qquad(0\le i<\ell).
+\]
+Then $0\le f(i)<(i+1)(a-1)\le q(a-1)$, and
+\[
+f(i+1)-f(i)=(a-1)+s_{i+1}-s_i
+\ge(a-1)-(a-2)=1.
+\]
+Thus $f$ is strictly increasing and takes values in the
+positions of $c_a^q$. Position $f(i)$ is letter $s_i$ in
+the $i$-th Coxeter block. This is the required list
+subsequence embedding. The case $q=0$ necessarily has
+$\ell=0$ and was already covered. $\square$
+
+\textbf{Lemma 6.2 (reversal of an $X$ switch).}
+If $X'=X\circ\tau_c$ with $\tau_c=(c\ \ c+1\bmod n)$,
+then $X=X'\circ\tau_c$.
+\textit{Proof.}
+Since $n\ge2$, the two columns are distinct and
+$\tau_c^2=\mathrm{id}$. Compose the first equation with
+$\tau_c$. This includes $c=n-1$, whose partner is column
+zero, and requires no separate nonwrapping assumption.
+$\square$
+
+\textbf{Proposition 6.3 (Target E, with the required inputs explicit).}
+Let $a\ge2$, let $w$ have one-cycle permutation, and suppose
+$w$ embeds as a subsequence of $c_a^q$, where $q=ka+1$ and
+$k\ge1$. Assume the written deletion statement M804.
+For every $0\le t\le2/a$,
+\[
+\nu_{\operatorname{wordGrid}(w)}(t)
+\ge\frac{t\delta(w)}{2}.
+\]
+This is Proposition 3.3.1 of the brief if its M806 and M807
+assumptions are used; Theorem 5.8 supplies its needed torus-word
+bound directly, so M807 can also be omitted.
+
+\textit{Proof.}
+Let $S$ be the image of the chosen subsequence embedding in
+$\{0,\ldots,q(a-1)-1\}$. Write its complement in increasing
+order as $j_1<\cdots<j_s$, where $s=q(a-1)-\ell(w)$.
+Let $w_i$ be the restriction of $c_a^q$, in increasing
+position order, to $S\cup\{j_1,\ldots,j_i\}$. Then
+$w_0=w$, $w_s=c_a^q$, and each $w_{i+1}$ is obtained by
+one insertion. Its insertion position is the number of
+currently retained positions smaller than $j_{i+1}$.
+Every $w_i$ contains $w$, so every generator still occurs.
+
+Apply M804 to the insertion $w_i=u_iv_i$ and
+$w_{i+1}=u_i\sigma_{r_i}v_i$. It supplies a grid $H_i$
+obtained from the larger word grid by one $X$ switch,
+with $H_i$ move-equivalent to the smaller word grid.
+Lemma 6.2 reverses that switch. Facts 2.8.4 and 2.8.2
+therefore give
+\[
+\nu_{\operatorname{wordGrid}(w_{i+1})}(t)
+\le\nu_{\operatorname{wordGrid}(w_i)}(t)+\frac{t}{4}.
+\]
+The intermediate words may close to links, but all these
+facts hold for their grids. Their sizes are $3\ell(w_i)\ge3$.
+
+All thresholds here are finite real numbers by Lemma 1.2,
+since $0\le t\le2/a\le1$ and the canonical classes are
+nonzero. Hence one may sum and subtract these inequalities
+in $\mathbb R$, and then view the result in the extended
+reals. Summing, including the empty sum when $s=0$, gives
+\[
+\nu_{\operatorname{wordGrid}(c_a^q)}(t)
+\le\nu_{\operatorname{wordGrid}(w)}(t)+\frac{st}{4}.
+\]
+The required torus-word lower bound is $tg/2$. It follows
+either from the assumptions M806, M807 and Fact 2.8.2 in
+the original proposition, or directly from Theorem 5.8.
+Finally,
+\[
+s=q(a-1)-\ell(w)
+=(a-1)(q-1)-2\delta(w)=2g-2\delta(w).
+\]
+Subtracting $st/4=t(g-\delta(w))/2$ gives the result.
+For an arbitrary word, an admissible $k$ always exists;
+for example $k=\max\{1,\ell(w)\}$ makes $ka+1\ge\ell(w)$,
+so Proposition 6.1 applies. $\square$
+
+\section{Boundary cases, dependencies and formalization interface}
+
+\textbf{Boundary cases.}
+The auxiliary grids are defined for every size at least two,
+and every reduction stops at two. The first torus case is
+$(a,k)=(2,1)$, with $N=5$, while the rotation argument works
+for every $1\le a<N$. The case $k=1$ requires no separate
+argument. At $a=2$ the interval is $[0,1]$ and the threshold
+is $tk/2$. At $t=0$ both comparison parameters are zero;
+at $t=2/a$ the auxiliary parameter is exactly two, where
+the directly computed auxiliary threshold remains zero.
+No assertion is made for $t>2/a$.
+
+The empty word is included in the subsequence proposition.
+It cannot have a one-cycle permutation on $a\ge2$ strands,
+and it is not used to construct a word grid here. Every
+word used for the word-grid proof contains all generators,
+so each integer strand height has a nonempty occurrence
+list and $n=3\ell\ge3$. Single-occurrence height classes
+and intermediate links were covered explicitly. Reflection
+is used only in constructing the dual certificate, with
+the square and state conventions of Fact 2.8.6; the target
+torus grid is always the reflected grid $G_{a,k}$.
+
+\textbf{Dependency table.}
+All citations in the following table refer to the supplied
+brief, not to additional published results.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}p{0.26\textwidth}X >{\raggedright\arraybackslash}p{0.15\textwidth}@{}}
+\toprule
+New result & Permitted inputs from the brief & New published inputs\\
+\midrule
+Lemmas 1.2--1.3 & 2.5.2, 2.6.3, 2.7.1--2.7.3 & None\\
+Lemmas 2.2--2.3 & Move definition 2.8.1; 2.7.3, 2.8.2 & None\\
+Lemmas 2.5--2.6 & Grading definition 2.4.1 & None\\
+Lemmas 3.2--3.4 & Permutation definitions; Section 2 above & None\\
+Theorem 3.5 & 2.7.3; written 4.2.2, 4.2.5 & None\\
+Lemmas 4.2--4.4 & 2.4.2, 2.6.5, 2.8.6; written 4.2.2 & None\\
+Theorem 4.5 & Lemmas 3.3, 4.2--4.4 above & None\\
+Corollaries 4.6--4.7 & Written 4.2.3--4.2.5; rectangle grading & None\\
+Lemmas 5.2--5.6; Theorem 5.7 & 2.11.3; 2.4.1; move definition 2.8.1 & None\\
+Theorem 5.8 & 2.8.2; Sections 1, 2, 5 above & None\\
+Proposition 6.1 & Word and subsequence definitions & None\\
+Proposition 6.3 & Written M804; 2.8.2, 2.8.4 & None\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Native move invariance is a genuine dependency. It is used
+exactly as the already-formalized Fact 2.8.2 permits. Neither
+the stronger vanishing conjecture $V(a,k)$, nor an
+identification with holomorphic knot Floer homology, nor
+the separate move-equivalence statement M807 is assumed.
+Target B is fulfilled through its allowed direct-word-grid
+alternative, proved in Theorem 5.8.
+
+\textbf{Minimal new combinatorial lemmas for formalization.}
+The following finite statements suffice; all their proofs
+are given above.
+
+\begin{enumerate}
+\item For $y\in\mathfrak S_N$, the exact identity
+$D(\theta_1y)=D(y)+N-1-2\#\{c:y(c)<c\}$ and the bound
+$\#\{c:(\theta_s y)(c)<c\}\le\#\{c:y(c)<c\}+s$ for
+$0\le s<N$.
+\item For every $O\in\mathfrak S_n$, the diagram
+$(O,c\mapsto O(c-1))$ moves to $B_2$ by the explicit
+size-decreasing algorithm of Lemma 2.2, and its Alexander
+grading is $-\#\{c:x(c)>O(c-1)\}$.
+\item For grids with equal $O$, equality of their graded
+complexes and polynomial subcomplexes identifies their
+canonical classes. A pointwise Alexander inequality
+$A_G\ge h+bA_Q$ implies the rescaled threshold inequality
+of Lemma 1.3.
+\item The matrix with entries equal to empty-rectangle
+cardinalities modulo two and an anchor row has the
+explicit solution of Definition 4.3, after consistency
+is obtained from the auxiliary dual certificate.
+\item For the preferred admissible word grid, the
+finite active-arc counts satisfy
+$C(c,r)=U(r)-F_c(r)$, $\#\mathrm{Active}(c)=a$,
+$\sum j_c=\sum_h(3s_h+1)$,
+$\sum_rU(r)=\sum_h(3s_h+2)$, and
+$J(O,O)-J(X,X)=2\ell-a$.
+\item The strictly increasing list-position map
+$i\mapsto i(a-1)+s_i$ proves the subsequence statement;
+the adjacent-column transposition is its own inverse;
+finite minima justify all threshold subtraction in
+the insertion assembly.
+\end{enumerate}
+
+These statements prove Target A for every required pair,
+give its full interval extension, prove Target C by
+solving $P(2,k)$, fulfill Target B's stated alternative,
+and prove Targets D and E. The direct positive-word proof
+also establishes Statement F without using the insertion
+route.
+
+\end{document}

@@ -1,0 +1,28 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "scope": "Actual marking stabilizations, grid-state insertion, and rectangle transport. No X-avoiding stabilization invariance claim is transferred to the full differential.",
+  "files": [
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Stabilization/Basic.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Stabilization/Basic.lean",
+      "upstream_sha256": "f885968da9a02dd16517b14e2240467c72b92567496c72579791ed634aa95301",
+      "ported_sha256": "dea31a8dafd1b3181c862b63f3dd6324d1bcdcf37b076a654623c1a93f01456e",
+      "compatibility_changes": [
+        "Import path redirection and attribution comment",
+        "Two ite_eq_right occurrences renamed to if_neg"
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Stabilization/Rectangle.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Stabilization/Rectangle.lean",
+      "upstream_sha256": "5275fa68fd77e391f223d7d1dc822d2b312f2b11d42cca53c47d7ba4b6fe5ea1",
+      "ported_sha256": "ad9206779eb693b67fc3d4b2dc3263676ee7caeac4d7d9352a3839dacaae52e6",
+      "compatibility_changes": [
+        "Import path redirection and attribution comment"
+      ]
+    }
+  ]
+}

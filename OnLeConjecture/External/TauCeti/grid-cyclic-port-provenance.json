@@ -1,0 +1,32 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "scope": "Exact empty rectangle cyclic relabeling, O-weight transport, and Maslov/Alexander grading identities. The upstream X-avoiding differential is not identified with the full differential.",
+  "changes": "Only attribution comments and import prefix redirection.",
+  "files": [
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Rectangle/Relabeling.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Rectangle/Relabeling.lean",
+      "normalized_upstream_sha256": "e6c0a043c4fa2ebd02e693e2088a9b22270c90678a2dada023f524729479023b",
+      "compatibility_changes": []
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Differential/CyclicPermutation.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Differential/CyclicPermutation.lean",
+      "normalized_upstream_sha256": "15103d46567de482323223cd6732eba1aeb1e6a906e54ef3f749ab80095a7e34",
+      "compatibility_changes": []
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Grading/CyclicPermutation.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Grading/CyclicPermutation.lean",
+      "normalized_upstream_sha256": "cacd56b73d24ea9dcf8e392b8937ee9a4059443be7b250b6f4985a808ecc3f65",
+      "compatibility_changes": []
+    }
+  ],
+  "source_audit": {
+    "commutation_chain_map": "TauCeti/KnotTheory/Grid/Commutation/ChainMap.lean states coefficient equivalence for the X-avoiding differential.",
+    "commutation_homotopy": "TauCeti/KnotTheory/Grid/Commutation/Homotopy/Equation.lean proves both hexagon inverse homotopies, with X-avoiding pentagon and rectangle counts. Not imported or assumed for full grid differential."
+  }
+}

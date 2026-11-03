@@ -1,0 +1,294 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "license": "Apache-2.0",
+  "retrieved": "2026-10-29",
+  "source_integrity": "Every source snapshot blob hash verified against the Git tree at the pinned commit.",
+  "scope": "Additional import closure for Stabilization.Comparison after removing its unused Map.Basic import. These upstream comparison results concern X-avoiding differentials. Six exact reduced-cone/matching declarations are exposed for an explicit special-contraction construction. The full Laurent stabilization equivalence is not asserted.",
+  "files": [
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Stabilization/Comparison.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Stabilization/Comparison.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/KnotTheory/Grid/Stabilization/Comparison.lean",
+      "upstream_sha256": "55292a3b3ab6ab2100a2133fdc6874b44a8c3b8aefa3ceecfaeb6116a3b36229",
+      "ported_sha256": "ec470588cb838c536409b068bf180d5a4b3a86d23e8b70ae5a3c986573eb450f",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added.",
+        "Exposed six existing matching/cone declarations, preserving their statements and proofs: stabilizeXConeWeight, stabilizeXConeWeight_stabilizeXMatching, stabilizeXReducedCone, stabilizeXConeWeight_lt_or_of_mem_support, stabilizeXReducedCone_comp_self, stabilizeXReducedCone_single_apply_stabilizeXMatching.",
+        "Removed the unused Stabilization.Map.Basic import. Every retained theorem, including the final off-center comparison quasi-isomorphism, has the same statement and proof."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/Homology/SquareZero/Contraction.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Homology/SquareZero/Contraction.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Algebra/Homology/SquareZero/Contraction.lean",
+      "upstream_sha256": "94e3cf4416b07369200432deb4aa2f8c848813dc6dfd088a850fdadcc5480f17",
+      "ported_sha256": "b420fe6baf5237606e0724b9802fa0a86b111633cae8376183d2e3dc1d119790",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added.",
+        "Compatibility alias ite_eq_right -> if_neg (2 occurrences)."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/Homology/SquareZero.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Homology/SquareZero.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Algebra/Homology/SquareZero.lean",
+      "upstream_sha256": "a9564d70fd2ea268473e11d290f1f6aa3a179d1422e19135c5b5fd3da5841d74",
+      "ported_sha256": "2a40e02688835635c709c6b7fb19db6f12670a1be4adcb9a854b6cdfb4be6ccc",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added.",
+        "Replaced unavailable Submodule.prodEquiv with its explicit scalar-compatible product linear equivalence, preserving homologyProdEquiv statement and maps."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/LinearAlgebra/Quotient/Prod.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/LinearAlgebra/Quotient/Prod.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/LinearAlgebra/Quotient/Prod.lean",
+      "upstream_sha256": "ec2bc0ab1e648468b0ecd4529c9f6c1c502015f2ab0481cc848fb9de97f81830",
+      "ported_sha256": "ddc83e1d35676efcb112c77b68b05ee545eb31ee016988aba0fcaec3a67e4b5c",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/Module/Submodule/Ker.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Module/Submodule/Ker.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Algebra/Module/Submodule/Ker.lean",
+      "upstream_sha256": "249c4facb745cd4de28b4e30bf10981ae4364cf108d79593b61041f29c791ef7",
+      "ported_sha256": "f5ad9fbd63d7eaf0d2a0a63f41ff9923513abbfef4cd6e572755f68688c0873a",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Stabilization/Reduction.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Stabilization/Reduction.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/KnotTheory/Grid/Stabilization/Reduction.lean",
+      "upstream_sha256": "62190bed352c41def3e98abf8e19cb7b634ef9b260e1b2693ec42dfe123ff364",
+      "ported_sha256": "796d38ac45f73d3bc0b584675d449524afcaa3806aeb0fb2a4b2c73cadfcb985",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Stabilization/XHomotopy.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Stabilization/XHomotopy.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/KnotTheory/Grid/Stabilization/XHomotopy.lean",
+      "upstream_sha256": "fd22351fb0c579fbed021cd7c37fc1657eefb3be3723d4258efb0cb26dd421da",
+      "ported_sha256": "a9c58b8c17bddb25799f697d701e374e35e65eab59c86487c87263d332808751",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/XHomotopy/Complex.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/XHomotopy/Complex.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/KnotTheory/Grid/XHomotopy/Complex.lean",
+      "upstream_sha256": "65c715937d270c973f69c7e7837903a00d21dba2e7efa92fd3ce2c7b1dff2081",
+      "ported_sha256": "b67281844bd767befc0e346402d68e5f338dd329f2c95c59f269e3132875061e",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/XHomotopy/Annulus.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/XHomotopy/Annulus.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/KnotTheory/Grid/XHomotopy/Annulus.lean",
+      "upstream_sha256": "6b9edda9d36bd2ce8b0c7f5998ebdcaf5e66043dca1cef42275c2c4e845c2408",
+      "ported_sha256": "5d88008d9b3ccfa3a054c07e3745e5f002642aa6997cb177f672a9bb945d7b41",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/XHomotopy/Basic.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/XHomotopy/Basic.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/KnotTheory/Grid/XHomotopy/Basic.lean",
+      "upstream_sha256": "17b508544e1ab563a4bf20560779d0027a14f2fd50cb5175f39654a7faf7f4e9",
+      "ported_sha256": "503216990296173d03ac54701f7ae9ac5dfc4c1fc76ce058ab43b6d5503bebac",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Stabilization/Cone.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Stabilization/Cone.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/KnotTheory/Grid/Stabilization/Cone.lean",
+      "upstream_sha256": "f8784a5b7fb6bebc1071a4176c1fc2d39fc83e1ae3ca6392b319dfc5ca89a2e6",
+      "ported_sha256": "a32edf645e94295e5a21f563988807e676930f6fb3eb7d1ae4735ec7352c0f3a",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added.",
+        "Renamed Finsupp.mapDomain_apply_of_injective to the pinned Finsupp.mapDomain_apply."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/Homology/HomotopyCofiber.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Homology/HomotopyCofiber.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Algebra/Homology/HomotopyCofiber.lean",
+      "upstream_sha256": "93b8d04db1cae90868f2faee570e93d0d7b1233e51ebc5e537a0c0e020f459f8",
+      "ported_sha256": "3ccb8530afc9630dcb658cea13c1d8877044132f617aae261b7fd3486f5070d5",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added.",
+        "Compatibility alias dite_eq_right -> dif_neg (2 occurrences).",
+        "Compatibility alias dite_eq_left -> dif_pos (4 occurrences).",
+        "Expanded the mapped short complex and toCone\u2080 in the degreewise splitting proof to match the pinned transparency behavior."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/Homology/HomologySequenceLemmas.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Homology/HomologySequenceLemmas.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Algebra/Homology/HomologySequenceLemmas.lean",
+      "upstream_sha256": "d44e33bec4ed667f057abaa183dfc289b3658d42ad63c7d6298ef0870e175100",
+      "ported_sha256": "257a96982df892526e3eddee30efd642e21277cfce1e57beba11e7bca3dc03f3",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/Homology/ShortComplex/ShortExact.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Homology/ShortComplex/ShortExact.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Algebra/Homology/ShortComplex/ShortExact.lean",
+      "upstream_sha256": "6e7bdbd06cb9b10656a37525f421d9bdcb192bf540da452a3c4772a1eb3eca60",
+      "ported_sha256": "c9316419d67cd5e0e63ce5bab829469a53a36bb06825b1c83f55eebbefcc732f",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added.",
+        "Explicitly changed the middle sequence map to kernelCokernelCompSequence.\u03b4 before rewriting its formula."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/CategoryTheory/Exact/KernelCokernelPair.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/CategoryTheory/Exact/KernelCokernelPair.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/CategoryTheory/Exact/KernelCokernelPair.lean",
+      "upstream_sha256": "a7f24dea97261110280c54f6725c01e33abd974854a97f68c117bfe96a02bbdf",
+      "ported_sha256": "1f468561214b2c204f094168605ce22de9b153c95de601e44d9a05e2a35bbf13",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/Homology/ShortComplex/Biproduct.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Homology/ShortComplex/Biproduct.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Algebra/Homology/ShortComplex/Biproduct.lean",
+      "upstream_sha256": "659caf533b66aa95b8e1c235ba004e269127b9d0997b81cd6f758faf878377a1",
+      "ported_sha256": "bb753334238260d6939e7c4c1e55629093f248b30b564cb467d2615c55918b5f",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Grading/Unblocked/Chain.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Grading/Unblocked/Chain.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/KnotTheory/Grid/Grading/Unblocked/Chain.lean",
+      "upstream_sha256": "fcfd2ba119783583127573dc119e423f292f8336c147cc361f620a17a96230a6",
+      "ported_sha256": "85001ea39221746148d975ffc400d3cf7893ccd7ed2de7e51bcf5981df69d5c1",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/Module/GradedModule/Internal.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Module/GradedModule/Internal.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Algebra/Module/GradedModule/Internal.lean",
+      "upstream_sha256": "c2a479e02053895f2706cdecfe31f139d0b24d62f55c822979b5ae3f46abb3fa",
+      "ported_sha256": "31ce14d2914a148b7751c1c6bd654bd57e317df8b14a0f3c69c8401dba948c00",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added.",
+        "Compatibility alias ite_eq_right -> if_neg (1 occurrences).",
+        "Compatibility alias ite_eq_left -> if_pos (1 occurrences)."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/Module/Submodule/Finite.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Module/Submodule/Finite.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Algebra/Module/Submodule/Finite.lean",
+      "upstream_sha256": "5df7767f5312f9fda15b38fc53cae4a62ce0441f45f33eb93d5e54df68678593",
+      "ported_sha256": "f0ed5156e261533c642a41cd004799174119e42551e0c12b2fbf386f677a4ed2",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Order/CompactlyGenerated.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Order/CompactlyGenerated.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Order/CompactlyGenerated.lean",
+      "upstream_sha256": "3e93b2db178a1ec7405805e8c44586d3f72ea96a56160499f13ada61cde5983f",
+      "ported_sha256": "ce6023692cd84f06d07460cc13ba939ff0e6d2932663d88ac1d54e842b7e506c",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added.",
+        "Current Mathlib defines IsCompactElement only for PartialOrder. Restricted the two OrderIso helper lemmas from Preorder to PartialOrder, with unchanged conclusions/proofs, and supplied CompleteLattice namespace/type argument for the compactness lemma. Grid consumers use complete lattices."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/DirectSum/Internal.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/DirectSum/Internal.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Algebra/DirectSum/Internal.lean",
+      "upstream_sha256": "45963701ec69a06ff3b6a1a255609cb4601fb3b1b36950f142d9ea367ef46898",
+      "ported_sha256": "c080ca03855fce94c4429dd189378f19a0a99046979f8ea43ed3e8967678dbc2",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/Homology/ReductionModVariables.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Homology/ReductionModVariables.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Algebra/Homology/ReductionModVariables.lean",
+      "upstream_sha256": "dfb4d07f804cf4a163c57c5810e9894184eddb058619f050a0263616bec0d6f5",
+      "ported_sha256": "c64838353a4336d0d13e651122b248834f6396015d8e09e07ce0a2f1ec1d43f5",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Data/Finsupp/Weight.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Data/Finsupp/Weight.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Data/Finsupp/Weight.lean",
+      "upstream_sha256": "ee57e24b023cab6a8bb4d162a7d9830329cd79e6d216d6e685f8f47e3f2c4738",
+      "ported_sha256": "3469bfb6cc10fd76b6e1a92f2ff039b1293abff0a3965a71e94edd61f70d183e",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Data/Finsupp/Order.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Data/Finsupp/Order.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/Data/Finsupp/Order.lean",
+      "upstream_sha256": "f481025a05999b6e98a8efc3f53766b2b5b57dcd7e42d1b6a224aafd3f7c7899",
+      "ported_sha256": "e6402291249caec84e61477da08d789d32f86b65e32c15638c2a2b1421876ac1",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Stabilization/Matching.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Stabilization/Matching.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/KnotTheory/Grid/Stabilization/Matching.lean",
+      "upstream_sha256": "2afa89067c80622ada469350ae7eac75332c155aa50cda7a308bb7677b066c8e",
+      "ported_sha256": "e2957f9ff05c6119e3b0cc5ef2ab2219e1baf22fb0109f11ee473bcf0b0332b2",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Stabilization/Level.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Stabilization/Level.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/KnotTheory/Grid/Stabilization/Level.lean",
+      "upstream_sha256": "2386616bbb4635cf7abf255a665537a0c02593771b0ca85ce66dc00b07f4b133",
+      "ported_sha256": "24ab8f46ccb11f9bee4b5fd79325f6bcc82e8464d800cd91a6b44111bcff7dc1",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added.",
+        "Compatibility alias ite_eq_right -> if_neg (5 occurrences).",
+        "Compatibility alias ite_eq_left -> if_pos (2 occurrences)."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Stabilization/Grading.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Stabilization/Grading.lean",
+      "source_snapshot": "verification/2026-10-29/upstream/grid-stabilization-comparison/TauCeti/KnotTheory/Grid/Stabilization/Grading.lean",
+      "upstream_sha256": "e21630cf050452033cef489cdeed42a55a07551cf6987ec8a9cd61908f035c40",
+      "ported_sha256": "4adc9d876a52b823bc7ff80bf1e2f2e5a87388f8ecb2c3dce915feb0f67d966a",
+      "changes": [
+        "Import prefixes redirected and pinned-source attribution added; no proof or statement edits."
+      ]
+    }
+  ]
+}

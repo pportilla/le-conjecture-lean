@@ -1,0 +1,25 @@
+{
+  "repository": "https://github.com/openai/math",
+  "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "upstream_lean": "4.34.1",
+  "upstream_mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "local_lean": "4.33.1",
+  "local_mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "files": [
+    {
+      "upstream": "lean/OAI/Geometry/HypersurfaceGerms/RelativeChains.lean",
+      "local": "Geometry/HypersurfaceGerms/RelativeChains.lean",
+      "changes": [
+        "Added module declaration",
+        "Changed import to public import",
+        "Added exposed public section",
+        "Added provenance comment",
+        "Fixed one whitespace linter warning"
+      ],
+      "mathematical_changes": []
+    }
+  ],
+  "scope": "Actual relative singular homology exact sequence for arbitrary subspace inclusions and naturality of the singular chain prism; no surface, cobordism, Floer, or Milnor theorem is asserted."
+}

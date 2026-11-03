@@ -1,0 +1,478 @@
+\documentclass[11pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{seqsplit}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\lean}[1]{\texttt{\seqsplit{#1}}}
+\newcommand{\Mov}{\mathrel{\sim}}
+\DeclareMathOperator{\pos}{pos}
+\DeclareMathOperator{\out}{out}
+\DeclareMathOperator{\len}{len}
+
+\title[J09: word moves as grid moves]{J09: positive word conjugacy as grid moves, and the
+component count of word grids}
+\date{2 November 2026}
+
+\begin{document}
+
+\begin{abstract}
+We prove two statements about the selected grid diagrams of positive braid words (job J09 of
+the dependency audit, records M413 and M414). First, if two positive words are related by
+\lean{PositiveWordConj}, that is, by rotations, far commutations and positive braid relations
+inside words, then their selected grids are related by grid moves. Second, if every generator
+occurs in a positive word on $m\ge2$ strands, the number of components of its selected grid equals
+the number of cycles, fixed points included, of the permutation of the word. The braid relation is
+handled by a finite local model of a window of nine columns, together with a soundness lemma that
+transports moves of the local model to grid moves in an arbitrary word.
+\end{abstract}
+
+\maketitle
+
+\section{Statements and conventions}\label{sec:statements}
+
+We use the conventions for grid diagrams, cyclic intervals, non-interleaving segments, the moves
+of \lean{GridDiagram.IsMove}, and the relation $\Mov$ (\lean{MovesTo}) stated in Section~1 of
+\lean{docs/route-n/J11-torus-word-grid.tex}, together with its labeled grid diagrams (Definition~3.1
+there) and Lemmas~3.2--3.4 there: an exchange of rows does not change the segments of columns
+(Lemma \emph{static}); a column whose two rows are consecutive commutes with every column without
+marking in these rows (Lemma \emph{short segments}); and a row with both markings in an interval
+$W$ of column positions is non-interleaving with every row with both markings outside $W$ (Lemma
+\emph{separated rows}). The destabilization patterns are those described in Section~1.1 there.
+
+\subsection{Word grids}
+Let $w$ be a positive word of length $L$ on $m$ strands, with letters
+$w_h\in\{0,\dots,m-2\}$ standing for $\sigma_{w_h}$. As in the J10 chapter of
+\lean{docs/route-n/written-proofs-J05-J06-J07-J21-J10-J15-J14.tex}, the corners of $w$ are the pairs
+$(h,c)$, $0\le h<L$, $c\in\{0,1,2\}$, in the column $3h+c$. The letter $\sigma_s$ in position $h$
+involves the ranks $s$ (lower) and $s+1$ (upper). Its incoming corners are $(h,0)$ for the lower and
+$(h,1)$ for the upper rank, and its outgoing corners are $(h,1)$ for the lower and $(h,2)$ for the
+upper rank. The arc leaving $(h,0)$ has height $s+\frac12$ and ends at $(h,2)$. The arc leaving an
+outgoing corner of rank $r$ has height $r$ and ends at the incoming corner of the next occurrence of
+$r$ in cyclic order. This defines the permutation $M$ of corners
+(\lean{positiveRectilinearWordMatching w}), sending the start of an arc to its end. An
+\emph{admissible grid} of $w$ is a grid diagram $G$ of size $3L$ such that, writing
+$R(p)=O_G(3h+c)$ for the row of the arc leaving $p=(h,c)$, the $X$-marking of each column $p$ lies in
+the row $R(M^{-1}p)$, and $R$ strictly preserves the order of heights
+(\lean{IsAdmissibleWordGrid} in \lean{PositiveWordGridAdmissible.lean}). The selected grid
+\lean{wordGrid w} is admissible (\lean{wordGrid\_isAdmissible}), and any two admissible grids of $w$
+are related by row exchanges inside groups of equal height (\lean{IsAdmissibleWordGrid.movesTo}).
+We view an admissible grid as the labeled diagram whose column labels are the corners, in
+lexicographic order, and whose row labels are the arcs, identified with their starting corners.
+
+\subsection{The statements}
+
+\begin{theorem}[M413]\label{thm:conj}
+Let $u,v$ be positive words on $m$ strands with \lean{PositiveWordConj u v}. Then
+$\lean{wordGrid u}\Mov\lean{wordGrid v}$.
+\end{theorem}
+
+The audit's acceptance form adds the hypotheses $2\le m$ and that every generator occurs in $u$.
+They are not needed.
+
+\begin{theorem}[M414]\label{thm:count}
+Let $m\ge2$ and let $w$ be a positive word on $m$ strands in which every generator occurs. Then the
+number of components of $\lean{wordGrid w}$ (\lean{componentCount}, the number of cycles of
+$c\mapsto X^{-1}(O(c))$) equals \lean{w.toSigned.cycleCount}, the number of orbits of the
+permutation of $w$ on $\{0,\dots,m-1\}$, fixed points included.
+\end{theorem}
+
+\section{The component count}\label{sec:count}
+
+\subsection{Reduction to the corner matching}
+Let $G$ be an admissible grid of $w$ and write $\phi(h,c)=3h+c$. The admissibility equation gives
+$X_G(\phi(Mp))=O_G(\phi(p))$ for every corner $p$ (\lean{X\_finProdFinEquiv\_matching}). The
+component permutation of $G$ sends $\phi(p)$ to the column of the $X$-marking in the row $O_G(\phi(p))$,
+which is $\phi(Mp)$. So the component permutation is $\phi M\phi^{-1}$, and $G$ has as many components
+as $M$ has cycles. Every cycle of $M$ is nontrivial, since $M$ has no fixed point
+(\lean{positiveRectilinearWordMatching\_ne\_self}). Hence the number of components is the number of
+orbits of $M$ (\lean{componentCount\_eq\_orbitCount}).
+
+\subsection{Strand labels}
+For $0\le t\le L$ let $P_t$ be the permutation of the prefix of length $t$
+(\lean{positiveWordPrefix w t}), so that $P_0=1$, $P_{t+1}=P_t\circ\tau_{w_t}$ with $\tau_s$ the
+transposition of $s,s+1$, and $P_L=\pi$ is the permutation of $w$. The value $P_t(r)$ is the initial
+position of the strand that lies at position $r$ after $t$ letters. If no letter in positions
+$t,\dots,t'-1$ involves the rank $r$, then $P_t(r)=P_{t'}(r)$
+(\lean{positiveRectilinearWordPrefix\_constant}).
+
+Define the \emph{label} of a corner by
+\[
+F(h,0)=F(h,2)=P_h(w_h),\qquad F(h,1)=P_h(w_h+1).
+\]
+Since $P_{h+1}(w_h)=P_h(w_h+1)$ and $P_{h+1}(w_h+1)=P_h(w_h)$, the label of an outgoing corner of
+rank $r$ in position $h$ is $P_{h+1}(r)$, and the label of an incoming corner of rank $r$ in position
+$h$ is $P_h(r)$.
+
+\begin{lemma}\label{lem:labels}
+Let $p$ be a corner. Exactly one of the following holds.
+\begin{enumerate}
+\item $\phi(Mp)>\phi(p)$ and $F(Mp)=F(p)$.
+\item $p$ is the outgoing corner of rank $r$ of the last occurrence of $r$; then $Mp$ is the incoming
+corner of rank $r$ of the first occurrence of $r$, $F(Mp)=r$ and $F(p)=\pi(r)$.
+\end{enumerate}
+We call the corners of type (2) \emph{wrap corners}.
+\end{lemma}
+
+\begin{proof}
+If $p=(h,0)$, then $Mp=(h,2)$ and $F(Mp)=F(p)$ by definition. Let $p$ be the outgoing corner of rank
+$r$ of an occurrence in position $h$, and let $h'$ be the position of the next occurrence of $r$ in
+cyclic order (\lean{positiveRectilinearWordMatching\_occurrence}). If $h'>h$, the corner $Mp$ is in
+position $h'$, so $\phi(Mp)\ge 3h'>3h+2\ge\phi(p)$, and no letter in positions $h+1,\dots,h'-1$
+involves $r$, so $F(Mp)=P_{h'}(r)=P_{h+1}(r)=F(p)$. Otherwise $h$ is the last occurrence and $h'$ the
+first. No letter after $h$ and no letter before $h'$ involves $r$, so $F(p)=P_{h+1}(r)=P_L(r)=\pi(r)$
+and $F(Mp)=P_{h'}(r)=P_0(r)=r$. Both statements are the content of
+\lean{positiveRectilinearWordMatching\_labels}. In this case $\phi(Mp)\le\phi(p)$: if $h'<h$ this is
+clear, and if $h'=h$ the incoming corner of an occurrence precedes its outgoing corner.
+\end{proof}
+
+\begin{lemma}\label{lem:reach}
+For every corner $p$ there is $n\ge0$ such that $M^np$ is a wrap corner with $F(M^np)=F(p)$. A wrap
+corner is determined by its label.
+\end{lemma}
+
+\begin{proof}
+Induction on $3L-\phi(p)$. If $p$ is a wrap corner, take $n=0$. Otherwise Lemma~\ref{lem:labels}(1)
+gives $\phi(Mp)>\phi(p)$ and $F(Mp)=F(p)$, and the induction hypothesis applies to $Mp$. A wrap corner
+of rank $r$ has label $\pi(r)$, so its label determines $r$, and the wrap corner of rank $r$ is the
+outgoing corner of rank $r$ of the last occurrence of $r$.
+\end{proof}
+
+\begin{proposition}\label{prop:orbits}
+Assume that every rank occurs in $w$. Then $F$ induces a bijection from the orbits of $M$ onto the
+orbits of $\pi$. Precisely, $F$ is surjective, and two corners $p,p'$ lie in the same orbit of $M$ if
+and only if $F(p)$ and $F(p')$ lie in the same orbit of $\pi$.
+\end{proposition}
+
+\begin{proof}
+\emph{Surjectivity.} Let $\ell$ be a position. The rank $\ell$ occurs; let $h$ be its first
+occurrence. The incoming corner of rank $\ell$ in position $h$ has label $P_h(\ell)=P_0(\ell)=\ell$.
+
+\emph{Same $M$-orbit implies same $\pi$-orbit.} By Lemma~\ref{lem:labels}, $F(Mp)$ is $F(p)$ or
+$\pi^{-1}(F(p))$. By induction, $F(M^np)$ lies in the $\pi$-orbit of $F(p)$ for all $n\ge0$, and every
+corner of the $M$-orbit of $p$ has this form because $M$ has finite order.
+
+\emph{Same $\pi$-orbit implies same $M$-orbit.} First let $F(p)=F(p')$. By Lemma~\ref{lem:reach}, $p$
+and $p'$ reach wrap corners $z,z'$ with $F(z)=F(p)=F(p')=F(z')$, so $z=z'$, and $p,p'$ lie in one
+orbit. In general, let $p$ be a corner and $z$ the wrap corner reached from $p$. By
+Lemma~\ref{lem:labels}(2), $F(Mz)=\pi^{-1}(F(z))=\pi^{-1}(F(p))$. By induction on $k$, the $M$-orbit
+of $p$ contains a corner of label $\pi^{-k}(F(p))$ for every $k\ge0$. If $F(p')=\pi^j(F(p))$ for some
+integer $j$, choose $k\ge0$ with $\pi^{-k}=\pi^j$, which exists because $\pi$ has finite order. The
+orbit of $p$ then contains a corner $p''$ with $F(p'')=F(p')$, and $p''$, $p'$ lie in one orbit by the
+first case.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:count}]
+Since $m\ge2$ and every generator occurs, every rank occurs
+(\lean{positiveRectilinearWord\_all\_rows\_occur}). By Proposition~\ref{prop:orbits}, the orbits of $M$
+and of $\pi$ are in bijection. The number of orbits of $M$ is the number of components of
+$\lean{wordGrid w}$, and the number of orbits of $\pi=\lean{w.toSigned.permutation}$ is
+\lean{w.toSigned.cycleCount}.
+\end{proof}
+
+\begin{remark}
+The hypothesis that every generator occurs cannot be dropped. For $m=3$ and $w=\sigma_0$, the grid
+has size $3$ and is a knot, while $\pi$ has the two orbits $\{0,1\}$ and $\{2\}$.
+\end{remark}
+
+\section{Rotations and far commutations}\label{sec:easy}
+
+\begin{proposition}\label{prop:rotation}
+For every positive word $u$ and letter $i$, $\lean{wordGrid}(u\,i)\Mov\lean{wordGrid}(i\,u)$.
+\end{proposition}
+
+\begin{proof}
+Let $L$ be the length of $ui$ and $G$ an admissible grid of $ui$. Apply the cyclic permutation of
+columns \lean{relabelColumns (finRotate (3L))} three times. The column of the corner $(h,c)$ of $ui$
+moves to $3(h+1)+c$ for $h<L-1$ and the columns $3(L-1)+c$ of the last letter move to $c$. Under the
+bijection of corners $(h,c)\mapsto(h+1,c)$ for $h<L-1$, $(L-1,c)\mapsto(0,c)$, the corners of $ui$
+correspond to the corners of $iu$, letters correspond with equal generators, and the cyclic order of
+the occurrences of every rank is rotated. Hence the matching of $ui$ corresponds to the matching of
+$iu$, the arcs keep their heights, and the rows are unchanged. The result is an admissible grid of
+$iu$, which is related to the selected grid by \lean{IsAdmissibleWordGrid.movesTo}.
+\end{proof}
+
+\begin{proposition}\label{prop:far}
+If $|i-j|\ge2$, then $\lean{wordGrid}(u\,i\,j\,v)\Mov\lean{wordGrid}(u\,j\,i\,v)$.
+\end{proposition}
+
+\begin{proof}
+Let $h$ be the length of $u$, and $G$ an admissible grid of $u\,i\,j\,v$. The three columns of the
+letter in position $h$ have markings in rows of heights in $\{i,i+\frac12,i+1\}$, and the three
+columns of the letter in position $h+1$ in rows of heights in $\{j,j+\frac12,j+1\}$. Since
+$|i-j|\ge2$ these sets are separated, and since the rows are ordered by height, the segment of each
+column of the first letter is disjoint from the segment of each column of the second letter in the
+linear order of rows. Disjoint segments with distinct endpoints are non-interleaving. So the nine
+exchanges that move the three columns of position $h+1$ in front of the three columns of position $h$
+(keeping their internal order) are grid moves. Under the bijection of corners exchanging the
+positions $h$ and $h+1$, the result is an admissible grid of $u\,j\,i\,v$: the two letters involve
+disjoint ranks, so the order of the occurrences of each rank is unchanged and the matchings
+correspond; the rows are unchanged.
+\end{proof}
+
+\section{The braid relation}\label{sec:braid}
+
+Fix $u,v$, a generator $i$ with $i+1\le m-2$, and put $h=\len(u)$,
+\[
+w=u\,\sigma_i\sigma_{i+1}\sigma_i\,v,\qquad w'=u\,\sigma_{i+1}\sigma_i\sigma_{i+1}\,v.
+\]
+The \emph{window} is the set $W$ of the nine columns of the letters in positions $h,h+1,h+2$. It is an
+interval of column positions in both words. The \emph{block} is the three letters in these positions.
+
+\subsection{Rows of the window}
+In an admissible grid of $w$ (or $w'$), a row is \emph{relevant} if it has at least one marking in
+$W$, \emph{internal} if both its markings lie in $W$, \emph{connecting} if exactly one does, and
+\emph{external} if none does. The relevant rows are the nine arcs leaving the block corners and the
+arcs ending at block corners. Only the ranks $i,i+1,i+2$ have integer arcs meeting the block.
+
+For $r\in\{0,1,2\}$, the rank $i+r$ is \emph{degenerate} if it has no occurrence outside the block.
+This condition is the same for $w$ and $w'$, since the two words agree outside the block and each
+block involves all three ranks. For a nondegenerate rank, the arc ending at the first block occurrence
+of $i+r$ comes from outside; we call it $\iota_r$; it is a connecting row with its $O$-marking outside
+$W$. The arc leaving the last block occurrence of $i+r$ ends outside; we call it $\theta_r$; it is a
+connecting row with its $X$-marking outside $W$. These six rows are the same arcs in the grids of $w$
+and of $w'$: $\iota_r$ is the arc leaving the last outside occurrence of $i+r$, and $\theta_r$ is the
+arc ending at the first outside occurrence after the block. For a degenerate rank the arc leaving the
+last block occurrence ends at the first block occurrence; it is an internal row, which we call
+$\zeta_r$ (in $w$) and $\zeta'_r$ (in $w'$). All other relevant rows are internal arcs of the block.
+For $\sigma_i\sigma_{i+1}\sigma_i$ they are $\alpha_A,\alpha_B,\alpha_C$ (the middle arcs of the three
+letters), $\beta_0$ (rank $i$, from the first to the third letter), $\beta_1$ (rank $i+1$, from the
+first to the second letter) and $\beta_2$ (rank $i+1$, from the second to the third letter). For
+$\sigma_{i+1}\sigma_i\sigma_{i+1}$ they are $\alpha'_A,\alpha'_B,\alpha'_C$, $\beta'_1$ (rank $i+1$,
+first to second letter), $\beta'_2$ (rank $i+2$, first to third letter) and $\beta'_3$ (rank $i+1$,
+second to third letter).
+
+\subsection{The local model}
+\begin{definition}\label{def:local}
+A \emph{window state} consists of a sequence of $k\ge1$ window columns, each with an $O$-label and an
+$X$-label, and a sequence of row labels. Each row label is \emph{internal} or \emph{connecting}, and
+every connecting label is of type \emph{in} or \emph{out}. Each internal label occurs exactly once as
+an $O$-label and once as an $X$-label; each connecting label of type in occurs once as an $X$-label and
+never as an $O$-label, and each of type out occurs once as an $O$-label and never as an $X$-label; the
+two labels of each column differ. A grid diagram $G$ \emph{realizes} the window state if there is an
+interval $W$ of $k$ column positions whose columns carry the given labels, in order, via an injection
+of the labels onto rows of $G$ which preserves the order of the sequence of row labels, such that the
+internal labels go to rows with both markings in $W$, the labels of type in to rows whose $O$-marking is
+outside $W$, the labels of type out to rows whose $X$-marking is outside $W$, and every row of $G$ not
+in the image has no marking in $W$.
+\end{definition}
+
+For the computation of segments in a window state we place an extra position $k$ to the right of the
+window, put the outside marking of every connecting label there, and use cyclic intervals modulo $k+1$.
+The \emph{local moves} are:
+\begin{enumerate}
+\item[(c)] the exchange of two consecutive window columns with non-interleaving segments;
+\item[(r)] the exchange of two consecutive row labels, at least one of them internal, with
+non-interleaving segments;
+\item[(d)] a destabilization whose two columns are consecutive window columns and whose two rows are
+consecutive in the sequence of row labels, the deleted row being internal;
+\item[(s)] a stabilization at a window column whose new column is a window column and whose new row is
+an internal label inserted next to the split row.
+\end{enumerate}
+
+\begin{lemma}[soundness]\label{lem:sound}
+Let $G$ realize a window state $S$, and let $S'$ be obtained from $S$ by one local move. Then there is a
+grid diagram $G'$ realizing $S'$ with $G\Mov G'$, such that $G'$ has the same columns outside the window
+with the same markings, the same external rows in the same relative order, and the same relative order
+of connecting and external rows.
+\end{lemma}
+
+\begin{proof}
+(c) The two columns are consecutive columns of $G$. Their markings lie in relevant rows, whose relative
+order is the order of the row labels, so the segments in $G$ are non-interleaving if and only if they
+are in $S$. The exchange is a grid move.
+
+(r) Let $x$ below $y$ be the two labels, and suppose $x$ is internal. In $G$ the rows strictly between
+$x$ and $y$ are external, because the sequence of labels is consecutive. By the lemma on separated rows,
+$x$ is non-interleaving with each of them, so $x$ can be moved up until it is immediately below $y$
+(Lemma \emph{static}). The segment test for $x,y$ in $G$ agrees with the test in $S$: if $y$ is internal
+this is clear; if $y$ is connecting with window marking at position $p$ and outside marking at $q\notin
+W$, the cyclic interval $(q,p)^\circ$ meets $W$ in the window positions before $p$ and
+$(p,q)^\circ$ meets $W$ in the window positions after $p$, whatever $q$ is, and the cyclic interval
+between the two markings of $x$ either is contained in $W$ or contains all positions outside $W$. The
+model computes the same sets with $q=k$. So the exchange of $x$ and $y$ is a grid move. If $y$ is
+internal and $x$ connecting, move $y$ down instead.
+
+(d) The deleted row is internal. Move it, past external rows only, until it is next to the other row of
+the pattern; this is allowed as in (r). The two columns are consecutive in $G$, and the destabilization
+pattern only involves these two rows and columns, so it is a destabilization of $G$.
+
+(s) The stabilization of $G$ at the same marking, with the new column next to the split column inside
+the window and the new row next to the split row, is an elementary stabilization. The new row is
+internal.
+
+In all cases, the external rows and the columns outside $W$ are untouched, except that in (r) and (d)
+internal rows move across external rows.
+\end{proof}
+
+\subsection{The initial and final windows}
+In an admissible grid of $w$ we may choose the order inside groups of equal height. Choose it so that
+the relevant rows appear in the order of the \emph{initial window} of $\sigma_i\sigma_{i+1}\sigma_i$
+listed in Appendix~\ref{app:tables} for the given set of degenerate ranks. Each listed order is sorted by
+height, so this is possible. Then the grid realizes the initial window state. The same applies to $w'$.
+
+Appendix~\ref{app:tables} lists, for each possible set of degenerate ranks, a sequence of local moves
+from the initial window of $\sigma_i\sigma_{i+1}\sigma_i$ to a final window, and a sequence from the
+initial window of $\sigma_{i+1}\sigma_i\sigma_{i+1}$ to a final window, together with a bijection of the
+internal labels of the two final windows which identifies them, columns and row orders included. The sets
+$\{i,i+2\}$ cannot occur: if neither $i$ nor $i+2$ occurs outside the block, then neither $\sigma_i$ nor
+$\sigma_{i+1}$ occurs outside the block, so $i+1$ does not occur either.
+
+\begin{proposition}\label{prop:braid}
+$\lean{wordGrid}(w)\Mov\lean{wordGrid}(w')$.
+\end{proposition}
+
+\begin{proof}
+Let $G$ and $G'$ be admissible grids of $w$ and $w'$ realizing the two initial windows, with the same
+order of the rows that are external or connecting; this is possible because these rows are the same
+arcs, with the same heights, in both words. Apply Lemma~\ref{lem:sound} along the two sequences of the
+appendix. We obtain $G\Mov H$ and $G'\Mov H'$, where $H$ and $H'$ realize the two final windows. After
+the identification of the final windows, $H$ and $H'$ have the same window columns and labels, the same
+columns outside the window (the columns of $u$ and $v$, untouched), the same external rows in the same
+order, and the same order of connecting and external rows. They can only differ in the positions of
+internal rows relative to external rows. Moving internal rows across external rows is allowed by the
+lemma on separated rows, so $H\Mov H'$. Hence $G\Mov G'$, and the proposition follows from
+\lean{IsAdmissibleWordGrid.movesTo}.
+\end{proof}
+
+\begin{remark}
+The sequences were found by a computer search in the local model and are listed in full. Each move can
+be checked by hand from the listed window states. They were in addition checked by machine in exact
+grid diagrams, using the TauCeti definitions of the moves, for six hundred random words containing the
+block, covering every set of degenerate ranks that can occur. These checks are evidence only; the proof
+is the list of moves together with Lemma~\ref{lem:sound}.
+\end{remark}
+
+\section{Proof of Theorem~\ref{thm:conj}}
+The relation \lean{PositiveWordConj} is generated by rotations, far commutations and braid relations
+inside words, and it is closed under symmetry and transitivity. Propositions~\ref{prop:rotation},
+\ref{prop:far} and~\ref{prop:braid} give $\Mov$ for the generators, and $\Mov$ is symmetric and
+transitive. Induction on the derivation proves the theorem.
+
+\section{Formalization}\label{sec:formalization}
+All results of this note are formalized without additional hypotheses. The component count is
+\lean{wordGrid\_componentCount} in \lean{PositiveWordGridComponents.lean}. The rotations and the far
+commutations are \lean{wordGrid\_movesTo\_rotate} and \lean{wordGrid\_movesTo\_far} in
+\lean{PositiveWordGridMovesTransport.lean}. Proposition~\ref{prop:braid}, for all words $u,v$ and all
+adjacent letters $i$ and $j=i+1$, is \lean{wordGrid\_movesTo\_braid'} in
+\lean{PositiveWordGridBraidRelationFront.lean}, and in the form \lean{WordGridBraidRelationStatement}
+it is \lean{wordGrid\_movesTo\_braid} in \lean{PositiveWordGridBraidRelation.lean}.
+Together with \lean{wordGrid\_movesTo\_of\_conj\_of\_braid} in \lean{PositiveWordGridMoves.lean} it
+gives Theorem~\ref{thm:conj} (\lean{BraidWindow.wordGridConjugacyMovesStatement\_holds}).
+
+The formal proof of Proposition~\ref{prop:braid} follows Section~\ref{sec:braid}, with the following
+choices.
+\begin{enumerate}
+\item The block is moved to the front of the word by rotations
+(\lean{wordGrid\_movesTo\_append\_comm}), so the window consists of the first nine columns and the
+rest of the word is $v\,u$.
+\item A window state is a list of label pairs for the window columns and a list of row labels, with
+labels encoded by natural numbers (\lean{PositiveWordGridBraidRelationModel.lean}). The function
+\lean{BraidWindow.run} applies a list of local moves and checks their conditions. A realization
+(\lean{BraidWindow.Real}) is a labeled grid whose first columns carry the window labels and whose
+window rows appear in the order of the window state. Lemma~\ref{lem:sound}, iterated along a list of
+moves, is \lean{BraidWindow.run\_sound}.
+\item The initial grid \lean{BraidWindow.initGrid} has the corners of the word as column and row
+labels, its rows sorted by a key that refines the heights of the arcs, and it is relabeled by the window
+labels. It realizes the initial window (\lean{BraidWindow.initGrid\_real}) and is related to the
+selected grid (\lean{BraidWindow.initGrid\_movesTo}). The matching at the block corners is computed by
+\lean{BraidWindow.BM} (\lean{BraidWindow.BlockHyp.blockM\_some},
+\lean{BraidWindow.BlockHyp.blockM\_none}). The two initial grids agree outside the window
+(\lean{BraidWindow.agree\_O}, \lean{BraidWindow.agree\_X}, \lean{BraidWindow.agree\_rows}).
+\item The data of Appendix~\ref{app:tables} is in \lean{PositiveWordGridBraidRelationData.lean}. For
+each set of degenerate ranks, the conditions on the initial windows (\lean{BraidWindow.InitOK},
+\lean{BraidWindow.PairOK}), the two sequences of moves and the identification of the final windows
+(\lean{BraidWindow.FinalOK}) are proved by kernel evaluation with \lean{decide}. These checks are part
+of the formal proof, unlike the random checks mentioned in the remark after
+Proposition~\ref{prop:braid}.
+\item The final comparison of the two final grids is \lean{BraidWindow.wordGrid\_movesTo\_of\_windows}.
+It moves internal rows across external rows by \lean{LabeledGrid.movesTo\_of\_shuffle}.
+\end{enumerate}
+
+\appendix
+\section{The local sequences}\label{app:tables}
+\sloppy
+
+Notation. Window columns are numbered from $0$ in their current order, and each is written as the pair
+$(O\text{-label},X\text{-label})$. Rows are listed from bottom to top. The moves are:
+$\mathsf c_t$, the exchange of columns $t$ and $t+1$; $\mathsf r(x,y)$, the exchange of the consecutive
+rows $x$ (below) and $y$ (above); $\mathsf d^{X}(p,s;x\to y)$, the $X$-destabilization in which the
+corners $(p,x),(s,x),(p,y)$ carry $O,X,X$ and $(s,y)$ carries no $O$, deleting column $p$ and row $x$
+and moving the $X$-marking of column $s$ to row $y$; $\mathsf d^{O}(p,s;x\to y)$, the same with $O$ and
+$X$ exchanged; and $\mathsf s^{O}(s,\mathrm{L/R},\mathrm{b/a};\nu)$, the $O$-stabilization splitting the
+$O$-marking of column $s$, lying in row $y$, with the new column immediately left (L) or right (R) of
+column $s$ and the new row $\nu$ immediately below (b) or above (a) row $y$, after which column $s$ has
+$O$-label $\nu$ and the new column has labels $(y,\nu)$; $\mathsf s^{X}$ is the same with $O$ and $X$
+exchanged. The connecting labels are $\iota_r$ (type in) and $\theta_r$ (type out); all other labels are
+internal. The labels $\nu_n$ are new internal rows.
+
+\subsection*{Case: no degenerate rank}
+\noindent Initial window of $\sigma_i\sigma_{i+1}\sigma_i$. Columns: $(\alpha_A,\iota_0),\allowbreak (\beta_0,\iota_1),\allowbreak (\beta_1,\alpha_A),\allowbreak (\alpha_B,\beta_1),\allowbreak (\beta_2,\iota_2),\allowbreak (\theta_2,\alpha_B),\allowbreak (\alpha_C,\beta_0),\allowbreak (\theta_0,\beta_2),\allowbreak (\theta_1,\alpha_C)$.\\ Rows: $\theta_0 <\allowbreak \iota_0 <\allowbreak \beta_0 <\allowbreak \alpha_A <\allowbreak \alpha_C <\allowbreak \iota_1 <\allowbreak \beta_1 <\allowbreak \beta_2 <\allowbreak \theta_1 <\allowbreak \alpha_B <\allowbreak \theta_2 <\allowbreak \iota_2$.\par
+\noindent Moves (17): $\mathsf{r}(\alpha_C,\iota_1)$, $\mathsf{c}_{4}$, $\mathsf{d}^{O}(4,3;\alpha_B\to\theta_2)$, $\mathsf{r}(\iota_0,\beta_0)$, $\mathsf{c}_{0}$, $\mathsf{d}^{X}(1,2;\alpha_A\to\iota_0)$, $\mathsf{r}(\alpha_C,\beta_1)$, $\mathsf{r}(\beta_2,\theta_1)$, $\mathsf{r}(\iota_1,\beta_1)$, $\mathsf{d}^{X}(1,2;\beta_1\to\iota_0)$, $\mathsf{r}(\beta_2,\theta_2)$, $\mathsf{c}_{3}$, $\mathsf{d}^{O}(5,4;\alpha_C\to\theta_1)$, $\mathsf{d}^{X}(2,3;\beta_2\to\iota_2)$, $\mathsf{c}_{1}$, $\mathsf{s}^{O}(3,R,a;\nu_{516})$, $\mathsf{r}(\nu_{516},\theta_2)$.\par
+\noindent Final window. Columns: $(\beta_0,\iota_1),\allowbreak (\theta_0,\iota_2),\allowbreak (\theta_2,\iota_0),\allowbreak (\nu_{516},\beta_0),\allowbreak (\theta_1,\nu_{516})$.\\ Rows: $\theta_0 <\allowbreak \beta_0 <\allowbreak \iota_0 <\allowbreak \iota_1 <\allowbreak \theta_1 <\allowbreak \theta_2 <\allowbreak \nu_{516} <\allowbreak \iota_2$.\par\medskip
+\noindent Initial window of $\sigma_{i+1}\sigma_i\sigma_{i+1}$. Columns: $(\alpha'_A,\iota_1),\allowbreak (\beta'_1,\iota_2),\allowbreak (\beta'_2,\alpha'_A),\allowbreak (\alpha'_B,\iota_0),\allowbreak (\theta_0,\beta'_1),\allowbreak (\beta'_3,\alpha'_B),\allowbreak (\alpha'_C,\beta'_3),\allowbreak (\theta_1,\beta'_2),\allowbreak (\theta_2,\alpha'_C)$.\\ Rows: $\theta_0 <\allowbreak \iota_0 <\allowbreak \alpha'_B <\allowbreak \iota_1 <\allowbreak \beta'_1 <\allowbreak \beta'_3 <\allowbreak \theta_1 <\allowbreak \alpha'_A <\allowbreak \alpha'_C <\allowbreak \theta_2 <\allowbreak \beta'_2 <\allowbreak \iota_2$.\par
+\noindent Moves (19): $\mathsf{r}(\iota_1,\beta'_1)$, $\mathsf{c}_{3}$, $\mathsf{d}^{X}(4,5;\alpha'_B\to\iota_0)$, $\mathsf{r}(\iota_1,\beta'_3)$, $\mathsf{r}(\beta'_1,\beta'_3)$, $\mathsf{d}^{X}(4,5;\beta'_3\to\iota_0)$, $\mathsf{r}(\iota_0,\beta'_1)$, $\mathsf{c}_{1}$, $\mathsf{d}^{O}(3,2;\beta'_1\to\theta_0)$, $\mathsf{r}(\alpha'_A,\alpha'_C)$, $\mathsf{r}(\alpha'_A,\theta_2)$, $\mathsf{d}^{O}(1,0;\alpha'_A\to\beta'_2)$, $\mathsf{c}_{0}$, $\mathsf{c}_{3}$, $\mathsf{d}^{O}(3,2;\alpha'_C\to\theta_2)$, $\mathsf{s}^{X}(1,L,b;\nu_{716})$, $\mathsf{r}(\iota_0,\nu_{716})$, $\mathsf{c}_{0}$, $\mathsf{c}_{2}$.\par
+\noindent Final window. Columns: $(\nu_{716},\iota_1),\allowbreak (\theta_0,\iota_2),\allowbreak (\theta_2,\iota_0),\allowbreak (\beta'_2,\nu_{716}),\allowbreak (\theta_1,\beta'_2)$.\\ Rows: $\theta_0 <\allowbreak \nu_{716} <\allowbreak \iota_0 <\allowbreak \iota_1 <\allowbreak \theta_1 <\allowbreak \theta_2 <\allowbreak \beta'_2 <\allowbreak \iota_2$.\par\medskip
+\noindent Identification of the final windows: $\beta_0\leftrightarrow \nu_{716},\allowbreak \\nu_{516}\leftrightarrow \beta'_2$.\par\bigskip
+\subsection*{Case: degenerate ranks \texorpdfstring{$\{i\}$}{i}}
+\noindent Initial window of $\sigma_i\sigma_{i+1}\sigma_i$. Columns: $(\alpha_A,\zeta_0),\allowbreak (\beta_0,\iota_1),\allowbreak (\beta_1,\alpha_A),\allowbreak (\alpha_B,\beta_1),\allowbreak (\beta_2,\iota_2),\allowbreak (\theta_2,\alpha_B),\allowbreak (\alpha_C,\beta_0),\allowbreak (\zeta_0,\beta_2),\allowbreak (\theta_1,\alpha_C)$.\\ Rows: $\zeta_0 <\allowbreak \beta_0 <\allowbreak \alpha_A <\allowbreak \alpha_C <\allowbreak \iota_1 <\allowbreak \beta_1 <\allowbreak \beta_2 <\allowbreak \theta_1 <\allowbreak \alpha_B <\allowbreak \theta_2 <\allowbreak \iota_2$.\par
+\noindent Moves (23): $\mathsf{r}(\alpha_C,\iota_1)$, $\mathsf{c}_{4}$, $\mathsf{d}^{O}(4,3;\alpha_B\to\theta_2)$, $\mathsf{r}(\zeta_0,\beta_0)$, $\mathsf{c}_{0}$, $\mathsf{d}^{X}(1,2;\alpha_A\to\zeta_0)$, $\mathsf{r}(\iota_1,\alpha_C)$, $\mathsf{r}(\beta_1,\beta_2)$, $\mathsf{r}(\beta_1,\theta_1)$, $\mathsf{d}^{O}(2,1;\beta_1\to\theta_2)$, $\mathsf{r}(\alpha_C,\iota_1)$, $\mathsf{r}(\zeta_0,\iota_1)$, $\mathsf{c}_{0}$, $\mathsf{c}_{2}$, $\mathsf{d}^{X}(1,2;\beta_0\to\iota_1)$, $\mathsf{r}(\beta_2,\theta_1)$, $\mathsf{r}(\alpha_C,\theta_1)$, $\mathsf{r}(\zeta_0,\theta_1)$, $\mathsf{r}(\alpha_C,\beta_2)$, $\mathsf{d}^{O}(3,2;\beta_2\to\zeta_0)$, $\mathsf{r}(\alpha_C,\theta_2)$, $\mathsf{c}_{0}$, $\mathsf{d}^{O}(1,2;\zeta_0\to\theta_2)$.\par
+\noindent Final window. Columns: $(\alpha_C,\iota_1),\allowbreak (\theta_2,\iota_2),\allowbreak (\theta_1,\alpha_C)$.\\ Rows: $\iota_1 <\allowbreak \theta_1 <\allowbreak \theta_2 <\allowbreak \alpha_C <\allowbreak \iota_2$.\par\medskip
+\noindent Initial window of $\sigma_{i+1}\sigma_i\sigma_{i+1}$. Columns: $(\alpha'_A,\iota_1),\allowbreak (\beta'_1,\iota_2),\allowbreak (\beta'_2,\alpha'_A),\allowbreak (\alpha'_B,\zeta'_0),\allowbreak (\zeta'_0,\beta'_1),\allowbreak (\beta'_3,\alpha'_B),\allowbreak (\alpha'_C,\beta'_3),\allowbreak (\theta_1,\beta'_2),\allowbreak (\theta_2,\alpha'_C)$.\\ Rows: $\zeta'_0 <\allowbreak \alpha'_B <\allowbreak \iota_1 <\allowbreak \beta'_1 <\allowbreak \beta'_3 <\allowbreak \theta_1 <\allowbreak \alpha'_A <\allowbreak \alpha'_C <\allowbreak \theta_2 <\allowbreak \beta'_2 <\allowbreak \iota_2$.\par
+\noindent Moves (14): $\mathsf{d}^{O}(3,4;\zeta'_0\to\alpha'_B)$, $\mathsf{r}(\beta'_3,\theta_1)$, $\mathsf{r}(\alpha'_B,\iota_1)$, $\mathsf{d}^{X}(3,4;\alpha'_B\to\beta'_1)$, $\mathsf{r}(\theta_1,\beta'_3)$, $\mathsf{d}^{X}(3,4;\beta'_3\to\beta'_1)$, $\mathsf{r}(\beta'_1,\theta_1)$, $\mathsf{c}_{3}$, $\mathsf{d}^{O}(5,4;\alpha'_C\to\theta_2)$, $\mathsf{c}_{1}$, $\mathsf{r}(\alpha'_A,\theta_2)$, $\mathsf{d}^{O}(1,0;\alpha'_A\to\beta'_2)$, $\mathsf{c}_{2}$, $\mathsf{d}^{O}(2,1;\beta'_1\to\theta_2)$.\par
+\noindent Final window. Columns: $(\beta'_2,\iota_1),\allowbreak (\theta_2,\iota_2),\allowbreak (\theta_1,\beta'_2)$.\\ Rows: $\iota_1 <\allowbreak \theta_1 <\allowbreak \theta_2 <\allowbreak \beta'_2 <\allowbreak \iota_2$.\par\medskip
+\noindent Identification of the final windows: $\alpha_C\leftrightarrow \beta'_2$.\par\bigskip
+\subsection*{Case: degenerate ranks \texorpdfstring{$\{i+1\}$}{i+1}}
+\noindent Initial window of $\sigma_i\sigma_{i+1}\sigma_i$. Columns: $(\alpha_A,\iota_0),\allowbreak (\beta_0,\zeta_1),\allowbreak (\beta_1,\alpha_A),\allowbreak (\alpha_B,\beta_1),\allowbreak (\beta_2,\iota_2),\allowbreak (\theta_2,\alpha_B),\allowbreak (\alpha_C,\beta_0),\allowbreak (\theta_0,\beta_2),\allowbreak (\zeta_1,\alpha_C)$.\\ Rows: $\theta_0 <\allowbreak \iota_0 <\allowbreak \beta_0 <\allowbreak \alpha_A <\allowbreak \alpha_C <\allowbreak \zeta_1 <\allowbreak \beta_1 <\allowbreak \beta_2 <\allowbreak \alpha_B <\allowbreak \theta_2 <\allowbreak \iota_2$.\par
+\noindent Moves (16): $\mathsf{r}(\iota_0,\beta_0)$, $\mathsf{c}_{4}$, $\mathsf{d}^{O}(4,3;\alpha_B\to\theta_2)$, $\mathsf{c}_{5}$, $\mathsf{d}^{O}(7,6;\alpha_C\to\zeta_1)$, $\mathsf{c}_{4}$, $\mathsf{r}(\zeta_1,\beta_1)$, $\mathsf{d}^{X}(2,3;\beta_1\to\alpha_A)$, $\mathsf{r}(\beta_2,\theta_2)$, $\mathsf{d}^{X}(4,3;\beta_2\to\iota_2)$, $\mathsf{c}_{0}$, $\mathsf{d}^{X}(1,2;\alpha_A\to\iota_0)$, $\mathsf{c}_{1}$, $\mathsf{s}^{X}(0,L,a;\nu_{514})$, $\mathsf{r}(\nu_{514},\theta_2)$, $\mathsf{c}_{1}$.\par
+\noindent Final window. Columns: $(\nu_{514},\zeta_1),\allowbreak (\theta_0,\iota_2),\allowbreak (\beta_0,\nu_{514}),\allowbreak (\theta_2,\iota_0),\allowbreak (\zeta_1,\beta_0)$.\\ Rows: $\theta_0 <\allowbreak \beta_0 <\allowbreak \iota_0 <\allowbreak \zeta_1 <\allowbreak \theta_2 <\allowbreak \nu_{514} <\allowbreak \iota_2$.\par\medskip
+\noindent Initial window of $\sigma_{i+1}\sigma_i\sigma_{i+1}$. Columns: $(\alpha'_A,\zeta'_1),\allowbreak (\beta'_1,\iota_2),\allowbreak (\beta'_2,\alpha'_A),\allowbreak (\alpha'_B,\iota_0),\allowbreak (\theta_0,\beta'_1),\allowbreak (\beta'_3,\alpha'_B),\allowbreak (\alpha'_C,\beta'_3),\allowbreak (\zeta'_1,\beta'_2),\allowbreak (\theta_2,\alpha'_C)$.\\ Rows: $\theta_0 <\allowbreak \iota_0 <\allowbreak \alpha'_B <\allowbreak \zeta'_1 <\allowbreak \beta'_1 <\allowbreak \beta'_3 <\allowbreak \alpha'_A <\allowbreak \alpha'_C <\allowbreak \theta_2 <\allowbreak \beta'_2 <\allowbreak \iota_2$.\par
+\noindent Moves (17): $\mathsf{c}_{6}$, $\mathsf{d}^{O}(8,7;\alpha'_C\to\theta_2)$, $\mathsf{c}_{3}$, $\mathsf{d}^{X}(4,5;\alpha'_B\to\iota_0)$, $\mathsf{r}(\zeta'_1,\beta'_1)$, $\mathsf{r}(\iota_0,\beta'_1)$, $\mathsf{c}_{2}$, $\mathsf{d}^{O}(2,1;\beta'_1\to\theta_0)$, $\mathsf{c}_{4}$, $\mathsf{r}(\zeta'_1,\beta'_3)$, $\mathsf{d}^{X}(3,4;\beta'_3\to\iota_0)$, $\mathsf{r}(\alpha'_A,\theta_2)$, $\mathsf{c}_{2}$, $\mathsf{d}^{X}(3,4;\beta'_2\to\alpha'_A)$, $\mathsf{s}^{O}(3,R,b;\nu_{715})$, $\mathsf{r}(\iota_0,\nu_{715})$, $\mathsf{c}_{2}$.\par
+\noindent Final window. Columns: $(\alpha'_A,\zeta'_1),\allowbreak (\theta_0,\iota_2),\allowbreak (\nu_{715},\alpha'_A),\allowbreak (\theta_2,\iota_0),\allowbreak (\zeta'_1,\nu_{715})$.\\ Rows: $\theta_0 <\allowbreak \nu_{715} <\allowbreak \iota_0 <\allowbreak \zeta'_1 <\allowbreak \theta_2 <\allowbreak \alpha'_A <\allowbreak \iota_2$.\par\medskip
+\noindent Identification of the final windows: $\beta_0\leftrightarrow \nu_{715},\allowbreak \\zeta_1\leftrightarrow \zeta'_1,\allowbreak \\nu_{514}\leftrightarrow \alpha'_A$.\par\bigskip
+\subsection*{Case: degenerate ranks \texorpdfstring{$\{i+2\}$}{i+2}}
+\noindent Initial window of $\sigma_i\sigma_{i+1}\sigma_i$. Columns: $(\alpha_A,\iota_0),\allowbreak (\beta_0,\iota_1),\allowbreak (\beta_1,\alpha_A),\allowbreak (\alpha_B,\beta_1),\allowbreak (\beta_2,\zeta_2),\allowbreak (\zeta_2,\alpha_B),\allowbreak (\alpha_C,\beta_0),\allowbreak (\theta_0,\beta_2),\allowbreak (\theta_1,\alpha_C)$.\\ Rows: $\theta_0 <\allowbreak \iota_0 <\allowbreak \beta_0 <\allowbreak \alpha_A <\allowbreak \alpha_C <\allowbreak \iota_1 <\allowbreak \beta_1 <\allowbreak \beta_2 <\allowbreak \theta_1 <\allowbreak \alpha_B <\allowbreak \zeta_2$.\par
+\noindent Moves (15): $\mathsf{d}^{X}(5,4;\zeta_2\to\alpha_B)$, $\mathsf{r}(\iota_0,\beta_0)$, $\mathsf{c}_{0}$, $\mathsf{d}^{X}(1,2;\alpha_A\to\iota_0)$, $\mathsf{r}(\iota_0,\alpha_C)$, $\mathsf{c}_{4}$, $\mathsf{d}^{X}(5,6;\alpha_C\to\beta_0)$, $\mathsf{c}_{3}$, $\mathsf{r}(\iota_1,\beta_1)$, $\mathsf{d}^{X}(1,2;\beta_1\to\iota_0)$, $\mathsf{c}_{2}$, $\mathsf{r}(\theta_1,\alpha_B)$, $\mathsf{d}^{O}(2,1;\alpha_B\to\beta_2)$, $\mathsf{r}(\iota_1,\beta_2)$, $\mathsf{d}^{X}(1,2;\beta_2\to\iota_0)$.\par
+\noindent Final window. Columns: $(\beta_0,\iota_1),\allowbreak (\theta_0,\iota_0),\allowbreak (\theta_1,\beta_0)$.\\ Rows: $\theta_0 <\allowbreak \beta_0 <\allowbreak \iota_0 <\allowbreak \iota_1 <\allowbreak \theta_1$.\par\medskip
+\noindent Initial window of $\sigma_{i+1}\sigma_i\sigma_{i+1}$. Columns: $(\alpha'_A,\iota_1),\allowbreak (\beta'_1,\zeta'_2),\allowbreak (\beta'_2,\alpha'_A),\allowbreak (\alpha'_B,\iota_0),\allowbreak (\theta_0,\beta'_1),\allowbreak (\beta'_3,\alpha'_B),\allowbreak (\alpha'_C,\beta'_3),\allowbreak (\theta_1,\beta'_2),\allowbreak (\zeta'_2,\alpha'_C)$.\\ Rows: $\theta_0 <\allowbreak \iota_0 <\allowbreak \alpha'_B <\allowbreak \iota_1 <\allowbreak \beta'_1 <\allowbreak \beta'_3 <\allowbreak \theta_1 <\allowbreak \alpha'_A <\allowbreak \alpha'_C <\allowbreak \zeta'_2 <\allowbreak \beta'_2$.\par
+\noindent Moves (19): $\mathsf{c}_{3}$, $\mathsf{d}^{X}(4,5;\alpha'_B\to\iota_0)$, $\mathsf{r}(\iota_1,\beta'_1)$, $\mathsf{c}_{6}$, $\mathsf{d}^{O}(6,5;\alpha'_C\to\zeta'_2)$, $\mathsf{r}(\iota_1,\beta'_3)$, $\mathsf{r}(\beta'_1,\beta'_3)$, $\mathsf{d}^{X}(4,5;\beta'_3\to\iota_0)$, $\mathsf{r}(\iota_0,\beta'_1)$, $\mathsf{r}(\theta_1,\alpha'_A)$, $\mathsf{c}_{2}$, $\mathsf{d}^{O}(2,1;\beta'_1\to\theta_0)$, $\mathsf{r}(\iota_1,\alpha'_A)$, $\mathsf{r}(\iota_0,\alpha'_A)$, $\mathsf{r}(\theta_1,\zeta'_2)$, $\mathsf{c}_{2}$, $\mathsf{d}^{O}(4,3;\beta'_2\to\theta_1)$, $\mathsf{r}(\iota_1,\zeta'_2)$, $\mathsf{d}^{X}(2,1;\zeta'_2\to\iota_0)$.\par
+\noindent Final window. Columns: $(\alpha'_A,\iota_1),\allowbreak (\theta_0,\iota_0),\allowbreak (\theta_1,\alpha'_A)$.\\ Rows: $\theta_0 <\allowbreak \alpha'_A <\allowbreak \iota_0 <\allowbreak \iota_1 <\allowbreak \theta_1$.\par\medskip
+\noindent Identification of the final windows: $\beta_0\leftrightarrow \alpha'_A$.\par\bigskip
+\subsection*{Case: degenerate ranks \texorpdfstring{$\{i,i+1\}$}{i,i+1}}
+\noindent Initial window of $\sigma_i\sigma_{i+1}\sigma_i$. Columns: $(\alpha_A,\zeta_0),\allowbreak (\beta_0,\zeta_1),\allowbreak (\beta_1,\alpha_A),\allowbreak (\alpha_B,\beta_1),\allowbreak (\beta_2,\iota_2),\allowbreak (\theta_2,\alpha_B),\allowbreak (\alpha_C,\beta_0),\allowbreak (\zeta_0,\beta_2),\allowbreak (\zeta_1,\alpha_C)$.\\ Rows: $\zeta_0 <\allowbreak \beta_0 <\allowbreak \alpha_A <\allowbreak \alpha_C <\allowbreak \zeta_1 <\allowbreak \beta_1 <\allowbreak \beta_2 <\allowbreak \alpha_B <\allowbreak \theta_2 <\allowbreak \iota_2$.\par
+\noindent Moves (19): $\mathsf{c}_{4}$, $\mathsf{d}^{O}(4,3;\alpha_B\to\theta_2)$, $\mathsf{r}(\zeta_0,\beta_0)$, $\mathsf{r}(\beta_1,\beta_2)$, $\mathsf{d}^{O}(3,2;\beta_1\to\theta_2)$, $\mathsf{r}(\zeta_0,\alpha_A)$, $\mathsf{c}_{0}$, $\mathsf{d}^{X}(1,2;\alpha_A\to\zeta_0)$, $\mathsf{c}_{2}$, $\mathsf{c}_{3}$, $\mathsf{r}(\beta_2,\theta_2)$, $\mathsf{d}^{X}(4,3;\beta_2\to\iota_2)$, $\mathsf{r}(\alpha_C,\zeta_1)$, $\mathsf{r}(\zeta_0,\zeta_1)$, $\mathsf{r}(\alpha_C,\theta_2)$, $\mathsf{c}_{0}$, $\mathsf{d}^{X}(1,2;\beta_0\to\zeta_1)$, $\mathsf{c}_{0}$, $\mathsf{d}^{O}(1,2;\zeta_0\to\theta_2)$.\par
+\noindent Final window. Columns: $(\alpha_C,\zeta_1),\allowbreak (\theta_2,\iota_2),\allowbreak (\zeta_1,\alpha_C)$.\\ Rows: $\zeta_1 <\allowbreak \theta_2 <\allowbreak \alpha_C <\allowbreak \iota_2$.\par\medskip
+\noindent Initial window of $\sigma_{i+1}\sigma_i\sigma_{i+1}$. Columns: $(\alpha'_A,\zeta'_1),\allowbreak (\beta'_1,\iota_2),\allowbreak (\beta'_2,\alpha'_A),\allowbreak (\alpha'_B,\zeta'_0),\allowbreak (\zeta'_0,\beta'_1),\allowbreak (\beta'_3,\alpha'_B),\allowbreak (\alpha'_C,\beta'_3),\allowbreak (\zeta'_1,\beta'_2),\allowbreak (\theta_2,\alpha'_C)$.\\ Rows: $\zeta'_0 <\allowbreak \alpha'_B <\allowbreak \zeta'_1 <\allowbreak \beta'_1 <\allowbreak \beta'_3 <\allowbreak \alpha'_A <\allowbreak \alpha'_C <\allowbreak \theta_2 <\allowbreak \beta'_2 <\allowbreak \iota_2$.\par
+\noindent Moves (13): $\mathsf{d}^{O}(3,4;\zeta'_0\to\alpha'_B)$, $\mathsf{c}_{5}$, $\mathsf{d}^{O}(7,6;\alpha'_C\to\theta_2)$, $\mathsf{r}(\alpha'_A,\theta_2)$, $\mathsf{r}(\alpha'_B,\zeta'_1)$, $\mathsf{d}^{X}(3,4;\alpha'_B\to\beta'_1)$, $\mathsf{r}(\beta'_1,\beta'_3)$, $\mathsf{c}_{3}$, $\mathsf{d}^{X}(2,3;\beta'_2\to\alpha'_A)$, $\mathsf{d}^{X}(3,4;\beta'_3\to\beta'_1)$, $\mathsf{r}(\beta'_1,\theta_2)$, $\mathsf{c}_{2}$, $\mathsf{d}^{O}(2,1;\beta'_1\to\theta_2)$.\par
+\noindent Final window. Columns: $(\alpha'_A,\zeta'_1),\allowbreak (\theta_2,\iota_2),\allowbreak (\zeta'_1,\alpha'_A)$.\\ Rows: $\zeta'_1 <\allowbreak \theta_2 <\allowbreak \alpha'_A <\allowbreak \iota_2$.\par\medskip
+\noindent Identification of the final windows: $\zeta_1\leftrightarrow \zeta'_1,\allowbreak \\alpha_C\leftrightarrow \alpha'_A$.\par\bigskip
+\subsection*{Case: degenerate ranks \texorpdfstring{$\{i+1,i+2\}$}{i+1,i+2}}
+\noindent Initial window of $\sigma_i\sigma_{i+1}\sigma_i$. Columns: $(\alpha_A,\iota_0),\allowbreak (\beta_0,\zeta_1),\allowbreak (\beta_1,\alpha_A),\allowbreak (\alpha_B,\beta_1),\allowbreak (\beta_2,\zeta_2),\allowbreak (\zeta_2,\alpha_B),\allowbreak (\alpha_C,\beta_0),\allowbreak (\theta_0,\beta_2),\allowbreak (\zeta_1,\alpha_C)$.\\ Rows: $\theta_0 <\allowbreak \iota_0 <\allowbreak \beta_0 <\allowbreak \alpha_A <\allowbreak \alpha_C <\allowbreak \zeta_1 <\allowbreak \beta_1 <\allowbreak \beta_2 <\allowbreak \alpha_B <\allowbreak \zeta_2$.\par
+\noindent Moves (12): $\mathsf{d}^{X}(5,4;\zeta_2\to\alpha_B)$, $\mathsf{d}^{O}(4,3;\alpha_B\to\beta_2)$, $\mathsf{d}^{O}(3,2;\beta_1\to\beta_2)$, $\mathsf{c}_{4}$, $\mathsf{d}^{O}(4,3;\alpha_C\to\zeta_1)$, $\mathsf{r}(\iota_0,\beta_0)$, $\mathsf{r}(\iota_0,\alpha_A)$, $\mathsf{c}_{0}$, $\mathsf{d}^{X}(1,2;\alpha_A\to\iota_0)$, $\mathsf{c}_{2}$, $\mathsf{r}(\zeta_1,\beta_2)$, $\mathsf{d}^{X}(1,2;\beta_2\to\iota_0)$.\par
+\noindent Final window. Columns: $(\beta_0,\zeta_1),\allowbreak (\theta_0,\iota_0),\allowbreak (\zeta_1,\beta_0)$.\\ Rows: $\theta_0 <\allowbreak \beta_0 <\allowbreak \iota_0 <\allowbreak \zeta_1$.\par\medskip
+\noindent Initial window of $\sigma_{i+1}\sigma_i\sigma_{i+1}$. Columns: $(\alpha'_A,\zeta'_1),\allowbreak (\beta'_1,\zeta'_2),\allowbreak (\beta'_2,\alpha'_A),\allowbreak (\alpha'_B,\iota_0),\allowbreak (\theta_0,\beta'_1),\allowbreak (\beta'_3,\alpha'_B),\allowbreak (\alpha'_C,\beta'_3),\allowbreak (\zeta'_1,\beta'_2),\allowbreak (\zeta'_2,\alpha'_C)$.\\ Rows: $\theta_0 <\allowbreak \iota_0 <\allowbreak \alpha'_B <\allowbreak \zeta'_1 <\allowbreak \beta'_1 <\allowbreak \beta'_3 <\allowbreak \alpha'_A <\allowbreak \alpha'_C <\allowbreak \zeta'_2 <\allowbreak \beta'_2$.\par
+\noindent Moves (18): $\mathsf{r}(\iota_0,\alpha'_B)$, $\mathsf{c}_{3}$, $\mathsf{d}^{X}(4,5;\alpha'_B\to\iota_0)$, $\mathsf{c}_{6}$, $\mathsf{d}^{O}(6,5;\alpha'_C\to\zeta'_2)$, $\mathsf{r}(\zeta'_1,\beta'_1)$, $\mathsf{r}(\iota_0,\beta'_1)$, $\mathsf{r}(\beta'_3,\alpha'_A)$, $\mathsf{d}^{O}(5,4;\beta'_3\to\zeta'_2)$, $\mathsf{c}_{2}$, $\mathsf{d}^{O}(2,1;\beta'_1\to\theta_0)$, $\mathsf{r}(\zeta'_1,\alpha'_A)$, $\mathsf{r}(\iota_0,\alpha'_A)$, $\mathsf{r}(\zeta'_1,\zeta'_2)$, $\mathsf{c}_{3}$, $\mathsf{d}^{O}(3,2;\beta'_2\to\zeta'_1)$, $\mathsf{c}_{2}$, $\mathsf{d}^{X}(2,1;\zeta'_2\to\iota_0)$.\par
+\noindent Final window. Columns: $(\alpha'_A,\zeta'_1),\allowbreak (\theta_0,\iota_0),\allowbreak (\zeta'_1,\alpha'_A)$.\\ Rows: $\theta_0 <\allowbreak \alpha'_A <\allowbreak \iota_0 <\allowbreak \zeta'_1$.\par\medskip
+\noindent Identification of the final windows: $\beta_0\leftrightarrow \alpha'_A,\allowbreak \\zeta_1\leftrightarrow \zeta'_1$.\par\bigskip
+\subsection*{Case: degenerate ranks \texorpdfstring{$\{i,i+1,i+2\}$}{i,i+1,i+2}}
+\noindent Initial window of $\sigma_i\sigma_{i+1}\sigma_i$. Columns: $(\alpha_A,\zeta_0),\allowbreak (\beta_0,\zeta_1),\allowbreak (\beta_1,\alpha_A),\allowbreak (\alpha_B,\beta_1),\allowbreak (\beta_2,\zeta_2),\allowbreak (\zeta_2,\alpha_B),\allowbreak (\alpha_C,\beta_0),\allowbreak (\zeta_0,\beta_2),\allowbreak (\zeta_1,\alpha_C)$.\\ Rows: $\zeta_0 <\allowbreak \beta_0 <\allowbreak \alpha_A <\allowbreak \alpha_C <\allowbreak \zeta_1 <\allowbreak \beta_1 <\allowbreak \beta_2 <\allowbreak \alpha_B <\allowbreak \zeta_2$.\par
+\noindent Moves (8): $\mathsf{d}^{X}(5,4;\zeta_2\to\alpha_B)$, $\mathsf{d}^{O}(4,3;\alpha_B\to\beta_2)$, $\mathsf{d}^{O}(3,2;\beta_1\to\beta_2)$, $\mathsf{c}_{4}$, $\mathsf{d}^{O}(4,3;\alpha_C\to\zeta_1)$, $\mathsf{c}_{3}$, $\mathsf{r}(\zeta_1,\beta_2)$, $\mathsf{d}^{X}(2,3;\beta_2\to\alpha_A)$.\par
+\noindent Final window. Columns: $(\alpha_A,\zeta_0),\allowbreak (\beta_0,\zeta_1),\allowbreak (\zeta_0,\alpha_A),\allowbreak (\zeta_1,\beta_0)$.\\ Rows: $\zeta_0 <\allowbreak \beta_0 <\allowbreak \alpha_A <\allowbreak \zeta_1$.\par\medskip
+\noindent Initial window of $\sigma_{i+1}\sigma_i\sigma_{i+1}$. Columns: $(\alpha'_A,\zeta'_1),\allowbreak (\beta'_1,\zeta'_2),\allowbreak (\beta'_2,\alpha'_A),\allowbreak (\alpha'_B,\zeta'_0),\allowbreak (\zeta'_0,\beta'_1),\allowbreak (\beta'_3,\alpha'_B),\allowbreak (\alpha'_C,\beta'_3),\allowbreak (\zeta'_1,\beta'_2),\allowbreak (\zeta'_2,\alpha'_C)$.\\ Rows: $\zeta'_0 <\allowbreak \alpha'_B <\allowbreak \zeta'_1 <\allowbreak \beta'_1 <\allowbreak \beta'_3 <\allowbreak \alpha'_A <\allowbreak \alpha'_C <\allowbreak \zeta'_2 <\allowbreak \beta'_2$.\par
+\noindent Moves (12): $\mathsf{d}^{O}(3,4;\zeta'_0\to\alpha'_B)$, $\mathsf{r}(\alpha'_A,\alpha'_C)$, $\mathsf{d}^{O}(5,4;\beta'_3\to\alpha'_C)$, $\mathsf{r}(\alpha'_C,\alpha'_A)$, $\mathsf{c}_{5}$, $\mathsf{d}^{O}(5,4;\alpha'_C\to\zeta'_2)$, $\mathsf{r}(\zeta'_1,\beta'_1)$, $\mathsf{d}^{X}(3,4;\alpha'_B\to\beta'_1)$, $\mathsf{r}(\beta'_1,\zeta'_1)$, $\mathsf{c}_{3}$, $\mathsf{r}(\zeta'_2,\beta'_2)$, $\mathsf{d}^{X}(2,3;\beta'_2\to\alpha'_A)$.\par
+\noindent Final window. Columns: $(\alpha'_A,\zeta'_1),\allowbreak (\beta'_1,\zeta'_2),\allowbreak (\zeta'_1,\alpha'_A),\allowbreak (\zeta'_2,\beta'_1)$.\\ Rows: $\zeta'_1 <\allowbreak \beta'_1 <\allowbreak \alpha'_A <\allowbreak \zeta'_2$.\par\medskip
+\noindent Identification of the final windows: $\zeta_0\leftrightarrow \zeta'_1,\allowbreak \\beta_0\leftrightarrow \beta'_1,\allowbreak \\alpha_A\leftrightarrow \alpha'_A,\allowbreak \\zeta_1\leftrightarrow \zeta'_2$.\par\bigskip
+
+\end{document}

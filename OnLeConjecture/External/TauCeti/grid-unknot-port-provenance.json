@@ -1,0 +1,24 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "scope": "Standard unknot grid definitions and exact 2-by-2 Maslov/Alexander gradings. No full-complex homology or knot invariance supplied by these two files.",
+  "changes": "Attribution comment and import prefix redirection only.",
+  "files": [
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/Unknot/Basic.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/Unknot/Basic.lean",
+      "upstream_sha256": "236137a66aa439228fa1daadc65ceff0c6fa092a68156331a2c8a4b6f17eadf5",
+      "ported_sha256": "a6263cc152a6ef6822ba08603a311c9605410f6f5edd7e83d593451872b0feab",
+      "compatibility_changes": []
+    },
+    {
+      "upstream_path": "TauCeti/KnotTheory/Grid/SmallGrid/Gradings.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/KnotTheory/Grid/SmallGrid/Gradings.lean",
+      "upstream_sha256": "2ef99ac69bb2c79407f29ee5d21f1edbd96cb8344956570995a64740f11edade",
+      "ported_sha256": "f72e72a2bcd11fc409dca52456e6a6cf9f24012b07c80bce8e60289a9e79a9f4",
+      "compatibility_changes": []
+    }
+  ]
+}

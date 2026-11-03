@@ -1,0 +1,45 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "license": "Apache-2.0",
+  "retrieved": "2026-10-29",
+  "files": [
+    {
+      "upstream_path": "TauCeti/Geometry/Manifold/ContMDiffMap/Extension.lean",
+      "upstream_sha256": "6e71243bef95a7b0cc5fd4b8cf66ed8e93aa95f0428201bb5338b558aa1bfa37",
+      "local_path": "OnLeConjecture/External/TauCeti/Geometry/Manifold/ContMDiffMap/Extension.lean",
+      "compatibility_changes": [
+        "Rewrite TauCeti imports to local module paths."
+      ],
+      "local_sha256": "6e71243bef95a7b0cc5fd4b8cf66ed8e93aa95f0428201bb5338b558aa1bfa37"
+    },
+    {
+      "upstream_path": "TauCeti/Geometry/Manifold/SmoothEmbedding/Extension.lean",
+      "upstream_sha256": "ef0a5d40393f44146fc7cda8003d3dc3d1176e786eebdc23de2c394c482780f2",
+      "local_path": "OnLeConjecture/External/TauCeti/Geometry/Manifold/SmoothEmbedding/Extension.lean",
+      "compatibility_changes": [
+        "Rewrite TauCeti imports to local module paths.",
+        "Retain only local smooth retraction and the two vector-valued global extension theorems.",
+        "Omit vector-bundle section extension results and their dedicated import.",
+        "Adjust module documentation to the retained scope.",
+        "Replace upstream dite_eq_left by the pinned Lean theorem dif_pos, with the same condition proof."
+      ],
+      "local_sha256": "c1f51e14433b2f5ff97759a2b5bd38c46e79bfde97da6f5b96a0f5c12b3aff4d"
+    },
+    {
+      "upstream_path": "TauCeti/Topology/Maps/Proper/Basic.lean",
+      "upstream_sha256": "50903dbafd7505ebbc36c4d32f34be410510bfc4e8169085916127fa5cb3e075",
+      "local_path": "OnLeConjecture/External/TauCeti/Topology/Maps/Proper/Basic.lean",
+      "compatibility_changes": [
+        "Rewrite TauCeti imports to local module paths."
+      ],
+      "local_sha256": "50903dbafd7505ebbc36c4d32f34be410510bfc4e8169085916127fa5cb3e075"
+    }
+  ],
+  "audit": "AuditPlaneBranchAmbientIsotopy.lean",
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

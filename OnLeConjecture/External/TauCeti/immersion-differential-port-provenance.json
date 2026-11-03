@@ -1,0 +1,82 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "license": "Apache-2.0",
+  "retrieved": "2026-10-29",
+  "files": [
+    {
+      "upstream_path": "TauCeti/Analysis/Calculus/ContinuousLinearMapInverse.lean",
+      "upstream_sha256": "162e334391d3c0ecfc40f196ab070587969d52f15b8dbc8221ded1db96880b61",
+      "local_path": "OnLeConjecture/External/TauCeti/Analysis/Calculus/LinearMapPerturbation.lean",
+      "local_sha256": "57f1c33443afd6fd8cf121374ac673362e0b04ebfa67efe282fb7a572d91e865",
+      "compatibility_changes": [
+        "Retain only the two operator-norm perturbation invertibility lemmas.",
+        "Retained theorem statements and proofs are unchanged."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Analysis/Calculus/InverseFunctionTheorem.lean",
+      "upstream_sha256": "a3a9516dfb69965bbfd1800043a9ae5f75d2198ea892e674d784573063cd73f2",
+      "local_path": "OnLeConjecture/External/TauCeti/Analysis/Calculus/InverseFunctionTheorem.lean",
+      "local_sha256": "8371f21f4b182a7e9b9b44d09f48c91137a41ef2e19c9e46b5000716d6ec287f",
+      "compatibility_changes": [
+        "Rewrite the TauCeti dependency to the selective local perturbation port.",
+        "No theorem statement or proof changed."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Geometry/Manifold/ContMDiff/Atlas.lean",
+      "upstream_sha256": "aa2b754e9666619734654c03f2010135953692fbbe1c0f4c54d7b84ccc68a355",
+      "local_path": "OnLeConjecture/External/TauCeti/Geometry/Manifold/ContMDiff/Atlas.lean",
+      "local_sha256": "aa2b754e9666619734654c03f2010135953692fbbe1c0f4c54d7b84ccc68a355",
+      "compatibility_changes": [
+        "No theorem statement or proof changed."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Geometry/Manifold/Immersion/Differential.lean",
+      "upstream_sha256": "5cf97b236a651a75e9ed5e6397a0716efd1aeff3302342c8a1a39dc7be6cc8fa",
+      "local_path": "OnLeConjecture/External/TauCeti/Geometry/Manifold/Immersion/DifferentialForward.lean",
+      "local_sha256": "cdfe391e163d1fdc9ce32a0299f30c5ed8b916cf7b4880f1db75755b96234b0a",
+      "compatibility_changes": [
+        "Retain the Euclidean forward immersion criterion from a split differential.",
+        "Replace convert with convert! for module-level definition unfolding and remove goals already closed by this conversion.",
+        "Use mathlib continuous-linear splitting to add the finite-dimensional injective-derivative corollary."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Geometry/Manifold/Immersion/Differential.lean",
+      "upstream_sha256": "5cf97b236a651a75e9ed5e6397a0716efd1aeff3302342c8a1a39dc7be6cc8fa",
+      "local_path": "OnLeConjecture/External/TauCeti/Geometry/Manifold/Immersion/ManifoldDifferentialForward.lean",
+      "local_sha256": "00033b436a749a3e5e3cced661872611b79cb524bc86b165cb3487e76317d739",
+      "compatibility_changes": [
+        "Retain chart transport and the forward split-differential criterion on boundaryless manifolds.",
+        "Replace the upstream mfderiv_abuse rewrite by unfolding mfderiv using differentiability and the boundaryless model range.",
+        "Use mathlib continuous-linear splitting with an explicit model-space type to add the finite-dimensional injective-derivative corollary."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Analysis/Normed/Module/FiniteDimension.lean",
+      "upstream_sha256": "4603a4cb7a86b2dbe3741f8cc8ccca19bf233abf28389c1b3af480fa6334446c",
+      "local_path": "OnLeConjecture/External/TauCeti/Geometry/Manifold/Immersion/FiniteDimensional.lean",
+      "local_sha256": "33fc264ef78540d0c0dcba26f03bbd2b24df5296b6c88fc5f9b683a1f708948c",
+      "compatibility_changes": [
+        "Retain the complement comparison lemma.",
+        "Add the pointwise-to-global finite-dimensional immersion criterion from Immersion/Basic.lean at the same pin.",
+        "Combine the criteria into ContMDiff immersion and native mathlib smooth-embedding corollaries."
+      ],
+      "additional_upstream_source": {
+        "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+        "path": "TauCeti/Geometry/Manifold/Immersion/Basic.lean",
+        "sha256": "07a12da21fa4a6b5db77a79014f6b8d9963a1e10a2a93f6b6ad712daa2d56da4"
+      }
+    }
+  ],
+  "audit": "AuditImmersionDifferential.lean",
+  "audit_endpoints": 18,
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

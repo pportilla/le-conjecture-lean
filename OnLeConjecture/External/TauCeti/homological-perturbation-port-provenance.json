@@ -1,0 +1,54 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "scope": "Basic homological perturbation lemma for explicit special contractions of differential modules and invertibility from local nilpotence. Applying this to grid stabilization still requires an explicit initial contraction, nilpotence, and identification of the transferred differential.",
+  "files": [
+    {
+      "upstream_path": "TauCeti/Algebra/Homology/Contraction/Linear.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Homology/Contraction/Linear.lean",
+      "upstream_sha256": "83707b2dac26cc877b2b79842ff167bb3aa8317a54bcc2465c07e7bec680c4c1",
+      "ported_sha256": "9edf291c5add28fb28791537f2cc94266f8a07fba7cf229850faf9e281d9ed88",
+      "compatibility_changes": [
+        "Import prefixes redirected and source attribution added; no proof edits."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/Homology/Contraction/Perturbation.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Homology/Contraction/Perturbation.lean",
+      "upstream_sha256": "2f4f7342cca44b959357abefcc8f872f74e950532f3832001eaaea6c68278bd7",
+      "ported_sha256": "6f6626dac4aeacadf13b02eea4b243cbd166574fbb338608c9dc08e0077f9d0e",
+      "compatibility_changes": [
+        "Import prefixes redirected and source attribution added; no proof edits."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/Algebra/Ring/Units.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/Algebra/Ring/Units.lean",
+      "upstream_sha256": "18e4684e5e4559ac8d0fac7cb2607bea928cc8dcde5bcfeab3442ca070d42340",
+      "ported_sha256": "80ef208cfd84bdfd6dc37005c4f54025a389d57622fc5f06deedf5e25c43b1fc",
+      "compatibility_changes": [
+        "Import prefixes redirected and source attribution added; no proof edits."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/LinearAlgebra/End/LocallyNilpotent.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/LinearAlgebra/End/LocallyNilpotent.lean",
+      "upstream_sha256": "ed8448ef1305f2072a8c17c63eb3ac164978d8fe4588ba8308de1e64a28b0e2f",
+      "ported_sha256": "fcdae0b2fc5788a4889b5f130b259e08308bd2a332a227619d8e05832042f67d",
+      "compatibility_changes": [
+        "Import prefixes redirected and source attribution added; no proof edits."
+      ]
+    },
+    {
+      "upstream_path": "TauCeti/LinearAlgebra/Graded/LinearMap.lean",
+      "local_path": "OnLeConjecture/External/TauCeti/LinearAlgebra/Graded/LinearMap.lean",
+      "upstream_sha256": "c41e294634274fcf04abf82e3e01c9274a5af1410e700abd6b7ed191ee6ca425",
+      "ported_sha256": "055b532ff61cde85a1941203b2708ae50621c535dcc69386a1a922116b77d4b2",
+      "compatibility_changes": [
+        "Import prefixes redirected and source attribution added; no proof edits."
+      ]
+    }
+  ]
+}

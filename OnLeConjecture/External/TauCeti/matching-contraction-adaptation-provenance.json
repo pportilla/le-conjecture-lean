@@ -1,0 +1,20 @@
+{
+  "repository": "https://github.com/TauCetiProject/TauCeti",
+  "commit": "eb4dd2412a1cd62f73128361bfd3cb422df32e37",
+  "source_path": "TauCeti/Algebra/Homology/SquareZero/Contraction.lean",
+  "source_url": "https://github.com/TauCetiProject/TauCeti/blob/eb4dd2412a1cd62f73128361bfd3cb422df32e37/TauCeti/Algebra/Homology/SquareZero/Contraction.lean",
+  "retrieved": "2026-10-29",
+  "license": "Apache-2.0",
+  "source_snapshot": "verification/2026-10-29/upstream/homological-perturbation/TauCeti/Algebra/Homology/SquareZero/Contraction.lean",
+  "snapshot_sha256": "e532c461867f3cb746e7ebb9476514fe750cdeac82e94dd70606237936fd9583",
+  "adapted_module": "OnLeConjecture/KnotFloer/MatchingContraction.lean",
+  "changes": [
+    "Extracted reverse matching homotopy and its support-decrease proof from ker_le_range_of_matching.",
+    "Retained the source coefficient-unit and well-foundedness hypotheses.",
+    "Proved the reverse matching squares to zero.",
+    "Constructed explicit normalized special contraction onto the zero module rather than concluding only exactness.",
+    "Proved preservation of invariant additive subgroups by the finite inverse and normalized homotopy.",
+    "Replaced two obsolete ite_eq_right uses with if_neg."
+  ],
+  "scope": "General algebraic contraction criterion. The stabilization-specific matching has not yet been instantiated, and this module alone does not prove stabilization equivalence."
+}
