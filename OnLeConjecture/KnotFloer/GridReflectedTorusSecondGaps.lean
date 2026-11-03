@@ -65,7 +65,8 @@ theorem cycDist_gaps_4 {m : ℕ} {c : Fin 4 ↪ Fin m} (hc : CycSorted c) :
       cycDist (c 2) (c 1) = cycDist (c 2) (c 3) + cycDist (c 3) (c 0) + cycDist (c 0) (c 1) ∧
       cycDist (c 3) (c 1) = cycDist (c 3) (c 0) + cycDist (c 0) (c 1) ∧
       cycDist (c 3) (c 2) = cycDist (c 3) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2)) ∧
-    (0 < cycDist (c 0) (c 1) ∧ 0 < cycDist (c 1) (c 2) ∧ 0 < cycDist (c 2) (c 3) ∧ 0 < cycDist (c 3) (c 0)) ∧
+    (0 < cycDist (c 0) (c 1) ∧ 0 < cycDist (c 1) (c 2) ∧ 0 < cycDist (c 2) (c 3) ∧
+        0 < cycDist (c 3) (c 0)) ∧
     cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 0) = m := by
   have hp : ∀ i l : Fin 4, i < l → cfgPos c i < cfgPos c l := fun i l h => cfgPos_lt_cfgPos hc h
   have hl : ∀ l : Fin 4, cfgPos c l < m := fun l => cfgPos_lt c l
@@ -84,21 +85,28 @@ order are sums of consecutive gaps. -/
 theorem cycDist_gaps_5 {m : ℕ} {c : Fin 5 ↪ Fin m} (hc : CycSorted c) :
     (cycDist (c 0) (c 2) = cycDist (c 0) (c 1) + cycDist (c 1) (c 2) ∧
       cycDist (c 0) (c 3) = cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) ∧
-      cycDist (c 0) (c 4) = cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) ∧
-      cycDist (c 1) (c 0) = cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 0) ∧
+      cycDist (c 0) (c 4) = cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) +
+          cycDist (c 3) (c 4) ∧
+      cycDist (c 1) (c 0) = cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) +
+          cycDist (c 4) (c 0) ∧
       cycDist (c 1) (c 3) = cycDist (c 1) (c 2) + cycDist (c 2) (c 3) ∧
       cycDist (c 1) (c 4) = cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) ∧
       cycDist (c 2) (c 0) = cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 0) ∧
-      cycDist (c 2) (c 1) = cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 0) + cycDist (c 0) (c 1) ∧
+      cycDist (c 2) (c 1) = cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 0) +
+          cycDist (c 0) (c 1) ∧
       cycDist (c 2) (c 4) = cycDist (c 2) (c 3) + cycDist (c 3) (c 4) ∧
       cycDist (c 3) (c 0) = cycDist (c 3) (c 4) + cycDist (c 4) (c 0) ∧
       cycDist (c 3) (c 1) = cycDist (c 3) (c 4) + cycDist (c 4) (c 0) + cycDist (c 0) (c 1) ∧
-      cycDist (c 3) (c 2) = cycDist (c 3) (c 4) + cycDist (c 4) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2) ∧
+      cycDist (c 3) (c 2) = cycDist (c 3) (c 4) + cycDist (c 4) (c 0) + cycDist (c 0) (c 1) +
+          cycDist (c 1) (c 2) ∧
       cycDist (c 4) (c 1) = cycDist (c 4) (c 0) + cycDist (c 0) (c 1) ∧
       cycDist (c 4) (c 2) = cycDist (c 4) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2) ∧
-      cycDist (c 4) (c 3) = cycDist (c 4) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3)) ∧
-    (0 < cycDist (c 0) (c 1) ∧ 0 < cycDist (c 1) (c 2) ∧ 0 < cycDist (c 2) (c 3) ∧ 0 < cycDist (c 3) (c 4) ∧ 0 < cycDist (c 4) (c 0)) ∧
-    cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 0) = m := by
+      cycDist (c 4) (c 3) = cycDist (c 4) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2) +
+          cycDist (c 2) (c 3)) ∧
+    (0 < cycDist (c 0) (c 1) ∧ 0 < cycDist (c 1) (c 2) ∧ 0 < cycDist (c 2) (c 3) ∧
+        0 < cycDist (c 3) (c 4) ∧ 0 < cycDist (c 4) (c 0)) ∧
+    cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) +
+        cycDist (c 4) (c 0) = m := by
   have hp : ∀ i l : Fin 5, i < l → cfgPos c i < cfgPos c l := fun i l h => cfgPos_lt_cfgPos hc h
   have hl : ∀ l : Fin 5, cfgPos c l < m := fun l => cfgPos_lt c l
   simp only [cycDist_emb_eq_cfgPos hc, cfgPos_zero]
@@ -117,30 +125,44 @@ order are sums of consecutive gaps. -/
 theorem cycDist_gaps_6 {m : ℕ} {c : Fin 6 ↪ Fin m} (hc : CycSorted c) :
     (cycDist (c 0) (c 2) = cycDist (c 0) (c 1) + cycDist (c 1) (c 2) ∧
       cycDist (c 0) (c 3) = cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) ∧
-      cycDist (c 0) (c 4) = cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) ∧
-      cycDist (c 0) (c 5) = cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 5) ∧
-      cycDist (c 1) (c 0) = cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 5) + cycDist (c 5) (c 0) ∧
+      cycDist (c 0) (c 4) = cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) +
+          cycDist (c 3) (c 4) ∧
+      cycDist (c 0) (c 5) = cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) +
+          cycDist (c 3) (c 4) + cycDist (c 4) (c 5) ∧
+      cycDist (c 1) (c 0) = cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) +
+          cycDist (c 4) (c 5) + cycDist (c 5) (c 0) ∧
       cycDist (c 1) (c 3) = cycDist (c 1) (c 2) + cycDist (c 2) (c 3) ∧
       cycDist (c 1) (c 4) = cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) ∧
-      cycDist (c 1) (c 5) = cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 5) ∧
-      cycDist (c 2) (c 0) = cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 5) + cycDist (c 5) (c 0) ∧
-      cycDist (c 2) (c 1) = cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 5) + cycDist (c 5) (c 0) + cycDist (c 0) (c 1) ∧
+      cycDist (c 1) (c 5) = cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) +
+          cycDist (c 4) (c 5) ∧
+      cycDist (c 2) (c 0) = cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 5) +
+          cycDist (c 5) (c 0) ∧
+      cycDist (c 2) (c 1) = cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 5) +
+          cycDist (c 5) (c 0) + cycDist (c 0) (c 1) ∧
       cycDist (c 2) (c 4) = cycDist (c 2) (c 3) + cycDist (c 3) (c 4) ∧
       cycDist (c 2) (c 5) = cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 5) ∧
       cycDist (c 3) (c 0) = cycDist (c 3) (c 4) + cycDist (c 4) (c 5) + cycDist (c 5) (c 0) ∧
-      cycDist (c 3) (c 1) = cycDist (c 3) (c 4) + cycDist (c 4) (c 5) + cycDist (c 5) (c 0) + cycDist (c 0) (c 1) ∧
-      cycDist (c 3) (c 2) = cycDist (c 3) (c 4) + cycDist (c 4) (c 5) + cycDist (c 5) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2) ∧
+      cycDist (c 3) (c 1) = cycDist (c 3) (c 4) + cycDist (c 4) (c 5) + cycDist (c 5) (c 0) +
+          cycDist (c 0) (c 1) ∧
+      cycDist (c 3) (c 2) = cycDist (c 3) (c 4) + cycDist (c 4) (c 5) + cycDist (c 5) (c 0) +
+          cycDist (c 0) (c 1) + cycDist (c 1) (c 2) ∧
       cycDist (c 3) (c 5) = cycDist (c 3) (c 4) + cycDist (c 4) (c 5) ∧
       cycDist (c 4) (c 0) = cycDist (c 4) (c 5) + cycDist (c 5) (c 0) ∧
       cycDist (c 4) (c 1) = cycDist (c 4) (c 5) + cycDist (c 5) (c 0) + cycDist (c 0) (c 1) ∧
-      cycDist (c 4) (c 2) = cycDist (c 4) (c 5) + cycDist (c 5) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2) ∧
-      cycDist (c 4) (c 3) = cycDist (c 4) (c 5) + cycDist (c 5) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) ∧
+      cycDist (c 4) (c 2) = cycDist (c 4) (c 5) + cycDist (c 5) (c 0) + cycDist (c 0) (c 1) +
+          cycDist (c 1) (c 2) ∧
+      cycDist (c 4) (c 3) = cycDist (c 4) (c 5) + cycDist (c 5) (c 0) + cycDist (c 0) (c 1) +
+          cycDist (c 1) (c 2) + cycDist (c 2) (c 3) ∧
       cycDist (c 5) (c 1) = cycDist (c 5) (c 0) + cycDist (c 0) (c 1) ∧
       cycDist (c 5) (c 2) = cycDist (c 5) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2) ∧
-      cycDist (c 5) (c 3) = cycDist (c 5) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) ∧
-      cycDist (c 5) (c 4) = cycDist (c 5) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4)) ∧
-    (0 < cycDist (c 0) (c 1) ∧ 0 < cycDist (c 1) (c 2) ∧ 0 < cycDist (c 2) (c 3) ∧ 0 < cycDist (c 3) (c 4) ∧ 0 < cycDist (c 4) (c 5) ∧ 0 < cycDist (c 5) (c 0)) ∧
-    cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) + cycDist (c 4) (c 5) + cycDist (c 5) (c 0) = m := by
+      cycDist (c 5) (c 3) = cycDist (c 5) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2) +
+          cycDist (c 2) (c 3) ∧
+      cycDist (c 5) (c 4) = cycDist (c 5) (c 0) + cycDist (c 0) (c 1) + cycDist (c 1) (c 2) +
+          cycDist (c 2) (c 3) + cycDist (c 3) (c 4)) ∧
+    (0 < cycDist (c 0) (c 1) ∧ 0 < cycDist (c 1) (c 2) ∧ 0 < cycDist (c 2) (c 3) ∧
+        0 < cycDist (c 3) (c 4) ∧ 0 < cycDist (c 4) (c 5) ∧ 0 < cycDist (c 5) (c 0)) ∧
+    cycDist (c 0) (c 1) + cycDist (c 1) (c 2) + cycDist (c 2) (c 3) + cycDist (c 3) (c 4) +
+        cycDist (c 4) (c 5) + cycDist (c 5) (c 0) = m := by
   have hp : ∀ i l : Fin 6, i < l → cfgPos c i < cfgPos c l := fun i l h => cfgPos_lt_cfgPos hc h
   have hl : ∀ l : Fin 6, cfgPos c l < m := fun l => cfgPos_lt c l
   simp only [cycDist_emb_eq_cfgPos hc, cfgPos_zero]

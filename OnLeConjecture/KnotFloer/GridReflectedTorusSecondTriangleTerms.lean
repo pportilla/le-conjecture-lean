@@ -193,8 +193,8 @@ theorem gamma_plus (hn : 1 ≤ n) {c : Fin 3 ↪ Fin (consecutiveTorusGridSize n
       from rfl, hcompB, cfgPerm_mul_swap, four_eval n hcB]
   rw [t1, t2, t3, t4]
   simp (config := {decide := true}) only [fourGap, gapSum, Fin.sum_univ_four,
-    Fin.isValue, ite_true, ite_false, add_zero, zero_add, Fin.reduceAdd, true_and, and_true,
-    ne_eq, not_false_eq_true, Equiv.Perm.mul_apply, Equiv.swap_apply_def]
+    Fin.isValue, ite_true, ite_false, add_zero, zero_add, Fin.reduceAdd, true_and,
+    ne_eq, Equiv.Perm.mul_apply, Equiv.swap_apply_def]
   simp only [mkCfg_apply, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
     Matrix.cons_val_three, Matrix.head_cons, Matrix.tail_cons]
   rw [hq1, hqx, hr1, hr2]
@@ -280,11 +280,11 @@ theorem phi_plus (hn : 1 ≤ n) {c : Fin 3 ↪ Fin (consecutiveTorusGridSize n)}
   rw [show Equiv.swap (c 0 - 1) (c 0 + 1) = Equiv.swap (mkCfg _ hmono 4) (mkCfg _ hmono 1)
     from rfl, hcomp, cfgPerm_mul_swap, five_eval n hc5]
   simp (config := {decide := true}) only [fiveGap, gapSum, Fin.sum_univ_five,
-    Fin.isValue, ite_true, ite_false, add_zero, zero_add, Fin.reduceAdd, true_and, and_true,
-    ne_eq, not_false_eq_true, Equiv.Perm.mul_apply, Equiv.swap_apply_def]
+    Fin.isValue, ite_true, ite_false, add_zero, zero_add, Fin.reduceAdd,
+    Equiv.Perm.mul_apply, Equiv.swap_apply_def]
   simp only [mkCfg_apply, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
     Matrix.cons_val_three, Matrix.cons_val_four, Matrix.head_cons, Matrix.tail_cons]
-  simp only [hp1, hp2, hr1, hr2]
+  simp only [hp1, hp2, hr1]
   generalize cycDist (c 0) (c 1) = x at *
   generalize cycDist (c 1) (c 2) = y at *
   generalize cycDist (c 2) (c 0) = z at *
@@ -436,8 +436,8 @@ theorem gamma_minus (hn : 1 ≤ n) {c : Fin 3 ↪ Fin (consecutiveTorusGridSize 
       from rfl, hcompB, cfgPerm_mul_swap, four_eval n hcB]
   rw [t1, t2, t3, t4]
   simp (config := {decide := true}) only [fourGap, gapSum, Fin.sum_univ_four,
-    Fin.isValue, ite_true, ite_false, add_zero, zero_add, Fin.reduceAdd, true_and, and_true,
-    ne_eq, not_false_eq_true, Equiv.Perm.mul_apply, Equiv.swap_apply_def]
+    Fin.isValue, ite_true, ite_false, add_zero, zero_add, Fin.reduceAdd, true_and,
+    ne_eq, Equiv.Perm.mul_apply, Equiv.swap_apply_def]
   simp only [mkCfg_apply, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
     Matrix.cons_val_three, Matrix.head_cons, Matrix.tail_cons]
   rw [hq1, hqx, hr1, hr2]
@@ -523,11 +523,11 @@ theorem phi_minus (hn : 1 ≤ n) {c : Fin 3 ↪ Fin (consecutiveTorusGridSize n)
   rw [show Equiv.swap (c 0 - 1) (c 0 + 1) = Equiv.swap (mkCfg _ hmono 4) (mkCfg _ hmono 1)
     from rfl, hcomp, cfgPerm_mul_swap, five_eval n hc5]
   simp (config := {decide := true}) only [fiveGap, gapSum, Fin.sum_univ_five,
-    Fin.isValue, ite_true, ite_false, add_zero, zero_add, Fin.reduceAdd, true_and, and_true,
-    ne_eq, not_false_eq_true, Equiv.Perm.mul_apply, Equiv.swap_apply_def]
+    Fin.isValue, ite_true, ite_false, add_zero, zero_add, Fin.reduceAdd,
+    Equiv.Perm.mul_apply, Equiv.swap_apply_def]
   simp only [mkCfg_apply, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
     Matrix.cons_val_three, Matrix.cons_val_four, Matrix.head_cons, Matrix.tail_cons]
-  simp only [hp1, hp2, hr1, hr2]
+  simp only [hp1, hp2, hr1]
   generalize cycDist (c 0) (c 1) = x at *
   generalize cycDist (c 1) (c 2) = y at *
   generalize cycDist (c 2) (c 0) = z at *

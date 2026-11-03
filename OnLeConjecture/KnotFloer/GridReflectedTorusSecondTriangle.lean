@@ -79,7 +79,7 @@ theorem triangle_core_plus (hn : 1 ≤ n) {c : Fin 3 ↪ Fin (consecutiveTorusGr
     sum_eq_sum_emb c _ (fun x hx => if_neg (fun h => h.1 (cfgPerm_apply_of_notMem c _ hx)))]
   simp only [Fin.sum_univ_three, cfgPerm_apply_emb, ne_eq, c.injective.eq_iff]
   simp (config := {decide := true}) only [Equiv.Perm.mul_apply, Equiv.swap_apply_def,
-    Fin.isValue, ite_true, ite_false, not_false_eq_true, true_and]
+    Fin.isValue, ite_true, ite_false, true_and]
   rw [ZMod.natCast_eq_zero_iff_even, Nat.even_iff]
   have E := edge_plus n hc
   obtain ⟨-, ⟨g1, g2, g3⟩, hN⟩ := cycDist_gaps_3 hc
@@ -264,7 +264,7 @@ theorem triangle_core_minus (hn : 1 ≤ n) {c : Fin 3 ↪ Fin (consecutiveTorusG
     sum_eq_sum_emb c _ (fun x hx => if_neg (fun h => h.1 (cfgPerm_apply_of_notMem c _ hx)))]
   simp only [Fin.sum_univ_three, cfgPerm_apply_emb, ne_eq, c.injective.eq_iff]
   simp (config := {decide := true}) only [Equiv.Perm.mul_apply, Equiv.swap_apply_def,
-    Fin.isValue, ite_true, ite_false, not_false_eq_true, true_and]
+    Fin.isValue, ite_true, ite_false, true_and]
   rw [ZMod.natCast_eq_zero_iff_even, Nat.even_iff]
   have E := edge_minus n hc
   obtain ⟨-, ⟨g1, g2, g3⟩, hN⟩ := cycDist_gaps_3 hc

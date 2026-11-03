@@ -6,7 +6,8 @@ public import OnLeConjecture.External.OpenAIMath.HolomorphicAlgebraicity.Symmetr
 /-! Vendored from openai/math at 7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a,
 `lean/OAI/AlgebraicGeometry/ComplexGroups/HolomorphicAlgebraicity/WeierstrassPreparation.lean`.
 Changes: module header, public imports, exposed public section, long-line linter
-option. Proof adaptation for the local Mathlib: Replaced `dite_eq_left` (not available in the local Mathlib) by `dif_pos`. -/
+option. Proof adaptation for the local Mathlib: Replaced `dite_eq_left` (not available in the local
+Mathlib) by `dif_pos`. -/
 
 @[expose] public section
 

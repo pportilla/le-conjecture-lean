@@ -284,7 +284,8 @@ theorem agree_O (hS₁ : InitOK S₁ offs₁ flags) (hS₂ : InitOK S₂ offs₂
     simp only
     rw [getElem_append_three hB₁.len hB₂.len _ h₁ h₂ h3]
   by_cases hc : (positiveRectilinearWordMatching (B₁ ++ t) (⟨(kc k).1, h₁⟩, (kc k).2)).1.val < 3
-  · have hc' : (positiveRectilinearWordMatching (B₂ ++ t) (⟨(kc k).1, h₂⟩, (kc k).2)).1.val < 3 := by
+  · have hc' :
+        (positiveRectilinearWordMatching (B₂ ++ t) (⟨(kc k).1, h₂⟩, (kc k).2)).1.val < 3 := by
       by_contra hh
       have := ag.1.mpr (by omega)
       omega

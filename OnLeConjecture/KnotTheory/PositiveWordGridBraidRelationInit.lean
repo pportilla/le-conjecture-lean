@@ -6,8 +6,6 @@ Authors: Pablo Portilla Cuadrado
 module
 
 public import OnLeConjecture.KnotTheory.PositiveWordGridBraidRelationMatching
-public import OnLeConjecture.KnotTheory.PositiveWordGridBraidRelationReal
-public import OnLeConjecture.KnotTheory.PositiveWordGridAdmissible
 
 /-! # The initial grid of a word with a block of three letters
 
@@ -141,7 +139,7 @@ def kc (k : ℕ) : ℕ × Fin 3 := (k / 3, ⟨k % 3, Nat.mod_lt _ (by norm_num)�
 theorem kc_cidx (h : ℕ) (c : Fin 3) : kc (cidx h c) = (h, c) := by
   have := c.isLt
   simp only [kc, cidx, Prod.mk.injEq]
-  exact ⟨by omega, Fin.ext (by simp <;> omega)⟩
+  exact ⟨by omega, Fin.ext (by simp)⟩
 
 theorem cidx_kc (k : ℕ) : cidx (kc k).1 (kc k).2 = k := by
   simp only [kc, cidx]; omega
@@ -418,7 +416,7 @@ theorem gRow_symm_block (hB : BlockHyp i offs B t (flagOf flags)) (hS : InitOK S
   · rw [hMp]
   · exfalso; rw [hMp] at h2; exact h2 hq
 
-theorem gRow_inl_mem (hB : BlockHyp i offs B t (flagOf flags)) (hS : InitOK S offs flags)
+theorem gRow_inl_mem (_hB : BlockHyp i offs B t (flagOf flags)) (hS : InitOK S offs flags)
     {p : Fin (B ++ t).length × Fin 3} {x : ℕ} (h : gRow (B ++ t) S p = Sum.inl x) : x ∈ S.rows := by
   obtain ⟨hlen, -, -, -, -, hmr, -, -, -, -, -⟩ := hS
   unfold gRow at h

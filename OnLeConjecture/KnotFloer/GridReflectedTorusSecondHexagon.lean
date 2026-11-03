@@ -75,9 +75,9 @@ theorem hex_alt_arith (p a0 a1 a2 a3 a4 a5 : ℕ) (h0 : 0 < a0) (h1 : 0 < a1) (h
     by_cases B0 : a0 + a1 ≤ p <;> by_cases B1 : a1 + a2 ≤ p <;> by_cases B2 : a2 + a3 ≤ p <;>
     by_cases B3 : a3 + a4 ≤ p <;> by_cases B4 : a4 + a5 ≤ p <;> by_cases B5 : a5 + a0 ≤ p <;>
     (try (exfalso; omega)) <;>
-    simp only [A0, A1, A2, A3, A4, A5, B0, B1, B2, B3, B4, B5, and_self, and_true, true_and,
-      and_false, false_and, if_true, if_false, not_true_eq_false, not_false_eq_true,
-      ite_true, ite_false, add_zero, zero_add] at h <;>
+    simp only [A0, A1, A2, A3, A4, A5, B0, B1, B2, B3, B4, B5, and_self, and_true,
+      and_false, if_true, if_false, not_true_eq_false, not_false_eq_true,
+      add_zero, zero_add] at h <;>
     omega
 
 variable (n : ℕ)

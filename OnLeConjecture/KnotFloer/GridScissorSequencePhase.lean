@@ -14,7 +14,8 @@ public import OnLeConjecture.KnotTheory.ScissorSequenceCount
 
 This file performs the star scissors of Section 9 of the written proof of Statement E
 (`statement_E_complete_proof.tex`, subsection "Signed word grids and the scissor switches") on an
-arbitrary signed word grid `H` of the product `(factorProduct F.factor)` of a normalized factorization.
+arbitrary signed word grid `H` of the product `(factorProduct F.factor)` of a normalized
+factorization.
 
 The columns of `H` are the corners of the product. Write `Z l x` for the column of the last
 outgoing corner of the rank `x` in the factor `l`, and `Fc l x` for the column of the first
@@ -63,7 +64,7 @@ theorem pairwise_split {α : Type*} (f : α → ℕ) (v : ℕ) :
     · have h1 : l.filter (fun b => f b < v) = [] := List.filter_eq_nil_iff.mpr
         (fun b hb => by have := hs.1 b hb; simp; omega)
       rw [h1, List.nil_append] at ih'
-      simp only [List.filter_cons, show ¬ f a < v by omega, decide_false, Bool.false_eq_true,
+      simp only [List.filter_cons, decide_false, Bool.false_eq_true,
         if_false, h, decide_true, if_true, lt_irrefl, h1, List.nil_append, List.cons_append]
       exact congrArg _ ih'
     · have h1 : l.filter (fun b => f b < v) = [] := List.filter_eq_nil_iff.mpr
@@ -90,7 +91,8 @@ abbrev prodSize : ℕ := (factorProduct F.factor).length * 3
 abbrev col (p : Fin (factorProduct F.factor).length × Fin 3) : Fin (prodSize F) := finProdFinEquiv p
 
 /-- The outgoing height of the corner of a column. -/
-def colHeight (c : Fin (prodSize F)) : ℕ := (factorProduct F.factor).oHeight2 (finProdFinEquiv.symm c)
+def colHeight (c : Fin (prodSize F)) : ℕ :=
+  (factorProduct F.factor).oHeight2 (finProdFinEquiv.symm c)
 
 /-- The column of the last corner of the rank `x` in the factor `l`. -/
 def colZ (l : Fin (N + B)) (x : Fin S) : Fin (prodSize F) :=
@@ -101,7 +103,8 @@ def colF (l : Fin (N + B)) (x : Fin S) : Fin (prodSize F) :=
   col F (firstCorner F.factor (SignedGrid.NormalizedFactorization.factor_isPadded F) hS l x)
 
 /-- The component permutation of every signed word grid of the product. -/
-def prodPerm : Equiv.Perm (Fin (prodSize F)) := finProdFinEquiv.permCongr (sM (factorProduct F.factor))
+def prodPerm : Equiv.Perm (Fin (prodSize F)) :=
+  finProdFinEquiv.permCongr (sM (factorProduct F.factor))
 
 theorem prodPerm_apply (p : Fin (factorProduct F.factor).length × Fin 3) :
     prodPerm F (col F p) = col F (sM (factorProduct F.factor) p) := by
@@ -141,14 +144,16 @@ theorem colHeight_colZ (l : Fin (N + B)) (x : Fin S) : colHeight F (colZ F hS l 
 
 theorem colZ_injective {l l' : Fin (N + B)} {x x' : Fin S} (h : colZ F hS l x = colZ F hS l' x') :
     l = l' ∧ x = x' :=
-  lastCorner_injective F.factor (SignedGrid.NormalizedFactorization.factor_isPadded F) hS (finProdFinEquiv.injective h)
+  lastCorner_injective F.factor (SignedGrid.NormalizedFactorization.factor_isPadded F) hS
+    (finProdFinEquiv.injective h)
 
 theorem colF_lt_colZ (l : Fin (N + B)) (x : Fin S) : (colF F hS l x).val < (colZ F hS l x).val :=
   firstCorner_lt_lastCorner F.factor (SignedGrid.NormalizedFactorization.factor_isPadded F) hS l x
 
 theorem colZ_lt_colF {l l' : Fin (N + B)} (h : l.val < l'.val) (x x' : Fin S) :
     (colZ F hS l x).val < (colF F hS l' x').val :=
-  lastCorner_lt_firstCorner_succ F.factor (SignedGrid.NormalizedFactorization.factor_isPadded F) hS l l' h x x'
+  lastCorner_lt_firstCorner_succ F.factor
+    (SignedGrid.NormalizedFactorization.factor_isPadded F) hS l l' h x x'
 
 /-- A first corner is never a last corner. -/
 theorem firstCorner_ne_lastCorner (l l' : Fin (N + B)) (x x' : Fin S) :
@@ -229,8 +234,10 @@ theorem center_not_mem_leaves (x : Fin S) : center F hS hN x ∉ leaves F hS x :
   have := (colZ_injective F hS h).1
   exact hl (by rw [← this]; rfl)
 
-theorem center_cons_getElem (x : Fin S) (i : ℕ) (hi : i < (center F hS hN x :: leaves F hS x).length) :
-    (center F hS hN x :: leaves F hS x)[i] = colZ F hS ⟨i, by simp [leaves_length] at hi; omega⟩ x := by
+theorem center_cons_getElem (x : Fin S) (i : ℕ)
+    (hi : i < (center F hS hN x :: leaves F hS x).length) :
+    (center F hS hN x :: leaves F hS x)[i] =
+      colZ F hS ⟨i, by simp [leaves_length] at hi; omega⟩ x := by
   rcases i with _ | i
   · rfl
   · simp only [List.getElem_cons_succ, leaves_getElem]
@@ -359,7 +366,7 @@ theorem length_starEdges (htrans : F.Transitive) (x : Fin S) :
     · refine List.mem_toFinset.mpr (List.mem_filter.mpr ⟨List.mem_finRange _, ?_⟩)
       rw [decide_eq_true_eq]
       convert hls
-      show l.val - 1 + 1 = l.val
+      change l.val - 1 + 1 = l.val
       omega
     · exact Fin.ext (show l.val - 1 + 1 = l.val by omega)
 
@@ -379,8 +386,9 @@ theorem mem_starEdges (x : Fin S) (e : Fin (prodSize F) × Fin (prodSize F)) :
     rw [sel_colZ F hS hN x l hl, decide_eq_true_eq] at hs
     exact ⟨l, hl, hs, rfl⟩
   · rintro ⟨l, hl, hs, rfl⟩
-    exact ⟨colZ F hS l x, ⟨⟨l, hl, rfl⟩, by rw [sel_colZ F hS hN x l hl, decide_eq_true_eq]; exact hs⟩,
-      rfl⟩
+    exact ⟨colZ F hS l x, ⟨⟨l, hl, rfl⟩, by
+      rw [sel_colZ F hS hN x l hl, decide_eq_true_eq]
+      exact hs⟩, rfl⟩
 
 end Selection
 
@@ -476,7 +484,7 @@ theorem rank_step (x : Fin S) {H : GridDiagram (prodSize F)} {k : ℕ}
     · obtain ⟨l, rfl⟩ := hz
       have := (hZmem (colZ F hS l x)).mp ⟨l, rfl⟩
       simp only [List.mem_cons] at this
-      simp only [colHeight_colZ, true_and, not_true_eq_false, and_false, false_or]
+      simp only [colHeight_colZ, true_and]
       tauto
     · have h1 : d ∉ L := fun h => hz ((hZmem d).mpr (List.mem_cons_of_mem _ h))
       have h2 : d ≠ c := fun h => hz ((hZmem d).mpr (h ▸ List.mem_cons_self))
@@ -527,7 +535,8 @@ theorem rank_step (x : Fin S) {H : GridDiagram (prodSize F)} {k : ℕ}
   have eM : m₁ ++ M' ++ m₂ = (m₁ ++ Oth) ++ L.reverse ++ c :: m₂ := by simp [hM']
   have hnd₂ : ((m₁ ++ Oth) ++ L.reverse ++ c :: m₂).Nodup := by rw [← eM]; exact hnd₁
   have hl₂ : ((m₁ ++ Oth) ++ L.reverse ++ c :: m₂).length = prodSize F := by rw [← eM]; exact hl₁
-  have hperm₃ : ((m₁ ++ Oth) ++ L.reverse ++ c :: m₂).Perm ((m₁ ++ Oth) ++ c :: (L.reverse ++ m₂)) := by
+  have hperm₃ : ((m₁ ++ Oth) ++ L.reverse ++ c :: m₂).Perm
+      ((m₁ ++ Oth) ++ c :: (L.reverse ++ m₂)) := by
     rw [List.append_assoc (m₁ ++ Oth)]
     exact List.Perm.append_left _ (List.perm_middle.trans (List.Perm.cons _ (List.Perm.refl _)))
   have hnd₃ : ((m₁ ++ Oth) ++ c :: (L.reverse ++ m₂)).Nodup := hperm₃.nodup_iff.mp hnd₂
@@ -580,7 +589,7 @@ theorem rank_step (x : Fin S) {H : GridDiagram (prodSize F)} {k : ℕ}
   have hblock : ∀ d ∈ Oth ++ c :: L.reverse, colHeight F d = 2 * x.val := by
     intro d hd
     rw [← hmemM', hM']
-    simp only [List.mem_append, List.mem_cons, List.mem_reverse, List.mem_singleton] at hd ⊢
+    simp only [List.mem_append, List.mem_cons, List.mem_reverse] at hd ⊢
     tauto
   have e3 : (m₁ ++ Oth) ++ c :: (L.reverse ++ m₂) = m₁ ++ (Oth ++ c :: L.reverse) ++ m₂ := by simp
   rw [e3]
@@ -647,7 +656,11 @@ theorem exists_phase_upto (htrans : F.Transitive) {H : GridDiagram (prodSize F)}
     intro _
     refine ⟨rowList H, rowList_nodup H, rowList_length H, prodPerm F, prodPerm_ne F, 0, [],
       rowList_sorted F hH, fun l x h1 h2 => by omega, fun d _ => rfl, ?_, by simp,
-      fun e => by simp; intro x _ _ _; omega, ?_⟩
+      fun e => by
+        simp only [List.not_mem_nil, nonpos_iff_eq_zero, ne_eq, exists_and_left, false_iff,
+          not_exists, not_and]
+        intro x _ _ _
+        omega, ?_⟩
     · rw [phaseGrid_rowList F hH]; exact .refl H
     · simp only [List.length_nil]
       symm

@@ -6,7 +6,6 @@ Authors: Pablo Portilla Cuadrado
 module
 
 public import OnLeConjecture.KnotTheory.SignedWordGridMovesMatching
-public import OnLeConjecture.KnotTheory.PositiveWordGridMovesTransport
 
 /-! # Rotation and far commutation of signed word grids
 
@@ -381,7 +380,7 @@ theorem height_bounds (v : SignedAdjacentWord m) (p : Fin v.length × Fin 3) :
   rcases p with ⟨h, c⟩
   simp only [SignedAdjacentWord.oHeight2, SignedAdjacentWord.xHeight2, signedOHeight2,
     signedXHeight2]
-  split_ifs <;> fin_cases c <;> simp <;> omega
+  split_ifs <;> fin_cases c <;> simp
 
 theorem height_bounds' (v : SignedAdjacentWord m) (p : Fin v.length × Fin 3)
     {c : Fin (m - 1) × ℤˣ} (h : v[p.1.val] = c) :

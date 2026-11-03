@@ -92,8 +92,7 @@ theorem coefFormula_one_zero : ((coefFormula n 1 0 : ℕ) : ZMod 2) = 1 := by
       torusFiveCoeff_eq_zero_of_card n (by omega), torusEdgeCoeff_swap n hne]
     by_cases h1 : cycDist p.1 p.2 = 1
     · rw [h1]; simp [tcE]
-    · have : ¬ ((cycDist p.1 p.2 : ℤ) = 0 + 1) := by omega
-      simp [this, h1]
+    · simp [h1]
   rw [coefFormula, Finset.sum_congr rfl hterm]
   have hcount : (∑ p ∈ (Finset.univ : Finset (Fin (consecutiveTorusGridSize n))).offDiag,
       if cycDist p.1 p.2 = 1 then 1 else 0) = consecutiveTorusGridSize n := by

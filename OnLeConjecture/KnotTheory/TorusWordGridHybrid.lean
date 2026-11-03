@@ -231,7 +231,7 @@ theorem blockColsR_append (b t₀ n m : ℕ) :
   congr 1
   first
   | exact (List.range'_append_1 t₀ n m).symm
-  | simp [List.range'_append]
+  | simp
 
 theorem rColsR_append (t₀ n m : ℕ) : rColsR t₀ (n + m) = rColsR t₀ n ++ rColsR (t₀ + n) m := by
   unfold rColsR
@@ -239,7 +239,7 @@ theorem rColsR_append (t₀ n m : ℕ) : rColsR t₀ (n + m) = rColsR t₀ n ++ 
   congr 1
   first
   | exact (List.range'_append_1 t₀ n m).symm
-  | simp [List.range'_append]
+  | simp
 
 theorem rColsR_length (t₀ n : ℕ) : (rColsR t₀ n).length = n := by simp [rColsR]
 
@@ -437,6 +437,7 @@ namespace LabeledGrid
 
 variable {n : ℕ} {C R : Type*} [DecidableEq C] [DecidableEq R]
 
+omit [DecidableEq R] in
 /-- Non-interleaving of two rows, from the positions of their markings. -/
 theorem rowsNonint_of_cols (G : LabeledGrid n C R) {x z : R} {ox xx oz xz : C}
     (h1 : ox ∈ G.cols) (h2 : xx ∈ G.cols) (h3 : oz ∈ G.cols) (h4 : xz ∈ G.cols)
@@ -447,6 +448,7 @@ theorem rowsNonint_of_cols (G : LabeledGrid n C R) {x z : R} {ox xx oz xz : C}
     G.O_inj b hb oz h3 (hOb.trans e3.symm), G.X_inj b' hb' xz h4 (hXb.trans e4.symm)]
   exact h
 
+omit [DecidableEq R] in
 /-- Two labeled grids with the same columns and markings have the same non-interleaving
 relation on rows. -/
 theorem rowsNonint_congr {n' : ℕ} (G : LabeledGrid n C R) (G' : LabeledGrid n' C R)
@@ -529,13 +531,13 @@ end LabeledGrid
 
 /-! ### Exchanging the last outgoing arcs of the first and the last block -/
 
-theorem lvT_outArc {A b r : ℕ} (hA : 1 ≤ A) (hr : r ≤ A) : lvT A (outArc A b r) = 4 * r := by
+theorem lvT_outArc {A b r : ℕ} (_hA : 1 ≤ A) (hr : r ≤ A) : lvT A (outArc A b r) = 4 * r := by
   unfold outArc
   split_ifs with h
   · subst h; simp [arcLv]
   · simp [arcLv]; omega
 
-theorem subSw_outArc {A J s b r : ℕ} (hA : 1 ≤ A) (hr : r ≤ A) :
+theorem subSw_outArc {A J s b r : ℕ} (_hA : 1 ≤ A) (hr : r ≤ A) :
     subSw A J s (outArc A b r) = if b = 0 ∧ r < s then 4 * J + 4 else if b + 1 = J then 4 * J + 3
       else 4 * (J - b) + if r = 0 then 1 else 2 := by
   unfold outArc

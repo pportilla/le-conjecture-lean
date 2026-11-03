@@ -29,7 +29,7 @@ Adjacent positions in a vertex permutation give the same face after deleting
 the intermediate barycenter. Their permutation signs are opposite.
 -/
 
-open scoped BigOperators Classical
+open scoped BigOperators
 
 open scoped OAI.Geometry.Foundations.ConvexStdSimplexMetric.Convexity.StdSimplex
 

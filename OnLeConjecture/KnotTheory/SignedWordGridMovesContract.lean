@@ -99,7 +99,7 @@ theorem consecutive_of_key {α : Type*} {K : α → ℕ} {l : List α}
     · -- `a` is the head; the next element is `b`
       cases l with
       | nil =>
-        simp at hb
+        simp only [List.mem_cons, List.not_mem_nil, or_false] at hb
         rcases hb with rfl
         exact absurd hab (lt_irrefl _)
       | cons y l' =>
@@ -222,7 +222,7 @@ theorem sM_shift (X t : SignedAdjacentWord m) {K : ℕ} (hX : X.length = K) {h :
         have hMa : sM (X ++ t) a = sh q := by rw [ha]; exact Equiv.apply_symm_apply _ _
         change a.1.val < K
         by_contra haK
-        push_neg at haK
+        push Not at haK
         have ha0 : a.2 ≠ 0 := by
           intro h0
           have := sM_middle (X ++ t) a.1
@@ -245,7 +245,7 @@ theorem sM_shift (X t : SignedAdjacentWord m) {K : ℕ} (hX : X.length = K) {h :
           have : q.1.val + K ≤ k₀.val := this
           omega
     · left
-      push_neg at hbl
+      push Not at hbl
       have heq : sM (X ++ t) p₁ = sh q := by
         apply sM_eq_of_spec _ _ _ hc0
         · rw [hxh, hq, sM_height, hO]
@@ -253,7 +253,7 @@ theorem sM_shift (X t : SignedAdjacentWord m) {K : ℕ} (hX : X.length = K) {h :
           rw [hO, ← hs]
           refine ⟨by change q.1.val + K ≤ h + K; have : q.1.val ≤ h := hle; omega, fun k ho => ?_⟩
           have hkK : K ≤ k.val := by
-            by_contra hh; push_neg at hh; exact hbl k hh ho
+            by_contra hh; push Not at hh; exact hbl k hh ho
           obtain ⟨hk', ho'⟩ := hocc k hkK ho
           have := hall ⟨k.val - K, hk'⟩ ho'
           refine ⟨?_, ?_⟩

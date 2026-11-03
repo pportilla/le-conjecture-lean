@@ -14,7 +14,8 @@ import all OnLeConjecture.KnotTheory.BraidPermutationCycles
 `SignedWordGridRelationsStatement` (written proof of Statement E,
 `statement_E_complete_proof.tex`, Lemma `signedWordGridRelations`, Section 7): a conjugacy
 derivation from a positive word `w` to a signed word `v`, both using every generator, gives a
-signed word grid of `v` related to `wordGrid w` by grid moves (`SignedGrid.signedWordGridRelations`).
+signed word grid of `v` related to `wordGrid w` by grid moves
+(`SignedGrid.signedWordGridRelations`).
 
 The derivation is performed behind the guard `padWord m = ρ ρ⁻¹`, which contains every generator,
 so that every rank occurs in every intermediate word and every cancellation is realized by

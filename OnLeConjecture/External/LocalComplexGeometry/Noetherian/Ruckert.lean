@@ -4,7 +4,8 @@ module
    Original path: LocalComplexGeometry/Noetherian/Ruckert.lean. Retrieved 2026-10-29.
    Apache 2.0 license retained in this directory.
    Module visibility and import paths adapted to this project.
-   Proof compatibility edits are recorded in OnLeConjecture/External/LocalComplexGeometry/patches/ruckert-compatibility.patch. -/
+   Proof compatibility edits are recorded in
+   OnLeConjecture/External/LocalComplexGeometry/patches/ruckert-compatibility.patch. -/
 
 public import OnLeConjecture.External.LocalComplexGeometry.Algebra.NoetherianByRemainder
 public import OnLeConjecture.External.LocalComplexGeometry.Germs.Ring

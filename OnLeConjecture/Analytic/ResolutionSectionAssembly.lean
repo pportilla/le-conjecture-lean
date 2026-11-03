@@ -285,7 +285,8 @@ theorem PointedMapGerm.exists_resolutionSectionAssembly (g : PointedMapGerm 2 3)
       rw [hD']
       exact associated_imageEquation_of_transverse_parametrization (hinjx x hx hHx) D' e he
         P hPm hep β hβ w hwker
-    refine ⟨hHx, D', e, β, a, hD', hass.irreducible hwirr, (mem_ideal_iff_of_associated hass _).mp hwm,
+    refine ⟨hHx, D', e, β, a, hD', hass.irreducible hwirr,
+      (mem_ideal_iff_of_associated hass _).mp hwm,
       fun h => hwn ((mem_ideal_iff_of_associated hass _).mpr h), ha2, hmax ▸ ham, he, hβ, hβinj,
       ?_, ?_⟩
     · rw [hwker]

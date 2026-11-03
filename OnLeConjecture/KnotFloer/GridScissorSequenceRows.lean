@@ -254,7 +254,8 @@ theorem finRotate_at (hl : (m₁ ++ a :: b :: m₂).length = n) :
   exact GridMoves.finRotate_eq_of_val_eq_succ rfl
 
 theorem ne_finRotate_at (hl : (m₁ ++ a :: b :: m₂).length = n) :
-    (⟨m₁.length, by simp at hl; omega⟩ : Fin n) ≠ finRotate n ⟨m₁.length, by simp at hl; omega⟩ := by
+    (⟨m₁.length, by simp at hl; omega⟩ : Fin n) ≠
+      finRotate n ⟨m₁.length, by simp at hl; omega⟩ := by
   rw [finRotate_at hl]
   intro h
   have := congrArg Fin.val h
@@ -339,10 +340,13 @@ theorem ScissorPhase.star_step {G : GridDiagram n} {k : ℕ} {E : List (Fin n ×
       (k + if o then 0 else 1) (E ++ if o then [(z, c)] else []) := by
   set u : Fin n := ⟨m₁.length, by simp at hl; omega⟩ with hu
   have hσu : listPerm _ hnd hl u = z := listPerm_at_left hnd hl
-  have hσv : listPerm _ hnd hl (finRotate n u) = c := by rw [finRotate_at hl]; exact listPerm_at_right hnd hl
+  have hσv : listPerm _ hnd hl (finRotate n u) = c := by
+    rw [finRotate_at hl]
+    exact listPerm_at_right hnd hl
   have hne := ne_finRotate_at hl (m₁ := m₁) (m₂ := m₂) (a := z) (b := c)
   -- The grid after the exchange, before the final row commutation.
-  have hμ'' : ∀ d, (μ * Equiv.swap (listPerm _ hnd hl u) (listPerm _ hnd hl (finRotate n u))) d ≠ d :=
+  have hμ'' : ∀ d,
+      (μ * Equiv.swap (listPerm _ hnd hl u) (listPerm _ hnd hl (finRotate n u))) d ≠ d :=
     by rw [hσu, hσv]; exact hμ'
   have hmid : ScissorPhase G (phaseGrid (listPerm _ hnd hl) (μ * Equiv.swap z c) hμ')
       (k + if o then 0 else 1) (E ++ if o then [(z, c)] else []) := by

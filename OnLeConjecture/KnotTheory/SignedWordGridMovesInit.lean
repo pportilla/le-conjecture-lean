@@ -317,7 +317,8 @@ theorem skappa_inj (hB : BlockS K E i offs sg B t (flagOf flags))
   have hS16 : S.rows.length < 16 := hS.2.2.2.2.1
   obtain ⟨-, htb⟩ := key_inj (stb_lt S _ hS16 p) (stb_lt S _ hS16 q) h
   have hg : sgRow K S (B ++ t) p = sgRow K S (B ++ t) q := by
-    rcases hgp : sgRow K S (B ++ t) p with x | a <;> rcases hgq : sgRow K S (B ++ t) q with y | b <;>
+    rcases hgp : sgRow K S (B ++ t) p with x | a <;>
+      rcases hgq : sgRow K S (B ++ t) q with y | b <;>
       rw [hgp, hgq] at htb <;> simp only [tbR] at htb
     · have hx := sgRow_inl_mem S hS hgp
       rw [WState.ri, WState.ri, List.idxOf_inj hx] at htb

@@ -6,7 +6,6 @@ Authors: Pablo Portilla Cuadrado
 module
 
 public import OnLeConjecture.KnotTheory.PositiveWordGridBraidRelationModel
-public import OnLeConjecture.KnotTheory.PositiveWordGridMovesMacros
 public import OnLeConjecture.KnotTheory.TorusWordGridHybrid
 
 /-! # Realizations of window states
@@ -70,7 +69,9 @@ theorem mem_lefts {l : List BRow} {z : ℕ} : z ∈ lefts l ↔ Sum.inl z ∈ l 
   constructor
   · rintro ⟨a, ha, h⟩
     rcases a with a | a
-    · simp at h; rw [← h]; exact ha
+    · simp only [Sum.getLeft?_inl, Option.some.injEq] at h
+      rw [← h]
+      exact ha
     · simp at h
   · intro h; exact ⟨_, h, rfl⟩
 
@@ -108,17 +109,29 @@ theorem idxOf_filterMap_lt_iff (hfg : ∀ z, f (g z) = some z) (hgf : ∀ r z, f
       by_cases hua : u = a' <;> by_cases hva : v = a'
       · subst hua; subst hva; simp
       · subst hua
-        have : g v ≠ g u := fun h => hva (by have := congrArg f h; rw [hfg, hfg] at this; simpa using this)
+        have : g v ≠ g u := fun h => hva (by
+          have := congrArg f h
+          rw [hfg, hfg] at this
+          simpa using this)
         rw [List.idxOf_cons_self, List.idxOf_cons_self,
           List.idxOf_cons_ne _ (Ne.symm hva), List.idxOf_cons_ne _ (Ne.symm this)]
         omega
       · subst hva
-        have : g u ≠ g v := fun h => hua (by have := congrArg f h; rw [hfg, hfg] at this; simpa using this)
+        have : g u ≠ g v := fun h => hua (by
+          have := congrArg f h
+          rw [hfg, hfg] at this
+          simpa using this)
         rw [List.idxOf_cons_self, List.idxOf_cons_self,
           List.idxOf_cons_ne _ (Ne.symm hua), List.idxOf_cons_ne _ (Ne.symm this)]
         omega
-      · have h1 : g u ≠ g a' := fun h => hua (by have := congrArg f h; rw [hfg, hfg] at this; simpa using this)
-        have h2 : g v ≠ g a' := fun h => hva (by have := congrArg f h; rw [hfg, hfg] at this; simpa using this)
+      · have h1 : g u ≠ g a' := fun h => hua (by
+          have := congrArg f h
+          rw [hfg, hfg] at this
+          simpa using this)
+        have h2 : g v ≠ g a' := fun h => hva (by
+          have := congrArg f h
+          rw [hfg, hfg] at this
+          simpa using this)
         rw [List.idxOf_cons_ne _ (Ne.symm hua), List.idxOf_cons_ne _ (Ne.symm hva),
           List.idxOf_cons_ne _ (Ne.symm h1), List.idxOf_cons_ne _ (Ne.symm h2)]
         have hu' := (List.mem_cons.mp hu).resolve_left hua
@@ -165,11 +178,12 @@ theorem idxOf_mid_bounds' {α : Type*} [DecidableEq α] {l m₁ mid m₂ : List 
 /-- Agreement of `NonintN` for two quadruples in the same relative order. -/
 theorem nonintN_congr {a b c d a' b' c' d' : ℕ}
     (hab : a < b ↔ a' < b') (hba : b < a ↔ b' < a') (hac : a < c ↔ a' < c') (hca : c < a ↔ c' < a')
-    (had : a < d ↔ a' < d') (hda : d < a ↔ d' < a') (hbc : b < c ↔ b' < c') (hcb : c < b ↔ c' < b')
+    (had : a < d ↔ a' < d') (_hda : d < a ↔ d' < a')
+    (_hbc : b < c ↔ b' < c') (hcb : c < b ↔ c' < b')
     (hbd : b < d ↔ b' < d') (hdb : d < b ↔ d' < b') (hcd : c < d ↔ c' < d')
     (hdc : d < c ↔ d' < c') : NonintN a b c d ↔ NonintN a' b' c' d' := by
   unfold NonintN CIooN
-  simp only [ne_iff_lt_or_gt, gt_iff_lt, hab, hba, hac, hca, had, hda, hbc, hcb, hbd, hdb, hcd, hdc]
+  simp only [ne_iff_lt_or_gt, hab, hba, hac, hca, had, hcb, hbd, hdb, hcd, hdc]
 
 /-- Agreement of `NonintN` when a strictly monotone map relates the quadruples. -/
 theorem nonintN_congr_of_iff {a b c d a' b' c' d' : ℕ}
@@ -218,7 +232,11 @@ theorem mem_rows (hG : Real S G W Q) {z : ℕ} : Sum.inl z ∈ G.rows ↔ z ∈ 
 theorem rpos_lt_iff (hG : Real S G W Q) {u v : ℕ} (hu : u ∈ S.rows) (hv : v ∈ S.rows) :
     G.rpos (Sum.inl u) < G.rpos (Sum.inl v) ↔ S.ri u < S.ri v := by
   have h := idxOf_filterMap_lt_iff Sum.getLeft? Sum.inl (fun z => rfl)
-    (fun r z h => by rcases r with r | r <;> simp at h; rw [h]) G.rows_nodup
+    (fun r z h => by
+      rcases r with r | r
+      · simp only [Sum.getLeft?_inl, Option.some.injEq] at h
+        rw [h]
+      · simp only [Sum.getLeft?_inr, reduceCtorEq] at h) G.rows_nodup
     (u := u) (v := v) (by rw [← lefts, hG.rows]; exact hu) (by rw [← lefts, hG.rows]; exact hv)
   rw [← lefts, hG.rows] at h
   exact h.symm
@@ -226,7 +244,8 @@ theorem rpos_lt_iff (hG : Real S G W Q) {u v : ℕ} (hu : u ∈ S.rows) (hv : v 
 theorem cpos_w (hG : Real S G W Q) {t : ℕ} (ht : t < W.length) :
     G.cpos (Sum.inl W[t]) = t := by
   have hl : t < (W.map (Sum.inl : ℕ → BCol)).length := by simpa using ht
-  have e : W.map Sum.inl = (W.map (Sum.inl : ℕ → BCol)).take t ++ (W.map (Sum.inl : ℕ → BCol))[t] :: (W.map (Sum.inl : ℕ → BCol)).drop (t + 1) := by
+  have e : W.map Sum.inl = (W.map (Sum.inl : ℕ → BCol)).take t ++
+      (W.map (Sum.inl : ℕ → BCol))[t] :: (W.map (Sum.inl : ℕ → BCol)).drop (t + 1) := by
     rw [List.cons_getElem_drop_succ, List.take_append_drop]
   rw [G.cpos_of_cols_eq (l₁ := (W.map (Sum.inl : ℕ → BCol)).take t)
     (l₂ := (W.map (Sum.inl : ℕ → BCol)).drop (t + 1) ++ Q.map Sum.inr) (by

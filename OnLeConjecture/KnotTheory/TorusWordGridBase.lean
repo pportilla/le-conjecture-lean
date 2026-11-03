@@ -143,13 +143,15 @@ theorem exists_stabO (G : LabeledGrid n C R) {l₁ l₂ : List C} {m₁ m₂ : L
       rw [destabO_O]
       by_cases hcd : c = d
       · subst hcd; rw [Function.update_self]
-      · have hcm' : c ∈ G.cols := by rw [hc]; simp only [List.mem_append, List.mem_cons] at hcm ⊢; tauto
+      · have hcm' : c ∈ G.cols := by
+          rw [hc]; simp only [List.mem_append, List.mem_cons] at hcm ⊢; tauto
         rw [Function.update_of_ne hcd]
         simp only [G']
         rw [Function.update_of_ne (hne _ hcm'), Function.update_of_ne hcd]
     · intro c hcm
       rw [destabO_cols] at hcm
-      have hcm' : c ∈ G.cols := by rw [hc]; simp only [List.mem_append, List.mem_cons] at hcm ⊢; tauto
+      have hcm' : c ∈ G.cols := by
+        rw [hc]; simp only [List.mem_append, List.mem_cons] at hcm ⊢; tauto
       rw [destabO_X]
       simp only [G']
       rw [Function.update_of_ne (hne _ hcm')]
@@ -358,7 +360,8 @@ theorem exists_baseState {A J : ℕ} (hA : 1 ≤ A) (hJ : 1 ≤ J) :
     rw [hr₄', List.mem_cons, hrow₂]
   have rlt : ∀ a b, a ∈ G₄.rows → b ∈ G₄.rows → hybLtS A (J + 1) 0 a b → G₄.rpos a < G₄.rpos b :=
     fun a b ha hb h => G₄.rpos_lt_of_pairwise (fun _ _ => hybLtS_asymm) hsort₄ ha hb h
-  have mo : ∀ r ≤ A, outArc A 0 r ∈ G₄.rows := fun r hr => (hmem₄ _).mpr (Or.inr (Or.inl ⟨r, hr, rfl⟩))
+  have mo : ∀ r ≤ A, outArc A 0 r ∈ G₄.rows := fun r hr =>
+    (hmem₄ _).mpr (Or.inr (Or.inl ⟨r, hr, rfl⟩))
   have mw : ∀ r ≤ A, outArc A J r ∈ G₄.rows := fun r hr => by
     refine (hmem₄ _).mpr (Or.inr (Or.inr ?_))
     unfold outArc; split_ifs
@@ -391,7 +394,8 @@ theorem exists_baseState {A J : ℕ} (hA : 1 ≤ A) (hJ : 1 ≤ J) :
         Function.update_of_ne (cor_ne_rCol _ _ _ _), hO₂, baseGrid_O, hybO_cor,
         hXB₂ (A - 1) (by omega), show A - 1 - (A - 1) = 0 by omega,
         show arc 0 (A - 1) 2 = outArc A 0 1 by rw [outArc_pos one_ne_zero]]
-      have h1 := rlt _ _ (mo 0 (by omega)) (mo 1 hA) ((hlt_oo (by omega) hA).mpr (Or.inl (by omega)))
+      have h1 := rlt _ _ (mo 0 (by omega)) (mo 1 hA)
+        ((hlt_oo (by omega) hA).mpr (Or.inl (by omega)))
       have h2 := rlt _ _ (mo 0 (by omega)) (mw 0 (by omega)) ((hlt_oo (by omega) (by omega)).mpr
         (Or.inr ⟨rfl, by
           rw [subSw_outArc hA (by omega), subSw_outArc hA (by omega)]
@@ -424,7 +428,7 @@ theorem exists_baseState {A J : ℕ} (hA : 1 ≤ A) (hJ : 1 ≤ J) :
         rw [hlt_oo (by omega) le_rfl, subSw_outArc hA (by omega), subSw_outArc hA le_rfl]
         by_cases hs0 : s = 0
         · right; subst hs0
-          simp [show J ≠ 0 by omega, show A ≠ 0 by omega] <;> omega
+          simp [show J ≠ 0 by omega, show A ≠ 0 by omega]
         · left; omega)
       have h4 := rlt _ _ (mw (A - 1 - s) (by omega)) (mw A le_rfl) (by
         rw [hlt_oo (by omega) le_rfl]; left; omega)
@@ -466,7 +470,7 @@ theorem blockBs_split {A s : ℕ} (hs : s < A) :
     blockBs 0 A = blockBs 0 s ++ cor 0 s 2 :: blockBs (s + 1) (A - s - 1) := by
   unfold blockBs
   rw [show A = s + (1 + (A - s - 1)) by omega, ← List.range'_append_1, ← List.range'_append_1]
-  simp [show s + (1 + (A - s - 1)) - s - 1 = A - s - 1 by omega]
+  simp
 
 theorem blockBs_length (t₀ k : ℕ) : (blockBs t₀ k).length = k := by simp [blockBs]
 
@@ -478,16 +482,17 @@ theorem cpos_B (hG : BaseState A J G) {s : ℕ} (hs : s < A) : G.cpos (cor 0 s 2
   rw [G.cpos_of_cols_eq (l₁ := [cor 0 (A - 1) 1] ++ blockBs 0 s)
     (l₂ := blockBs (s + 1) (A - s - 1) ++ [rCol 0] ++ wordCols A 1 J)
     (by rw [hG.cols, blockBs_split hs]; simp)]
-  simp [blockBs_length] <;> omega
+  simp [blockBs_length]
 
 theorem rowsNonint_outArc (hG : BaseState A J G) (hA : 1 ≤ A) (hJ : 1 ≤ J) {r : ℕ} (hr : r ≤ A) :
     G.RowsNonint (outArc A 0 r) (outArc A J r) := by
   have hpre : G.cols = ([cor 0 (A - 1) 1] ++ blockBs 0 A ++ [rCol 0]) ++ wordCols A 1 J := hG.cols
   have hplen : ([cor 0 (A - 1) 1] ++ blockBs 0 A ++ [rCol 0]).length = A + 2 := by
-    simp [blockBs_length] <;> omega
+    simp [blockBs_length]
   have memB : ∀ s < A, cor 0 s 2 ∈ G.cols := fun s hs => by
     rw [hG.cols]; simp [mem_blockBs]; omega
-  have memW : ∀ b t (c : Fin 3), 1 ≤ b → b < 1 + J → t < A → cor b t c ∈ G.cols := fun b t c h1 h2 h3 => by
+  have memW : ∀ b t (c : Fin 3), 1 ≤ b → b < 1 + J → t < A → cor b t c ∈ G.cols :=
+      fun b t c h1 h2 h3 => by
     rw [hpre, List.mem_append, mem_wordCols]; exact Or.inr ⟨b, h1, h2, t, h3, c, rfl⟩
   -- the `O`-column of the inner arc
   obtain ⟨ox, hox, eox, pox⟩ : ∃ ox ∈ G.cols, G.O ox = outArc A 0 r ∧ G.cpos ox = A - r + 1 := by
@@ -496,8 +501,8 @@ theorem rowsNonint_outArc (hG : BaseState A J G) (hA : 1 ≤ A) (hJ : 1 ≤ J) {
       refine ⟨rCol 0, by rw [hG.cols]; simp, hG.O_κ, ?_⟩
       rw [G.cpos_of_cols_eq (l₁ := [cor 0 (A - 1) 1] ++ blockBs 0 A) (l₂ := wordCols A 1 J)
         (by rw [hG.cols]; simp)]
-      simp [blockBs_length] <;> omega
-    · refine ⟨cor 0 (A - r) 2, memB _ (by omega), ?_, by rw [hG.cpos_B (by omega)] <;> omega⟩
+      simp [blockBs_length]
+    · refine ⟨cor 0 (A - r) 2, memB _ (by omega), ?_, by rw [hG.cpos_B (by omega)]⟩
       rw [hG.O_B _ (by omega), outArc_pos h0]
   -- the `X`-column of the outer arc
   obtain ⟨xy, hxy, exy, pxy⟩ : ∃ xy ∈ G.cols, G.X xy = outArc A J r ∧ G.cpos xy = A - r := by
@@ -506,11 +511,13 @@ theorem rowsNonint_outArc (hG : BaseState A J G) (hA : 1 ≤ A) (hJ : 1 ≤ J) {
       refine ⟨cor 0 (r - 1) 1, by rw [hG.cols]; simp, hG.X_V, ?_⟩
       rw [G.cpos_of_cols_eq (l₁ := []) (l₂ := blockBs 0 r ++ [rCol 0] ++ wordCols r 1 J)
         (by rw [hG.cols]; simp)]; simp
-    · refine ⟨cor 0 (A - 1 - r) 2, memB _ (by omega), ?_, by rw [hG.cpos_B (by omega)] <;> omega⟩
+    · refine ⟨cor 0 (A - 1 - r) 2, memB _ (by omega), ?_, by
+        rw [hG.cpos_B (by omega)]; omega⟩
       rw [hG.X_B _ (by omega)]; congr 1; omega
   -- the `X`-column of the inner arc, in block `1`
   obtain ⟨tx, cx, htx, exx, hxpos⟩ : ∃ (tx : ℕ) (cx : Fin 3), tx < A ∧
-      G.X (cor 1 tx cx) = outArc A 0 r ∧ 3 * tx + cx.val = if r = A then 1 else 3 * (A - 1 - r) := by
+      G.X (cor 1 tx cx) = outArc A 0 r ∧
+        3 * tx + cx.val = if r = A then 1 else 3 * (A - 1 - r) := by
     by_cases hrA : r = A
     · subst hrA
       refine ⟨0, 1, by omega, ?_, by simp⟩
@@ -532,17 +539,20 @@ theorem rowsNonint_outArc (hG : BaseState A J G) (hA : 1 ≤ A) (hJ : 1 ≤ J) {
     · refine ⟨A - r, 2, by omega, ?_, by simp [h0]⟩
       rw [hG.O_w _ (mem_wordCols.mpr ⟨J, hJ, by omega, A - r, by omega, 2, rfl⟩), hybO_cor,
         outArc_pos h0]
-  have hxm : cor 1 tx cx ∈ wordCols A 1 J := mem_wordCols.mpr ⟨1, le_rfl, by omega, tx, htx, cx, rfl⟩
+  have hxm : cor 1 tx cx ∈ wordCols A 1 J :=
+    mem_wordCols.mpr ⟨1, le_rfl, by omega, tx, htx, cx, rfl⟩
   have p1 := G.length_le_cpos_of_mem hpre hxm
   rw [hplen] at p1
   have p2 : G.cpos (cor 1 tx cx) < G.cpos (cor J ty cy) := by
     by_cases hJ1 : J = 1
     · subst hJ1
-      have hc1 : G.cols = ([cor 0 (A - 1) 1] ++ blockBs 0 A ++ [rCol 0]) ++ blockCols A 1 ++ [] := by
+      have hc1 : G.cols =
+          ([cor 0 (A - 1) 1] ++ blockBs 0 A ++ [rCol 0]) ++ blockCols A 1 ++ [] := by
         rw [hpre, wordCols_succ]; simp [wordCols]
       rw [cpos_cor G hc1 htx, cpos_cor G hc1 hty]
       split_ifs at hxpos hypos <;> omega
-    · have hc2 : G.cols = (([cor 0 (A - 1) 1] ++ blockBs 0 A ++ [rCol 0]) ++ wordCols A 1 (J - 1)) ++
+    · have hc2 : G.cols =
+          (([cor 0 (A - 1) 1] ++ blockBs 0 A ++ [rCol 0]) ++ wordCols A 1 (J - 1)) ++
           blockCols A J := by
         rw [hpre]
         conv_lhs => rw [show J = J - 1 + 1 by omega, wordCols_succ', show 1 + (J - 1) = J by omega]
@@ -646,7 +656,8 @@ theorem BaseState.exists_isHybrid {n A J : ℕ} {G : LabeledGrid n TorusCol Toru
       · exact ⟨J, hJ, by omega, A - 1, by omega, 1, rfl⟩
       · exact ⟨J, hJ, by omega, A - r, by omega, 2, rfl⟩)
     (fun r hr => by rw [hJ']; exact hG.rowsNonint_outArc hA hJ hr)
-  have hrows : ∀ x, x ∈ G₁.rows ↔ x = rRow 0 ∨ BaseRow A J x := fun x => (hm x).trans (hG.rows_iff x)
+  have hrows : ∀ x, x ∈ G₁.rows ↔ x = rRow 0 ∨ BaseRow A J x :=
+    fun x => (hm x).trans (hG.rows_iff x)
   have hcols : G₁.cols = [cor 0 (A - 1) 1] ++ blockBs 0 A ++ [rCol 0] ++ wordCols A 1 J :=
     hc.trans hG.cols
   have hmemc : ∀ c ∈ G₁.cols, c = cor 0 (A - 1) 1 ∨ (∃ s < A, c = cor 0 s 2) ∨ c = rCol 0 ∨

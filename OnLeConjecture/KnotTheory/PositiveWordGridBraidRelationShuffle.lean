@@ -30,7 +30,7 @@ theorem eq_nil_of_append_cons_eq {α : Type*} {X Y Z : List α} {r : α} (hY : r
   · exfalso
     have : (X ++ r :: Y') ++ [b] = Z ++ [r] := by simpa using h
     have hb := (List.append_inj' this rfl).2
-    simp at hb
+    simp only [List.cons.injEq, and_true] at hb
     exact hY (by simp [hb])
 
 namespace LabeledGrid
@@ -141,7 +141,8 @@ theorem movesTo_of_shuffle (free win : R → Bool) (hfw : ∀ r, free r = true �
           List.filter_cons_of_neg (by simpa using hp'), List.filter_nil, List.append_nil] at h
         rw [List.filter_append, ← h]
     refine hmv.trans (ih H₂ (a₁ ++ b₁) l₂' (r :: s) (by simp at hl; omega) (hc₂.trans hc₁)
-      (hO₂.trans hO₁) (hX₂.trans hX₁) (by simp [hr₂']) (by rw [hr₂]; simp only [List.append_assoc, List.singleton_append])
+      (hO₂.trans hO₁) (hX₂.trans hX₁) (by simp [hr₂'])
+      (by rw [hr₂]; simp only [List.append_assoc, List.singleton_append])
       (key _ hf') (key _ hw'))
 
 end LabeledGrid

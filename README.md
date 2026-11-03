@@ -43,8 +43,8 @@ Install [elan](https://github.com/leanprover/elan), the Lean toolchain manager, 
 git clone https://github.com/pportilla/le-conjecture-lean.git
 cd le-conjecture-lean
 lake exe cache get
-lake build
-lake env lean AuditLeConjectureNative.lean
+lake --wfail build
+lake env lean -DwarningAsError=true AuditLeConjectureNative.lean
 ```
 
 [`lean-toolchain`](lean-toolchain) selects Lean `v4.33.1`. [`lakefile.toml`](lakefile.toml) selects Mathlib `v4.33.1`, and [`lake-manifest.json`](lake-manifest.json) records the exact revisions of all Lake dependencies. Keep these files together. TeX is optional and is needed only to compile the written notes.

@@ -86,7 +86,8 @@ theorem pairwise_mid {α : Type*} {R : α → α → Prop} {l m₁ mid m₂ : Li
   rw [List.pairwise_append, List.pairwise_cons, List.pairwise_append] at hl
   exact ⟨hl.2.1.1 z (by simp [hz]), hl.2.1.2.2.2 z hz y (by simp)⟩
 
-theorem blockBs_succ' {A : ℕ} (h : 1 ≤ A) : blockBs 0 A = blockBs 0 (A - 1) ++ [cor 0 (A - 1) 2] := by
+theorem blockBs_succ' {A : ℕ} (h : 1 ≤ A) :
+    blockBs 0 A = blockBs 0 (A - 1) ++ [cor 0 (A - 1) 2] := by
   conv_lhs => rw [show A = A - 1 + 1 by omega]
   rw [blockBs_succ, zero_add]
 
@@ -474,7 +475,7 @@ theorem exists_step {m : ℕ} (hA : 1 ≤ A) (hs : s < A) {G : LabeledGrid (m + 
     rw [hc₃] at hx
     have h2m : x ∈ G₂.cols := by
       rw [hcols₂]
-      exact (((List.sublist_cons_self _ _).cons₂ _).append_left _).subset hx
+      exact (((List.sublist_cons_self _ _).cons_cons _).append_left _).subset hx
     have h1m : x ∈ G₁.cols := by
       rw [hcolsG, List.append_assoc]; rw [hc₂] at h2m
       exact ((List.perm_middle).symm.append_left _).subset h2m
@@ -587,7 +588,7 @@ theorem absG_rRow (A t : ℕ) : absG A (rRow t) = if t = 0 then rRow 0 else rRow
 theorem absG_arc (A b t : ℕ) (c : Fin 3) : absG A (arc b t c) =
     if b = 0 then (if c = 2 then iRow (A - t) else iRow 0) else arc (b - 1) t c := rfl
 
-theorem absG_outArc {A r : ℕ} (hA : 1 ≤ A) (hr : r ≤ A) (b : ℕ) :
+theorem absG_outArc {A r : ℕ} (_hA : 1 ≤ A) (hr : r ≤ A) (b : ℕ) :
     absG A (outArc A b r) = inRow A b r := by
   by_cases hb : b = 0
   · subst hb
@@ -659,8 +660,8 @@ theorem absorb_vals {A k J : ℕ} (hA : 1 ≤ A) {y : TorusRow} (hy : StRow A k 
     have hc := c.isLt
     rcases (show c.val = 0 ∨ c.val = 1 ∨ c.val = 2 by omega) with hc | hc | hc <;>
       simp only [hc] <;> split_ifs <;>
-      simp only [false_or, false_and, and_false, or_false, true_and, and_true, true_or,
-        or_true] at * <;> first | contradiction | omega
+      simp only [false_and, and_false, or_false, true_and, and_true, true_or] at * <;>
+      first | contradiction | omega
 
 theorem absorb_mono {A k J : ℕ} (hA : 1 ≤ A) {a b : TorusRow} (ha : StRow A k J A a)
     (hb : StRow A k J A b) (h : hybLtS A (J + 1) (A + 1) a b) :
@@ -718,7 +719,8 @@ theorem rowsNonint_outArc (hG : Stage3 A k J A G) (hA : 1 ≤ A) (hk : 1 ≤ k) 
       · rw [cpos_rCol G hcols (by omega)]; omega
   -- the `X`-column of the inner arc, in block `1`
   obtain ⟨tx, cx, htx, exx, hxpos⟩ : ∃ (tx : ℕ) (cx : Fin 3), tx < A ∧
-      G.X (cor 1 tx cx) = outArc A 0 r ∧ 3 * tx + cx.val = if r = A then 1 else 3 * (A - 1 - r) := by
+      G.X (cor 1 tx cx) = outArc A 0 r ∧
+        3 * tx + cx.val = if r = A then 1 else 3 * (A - 1 - r) := by
     by_cases hrA : r = A
     · subst hrA
       refine ⟨0, 1, by omega, ?_, by simp⟩
@@ -739,7 +741,8 @@ theorem rowsNonint_outArc (hG : Stage3 A k J A G) (hA : 1 ≤ A) (hk : 1 ≤ k) 
       exact ⟨A - 1, 1, by omega, by rw [hG.O_c _ _ _ (hm _ (by omega) _), outArc_zero], by simp⟩
     · exact ⟨A - r, 2, by omega, by rw [hG.O_c _ _ _ (hm _ (by omega) _), outArc_pos h0],
         by simp [h0]⟩
-  have hxm : cor 1 tx cx ∈ wordCols A 1 J := mem_wordCols.mpr ⟨1, le_rfl, by omega, tx, htx, cx, rfl⟩
+  have hxm : cor 1 tx cx ∈ wordCols A 1 J :=
+    mem_wordCols.mpr ⟨1, le_rfl, by omega, tx, htx, cx, rfl⟩
   have hym : cor J ty cy ∈ wordCols A 1 J := mem_wordCols.mpr ⟨J, hJ, by omega, ty, hty, cy, rfl⟩
   have hxym : rCol (A - r) ∈ G.cols := by
     rw [hcols, List.mem_append, mem_rCols]; exact Or.inl ⟨_, by omega, rfl⟩
@@ -764,7 +767,8 @@ theorem rowsNonint_outArc (hG : Stage3 A k J A G) (hA : 1 ≤ A) (hk : 1 ≤ k) 
         (List.mem_append_right _ (mem_wordCols.mpr ⟨1, le_rfl, by omega, tx, htx, cx, rfl⟩))
         (mem_blockCols.mpr ⟨ty, hty, cy, rfl⟩)
   have p3 : G.cpos (rCol (A - r)) = A - r := cpos_rCol G hcols (by omega)
-  refine G.rowsNonint_of_cols hox (hG.cols_eq ▸ List.mem_append_right _ hxm) ?_ hxym eox exx eoy exy ?_
+  refine G.rowsNonint_of_cols hox (hG.cols_eq ▸ List.mem_append_right _ hxm) ?_
+    hxym eox exx eoy exy ?_
   · rw [hcols']; exact List.mem_append_right _ hym
   · apply nonintN_of_nested; left
     rw [p3]
@@ -822,15 +826,15 @@ theorem absG_O_rCol {A k i : ℕ} (hi : i < A + 1 + k) :
   · rw [if_neg hiA]
     by_cases h0 : i = 0
     · subst h0; simp [oRes, winO, absG_rRow]
-    · have h1 : oRes A (k + 1) i = A + 2 + k - i := by unfold oRes; split_ifs <;> omega
-      have h2 : oRes A k i = A + 1 + k - i := by unfold oRes; split_ifs <;> omega
+    · have h1 : oRes A (k + 1) i = A + 2 + k - i := by unfold oRes; split_ifs; omega
+      have h2 : oRes A k i = A + 1 + k - i := by unfold oRes; split_ifs; omega
       rw [h1, h2]
       unfold winO
       by_cases hik : i = k
       · rw [if_pos (by omega), if_neg (by omega), absG_iRow]; congr 1; omega
       · rw [if_neg (by omega), if_neg (by omega), absG_rRow, if_neg (by omega)]; congr 1; omega
 
-theorem absG_X_rCol {A k J i : ℕ} (hA : 1 ≤ A) (hk : 1 ≤ k) (hi : i < A + 1 + k) :
+theorem absG_X_rCol {A k J i : ℕ} (hA : 1 ≤ A) (_hk : 1 ≤ k) (hi : i < A + 1 + k) :
     absG A (winX A (J + 1) (xRes A k i)) = winX A J (xRes A (k + 1) i) := by
   unfold winX xRes
   by_cases hi1 : i ≤ A + 1
@@ -894,7 +898,7 @@ theorem exists_isHybrid (hG : Stage3 A k J A G) (hA : 1 ≤ A) (hk : 1 ≤ k)
     · rw [absG_arc, if_neg (by omega), absGinv_arc, Nat.sub_add_cancel hb1]
   refine ⟨G₁.relabel (absF A k) (absFinv A k) (absG A) (absGinv A) hf hg, ⟨?_, ?_, ?_, ?_, ?_⟩,
     LabeledGrid.toGrid_relabel _ _ _ _ _ _ _⟩
-  · show G₁.cols.map (absF A k) = hybCols A (k + 1) J
+  · change G₁.cols.map (absF A k) = hybCols A (k + 1) J
     rw [hcols, List.map_append, List.map_cons, map_absF_rCols, map_absF_wordCols A k J 0,
       hybCols, absF_cor, if_pos rfl, show A + 1 + (k + 1) = A + 1 + k + 1 by omega, rCols_succ]
     simp
@@ -946,7 +950,7 @@ theorem exists_isHybrid (hG : Stage3 A k J A G) (hA : 1 ≤ A) (hk : 1 ≤ k)
       · refine ⟨arc (b + 1) t c, (hrows _).mpr (Or.inr (Or.inr (Or.inr (Or.inr
           ⟨b + 1, by omega, by omega, t, ht, c, rfl⟩)))), ?_⟩
         rw [absG_arc, if_neg (by omega)]; rfl
-  · show (G₁.rows.map (absG A)).Pairwise (hybLtS A J 0)
+  · change (G₁.rows.map (absG A)).Pairwise (hybLtS A J 0)
     exact List.pairwise_map.mpr (hsort.imp_of_mem fun ha hb h =>
       absorb_mono hA ((hrows _).mp ha) ((hrows _).mp hb) h)
 

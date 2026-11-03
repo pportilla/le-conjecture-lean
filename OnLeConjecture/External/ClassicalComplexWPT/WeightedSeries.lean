@@ -4,7 +4,8 @@ module
    Original path: ClassicalComplexWPT/WeightedSeries.lean. Retrieved 2026-10-29.
    Apache 2.0 license retained in this directory.
    Module visibility and import paths adapted to this project.
-   Proof compatibility edits are recorded in OnLeConjecture/External/LocalComplexGeometry/patches/ruckert-compatibility.patch. -/
+   Proof compatibility edits are recorded in
+   OnLeConjecture/External/LocalComplexGeometry/patches/ruckert-compatibility.patch. -/
 
 public import Mathlib.Analysis.Normed.Lp.lpSpace
 public import Mathlib.Analysis.Normed.Operator.NormedSpace

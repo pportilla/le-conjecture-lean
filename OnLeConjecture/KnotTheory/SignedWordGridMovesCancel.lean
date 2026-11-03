@@ -109,7 +109,7 @@ theorem idx_lt_of_key {α : Type*} [DecidableEq α] {K : α → ℕ} {l : List �
   idxOf_lt_of_level (hl.imp le_of_lt) hx hy hxy
 
 /-- The ordering of the ends of the two outside arcs of a rank meeting the block. -/
-theorem order_NP (hB : BlockS K E i offs sg B t (flagOf flags))
+theorem order_NP (_hB : BlockS K E i offs sg B t (flagOf flags))
     {qN qP : Fin (B ++ t).length × Fin 3} (hN : K ≤ qN.1.val) (hP : K ≤ qP.1.val)
     (hbN : ((sM (B ++ t)).symm qN).1.val < K) (hbP : (sM (B ++ t) qP).1.val < K)
     (hh : (B ++ t).xHeight2 qN = (B ++ t).oHeight2 qP) :
@@ -197,7 +197,7 @@ theorem outsideQK_colAt {K L : ℕ} (k : ℕ) (hk : k < (outsideQK K L).length) 
     (outsideQK K L)[k] = ((k + 3 * K) / 3, ⟨k % 3, Nat.mod_lt _ (by norm_num)⟩) := by
   rw [outsideQK_getElem]
   simp only [kc, Prod.mk.injEq]
-  refine ⟨by omega, Fin.ext (by simp <;> omega)⟩
+  refine ⟨by omega, Fin.ext (by simp)⟩
 
 theorem X_label_inv {K E i : ℕ} {offs : List ℕ} {sg : List Bool} {flags : List Bool}
     {B t : SignedAdjacentWord m} (S : WState) (hB : BlockS K E i offs sg B t (flagOf flags))
@@ -364,7 +364,7 @@ theorem cancel_front_of_data (hB : BlockS 2 1 r [0, 0] sg X t (flagOf [true, tru
     obtain ⟨hK1, -, -⟩ := mem_outsideQK hqn
     have := order_NP hB (qN := (⟨qn.1, h1⟩, qn.2)) (qP := (⟨qp.1, h2⟩, qp.2)) hK1 hK2 hb1 hb2
       (by rw [hx1, ho2])
-    simp only [finProdFinEquiv_val3, Fin.val_mk] at this
+    simp only [finProdFinEquiv_val3] at this
     simp only [cidx]; omega
   have hNP := horder (e' := 0) hqN hqP (by simpa using hXN) (by simpa using hOP)
   have hNP' := horder hqN' hqP' hXN' hOP'
@@ -427,7 +427,7 @@ theorem cancel_front_of_data (hB : BlockS 2 1 r [0, 0] sg X t (flagOf [true, tru
     rw [hXH₁, Function.update_of_ne (by simpa using hqNN'.symm), hXN']
   have hsl1 : H₁.rows.Sublist H.rows := by
     rw [hr₁, hrows1]
-    exact ((List.sublist_cons_self _ m₂).cons₂ _).append_left m₁
+    exact ((List.sublist_cons_self _ m₂).cons_cons _).append_left m₁
   have hsort1 : H₁.rows.Pairwise (fun a b => sKf S [0, 0] sg r 2 t N a <
       sKf S [0, 0] sg r 2 t N b) := hsort.sublist hsl1
   have hsub1 : H₁.rows ⊆ H.rows := hsl1.subset
@@ -490,7 +490,7 @@ theorem cancel_front_of_data (hB : BlockS 2 1 r [0, 0] sg X t (flagOf [true, tru
     rw [hr₂]
     refine hsort1.sublist ?_
     rw [hrows2]
-    exact ((List.sublist_cons_self _ m₂').cons₂ _).append_left m₁'
+    exact ((List.sublist_cons_self _ m₂').cons_cons _).append_left m₁'
   -- the corners of `t` inside `X ++ t`
   have hshQ : ∀ a : Fin t.length × Fin 3, (a.1.val + 2, a.2) ∈ Q := by
     intro a
@@ -500,7 +500,7 @@ theorem cancel_front_of_data (hB : BlockS 2 1 r [0, 0] sg X t (flagOf [true, tru
     · rw [List.mem_range'_1]; have := a.1.isLt; have := a.2.isLt; omega
     · have := a.2.isLt
       simp only [kc, Prod.mk.injEq]
-      exact ⟨by omega, Fin.ext (by simp <;> omega)⟩
+      exact ⟨by omega, Fin.ext (by simp)⟩
   have hcolAt : ∀ a : Fin t.length × Fin 3,
       H₂.colAt (Fin.cast hn.symm (finProdFinEquiv a)) = Sum.inr (a.1.val + 2, a.2) := by
     intro a
@@ -510,7 +510,7 @@ theorem cancel_front_of_data (hB : BlockS 2 1 r [0, 0] sg X t (flagOf [true, tru
     refine (outsideQK_colAt (K := 2) (L := 2 + t.length) _ _).trans ?_
     have := a.2.isLt
     simp only [finProdFinEquiv_val3, Prod.mk.injEq]
-    exact ⟨by omega, Fin.ext (by simp <;> omega)⟩
+    exact ⟨by omega, Fin.ext (by simp)⟩
   have hcorner : ∀ a : Fin t.length × Fin 3, ∃ ha : a.1.val + 2 < (X ++ t).length,
       Gx.O (Sum.inr (a.1.val + 2, a.2)) = sgRow 2 S (X ++ t) (⟨a.1.val + 2, ha⟩, a.2) ∧
       Gx.X (Sum.inr (a.1.val + 2, a.2)) =
@@ -539,8 +539,10 @@ theorem cancel_front_of_data (hB : BlockS 2 1 r [0, 0] sg X t (flagOf [true, tru
     obtain ⟨hb, hOb, -⟩ := hcorner b
     rw [hOa, hOb]
     apply idx_lt_of_key hsort2
-    · rw [← hOa, ← hOF _ (hshQ a)]; exact H₂.O_mem _ (by rw [hcolsF]; exact List.mem_map_of_mem (hshQ a))
-    · rw [← hOb, ← hOF _ (hshQ b)]; exact H₂.O_mem _ (by rw [hcolsF]; exact List.mem_map_of_mem (hshQ b))
+    · rw [← hOa, ← hOF _ (hshQ a)]
+      exact H₂.O_mem _ (by rw [hcolsF]; exact List.mem_map_of_mem (hshQ a))
+    · rw [← hOb, ← hOF _ (hshQ b)]
+      exact H₂.O_mem _ (by rw [hcolsF]; exact List.mem_map_of_mem (hshQ b))
     rw [sKf_sgRow S hB hS, sKf_sgRow S hB hS, hoH, hoH, ← hN]
     have h1 := stb_lt (K := 2) S (X ++ t) hS.2.2.2.2.1 (⟨a.1.val + 2, ha⟩, a.2)
     have h2 := stb_lt (K := 2) S (X ++ t) hS.2.2.2.2.1 (⟨b.1.val + 2, hb⟩, b.2)

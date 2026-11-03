@@ -27,7 +27,7 @@ No differential commutation or chain homotopy is assumed here.
 -/
 
 open _root_.CategoryTheory
-open scoped Simplicial BigOperators Classical
+open scoped Simplicial BigOperators
 
 set_option backward.defeqAttrib.useBackward true
 set_option backward.isDefEq.respectTransparency false

@@ -80,7 +80,8 @@ theorem RankIn.mono {x y : SignedAdjacentWord m} {s : ℕ} (h : RankIn x s) (hxy
 /-! ### Cancellation at the front and in context -/
 
 theorem block_cancel_S (r : Fin (m - 1)) (e : ℤˣ) (sg : List Bool) (t : SignedAdjacentWord m)
-    (hsg : ∀ k (hk : k < 2), (([(r, e), (r, -e)] : SignedAdjacentWord m)[k]'(by simpa using hk)).2 = 1
+    (hsg : ∀ k (hk : k < 2),
+      (([(r, e), (r, -e)] : SignedAdjacentWord m)[k]'(by simpa using hk)).2 = 1
       ↔ posB sg k = true)
     (h0 : RankIn t r.val) (h1 : RankIn t (r.val + 1)) :
     BlockS 2 1 r.val [0, 0] sg [(r, e), (r, -e)] t (flagOf [true, true]) where

@@ -6,7 +6,6 @@ Authors: Pablo Portilla Cuadrado
 module
 
 public import OnLeConjecture.KnotTheory.ScissorSequenceWord
-public import OnLeConjecture.KnotTheory.ExteriorSignedWordGrid
 
 /-!
 # The product of padded factors
@@ -59,7 +58,8 @@ theorem factorOffset_succ (l : Fin r) :
 theorem factorOffset_r : factorOffset q r = (factorProduct q).length := by
   simp [factorOffset, factorProduct, List.length_flatten, List.take_of_length_le]
 
-theorem length_flatten_take (l : ℕ) : (((List.ofFn q).take l).flatten).length = factorOffset q l := by
+theorem length_flatten_take (l : ℕ) :
+    (((List.ofFn q).take l).flatten).length = factorOffset q l := by
   simp [factorOffset, List.length_flatten]
 
 theorem factorOffset_mono {l l' : ℕ} (h : l ≤ l') : factorOffset q l ≤ factorOffset q l' := by
@@ -160,7 +160,8 @@ theorem IsPadded.getElem_end (k : ℕ) (hk1 : 1 ≤ k) (hk : k < S) :
   simp only [inv, List.getElem_reverse, List.getElem_map, length_coxeterSignedWord,
     List.length_map]
   rw [getElem_coxeterSignedWord]
-  refine Prod.ext (Fin.ext ?_) ?_ <;> simp <;> omega
+  refine Prod.ext (Fin.ext ?_) ?_ <;> simp
+  omega
 
 end Padded
 
@@ -301,14 +302,16 @@ theorem enterRank_firstCorner (l : Fin r) (x : Fin S) :
   rw [getElem_firstPos]
   simp only [if_true]
   simp only [firstCorner]
-  split_ifs with h1 h2 <;> simp_all <;> omega
+  split_ifs with h1 h2 <;> simp_all
+  omega
 
 theorem exitRank_lastCorner (l : Fin r) (x : Fin S) :
     exitRank (factorProduct q) (lastCorner q hq hS l x) = x.val := by
   unfold exitRank
   rw [getElem_lastPos]
   simp only [lastCorner]
-  split_ifs with h1 h2 <;> simp_all <;> omega
+  split_ifs with h1 h2 <;> simp_all
+  omega
 
 theorem xHeight2_firstCorner (l : Fin r) (x : Fin S) :
     (factorProduct q).xHeight2 (firstCorner q hq hS l x) = 2 * x.val := by

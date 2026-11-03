@@ -8,11 +8,11 @@ Run the commands from the repository root. Git and the [elan toolchain manager](
 git clone https://github.com/pportilla/le-conjecture-lean.git
 cd le-conjecture-lean
 lake exe cache get
-lake build
-lake env lean AuditLeConjectureNative.lean
+lake --wfail build
+lake env lean -DwarningAsError=true AuditLeConjectureNative.lean
 ```
 
-`lake exe cache get` retrieves compiled Mathlib dependencies. `lake build` builds the aggregate `OnLeConjecture` library. The last command checks the final theorem’s axiom dependencies and rejects every axiom except `propext`, `Classical.choice`, and `Quot.sound`.
+`lake exe cache get` retrieves compiled Mathlib dependencies. `lake --wfail build` builds the aggregate `OnLeConjecture` library and fails on warnings. The last command checks the final theorem’s axiom dependencies and rejects every axiom except `propext`, `Classical.choice`, and `Quot.sound`.
 
 Alternatively, after obtaining the Mathlib cache, run the [verification script](../scripts/verify.sh):
 
@@ -20,7 +20,7 @@ Alternatively, after obtaining the Mathlib cache, run the [verification script](
 bash scripts/verify.sh
 ```
 
-It writes `environment.log`, `sources.sha256`, `build.log`, and `audit.log` under `.lake/verification`. To select a different output directory, pass it as the first argument, for example `bash scripts/verify.sh verification/local-check`. The script records source checksums before the build and checks them afterward, so a concurrent change to an existing source file causes failure. It requires Bash and the standard GNU checksum utilities used in the script.
+It writes `environment.log`, `sources.sha256`, `build.log`, and `audit.log` under `.lake/verification`. To select a different output directory, pass it as the first argument, for example `bash scripts/verify.sh verification/local-check`. The build runs with `lake --wfail build`, so any build warning makes verification fail. The standalone theorem audit also treats Lean warnings as errors. The script records source checksums before the build and checks them afterward, so a concurrent change to an existing source file causes failure. It requires Bash and the standard GNU checksum utilities used in the script.
 
 A successful `lake build` and a successful audit are separate checks. An audit run against existing compiled files does not establish that every source file has just been rebuilt. Run the build first when checking a changed checkout.
 
@@ -40,8 +40,8 @@ For a source rebuild of this project while retaining downloaded dependencies, re
 
 ```bash
 rm -rf .lake/build
-lake build
-lake env lean AuditLeConjectureNative.lean
+lake --wfail build
+lake env lean -DwarningAsError=true AuditLeConjectureNative.lean
 ```
 
 The cache command uses upstream compiled dependencies. Rebuilding all dependencies from source is a separate, more expensive operation and is not what that command does.
@@ -60,7 +60,7 @@ OnLeConjecture.Analytic.leConjecture_native : OnLeConjecture.Analytic.LeConjectu
 
 A forbidden axiom makes the command fail. This includes `sorryAx`, used for unproved placeholders. The check follows dependencies of the final theorem. It is more informative for that theorem than a text search, which can match comments or miss indirect dependencies.
 
-[`verification/build.log`](../verification/build.log) and [`verification/audit.log`](../verification/audit.log) preserve recorded output. Logs are evidence of a particular invocation, not a substitute for running the commands on the commit you intend to use. Linter messages in a build log should be distinguished from build failures and forbidden-axiom failures.
+Recorded output is available in [`verification/build.log`](../verification/build.log) and [`verification/audit.log`](../verification/audit.log). The verification script requires a warning-free build and an audit using only the permitted axioms. Run it on the commit you intend to use.
 
 ## Use the theorem
 

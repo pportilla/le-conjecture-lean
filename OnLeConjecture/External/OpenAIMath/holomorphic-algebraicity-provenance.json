@@ -15,7 +15,8 @@
         "Added exposed public section",
         "Added provenance comment",
         "Disabled the long-line style linter in the file",
-        "Replaced `ite_eq_right` (not available in the local Mathlib) by `if_neg` in three `simp only` calls."
+        "Replaced `ite_eq_right` (not available in the local Mathlib) by `if_neg` in three `simp only` calls.",
+        "Wrapped the provenance comment without changing declarations or proofs."
       ],
       "mathematical_changes": []
     },
@@ -88,7 +89,8 @@
         "Added exposed public section",
         "Added provenance comment",
         "Disabled the long-line style linter in the file",
-        "Removed one `hprod` rewrite and restated one `change` goal in lambda form, because the local `logDeriv_prod` and `logDeriv_mul` are stated for lambda products."
+        "Removed one `hprod` rewrite and restated one `change` goal in lambda form, because the local `logDeriv_prod` and `logDeriv_mul` are stated for lambda products.",
+        "Wrapped the provenance comment without changing declarations or proofs."
       ],
       "mathematical_changes": []
     },
@@ -113,7 +115,8 @@
         "Added exposed public section",
         "Added provenance comment",
         "Disabled the long-line style linter in the file",
-        "Replaced `dite_eq_left` (not available in the local Mathlib) by `dif_pos`."
+        "Replaced `dite_eq_left` (not available in the local Mathlib) by `dif_pos`.",
+        "Wrapped the provenance comment without changing declarations or proofs."
       ],
       "mathematical_changes": []
     }

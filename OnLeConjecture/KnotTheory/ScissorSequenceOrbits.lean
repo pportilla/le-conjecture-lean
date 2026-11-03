@@ -42,7 +42,8 @@ open Equiv Equiv.Perm TauCeti
 
 section Labels
 
-variable {α β : Type*} [Finite α] [Finite β] (μ : Perm α) (Ψ : Perm β) (lab : α → β) (wrap : α → Prop)
+variable {α β : Type*} [Finite α] [Finite β] (μ : Perm α) (Ψ : Perm β)
+  (lab : α → β) (wrap : α → Prop)
   (key : α → ℕ)
 
 omit [Finite β] in
@@ -53,7 +54,8 @@ theorem exists_pow_wrap_of_labels
   by_contra hcon
   push Not at hcon
   -- no iterate is a wrap point, so the key increases along the whole orbit
-  have hall : ∀ k : ℕ, ¬ wrap ((μ ^ k) a) ∧ lab ((μ ^ k) a) = lab a ∧ key a + k ≤ key ((μ ^ k) a) := by
+  have hall : ∀ k : ℕ, ¬ wrap ((μ ^ k) a) ∧
+      lab ((μ ^ k) a) = lab a ∧ key a + k ≤ key ((μ ^ k) a) := by
     intro k
     induction k with
     | zero => exact ⟨fun h => hcon 0 h rfl, rfl, by simp⟩

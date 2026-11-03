@@ -73,7 +73,8 @@ theorem permCongr_cornerPerm (μ : Perm (Fin (prodSize F))) :
   refine Equiv.ext fun c => ?_
   simp only [cornerPerm, Equiv.permCongr_apply, Equiv.symm_symm, Equiv.apply_symm_apply]
 
-theorem cornerPerm_apply (μ : Perm (Fin (prodSize F))) (p : Fin (factorProduct F.factor).length × Fin 3) :
+theorem cornerPerm_apply (μ : Perm (Fin (prodSize F)))
+    (p : Fin (factorProduct F.factor).length × Fin 3) :
     cornerPerm F μ p = finProdFinEquiv.symm (μ (col F p)) := by
   simp [cornerPerm, Equiv.permCongr_apply]
 

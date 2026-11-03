@@ -16,7 +16,8 @@ This module combines the frontier theorems of the native route with the reductio
 `scissorCleanupStatement_of_endpointCleanup` of the scissor cleanup statement to the endpoint
 cleanup, and with the local braids at the smooth critical points
 (`LevelProjectionSetup.pointClusterData_of_smoothCritical`) and at the singular points
-(`LevelProjectionSetup.pointClusterData_of_singular`). Lê's conjecture then follows from two statements, both proved later in the chain
+(`LevelProjectionSetup.pointClusterData_of_singular`). Lê's conjecture then follows from two
+statements, both proved later in the chain
 (see `LeConjectureNative.lean`):
 
 * `LevelSetupStatement`, the construction of a projection setup of a level with its root

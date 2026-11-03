@@ -274,7 +274,8 @@ def sKf (S : WState) (offs : List ℕ) (sg : List Bool) (i K : ℕ) (t : SignedA
 theorem srows_pairwise_Kf {offs : List ℕ} {sg : List Bool} {B : SignedAdjacentWord m}
     (S : WState) (hB : BlockS K E i offs sg B t (flagOf flags)) (hS : InitOKS K S offs sg flags) :
     (sInitGrid S hB hS).rows.Pairwise (fun r r' =>
-      sKf S offs sg i K t (BIG (K + t.length)) r < sKf S offs sg i K t (BIG (K + t.length)) r') := by
+      sKf S offs sg i K t (BIG (K + t.length)) r <
+        sKf S offs sg i K t (BIG (K + t.length)) r') := by
   have h := List.Pairwise.and_mem.mp (sInitGrid_rows_pairwise S hB hS)
   refine h.imp fun {r r'} ⟨hr, hr', hlt⟩ => ?_
   have hBIG : BIG (B ++ t).length = BIG (K + t.length) := by rw [hB.len_append]

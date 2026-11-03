@@ -71,7 +71,8 @@ theorem sM_of_ne_lastCorner {p : Fin (factorProduct q).length × Fin 3} (hp : p.
   have hoccZ : Occ (factorProduct q) x.val Z.1 := occ_lastCorner q hq hS l x
   rcases sM_spec (factorProduct q) p hp with ⟨hlt, hmin⟩ | ⟨_, hall⟩
   · rw [hx2] at hmin
-    have htZ : (sM (factorProduct q) p).1.val ≤ Z.1.val := hmin Z.1 hoccZ (by rw [Fin.lt_def]; exact hpZ)
+    have htZ : (sM (factorProduct q) p).1.val ≤ Z.1.val :=
+      hmin Z.1 hoccZ (by rw [Fin.lt_def]; exact hpZ)
     refine ⟨hlt, ?_, fun k hk hk1 hk2 hocc => ?_⟩
     · exact segOf_eq q (by have : p.1.val < (sM (factorProduct q) p).1.val := hlt; omega) (by omega)
     · have := hmin ⟨k, hk⟩ hocc (by rw [Fin.lt_def]; exact hk1)

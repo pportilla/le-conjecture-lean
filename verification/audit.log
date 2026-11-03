@@ -1,5 +1,3 @@
-warning: mathlib: repository '/tmp/on-le-proof-verification-not298iq/.lake/packages/mathlib' has local changes
-warning: batteries: repository '/tmp/on-le-proof-verification-not298iq/.lake/packages/batteries' has local changes
 OnLeConjecture.Analytic.LeConjecture : Prop
 def OnLeConjecture.Analytic.LeConjecture : Prop :=
 ∀ (g : OnLeConjecture.Analytic.PointedMapGerm 2 3), g.HasInjectiveRepresentative → g.differential ≠ 0

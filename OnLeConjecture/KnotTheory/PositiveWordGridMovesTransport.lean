@@ -282,19 +282,19 @@ theorem rotateLetters_succ (r : Fin m) (j : PositiveRectilinearRowOccurrences (u
       by_cases hbl : b.val.val = u.length
       · split_ifs at hb' ⊢ <;> omega
       · have hjb : j.val.val < b.val.val := by split_ifs at hb' <;> omega
-        have := hmin b ((hlt0 _ _).mpr hjb); rw [hle0] at this; split_ifs <;> omega
+        have := hmin b ((hlt0 _ _).mpr hjb); rw [hle0] at this; split_ifs; omega
   · rw [hle0] at hqj
     by_cases hjl : j.val.val = u.length
     · by_cases hqe : q.val.val = u.length
       · right
-        refine ⟨by rw [hle, hval, hval]; split_ifs <;> omega, fun b' => ?_⟩
+        refine ⟨by rw [hle, hval, hval]; split_ifs; omega, fun b' => ?_⟩
         obtain ⟨b, rfl⟩ := hsurj b'
         have h1 := (hall b).1; have h2 := (hall b).2
         rw [hle0] at h1 h2
         rw [hle, hle, hval, hval, hval]
         constructor <;> split_ifs <;> omega
       · left
-        refine ⟨by rw [hlt, hval, hval]; split_ifs <;> omega, fun b' hb' => ?_⟩
+        refine ⟨by rw [hlt, hval, hval]; split_ifs; omega, fun b' hb' => ?_⟩
         obtain ⟨b, rfl⟩ := hsurj b'
         have h1 := (hall b).1; have h2 := (hall b).2
         rw [hle0] at h1 h2

@@ -76,7 +76,8 @@ theorem leConjecture_of_levelSetup_frontier (hS : LevelSetupStatement)
     hscissor
 
 /-- **Lê's conjecture from the setup construction, the critical-value field and the scissor
-cleanup.** The outer-braid field is discharged by `LevelProjectionSetup.outerHolds_of_admissible`. -/
+cleanup.** The outer-braid field is discharged by
+`LevelProjectionSetup.outerHolds_of_admissible`. -/
 theorem leConjecture_of_levelSetup_critical_frontier (hS : LevelSetupStatement)
     (hC : ∀ (g : PointedMapGerm 2 3) (hd : g.differential = 0)
       (hi : g.HasInjectiveRepresentative) (A : ResolutionSectionAssembly g hd hi)

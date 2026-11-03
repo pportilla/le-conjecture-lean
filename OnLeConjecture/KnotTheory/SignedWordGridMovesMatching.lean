@@ -168,21 +168,21 @@ theorem oHeight2_ne_xHeight2 (v : SignedAdjacentWord m) (p : Fin v.length × Fin
   rcases p with ⟨h, c⟩
   simp only [SignedAdjacentWord.oHeight2, SignedAdjacentWord.xHeight2, signedOHeight2,
     signedXHeight2]
-  split_ifs <;> fin_cases c <;> simp <;> omega
+  split_ifs <;> fin_cases c <;> simp
 
 /-- An odd outgoing height occurs only at the corner `0`. -/
 theorem oHeight2_odd_iff (v : SignedAdjacentWord m) (p : Fin v.length × Fin 3) :
     v.oHeight2 p % 2 = 1 ↔ p.2 = 0 := by
   rcases p with ⟨h, c⟩
   simp only [SignedAdjacentWord.oHeight2, signedOHeight2]
-  split_ifs <;> fin_cases c <;> simp <;> omega
+  split_ifs <;> fin_cases c <;> simp
 
 /-- An odd incoming height occurs only at the corner `2`. -/
 theorem xHeight2_odd_iff (v : SignedAdjacentWord m) (p : Fin v.length × Fin 3) :
     v.xHeight2 p % 2 = 1 ↔ p.2 = 2 := by
   rcases p with ⟨h, c⟩
   simp only [SignedAdjacentWord.xHeight2, signedXHeight2]
-  split_ifs <;> fin_cases c <;> simp <;> omega
+  split_ifs <;> fin_cases c <;> simp
 
 /-- Two outgoing corners of the same letter with the same height coincide. -/
 theorem eq_of_oHeight2_eq (v : SignedAdjacentWord m) {p p' : Fin v.length × Fin 3}
@@ -193,7 +193,7 @@ theorem eq_of_oHeight2_eq (v : SignedAdjacentWord m) {p p' : Fin v.length × Fin
   subst h1
   simp only [SignedAdjacentWord.oHeight2, signedOHeight2] at h
   congr 1
-  split_ifs at h <;> fin_cases c <;> fin_cases c' <;> simp at h ⊢ <;> omega
+  split_ifs at h <;> fin_cases c <;> fin_cases c' <;> simp at h ⊢
 
 /-- Two incoming corners of the same letter with the same height coincide. -/
 theorem eq_of_xHeight2_eq (v : SignedAdjacentWord m) {p p' : Fin v.length × Fin 3}
@@ -204,7 +204,7 @@ theorem eq_of_xHeight2_eq (v : SignedAdjacentWord m) {p p' : Fin v.length × Fin
   subst h1
   simp only [SignedAdjacentWord.xHeight2, signedXHeight2] at h
   congr 1
-  split_ifs at h <;> fin_cases c <;> fin_cases c' <;> simp at h ⊢ <;> omega
+  split_ifs at h <;> fin_cases c <;> fin_cases c' <;> simp at h ⊢
 
 /-- In a letter, the incoming corner of an integer height lies left of the outgoing corner of the
 same height. -/
@@ -216,7 +216,7 @@ theorem in_lt_out (v : SignedAdjacentWord m) {p q : Fin v.length × Fin 3} (h1 :
   subst h1
   simp only [SignedAdjacentWord.oHeight2, SignedAdjacentWord.xHeight2, signedOHeight2,
     signedXHeight2] at h
-  split_ifs at h <;> fin_cases c <;> fin_cases c' <;> simp at h hp ⊢ <;> omega
+  split_ifs at h <;> fin_cases c <;> fin_cases c' <;> simp at h hp ⊢
 
 /-! ### The next occurrence -/
 
@@ -229,14 +229,14 @@ theorem occ_of_oHeight2 (v : SignedAdjacentWord m) {p : Fin v.length × Fin 3} (
   rcases p with ⟨a, c⟩
   simp only at hp
   simp only [Occ, SignedAdjacentWord.oHeight2, signedOHeight2]
-  split_ifs <;> fin_cases c <;> simp at hp ⊢ <;> omega
+  split_ifs <;> fin_cases c <;> simp at hp ⊢
 
 theorem occ_of_xHeight2 (v : SignedAdjacentWord m) {q : Fin v.length × Fin 3} (hq : q.2 ≠ 2) :
     Occ v (v.xHeight2 q / 2) q.1 := by
   rcases q with ⟨a, c⟩
   simp only at hq
   simp only [Occ, SignedAdjacentWord.xHeight2, signedXHeight2]
-  split_ifs <;> fin_cases c <;> simp at hq ⊢ <;> omega
+  split_ifs <;> fin_cases c <;> simp at hq ⊢
 
 theorem oHeight2_even (v : SignedAdjacentWord m) {p : Fin v.length × Fin 3} (hp : p.2 ≠ 0) :
     v.oHeight2 p = 2 * (v.oHeight2 p / 2) := by
@@ -355,7 +355,7 @@ theorem gap_add (v : SignedAdjacentWord m) {p q : Fin v.length × Fin 3}
     · exact Or.inr h
   split_ifs <;> omega
 
-theorem D_cmp {L a a' h : ℕ} (ha : a < L) (ha' : a' < L) (hh : h < L) (hne : a' ≠ a)
+theorem D_cmp {L a a' h : ℕ} (ha : a < L) (ha' : a' < L) (_hh : h < L) (hne : a' ≠ a)
     (spec : (a < h ∧ (a < a' → h ≤ a')) ∨ (h ≤ a ∧ h ≤ a' ∧ a' ≤ a)) :
     (if a < h then h - 1 - a else h + L - 1 - a) + 1 ≤
       (if a' < h then h - 1 - a' else h + L - 1 - a') := by
@@ -467,7 +467,7 @@ theorem X_eq_sM {v : SignedAdjacentWord m} {G : GridDiagram (v.length * 3)}
 /-! ### Two signed word grids of one word are related by row commutations -/
 
 theorem cyc_nonint {N a b c d : ℕ} (ha : a < N) (hb : b < N) (hc : c < N) (hd : d < N)
-    (hab : a ≠ b) (hcd : c ≠ d) (hac : a ≠ c) (hbd : b ≠ d) (had : a ≠ d) (hbc : b ≠ c)
+    (_hab : a ≠ b) (_hcd : c ≠ d) (hac : a ≠ c) (hbd : b ≠ d) (had : a ≠ d) (hbc : b ≠ c)
     (h1 : (b + N - a) % N ≤ (b + N - c) % N) (h2 : (d + N - c) % N ≤ (d + N - a) % N) :
     NonintN a b c d := by
   rw [modsub hb ha, modsub hb hc] at h1

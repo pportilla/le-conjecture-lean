@@ -6,7 +6,8 @@ public import Mathlib.Analysis.Analytic.Polynomial
 /-! Vendored from openai/math at 7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a,
 `lean/OAI/AlgebraicGeometry/ComplexGroups/HolomorphicAlgebraicity/ClosedDiskFactorization.lean`.
 Changes: module header, public imports, exposed public section, long-line linter
-option. Proof adaptation for the local Mathlib: Replaced `ite_eq_right` (not available in the local Mathlib) by `if_neg` in three `simp only` calls. -/
+option. Proof adaptation for the local Mathlib: Replaced `ite_eq_right` (not available in the local
+Mathlib) by `if_neg` in three `simp only` calls. -/
 
 @[expose] public section
 

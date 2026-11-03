@@ -211,7 +211,8 @@ theorem swap_four_comm :
 set_option maxRecDepth 100000 in
 set_option maxHeartbeats 4000000 in
 -- The case analysis over the remaining ordered positions is large.
-theorem double_pattern_noncrossing {c : Fin 4 ↪ Fin (consecutiveTorusGridSize n)} (hc : CycSorted c) (j : ℤ)
+theorem double_pattern_noncrossing {c : Fin 4 ↪ Fin (consecutiveTorusGridSize n)}
+    (hc : CycSorted c) (j : ℤ)
     (hj : j < 0) :
     ((∑ i : Fin 4, ∑ l : Fin 4, if i < l then
       pairTerm n (cfgPerm c (Equiv.swap 0 1 * Equiv.swap 2 3)) j (c i) (c l) +
@@ -226,8 +227,10 @@ theorem double_pattern_noncrossing {c : Fin 4 ↪ Fin (consecutiveTorusGridSize 
     ite_true, ite_false, Fin.isValue, ite_self, add_zero, zero_add]
   simp only [cycDist_emb_eq_cfgPos hc, cfgPos_zero]
   simp (config := {decide := true}) only [ite_true, ite_false, Fin.isValue]
-  have hr1 := torusFourCoeff_add_inv_four n c (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 0 2) (by decide) (by decide)
-  have hr2 := torusFourCoeff_add_inv_four n c (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 0 3) (by decide) (by decide)
+  have hr1 := torusFourCoeff_add_inv_four n c (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 0 2)
+    (by decide) (by decide)
+  have hr2 := torusFourCoeff_add_inv_four n c (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 0 3)
+    (by decide) (by decide)
   rw [show (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 0 2 : Equiv.Perm (Fin 4))⁻¹ =
     Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 1 3 by decide] at hr1
   rw [show (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 0 3 : Equiv.Perm (Fin 4))⁻¹ =
@@ -240,27 +243,33 @@ theorem double_pattern_noncrossing {c : Fin 4 ↪ Fin (consecutiveTorusGridSize 
   have p4 := cfgPos_lt c 3
   rw [cfgPos_zero] at p1
   rw [ZMod.natCast_eq_zero_iff_even, Nat.even_iff]
-  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 0 2)) = F1 at *
-  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 1 3)) = F2 at *
-  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 0 3)) = F3 at *
-  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 1 2)) = F4 at *
+  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 0 2))
+    = F1 at *
+  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 1 3))
+    = F2 at *
+  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 0 3))
+    = F3 at *
+  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 1 * Equiv.swap 2 3 * Equiv.swap 1 2))
+    = F4 at *
   generalize cfgPos c 1 = P1 at *
   generalize cfgPos c 2 = P2 at *
   generalize cfgPos c 3 = P3 at *
   simp (disch := omega) only [icoInterCard_of_le, icoInterCard_of_lt, min_eq_left, min_eq_right]
   simp (disch := omega) only [Nat.cast_sub, Nat.cast_add, Nat.cast_zero, Nat.sub_zero,
-    Nat.sub_self, add_zero, zero_add]
+    Nat.sub_self, add_zero]
   unfold consecutiveTorusGridSize at p4 ⊢
   split_ifs <;> omega
 
 set_option maxRecDepth 100000 in
 set_option maxHeartbeats 4000000 in
 -- The case analysis over the remaining ordered positions is large.
-theorem double_pattern_outer {c : Fin 4 ↪ Fin (consecutiveTorusGridSize n)} (hc : CycSorted c) (j : ℤ)
+theorem double_pattern_outer {c : Fin 4 ↪ Fin (consecutiveTorusGridSize n)}
+    (hc : CycSorted c) (j : ℤ)
     (hj : j < 0) :
     ((∑ i : Fin 4, ∑ l : Fin 4, if i < l then
       pairTerm n (cfgPerm c (Equiv.swap 0 3 * Equiv.swap 1 2)) j (c i) (c l) +
-      pairTerm n (cfgPerm c (Equiv.swap 0 3 * Equiv.swap 1 2)) j (c l) (c i) else 0 : ℕ) : ZMod 2) = 0 := by
+      pairTerm n (cfgPerm c (Equiv.swap 0 3 * Equiv.swap 1 2)) j (c l) (c i)
+        else 0 : ℕ) : ZMod 2) = 0 := by
   simp (config := {decide := true}) only [Fin.sum_univ_four, ite_true, ite_false, Fin.isValue,
     add_zero, zero_add]
   simp only [pairTerm, cfgPerm_mul_swap, oCount_cfgPerm_emb, card_cIco_inter_cIco, swap_four_comm]
@@ -270,8 +279,10 @@ theorem double_pattern_outer {c : Fin 4 ↪ Fin (consecutiveTorusGridSize n)} (h
     ite_true, ite_false, Fin.isValue, ite_self, add_zero, zero_add]
   simp only [cycDist_emb_eq_cfgPos hc, cfgPos_zero]
   simp (config := {decide := true}) only [ite_true, ite_false, Fin.isValue]
-  have hr1 := torusFourCoeff_add_inv_four n c (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 0 1) (by decide) (by decide)
-  have hr2 := torusFourCoeff_add_inv_four n c (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 0 2) (by decide) (by decide)
+  have hr1 := torusFourCoeff_add_inv_four n c (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 0 1)
+    (by decide) (by decide)
+  have hr2 := torusFourCoeff_add_inv_four n c (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 0 2)
+    (by decide) (by decide)
   rw [show (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 0 1 : Equiv.Perm (Fin 4))⁻¹ =
     Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 2 3 by decide] at hr1
   rw [show (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 0 2 : Equiv.Perm (Fin 4))⁻¹ =
@@ -284,27 +295,33 @@ theorem double_pattern_outer {c : Fin 4 ↪ Fin (consecutiveTorusGridSize n)} (h
   have p4 := cfgPos_lt c 3
   rw [cfgPos_zero] at p1
   rw [ZMod.natCast_eq_zero_iff_even, Nat.even_iff]
-  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 0 1)) = F1 at *
-  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 2 3)) = F2 at *
-  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 0 2)) = F3 at *
-  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 1 3)) = F4 at *
+  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 0 1))
+    = F1 at *
+  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 2 3))
+    = F2 at *
+  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 0 2))
+    = F3 at *
+  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 3 * Equiv.swap 1 2 * Equiv.swap 1 3))
+    = F4 at *
   generalize cfgPos c 1 = P1 at *
   generalize cfgPos c 2 = P2 at *
   generalize cfgPos c 3 = P3 at *
   simp (disch := omega) only [icoInterCard_of_le, icoInterCard_of_lt, min_eq_left, min_eq_right]
   simp (disch := omega) only [Nat.cast_sub, Nat.cast_add, Nat.cast_zero, Nat.sub_zero,
-    Nat.sub_self, add_zero, zero_add]
+    Nat.sub_self, add_zero]
   unfold consecutiveTorusGridSize at p4 ⊢
   split_ifs <;> omega
 
 set_option maxRecDepth 100000 in
 set_option maxHeartbeats 4000000 in
 -- The case analysis over the remaining ordered positions is large.
-theorem double_pattern_crossing {c : Fin 4 ↪ Fin (consecutiveTorusGridSize n)} (hc : CycSorted c) (j : ℤ)
+theorem double_pattern_crossing {c : Fin 4 ↪ Fin (consecutiveTorusGridSize n)}
+    (hc : CycSorted c) (j : ℤ)
     (hj : j < 0) :
     ((∑ i : Fin 4, ∑ l : Fin 4, if i < l then
       pairTerm n (cfgPerm c (Equiv.swap 0 2 * Equiv.swap 1 3)) j (c i) (c l) +
-      pairTerm n (cfgPerm c (Equiv.swap 0 2 * Equiv.swap 1 3)) j (c l) (c i) else 0 : ℕ) : ZMod 2) = 0 := by
+      pairTerm n (cfgPerm c (Equiv.swap 0 2 * Equiv.swap 1 3)) j (c l) (c i)
+        else 0 : ℕ) : ZMod 2) = 0 := by
   simp (config := {decide := true}) only [Fin.sum_univ_four, ite_true, ite_false, Fin.isValue,
     add_zero, zero_add]
   simp only [pairTerm, cfgPerm_mul_swap, oCount_cfgPerm_emb, card_cIco_inter_cIco, swap_four_comm]
@@ -314,8 +331,10 @@ theorem double_pattern_crossing {c : Fin 4 ↪ Fin (consecutiveTorusGridSize n)}
     ite_true, ite_false, Fin.isValue, ite_self, add_zero, zero_add]
   simp only [cycDist_emb_eq_cfgPos hc, cfgPos_zero]
   simp (config := {decide := true}) only [ite_true, ite_false, Fin.isValue]
-  have hr1 := torusFourCoeff_add_inv_four n c (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 0 1) (by decide) (by decide)
-  have hr2 := torusFourCoeff_add_inv_four n c (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 0 3) (by decide) (by decide)
+  have hr1 := torusFourCoeff_add_inv_four n c (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 0 1)
+    (by decide) (by decide)
+  have hr2 := torusFourCoeff_add_inv_four n c (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 0 3)
+    (by decide) (by decide)
   rw [show (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 0 1 : Equiv.Perm (Fin 4))⁻¹ =
     Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 2 3 by decide] at hr1
   rw [show (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 0 3 : Equiv.Perm (Fin 4))⁻¹ =
@@ -328,16 +347,20 @@ theorem double_pattern_crossing {c : Fin 4 ↪ Fin (consecutiveTorusGridSize n)}
   have p4 := cfgPos_lt c 3
   rw [cfgPos_zero] at p1
   rw [ZMod.natCast_eq_zero_iff_even, Nat.even_iff]
-  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 0 1)) = F1 at *
-  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 2 3)) = F2 at *
-  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 0 3)) = F3 at *
-  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 1 2)) = F4 at *
+  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 0 1))
+    = F1 at *
+  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 2 3))
+    = F2 at *
+  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 0 3))
+    = F3 at *
+  generalize torusFourCoeff n (cfgPerm c (Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 1 2))
+    = F4 at *
   generalize cfgPos c 1 = P1 at *
   generalize cfgPos c 2 = P2 at *
   generalize cfgPos c 3 = P3 at *
   simp (disch := omega) only [icoInterCard_of_le, icoInterCard_of_lt, min_eq_left, min_eq_right]
   simp (disch := omega) only [Nat.cast_sub, Nat.cast_add, Nat.cast_zero, Nat.sub_zero,
-    Nat.sub_self, add_zero, zero_add]
+    Nat.sub_self, add_zero]
   unfold consecutiveTorusGridSize at p4 ⊢
   split_ifs <;> omega
 

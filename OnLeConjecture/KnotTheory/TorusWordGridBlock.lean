@@ -146,22 +146,26 @@ theorem idxOf_mid_bounds {l m₁ mid m₂ : List α} {x y r : α} (hnd : l.Nodup
     List.idxOf_cons_ne _ hrx]
   omega
 
+omit [DecidableEq α] in
 /-- An element with a smaller value than `x` does not lie between `x` and `y`. -/
 theorem not_mem_mid_of_level {l m₁ mid m₂ : List α} {f : α → ℕ}
     (hs : l.Pairwise (fun a b => f a ≤ f b)) (hnd : l.Nodup)
     (hl : l = m₁ ++ x :: (mid ++ y :: m₂)) {r : α} (hr : r ∈ l) (hrx : f r < f x) :
     r ∉ mid := by
+  classical
   intro hm
   have h1 := idxOf_mid_bounds hnd hl hm
   have hx : x ∈ l := by rw [hl]; simp
   have h2 := idxOf_lt_of_level hs hr hx hrx
   omega
 
+omit [DecidableEq α] in
 /-- An element with a larger value than `y` does not lie between `x` and `y`. -/
 theorem not_mem_mid_of_level' {l m₁ mid m₂ : List α} {f : α → ℕ}
     (hs : l.Pairwise (fun a b => f a ≤ f b)) (hnd : l.Nodup)
     (hl : l = m₁ ++ x :: (mid ++ y :: m₂)) {r : α} (hr : r ∈ l) (hry : f y < f r) :
     r ∉ mid := by
+  classical
   intro hm
   have hy : y ∈ l := by rw [hl]; simp
   have h2 := idxOf_lt_of_level hs hy hr hry
@@ -221,7 +225,8 @@ theorem blockBs_succ (t₀ k : ℕ) :
 
 theorem mem_blockBs {c : TorusCol} {t₀ k : ℕ} :
     c ∈ blockBs t₀ k ↔ ∃ s, t₀ ≤ s ∧ s < t₀ + k ∧ c = cor 0 s 2 := by
-  simp [blockBs, List.mem_range', eq_comm]
+  simp only [blockBs, Fin.isValue, List.mem_map, List.mem_range', one_mul, eq_comm,
+    ↓existsAndEq, and_true]
   constructor
   · rintro ⟨i, hi, rfl⟩; exact ⟨t₀ + i, by omega, by omega, rfl⟩
   · rintro ⟨s, h1, h2, rfl⟩; exact ⟨s - t₀, by omega, by congr 1; omega⟩
@@ -278,7 +283,7 @@ theorem blockStage1 {N A : ℕ} {inc : ℕ → TorusRow} {lv : TorusRow → ℕ}
     · rw [hB.cols]
       obtain ⟨k, hk⟩ : ∃ k, A = k + 1 := ⟨A - 1, by omega⟩
       rw [hk, blockTriples_succ]
-      simp [blockPairs, hk]
+      simp [blockPairs]
     · intro c _
       split_ifs with h
       · rw [h, hB.X_cor1 0 (by omega), if_pos rfl]
@@ -399,7 +404,7 @@ theorem blockStage1 {N A : ℕ} {inc : ℕ → TorusRow} {lv : TorusRow → ℕ}
         have hx1 : x ∈ G₁.rows := by rw [hr₁, hm₀]; exact ⟨hx, fun s h => hs s (by omega)⟩
         rw [hsplit] at hx1
         rw [hr₂]
-        simp at hx1 ⊢
+        simp only [List.append_assoc, List.mem_append, List.mem_cons] at hx1 ⊢
         rcases hx1 with h | h | h | h | h
         · exact Or.inl h
         · exact absurd h (hs t (by omega))
@@ -522,10 +527,12 @@ theorem blockStage2 {N A : ℕ} {inc : ℕ → TorusRow} {lv : TorusRow → ℕ}
           simpa using this
         constructor
         · intro hx
-          refine ⟨by simp at hx ⊢; rcases hx with h | h | h | h <;> simp [h], ?_⟩
+          refine ⟨by
+            simp only [Fin.isValue, List.mem_append, List.mem_cons] at hx ⊢
+            rcases hx with h | h | h | h <;> simp [h], ?_⟩
           rintro rfl; exact h1 (by simpa using hx)
         · rintro ⟨hx, hne⟩
-          simp at hx ⊢
+          simp only [List.mem_append, List.mem_cons] at hx ⊢
           rcases hx with h | h | h | h | h
           · exact Or.inl h
           · exact Or.inr (Or.inl h)
@@ -645,10 +652,12 @@ theorem exists_blockReduction {N A : ℕ} {inc : ℕ → TorusRow} {lv : TorusRo
         simpa using this
       constructor
       · intro hx
-        refine ⟨by simp at hx ⊢; rcases hx with h | h | h | h <;> simp [h], ?_⟩
+        refine ⟨by
+          simp only [Fin.isValue, List.mem_append, List.mem_cons] at hx ⊢
+          rcases hx with h | h | h | h <;> simp [h], ?_⟩
         rintro rfl; exact h1 (by simpa using hx)
       · rintro ⟨hx, hne⟩
-        simp at hx ⊢
+        simp only [List.mem_append, List.mem_cons] at hx ⊢
         rcases hx with h | h | h | h | h
         · exact Or.inl h
         · exact Or.inr (Or.inl h)

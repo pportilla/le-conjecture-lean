@@ -120,7 +120,13 @@ variable {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List ℕ} {Q 
 theorem rows_nodup (hG : Real S G W Q) : S.rows.Nodup := by
   rw [← hG.rows]
   exact G.rows_nodup.filterMap fun a a' b ha ha' => by
-    rcases a with a | a <;> rcases a' with a' | a' <;> simp at ha ha' <;> subst ha <;> simp_all
+    rcases a with a | a
+    · rcases a' with a' | a'
+      · simp only [Sum.getLeft?_inl, Option.mem_def, Option.some.injEq] at ha ha'
+        subst ha
+        simp_all
+      · simp at ha'
+    · simp at ha
 
 theorem mem_of_O (hG : Real S G W Q) {c : BCol} (hc : c ∈ G.cols) {z : ℕ}
     (h : G.O c = Sum.inl z) : z ∈ S.rows := by
@@ -504,14 +510,16 @@ theorem sound_dX {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List 
   rcases hrows with ⟨hsplit, herase⟩ | ⟨hsplit, herase⟩
   · obtain ⟨G', hc', hr', hO', hX', hmv⟩ := G.exists_mergeX_up (l₁ := W₁.map Sum.inl)
       (l₂ := W₂.map Sum.inl ++ Q.map Sum.inr) (c := Sum.inl wp) (d := Sum.inl ws)
-      (e := Sum.inl x) (z := Sum.inl y) hcols hsplit hmp.1 hmp.2 (by rw [hms.2, hcs]) (by rw [hms.1]; simpa using hcs') hmid
+      (e := Sum.inl x) (z := Sum.inl y) hcols hsplit hmp.1 hmp.2 (by rw [hms.2, hcs])
+      (by rw [hms.1]; simpa using hcs') hmid
     obtain ⟨hR, hS⟩ := hfin G' hc' hO' hX'
       (by rw [hr', herase]; simp [lefts_append, lefts_cons_inl, lefts_nil_of hE])
       (by rw [hr', hsplit]; exact filter_del_up nonInt (by simpa [nonInt] using hxc))
     exact ⟨n₀, _, G', hR, hS, hmv⟩
   · obtain ⟨G', hc', hr', hO', hX', hmv⟩ := G.exists_mergeX_down (l₁ := W₁.map Sum.inl)
       (l₂ := W₂.map Sum.inl ++ Q.map Sum.inr) (c := Sum.inl wp) (d := Sum.inl ws)
-      (e := Sum.inl x) (z := Sum.inl y) hcols hsplit hmp.1 hmp.2 (by rw [hms.2, hcs]) (by rw [hms.1]; simpa using hcs') hmid
+      (e := Sum.inl x) (z := Sum.inl y) hcols hsplit hmp.1 hmp.2 (by rw [hms.2, hcs])
+      (by rw [hms.1]; simpa using hcs') hmid
     obtain ⟨hR, hS⟩ := hfin G' hc' hO' hX'
       (by rw [hr', herase]; simp [lefts_append, lefts_cons_inl, lefts_nil_of hE])
       (by rw [hr', hsplit]; exact filter_del_down nonInt (by simpa [nonInt] using hxc))
@@ -579,14 +587,16 @@ theorem sound_dO {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List 
   rcases hrows with ⟨hsplit, herase⟩ | ⟨hsplit, herase⟩
   · obtain ⟨G', hc', hr', hO', hX', hmv⟩ := G.exists_mergeO_up (l₁ := W₁.map Sum.inl)
       (l₂ := W₂.map Sum.inl ++ Q.map Sum.inr) (c := Sum.inl wp) (d := Sum.inl ws)
-      (e := Sum.inl x) (z := Sum.inl y) hcols hsplit hmp.2 hmp.1 (by rw [hms.1, hcs]) (by rw [hms.2]; simpa using hcs') hmid
+      (e := Sum.inl x) (z := Sum.inl y) hcols hsplit hmp.2 hmp.1 (by rw [hms.1, hcs])
+      (by rw [hms.2]; simpa using hcs') hmid
     obtain ⟨hR, hS⟩ := hfin G' hc' hX' hO'
       (by rw [hr', herase]; simp [lefts_append, lefts_cons_inl, lefts_nil_of hE])
       (by rw [hr', hsplit]; exact filter_del_up nonInt (by simpa [nonInt] using hxc))
     exact ⟨n₀, _, G', hR, hS, hmv⟩
   · obtain ⟨G', hc', hr', hO', hX', hmv⟩ := G.exists_mergeO_down (l₁ := W₁.map Sum.inl)
       (l₂ := W₂.map Sum.inl ++ Q.map Sum.inr) (c := Sum.inl wp) (d := Sum.inl ws)
-      (e := Sum.inl x) (z := Sum.inl y) hcols hsplit hmp.2 hmp.1 (by rw [hms.1, hcs]) (by rw [hms.2]; simpa using hcs') hmid
+      (e := Sum.inl x) (z := Sum.inl y) hcols hsplit hmp.2 hmp.1 (by rw [hms.1, hcs])
+      (by rw [hms.2]; simpa using hcs') hmid
     obtain ⟨hR, hS⟩ := hfin G' hc' hX' hO'
       (by rw [hr', herase]; simp [lefts_append, lefts_cons_inl, lefts_nil_of hE])
       (by rw [hr', hsplit]; exact filter_del_down nonInt (by simpa [nonInt] using hxc))
@@ -844,8 +854,10 @@ theorem sound_sO {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List 
   have hri : S.ri (S.col s).1 = (lefts M₁).length := by
     unfold WState.ri; rw [hSr, List.idxOf_append_of_notMem hyM]; simp
   have hκws : (Sum.inl κ : BCol) ≠ Sum.inl ws := fun h => hκG (h ▸ hwsm)
-  have hS'c : ((S.cols.set s (ν, (S.col s).2)).insertIdx (if right then s + 1 else s) ((S.col s).1, ν)) =
-      if right then C₁ ++ (ν, (S.col s).2) :: ((S.col s).1, ν) :: C₂ else C₁ ++ ((S.col s).1, ν) :: (ν, (S.col s).2) :: C₂ := by
+  have hS'c : ((S.cols.set s (ν, (S.col s).2)).insertIdx
+      (if right then s + 1 else s) ((S.col s).1, ν)) =
+      if right then C₁ ++ (ν, (S.col s).2) :: ((S.col s).1, ν) :: C₂
+      else C₁ ++ ((S.col s).1, ν) :: (ν, (S.col s).2) :: C₂ := by
     have e : S.cols = C₁ ++ S.col s :: C₂ := by rw [← hcs]; exact hC
     cases right
     · simp only [Bool.false_eq_true, if_false]
@@ -864,7 +876,8 @@ theorem sound_sO {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List 
     (if above then M₁ ++ Sum.inl (S.col s).1 :: Sum.inl ν :: M₂
       else M₁ ++ Sum.inl ν :: Sum.inl (S.col s).1 :: M₂)
     (if right then W₁.map Sum.inl ++ [Sum.inl ws] else W₁.map Sum.inl)
-    (if right then W₂.map Sum.inl ++ Q.map Sum.inr else Sum.inl ws :: (W₂.map Sum.inl ++ Q.map Sum.inr))
+    (if right then W₂.map Sum.inl ++ Q.map Sum.inr
+      else Sum.inl ws :: (W₂.map Sum.inl ++ Q.map Sum.inr))
     (if above then M₁ ++ [Sum.inl (S.col s).1] else M₁)
     (if above then M₂ else Sum.inl (S.col s).1 :: M₂)
     (by cases right <;> simp) (by rw [hG.cols, hWc]; cases right <;> simp)
@@ -898,7 +911,8 @@ theorem sound_sO {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List 
       rw [hzip]; rcases List.mem_append.mp hq with h | h
       · exact List.mem_append_left _ h
       · exact List.mem_append_right _ (List.mem_cons_of_mem _ h))
-    rw [hO', hX', Function.update_of_ne (by simpa using h2), Function.update_of_ne (by simpa using h1), Function.update_of_ne (by simpa using h2)]
+    rw [hO', hX', Function.update_of_ne (by simpa using h2),
+      Function.update_of_ne (by simpa using h1), Function.update_of_ne (by simpa using h2)]
     exact hm
   refine ⟨_, if right then W₁ ++ ws :: κ :: W₂ else W₁ ++ κ :: ws :: W₂, G',
     ⟨by rw [hc']; cases right <;> simp, ?_, ?_, ?_⟩, ⟨fun c _ => ?_, ?_⟩, hmv⟩
@@ -912,14 +926,16 @@ theorem sound_sO {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List 
       rcases hq with hq | rfl | rfl | hq
       · exact hold q (List.mem_append_left _ hq)
       · exact ⟨by rw [hO', Function.update_self, hmw.1], by rw [hX', Function.update_self]⟩
-      · exact ⟨by rw [hO', Function.update_of_ne (Ne.symm hκws), Function.update_self], by rw [hX', Function.update_of_ne (Ne.symm hκws), hmw.2]⟩
+      · exact ⟨by rw [hO', Function.update_of_ne (Ne.symm hκws), Function.update_self],
+          by rw [hX', Function.update_of_ne (Ne.symm hκws), hmw.2]⟩
       · exact hold q (List.mem_append_right _ hq)
     · simp only [if_true] at hq
       rw [List.zip_append hl₁] at hq
       simp only [List.zip_cons_cons, List.mem_append, List.mem_cons] at hq
       rcases hq with hq | rfl | rfl | hq
       · exact hold q (List.mem_append_left _ hq)
-      · exact ⟨by rw [hO', Function.update_of_ne (Ne.symm hκws), Function.update_self], by rw [hX', Function.update_of_ne (Ne.symm hκws), hmw.2]⟩
+      · exact ⟨by rw [hO', Function.update_of_ne (Ne.symm hκws), Function.update_self],
+          by rw [hX', Function.update_of_ne (Ne.symm hκws), hmw.2]⟩
       · exact ⟨by rw [hO', Function.update_self, hmw.1], by rw [hX', Function.update_self]⟩
       · exact hold q (List.mem_append_right _ hq)
   · rw [hr', hSr, hri]
@@ -931,7 +947,9 @@ theorem sound_sO {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List 
       rw [this]; simp [lefts_append, lefts_cons_inl]
     · simp only [if_true]
       rw [insertIdx_append_len]; simp [lefts_append, lefts_cons_inl]
-  · rw [hO', hX', Function.update_of_ne (by simp), Function.update_of_ne (by simp), Function.update_of_ne (by simp)]; exact ⟨rfl, rfl⟩
+  · rw [hO', hX', Function.update_of_ne (by simp), Function.update_of_ne (by simp),
+      Function.update_of_ne (by simp)]
+    exact ⟨rfl, rfl⟩
   · rw [hr', hsplit]
     cases above
     · exact filter_ins_before nonInt (by simpa [nonInt] using hνc)
@@ -981,8 +999,10 @@ theorem sound_sX {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List 
   have hri : S.ri (S.col s).2 = (lefts M₁).length := by
     unfold WState.ri; rw [hSr, List.idxOf_append_of_notMem hyM]; simp
   have hκws : (Sum.inl κ : BCol) ≠ Sum.inl ws := fun h => hκG (h ▸ hwsm)
-  have hS'c : ((S.cols.set s ((S.col s).1, ν)).insertIdx (if right then s + 1 else s) (ν, (S.col s).2)) =
-      if right then C₁ ++ ((S.col s).1, ν) :: (ν, (S.col s).2) :: C₂ else C₁ ++ (ν, (S.col s).2) :: ((S.col s).1, ν) :: C₂ := by
+  have hS'c : ((S.cols.set s ((S.col s).1, ν)).insertIdx
+      (if right then s + 1 else s) (ν, (S.col s).2)) =
+      if right then C₁ ++ ((S.col s).1, ν) :: (ν, (S.col s).2) :: C₂
+      else C₁ ++ (ν, (S.col s).2) :: ((S.col s).1, ν) :: C₂ := by
     have e : S.cols = C₁ ++ S.col s :: C₂ := by rw [← hcs]; exact hC
     cases right
     · simp only [Bool.false_eq_true, if_false]
@@ -1001,7 +1021,8 @@ theorem sound_sX {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List 
     (if above then M₁ ++ Sum.inl (S.col s).2 :: Sum.inl ν :: M₂
       else M₁ ++ Sum.inl ν :: Sum.inl (S.col s).2 :: M₂)
     (if right then W₁.map Sum.inl ++ [Sum.inl ws] else W₁.map Sum.inl)
-    (if right then W₂.map Sum.inl ++ Q.map Sum.inr else Sum.inl ws :: (W₂.map Sum.inl ++ Q.map Sum.inr))
+    (if right then W₂.map Sum.inl ++ Q.map Sum.inr
+      else Sum.inl ws :: (W₂.map Sum.inl ++ Q.map Sum.inr))
     (if above then M₁ ++ [Sum.inl (S.col s).2] else M₁)
     (if above then M₂ else Sum.inl (S.col s).2 :: M₂)
     (by cases right <;> simp) (by rw [hG.cols, hWc]; cases right <;> simp)
@@ -1035,7 +1056,8 @@ theorem sound_sX {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List 
       rw [hzip]; rcases List.mem_append.mp hq with h | h
       · exact List.mem_append_left _ h
       · exact List.mem_append_right _ (List.mem_cons_of_mem _ h))
-    rw [hO', hX', Function.update_of_ne (by simpa using h2), Function.update_of_ne (by simpa using h2), Function.update_of_ne (by simpa using h1)]
+    rw [hO', hX', Function.update_of_ne (by simpa using h2),
+      Function.update_of_ne (by simpa using h2), Function.update_of_ne (by simpa using h1)]
     exact hm
   refine ⟨_, if right then W₁ ++ ws :: κ :: W₂ else W₁ ++ κ :: ws :: W₂, G',
     ⟨by rw [hc']; cases right <;> simp, ?_, ?_, ?_⟩, ⟨fun c _ => ?_, ?_⟩, hmv⟩
@@ -1049,14 +1071,16 @@ theorem sound_sX {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List 
       rcases hq with hq | rfl | rfl | hq
       · exact hold q (List.mem_append_left _ hq)
       · exact ⟨by rw [hO', Function.update_self], by rw [hX', Function.update_self, hmw.2]⟩
-      · exact ⟨by rw [hO', Function.update_of_ne (Ne.symm hκws), hmw.1], by rw [hX', Function.update_of_ne (Ne.symm hκws), Function.update_self]⟩
+      · exact ⟨by rw [hO', Function.update_of_ne (Ne.symm hκws), hmw.1],
+          by rw [hX', Function.update_of_ne (Ne.symm hκws), Function.update_self]⟩
       · exact hold q (List.mem_append_right _ hq)
     · simp only [if_true] at hq
       rw [List.zip_append hl₁] at hq
       simp only [List.zip_cons_cons, List.mem_append, List.mem_cons] at hq
       rcases hq with hq | rfl | rfl | hq
       · exact hold q (List.mem_append_left _ hq)
-      · exact ⟨by rw [hO', Function.update_of_ne (Ne.symm hκws), hmw.1], by rw [hX', Function.update_of_ne (Ne.symm hκws), Function.update_self]⟩
+      · exact ⟨by rw [hO', Function.update_of_ne (Ne.symm hκws), hmw.1],
+          by rw [hX', Function.update_of_ne (Ne.symm hκws), Function.update_self]⟩
       · exact ⟨by rw [hO', Function.update_self], by rw [hX', Function.update_self, hmw.2]⟩
       · exact hold q (List.mem_append_right _ hq)
   · rw [hr', hSr, hri]
@@ -1068,7 +1092,9 @@ theorem sound_sX {n : ℕ} {S : WState} {G : LabeledGrid n BCol BRow} {W : List 
       rw [this]; simp [lefts_append, lefts_cons_inl]
     · simp only [if_true]
       rw [insertIdx_append_len]; simp [lefts_append, lefts_cons_inl]
-  · rw [hO', hX', Function.update_of_ne (by simp), Function.update_of_ne (by simp), Function.update_of_ne (by simp)]; exact ⟨rfl, rfl⟩
+  · rw [hO', hX', Function.update_of_ne (by simp), Function.update_of_ne (by simp),
+      Function.update_of_ne (by simp)]
+    exact ⟨rfl, rfl⟩
   · rw [hr', hsplit]
     cases above
     · exact filter_ins_before nonInt (by simpa [nonInt] using hνc)

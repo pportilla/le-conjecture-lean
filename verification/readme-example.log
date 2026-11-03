@@ -1,14 +1,12 @@
-README usage example compiled with lake env lean.
+Build-guide usage example compiled with lake env lean -DwarningAsError=true.
 Exit status: 0
 
 import OnLeConjecture.Analytic.LeConjectureNative
 
 open OnLeConjecture.Analytic
 
-example (g : PointedMapGerm 2 3) (hg : g.HasInjectiveRepresentative) :
-    g.differential ≠ 0 :=
+example (g : PointedMapGerm 2 3)
+    (hg : g.HasInjectiveRepresentative) : g.differential ≠ 0 :=
   leConjecture_native g hg
 
-Diagnostics:
-warning: mathlib: repository '/tmp/on-le-proof-verification-not298iq/.lake/packages/mathlib' has local changes
-warning: batteries: repository '/tmp/on-le-proof-verification-not298iq/.lake/packages/batteries' has local changes
+Diagnostics: none.

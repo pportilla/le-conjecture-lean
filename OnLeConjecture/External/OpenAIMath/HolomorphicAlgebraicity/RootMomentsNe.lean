@@ -7,7 +7,9 @@ public import Mathlib.Analysis.Calculus.FDeriv.Analytic
 /-! Vendored from openai/math at 7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a,
 `lean/OAI/AlgebraicGeometry/ComplexGroups/HolomorphicAlgebraicity/RootMomentsNe.lean`.
 Changes: module header, public imports, exposed public section, long-line linter
-option. Proof adaptation for the local Mathlib: Removed one `hprod` rewrite and restated one `change` goal in lambda form, because the local `logDeriv_prod` and `logDeriv_mul` are stated for lambda products. -/
+option. Proof adaptation for the local Mathlib: Removed one `hprod` rewrite and restated one
+`change` goal in lambda form, because the local `logDeriv_prod` and `logDeriv_mul` are stated for
+lambda products. -/
 
 @[expose] public section
 

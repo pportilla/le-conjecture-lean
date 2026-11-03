@@ -21,7 +21,8 @@ find OnLeConjecture -name '*.lean' -type f -print0 \
 sha256sum OnLeConjecture.lean AuditLeConjectureNative.lean \
   >> "$verification_dir/sources.sha256"
 
-lake build 2>&1 | tee "$verification_dir/build.log"
-lake env lean AuditLeConjectureNative.lean 2>&1 | tee "$verification_dir/audit.log"
+lake --wfail build 2>&1 | tee "$verification_dir/build.log"
+lake env lean -DwarningAsError=true AuditLeConjectureNative.lean \
+  2>&1 | tee "$verification_dir/audit.log"
 sha256sum --check --status "$verification_dir/sources.sha256"
 printf 'Build and final-theorem axiom audit passed. Logs: %s\n' "$verification_dir"

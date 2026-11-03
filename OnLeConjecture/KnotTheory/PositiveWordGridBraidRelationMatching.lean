@@ -84,15 +84,15 @@ theorem matching_inRank {m : ℕ} (w : PositiveAdjacentWord m) (p : Fin w.length
     by_cases h2 : c = 2 <;> simp [outRank, r, h2, adjacentLower, adjacentUpper]
   rcases hq2 with ⟨h0, hl⟩ | ⟨h1, hu⟩
   · refine ⟨by rw [h0]; decide, ?_⟩
-    rw [← hrv, hl]; simp [inRank, h0, adjacentLower]
+    rw [← hrv, hl]; simp [inRank, h0]
   · refine ⟨by rw [h1]; decide, ?_⟩
-    rw [← hrv, hu]; simp [inRank, h1, adjacentUpper]
+    rw [← hrv, hu]; simp [inRank, h1]
 
 theorem corner_eq_of_rank {m : ℕ} {x : Fin (m - 1)} {r : Fin m} {a b : Fin 3}
     (ha : (a = 0 ∧ r = adjacentLower x) ∨ (a = 1 ∧ r = adjacentUpper x))
     (hb : (b = 0 ∧ r = adjacentLower x) ∨ (b = 1 ∧ r = adjacentUpper x)) : a = b := by
   have hlu : adjacentLower x ≠ adjacentUpper x := fun e => by
-    have := congrArg Fin.val e; simp [adjacentLower, adjacentUpper] at this
+    have := congrArg Fin.val e; simp at this
   rcases ha with ⟨rfl, h1⟩ | ⟨rfl, h1⟩ <;> rcases hb with ⟨rfl, h2⟩ | ⟨rfl, h2⟩
   · rfl
   · exact absurd (h1.symm.trans h2) hlu
@@ -226,7 +226,7 @@ def BM (offs : List ℕ) (fl : ℕ → Bool) (h : ℕ) (c : Fin 3) : Option (ℕ
     | none => if fl (rankOff offs h c) then none else
         (firstIn offs (rankOff offs h c)).map fun h' => (h', inC offs (rankOff offs h c) h')
 
-theorem occB_rankOff (offs : List ℕ) (h : ℕ) {c : Fin 3} (hc : c ≠ 0) :
+theorem occB_rankOff (offs : List ℕ) (h : ℕ) {c : Fin 3} (_hc : c ≠ 0) :
     occB offs (rankOff offs h c) h = true := by
   unfold occB rankOff; split <;> simp
 

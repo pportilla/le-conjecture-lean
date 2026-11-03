@@ -16,7 +16,8 @@
         "Changed imports to public imports",
         "Added exposed public section",
         "Added provenance comment",
-        "Disabled the long-line style linter in the file"
+        "Disabled the long-line style linter in the file",
+        "Removed unused decidability parameters from two centroid estimates and introduced classical instances locally in their proofs."
       ],
       "mathematical_changes": []
     },
@@ -36,7 +37,8 @@
         "Proof adaptation: `simplexVertexMap_apply` removes `ofCoordinates` from the `simp` set (so that the `@[simp]` lemma `ofCoordinates_weights` applies)",
         "Proof adaptation: `simplexVertexMap_eq_affine` removes `ofCoordinates` from the `simp` set",
         "Proof adaptation: `simplexVertexMap_vertex` uses `stdSimplex.ext` for `Convexity.StdSimplex.ext`, `stdSimplex.vertex` for `Convexity.StdSimplex.single`, and `Pi.single_apply` for `Finsupp.single_apply` in `simp`",
-        "Proof adaptation: `simplexVertexMap_mem_convexHull` uses `stdSimplex.zero_le` and `stdSimplex.sum_eq_one` for `weights_nonneg` and `total_of_fintype`"
+        "Proof adaptation: `simplexVertexMap_mem_convexHull` uses `stdSimplex.zero_le` and `stdSimplex.sum_eq_one` for `weights_nonneg` and `total_of_fintype`",
+        "Restricted classical scope to the two declarations whose types require it."
       ],
       "mathematical_changes": []
     },
@@ -377,7 +379,8 @@
         "Proof adaptation: `simplexVertexMap_precomp_map` uses `DFunLike.coe_injective` for `(Convexity.StdSimplex.isEmbedding_toFun_comp_weights ℝ _).injective`",
         "Proof adaptation: `simplexVertexMap_postcomp_map` uses `DFunLike.coe_injective` for `(Convexity.StdSimplex.isEmbedding_toFun_comp_weights ℝ _).injective`",
         "Proof adaptation: `map_faceBarycenter` uses `DFunLike.coe_injective` for the embedding injectivity, and its first `change` states the goal with `⇑(...)` instead of `(... ).weights`",
-        "Proof adaptation: `barycentricSubdivisionMap_comp_outer_face` uses `DFunLike.coe_injective` for the embedding injectivity and `stdSimplex.map` for `Convexity.StdSimplex.map` in its `change`"
+        "Proof adaptation: `barycentricSubdivisionMap_comp_outer_face` uses `DFunLike.coe_injective` for the embedding injectivity and `stdSimplex.map` for `Convexity.StdSimplex.map` in its `change`",
+        "Removed the unused file-wide Classical scope."
       ],
       "mathematical_changes": []
     },
@@ -403,7 +406,8 @@
         "Added provenance comment",
         "Disabled the long-line style linter in the file",
         "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`) in `standardZeroSimplex_eq`",
-        "Proof adaptation: `standardZeroSimplex_eq` uses `DFunLike.coe_injective` for `(Convexity.StdSimplex.isEmbedding_toFun_comp_weights ℝ (Fin 1)).injective` and `stdSimplex.sum_eq_one` for `Convexity.StdSimplex.total_of_fintype`"
+        "Proof adaptation: `standardZeroSimplex_eq` uses `DFunLike.coe_injective` for `(Convexity.StdSimplex.isEmbedding_toFun_comp_weights ℝ (Fin 1)).injective` and `stdSimplex.sum_eq_one` for `Convexity.StdSimplex.total_of_fintype`",
+        "Removed the unused file-wide Classical scope."
       ],
       "mathematical_changes": []
     },
@@ -415,7 +419,8 @@
         "Changed imports to public imports of the vendored paths",
         "Added exposed public section",
         "Added provenance comment",
-        "Disabled the long-line style linter in the file"
+        "Disabled the long-line style linter in the file",
+        "Restricted classical scope to support_subdivisionFinsupp_subset."
       ],
       "mathematical_changes": []
     },
@@ -430,7 +435,8 @@
         "Disabled the long-line style linter in the file",
         "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`) throughout",
         "Proof adaptation: `standardSimplexFace_omitted_coordinate` proof `exact Finsupp.mapDomain_of_notMem_range x.weights j (by simp)` replaced by `classical; change stdSimplex.map j.succAbove x j = 0; rw [stdSimplex.map_coe, FunOnFinite.linearMap_apply_apply]; simp [Fin.succAbove_ne]`",
-        "Proof adaptation: `barycentricSubdivisionMap_comp_inner_face_swap` uses `DFunLike.coe_injective` for `(Convexity.StdSimplex.isEmbedding_toFun_comp_weights ℝ (Fin (n + 2))).injective`"
+        "Proof adaptation: `barycentricSubdivisionMap_comp_inner_face_swap` uses `DFunLike.coe_injective` for `(Convexity.StdSimplex.isEmbedding_toFun_comp_weights ℝ (Fin (n + 2))).injective`",
+        "Removed the unused file-wide Classical scope."
       ],
       "mathematical_changes": []
     },
@@ -505,7 +511,8 @@
         "Added exposed public section",
         "Added provenance comment",
         "Disabled the long-line style linter in the file",
-        "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`) in `singularSimplicesEquivContinuousMap` and `singularDegreewiseContinuousFunctionIso`"
+        "Mathlib name change in statements: `Convexity.StdSimplex ℝ` (absent in the local Mathlib) replaced by the local `stdSimplex ℝ` (the type used by the local `TopCat.toSSetObjEquiv`) in `singularSimplicesEquivContinuousMap` and `singularDegreewiseContinuousFunctionIso`",
+        "Replaced flexible simplification with explicit simp lemma lists in coefficientCochainMap_id and coefficientCochainMap_comp."
       ],
       "mathematical_changes": []
     },

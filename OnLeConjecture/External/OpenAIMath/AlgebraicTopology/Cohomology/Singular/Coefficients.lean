@@ -116,14 +116,14 @@ def coefficientCochainMap (f : M ⟶ N) (X : TopCat.{0}) :
 @[simp]
 theorem coefficientCochainMap_id (M : ModuleCat.{0} R) (X : TopCat.{0}) :
     coefficientCochainMap (𝟙 M) X = 𝟙 (Basic.singularCochains M X) := by
-  simp [coefficientCochainMap]
+  simp only [coefficientCochainMap, op_id, CategoryTheory.Functor.map_id, NatTrans.id_app]
   exact (HomologicalComplex.unopFunctor (ModuleCat.{0} R) (ComplexShape.down ℕ)).map_id _
 
 @[simp]
 theorem coefficientCochainMap_comp (f : M ⟶ N) (g : N ⟶ P) (X : TopCat.{0}) :
     coefficientCochainMap (f ≫ g) X =
       coefficientCochainMap f X ≫ coefficientCochainMap g X := by
-  simp [coefficientCochainMap]
+  simp only [coefficientCochainMap, op_comp, Functor.map_comp, NatTrans.comp_app]
   exact (HomologicalComplex.unopFunctor (ModuleCat.{0} R) (ComplexShape.down ℕ)).map_comp _ _
 
 /-- On each simplex, a coefficient map postcomposes evaluation with `f`. -/

@@ -34,7 +34,7 @@ or subdivision chain homotopy is asserted here.
 -/
 
 open _root_.CategoryTheory
-open scoped Simplicial BigOperators Classical
+open scoped Simplicial BigOperators
 
 /-- The actual index set in degree `n` of integral singular chains. -/
 abbrev SingularSimplex (X : TopCat.{0}) (n : ℕ) :=
@@ -111,6 +111,7 @@ theorem mem_support_subdivisionFinsupp (X : TopCat.{0}) (n : ℕ)
   obtain ⟨σ, hσ⟩ := mem_support_subdivisionGenerator X n s t hgen
   exact ⟨s, hs, σ, hσ⟩
 
+open scoped Classical in
 /-- A finite geometric bound on the support, independent of cancellations. -/
 theorem support_subdivisionFinsupp_subset (X : TopCat.{0}) (n : ℕ)
     (c : SingularSimplex X n →₀ ℤ) :

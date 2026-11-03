@@ -34,7 +34,7 @@ This module constructs the geometric maps only; no boundary identity,
 subdivision chain homotopy, or excision theorem is assumed.
 -/
 
-open scoped BigOperators Classical OAI.Geometry.Foundations.ConvexStdSimplexMetric.Convexity.StdSimplex
+open scoped BigOperators OAI.Geometry.Foundations.ConvexStdSimplexMetric.Convexity.StdSimplex
 
 variable {ι κ : Type*} [Fintype ι] [Fintype κ]
 
@@ -47,6 +47,7 @@ def faceBarycenter (s : Finset ι) (hs : s.Nonempty) : stdSimplex ℝ ι := by
   · have hcard : (s.card : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.ne_of_gt hs.card_pos)
     simp [hcard]
 
+open scoped Classical in
 @[simp]
 theorem faceBarycenter_apply (s : Finset ι) (hs : s.Nonempty) (i : ι) :
     faceBarycenter s hs i = if i ∈ s then (s.card : ℝ)⁻¹ else 0 := by
@@ -163,6 +164,7 @@ theorem toContinuousMap_vertex (F : BarycentricFlag ι m) (j : Fin (m + 1)) :
     F.toContinuousMap (stdSimplex.vertex j) = faceBarycenter (F.face j) (F.nonempty j) :=
   simplexVertexMap_vertex _ _
 
+open scoped Classical in
 @[simp]
 theorem toContinuousMap_apply (F : BarycentricFlag ι m)
     (x : stdSimplex ℝ (Fin (m + 1))) (i : ι) :

@@ -1,77 +1,12 @@
-Dependency checkout audit for the publication verification.
-All package commits match lake-manifest.json.
-No tracked Lean source, TOML, lean-toolchain, or lake-manifest.json changes were found.
-The build uses existing dependency caches.
+Pinned dependency checkouts used for warning-free verification.
+Compiled dependency caches were reused.
 
-mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
-mode change 100755 => 100644 scripts/add_deprecations.sh
- mode change 100755 => 100644 scripts/add_module_set_option.py
- mode change 100755 => 100644 scripts/add_set_option.py
- mode change 100755 => 100644 scripts/auto_commit.sh
- mode change 100755 => 100644 scripts/bench/build/fake-root/bin/lean
- delete mode 120000 scripts/bench/build/fake-root/bin/lean.py
- mode change 100755 => 100644 scripts/bench/build/lakeprof_measurements.py
- mode change 100755 => 100644 scripts/bench/build/run
- mode change 100755 => 100644 scripts/bench/combine.py
- mode change 100755 => 100644 scripts/bench/lint/run
- mode change 100755 => 100644 scripts/bench/measure.py
- mode change 100755 => 100644 scripts/bench/open-mathlib/run
- mode change 100755 => 100644 scripts/bench/repeatedly.py
- mode change 100755 => 100644 scripts/bench/run
- mode change 100755 => 100644 scripts/bench/size/run
- delete mode 120000 scripts/bench/size/run.py
- mode change 100755 => 100644 scripts/dag_traversal.py
- mode change 100755 => 100644 scripts/docker_build.sh
- mode change 100755 => 100644 scripts/docker_push.sh
- mode change 100755 => 100644 scripts/downstream-tags.py
- mode change 100755 => 100644 scripts/downstream_dashboard.py
- mode change 100755 => 100644 scripts/find-ci-errors.sh
- mode change 100755 => 100644 scripts/fix_long_lines.py
- mode change 100755 => 100644 scripts/fix_nonlocal_set_option.py
- mode change 100755 => 100644 scripts/fix_unused.py
- mode change 100755 => 100644 scripts/fix_unused_simp_args.py
- mode change 100755 => 100644 scripts/githelper.py
- mode change 100755 => 100644 scripts/grind_unused_lemmas.sh
- mode change 100755 => 100644 scripts/lake-build-with-retry.sh
- mode change 100755 => 100644 scripts/lake-build-wrapper.py
- mode change 100755 => 100644 scripts/lint-bib.sh
- mode change 100755 => 100644 scripts/lint-style.py
- mode change 100755 => 100644 scripts/migrate_to_fork.py
- mode change 100755 => 100644 scripts/parse_shake_output.py
- mode change 100755 => 100644 scripts/print-style-errors.sh
- mode change 100755 => 100644 scripts/rm_module_set_option.py
- mode change 100755 => 100644 scripts/rm_set_option.py
- mode change 100755 => 100644 scripts/runSkimmer.sh
- mode change 100755 => 100644 scripts/set_option_utils.py
- mode change 100755 => 100644 scripts/topological_sort.py
- mode change 100755 => 100644 scripts/user_activity_report.py
- mode change 100755 => 100644 scripts/verify_version_tags.py
-
-plausible: b7eb3304aeae834b12dda98993a37f6a41f6f0bb
-Working tree unchanged.
-
-LeanSearchClient: 5f4d51b81cbd3f6b32b156bfad9056621a040404
-Working tree unchanged.
-
-importGraph: 16f02aa7642864af59f1ff0e384a015994db9118
-Working tree unchanged.
-
-proofwidgets: 4be2e3d5087eeb272cf5a8853b8f9dd025ef5957
-Working tree unchanged.
-
-aesop: 3448c0bcc5ce01b2d1546e483ec3620e32df3d0e
-Working tree unchanged.
-
-Qq: 92c15be17b7caf78c2ad767ec40f89052d908d81
-Working tree unchanged.
-
-batteries: 4488d40d070b9700d4d5a6aa342f0d40c31b2a2d
-delete mode 120000 docs/README.md
- mode change 100755 => 100644 scripts/create-adaptation-pr.sh
- mode change 100755 => 100644 scripts/lintWhitespace.sh
- mode change 100755 => 100644 scripts/merge-lean-testing-pr.sh
- mode change 100755 => 100644 scripts/updateBatteries.sh
-
-Cli: 6130a47896ce867c6a4a55373441e59e565bad0f
-Working tree unchanged.
-
+mathlib 0df444a360eaa60ab8c11dca51a86af692955474 clean
+plausible b7eb3304aeae834b12dda98993a37f6a41f6f0bb clean
+LeanSearchClient 5f4d51b81cbd3f6b32b156bfad9056621a040404 clean
+importGraph 16f02aa7642864af59f1ff0e384a015994db9118 clean
+proofwidgets 4be2e3d5087eeb272cf5a8853b8f9dd025ef5957 clean
+aesop 3448c0bcc5ce01b2d1546e483ec3620e32df3d0e clean
+Qq 92c15be17b7caf78c2ad767ec40f89052d908d81 clean
+batteries 4488d40d070b9700d4d5a6aa342f0d40c31b2a2d clean
+Cli 6130a47896ce867c6a4a55373441e59e565bad0f clean

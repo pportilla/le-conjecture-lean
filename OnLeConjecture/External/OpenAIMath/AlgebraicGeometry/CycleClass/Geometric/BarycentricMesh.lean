@@ -104,20 +104,22 @@ theorem dist_centroid_le_card_sdiff_div [DecidableEq ι]
       ring
 
 /-- The exact estimate expressed as the difference of the two face cardinalities. -/
-theorem dist_centroid_le_card_sub_div [DecidableEq ι]
+theorem dist_centroid_le_card_sub_div
     (v : ι → E) (A B : Finset ι) (hA : A.Nonempty) (hAB : A ⊆ B)
     (D : ℝ) (hD : ∀ i ∈ B, ∀ j ∈ B, dist (v i) (v j) ≤ D) :
     dist (A.centroid ℝ v) (B.centroid ℝ v) ≤
       ((B.card : ℝ) - (A.card : ℝ)) / (B.card : ℝ) * D := by
+  classical
   simpa only [Finset.card_sdiff_of_subset hAB, Nat.cast_sub (Finset.card_le_card hAB)]
     using dist_centroid_le_card_sdiff_div v A B hA hAB D hD
 
 /-- A nonempty nested pair of faces with at most `n+1` vertices contracts by `n/(n+1)`. -/
-theorem dist_centroid_le_dimension_factor_of_subset [DecidableEq ι]
+theorem dist_centroid_le_dimension_factor_of_subset
     (v : ι → E) (A B : Finset ι) (hA : A.Nonempty) (hAB : A ⊆ B)
     (n : ℕ) (hcard : B.card ≤ n + 1)
     (D : ℝ) (hD : ∀ i ∈ B, ∀ j ∈ B, dist (v i) (v j) ≤ D) :
     dist (A.centroid ℝ v) (B.centroid ℝ v) ≤ (n : ℝ) / (n + 1) * D := by
+  classical
   have hD0 : 0 ≤ D := by
     obtain ⟨i, hi⟩ := hA
     simpa only [dist_self] using hD i (hAB hi) i (hAB hi)

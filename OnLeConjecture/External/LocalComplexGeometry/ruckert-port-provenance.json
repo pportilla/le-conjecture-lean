@@ -6,8 +6,10 @@
     "Use Lean 4.33 let syntax in Regularization and Ruckert.",
     "Replace one function-germ simplification in Coordinates with explicit map_zero.",
     "Expose two formerly private L1Division helper lemmas used by exposed definitions.",
-    "Disable only upstream formatting/option-scope linter warnings in affected files."
+    "Disable only upstream formatting/option-scope linter warnings in affected files.",
+    "Wrap long provenance comments in the affected source headers without changing declarations or proofs."
   ],
+  "checksum_note": "The ported_sha256 fields record historical port snapshots. Checksums of the currently distributed sources are recorded in verification/sources.sha256 and verification/source-sha256.json, relative to the repository root.",
   "files": [
     {
       "module": "LocalComplexGeometry.Noetherian.Ruckert",

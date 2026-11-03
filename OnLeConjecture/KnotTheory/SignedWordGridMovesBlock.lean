@@ -56,7 +56,7 @@ def BMs (K : ℕ) (offs : List ℕ) (sg : List Bool) (fl : ℕ → Bool) (h : �
         (firstInK K offs (rankOffS offs sg h c)).map
           fun h' => (h', inCS offs sg (rankOffS offs sg h c) h')
 
-theorem occB_rankOffS (offs : List ℕ) (sg : List Bool) (h : ℕ) {c : Fin 3} (hc : c ≠ 0) :
+theorem occB_rankOffS (offs : List ℕ) (sg : List Bool) (h : ℕ) {c : Fin 3} (_hc : c ≠ 0) :
     occB offs (rankOffS offs sg h c) h = true := by
   unfold occB rankOffS; split <;> simp
 
@@ -152,10 +152,12 @@ theorem oH_block (hB : BlockS K E i offs sg B t fl) {h : ℕ} (hh : h < K)
   simp only [signedOHeight2, hv]
   by_cases hp : posB sg h = true
   · rw [if_pos (hs.mpr hp)]
-    fin_cases c <;> simp_all <;> omega
+    fin_cases c <;> simp_all
+    omega
   · rw [if_neg (fun h' => hp (hs.mp h'))]
     have hp' : posB sg h = false := by simpa using hp
-    fin_cases c <;> simp_all <;> omega
+    fin_cases c <;> simp_all
+    omega
 
 theorem xH_block (hB : BlockS K E i offs sg B t fl) {h' e : ℕ} (hh : h' < K)
     (hhL : h' < (B ++ t).length) (hocc : occB offs e h' = true) :

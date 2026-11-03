@@ -55,25 +55,31 @@ theorem spair_d2 :
     PairOKS init_d2A [0, 1, 0] [true, true, true] init_d2B [1, 0, 1] [true, true, true] := by
   decide
 
-theorem sinitA_d01 : InitOKS 3 init_d01A [0, 1, 0] [true, true, true] [false, false, true] := by decide
+theorem sinitA_d01 :
+    InitOKS 3 init_d01A [0, 1, 0] [true, true, true] [false, false, true] := by decide
 
-theorem sinitB_d01 : InitOKS 3 init_d01B [1, 0, 1] [true, true, true] [false, false, true] := by decide
+theorem sinitB_d01 :
+    InitOKS 3 init_d01B [1, 0, 1] [true, true, true] [false, false, true] := by decide
 
 theorem spair_d01 :
     PairOKS init_d01A [0, 1, 0] [true, true, true] init_d01B [1, 0, 1] [true, true, true] := by
   decide
 
-theorem sinitA_d12 : InitOKS 3 init_d12A [0, 1, 0] [true, true, true] [true, false, false] := by decide
+theorem sinitA_d12 :
+    InitOKS 3 init_d12A [0, 1, 0] [true, true, true] [true, false, false] := by decide
 
-theorem sinitB_d12 : InitOKS 3 init_d12B [1, 0, 1] [true, true, true] [true, false, false] := by decide
+theorem sinitB_d12 :
+    InitOKS 3 init_d12B [1, 0, 1] [true, true, true] [true, false, false] := by decide
 
 theorem spair_d12 :
     PairOKS init_d12A [0, 1, 0] [true, true, true] init_d12B [1, 0, 1] [true, true, true] := by
   decide
 
-theorem sinitA_d012 : InitOKS 3 init_d012A [0, 1, 0] [true, true, true] [false, false, false] := by decide
+theorem sinitA_d012 :
+    InitOKS 3 init_d012A [0, 1, 0] [true, true, true] [false, false, false] := by decide
 
-theorem sinitB_d012 : InitOKS 3 init_d012B [1, 0, 1] [true, true, true] [false, false, false] := by decide
+theorem sinitB_d012 :
+    InitOKS 3 init_d012B [1, 0, 1] [true, true, true] [false, false, false] := by decide
 
 theorem spair_d012 :
     PairOKS init_d012A [0, 1, 0] [true, true, true] init_d012B [1, 0, 1] [true, true, true] := by

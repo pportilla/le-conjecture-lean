@@ -7,7 +7,6 @@ module
 
 public import OnLeConjecture.KnotTheory.TorusWordGridAbsorb
 public import OnLeConjecture.KnotTheory.PositiveWordGridMoves
-public import OnLeConjecture.KnotTheory.PositiveWordGridAdmissibleDeletion
 
 /-! # The cyclic matching of the powers of the descending Coxeter word
 
@@ -43,7 +42,7 @@ theorem lex_lt_iff {A b b' t t' : ℕ} (ht : t < A) (ht' : t' < A) :
   constructor
   · intro h
     by_contra hc
-    push_neg at hc
+    push Not at hc
     rcases Nat.lt_or_ge b' b with hlt | hge
     · have := Nat.mul_le_mul_right A (show b' + 1 ≤ b by omega)
       rw [add_mul, one_mul] at this
@@ -166,7 +165,7 @@ theorem betaPow_upper (hA : 1 ≤ A) (k : Fin (wordPow (betaWord A) q).length) :
     (adjacentUpper (wordPow (betaWord A) q)[k.val]).val = A - k.val % A := by
   have h1 := betaPow_getElem A q k.val k.isLt
   have h2 := Nat.mod_lt k.val (show 0 < A by omega)
-  simp only [adjacentUpper]
+  simp only
   omega
 
 /-- The block of a position and a bound on it. -/
@@ -349,7 +348,7 @@ theorem corOf_mk {A L b t : ℕ} (ht : t < A) (hh : b * A + t < L) (c : Fin 3) :
     corOf A ((⟨b * A + t, hh⟩ : Fin L), c) = cor b t c := by
   simp [corOf, block_div ht, block_mod ht]
 
-theorem arcOf_injective {A L : ℕ} (hA : 1 ≤ A) : Function.Injective (arcOf A (L := L)) := by
+theorem arcOf_injective {A L : ℕ} (_hA : 1 ≤ A) : Function.Injective (arcOf A (L := L)) := by
   rintro ⟨h, c⟩ ⟨h', c'⟩ he
   simp only [arcOf, arc_inj_iff] at he
   obtain ⟨e1, e2, e3⟩ := he
@@ -358,7 +357,8 @@ theorem arcOf_injective {A L : ℕ} (hA : 1 ≤ A) : Function.Injective (arcOf A
   rw [Fin.ext this, e3]
 
 /-- **The `X`-marking at the end of each arc of `β^q`.** -/
-theorem baseX_corOf_matching {A q : ℕ} (hA : 1 ≤ A) (p : Fin (wordPow (betaWord A) q).length × Fin 3) :
+theorem baseX_corOf_matching {A q : ℕ} (hA : 1 ≤ A)
+    (p : Fin (wordPow (betaWord A) q).length × Fin 3) :
     baseX A q (corOf A (positiveRectilinearWordMatching (wordPow (betaWord A) q) p)) =
       arcOf A p := by
   have hL : (wordPow (betaWord A) q).length = q * A := betaPow_length A q
@@ -457,7 +457,7 @@ theorem wordCols_append (A b₀ n m : ℕ) :
   congr 1
   first
   | exact (List.range'_append_1 b₀ n m).symm
-  | simp [List.range'_append]
+  | simp
 
 theorem wordCols_length (A b₀ J : ℕ) : (wordCols A b₀ J).length = 3 * A * J := by
   induction J generalizing b₀ with
@@ -515,7 +515,7 @@ theorem arc_eq_of_key {A q b t b' t' : ℕ} {c c' : Fin 3} (hb : b < q) (hb' : b
   rcases (show c.val = 0 ∨ c.val = 1 ∨ c.val = 2 by omega) with h1 | h1 | h1 <;>
     rcases (show c'.val = 0 ∨ c'.val = 1 ∨ c'.val = 2 by omega) with h2 | h2 | h2 <;>
     rw [h1, h2] at hlv hsub <;> rw [h1, h2] <;> split_ifs at hlv hsub <;>
-    simp only [false_or, false_and, and_false, or_false, and_true, true_and,
+    simp only [false_and, and_false, or_false, and_true, true_and,
       not_false_eq_true] at * <;> first | contradiction | omega
 
 theorem hybLtS_of_keyB_lt {A q : ℕ} {x y : TorusRow} (hx : x ∈ wordArcs A q)
@@ -566,7 +566,7 @@ section BaseGrid
 
 variable {A q : ℕ}
 
-theorem exists_corOf (hA : 1 ≤ A) {c : TorusCol} (hc : c ∈ wordCols A 0 q) :
+theorem exists_corOf (_hA : 1 ≤ A) {c : TorusCol} (hc : c ∈ wordCols A 0 q) :
     ∃ p : Fin (wordPow (betaWord A) q).length × Fin 3, corOf A p = c := by
   obtain ⟨b, -, hb, t, ht, c', rfl⟩ := mem_wordCols.mp hc
   have hlt : b * A + t < (wordPow (betaWord A) q).length := by
@@ -586,7 +586,8 @@ theorem hybO_corOf {L : ℕ} (p : Fin L × Fin 3) : hybO A 0 (corOf A p) = arcOf
 theorem baseX_eq_arcOf (hA : 1 ≤ A) (p : Fin (wordPow (betaWord A) q).length × Fin 3) :
     baseX A q (corOf A p) =
       arcOf A ((positiveRectilinearWordMatching (wordPow (betaWord A) q)).symm p) := by
-  have := baseX_corOf_matching hA ((positiveRectilinearWordMatching (wordPow (betaWord A) q)).symm p)
+  have := baseX_corOf_matching hA
+    ((positiveRectilinearWordMatching (wordPow (betaWord A) q)).symm p)
   rwa [Equiv.apply_symm_apply] at this
 
 /-- The selected labeled grid of `β^q`: columns the corners, rows the arcs sorted by

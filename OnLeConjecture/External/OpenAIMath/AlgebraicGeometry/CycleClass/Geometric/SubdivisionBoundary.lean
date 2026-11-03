@@ -30,7 +30,7 @@ proved interior cancellation. All maps are the actual standard-simplex maps.
 -/
 
 open _root_.CategoryTheory
-open scoped BigOperators Classical Simplicial
+open scoped BigOperators Simplicial
 
 set_option backward.defeqAttrib.useBackward true
 set_option backward.isDefEq.respectTransparency false
